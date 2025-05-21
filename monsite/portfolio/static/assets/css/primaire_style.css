@@ -1,0 +1,86 @@
+/* === Section Cycle 2 === */
+body {
+  background-color: #e6ffd9;
+  margin: 0;
+  padding: 0;
+}
+
+.primaire {
+  padding: 4rem 0;
+}
+
+.primaire h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #2a2a2a;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Grille 3 colonnes */
+.cycle2-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 240px);
+  grid-auto-rows: auto;
+  gap: 2.5rem;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* Positionnement des deux dernières en bas, centrées */
+.cycle2-card:nth-child(4) { grid-column: 2; }
+.cycle2-card:nth-child(5) { grid-column: 3; }
+
+/* Cartes cliquables */
+.cycle2-card {
+  display: block;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Effet hover : léger zoom + ombre portée */
+.cycle2-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Image */
+.cycle2-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Légende */
+.cycle2-card span {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #006400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive : 2 colonnes sur tablettes */
+@media (max-width: 800px) {
+  .cycle2-grid {
+    grid-template-columns: repeat(2, 200px);
+  }
+  .cycle2-card:nth-child(4),
+  .cycle2-card:nth-child(5) {
+    grid-column: auto;
+  }
+}
+
+/* Mobile : 1 colonne */
+@media (max-width: 500px) {
+  .cycle2-grid {
+    grid-template-columns: 1fr;
+  }
+  .cycle2-card {
+    width: 240px;
+    margin: 0 auto;
+  }
+}

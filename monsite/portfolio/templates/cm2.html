@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>CM2 – Mes Petits Cours</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Poppins + styles partagés -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/mpca.css' %}">
+  <!-- même style CP/CE -->
+  <link rel="stylesheet" href="{% static 'assets/css/cp_style.css' %}">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-flex">
+      <h1 class="logo">Mes Petits Cours</h1>
+      <nav class="nav-main">
+        <a href="/" class="btn-home">Accueil</a>
+        <a href="/primaire/" class="btn-outline">Primaire</a>
+        <a href="/college/" class="btn-outline">Collège</a>
+        <a href="/lycee/" class="btn-outline">Lycée</a>
+        <a href="/specialites/informatique/" class="btn-outline">Spé Info</a>
+        <a href="/specialites/cybersecurite/" class="btn-outline">CyberSécurité</a>
+        <a href="/signup/" class="btn-outline">S'inscrire</a>
+        <a href="/login/" class="btn-primary">Se connecter</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Barre des Niveaux -->
+    <section class="levels-nav">
+      <a href="{% url 'cp'  %}"  class="level-btn">CP</a>
+      <a href="{% url 'ce1' %}"  class="level-btn">CE1</a>
+      <a href="{% url 'ce2' %}"  class="level-btn">CE2</a>
+      <a href="{% url 'cm1' %}"  class="level-btn">CM1</a>
+      <a href="{% url 'cm2' %}"  class="level-btn active">CM2</a>
+    </section>
+
+    <!-- Navigation Domaines -->
+    <nav class="domain-nav">
+      <button data-domain="math"   class="mathematiques active">Mathématiques</button>
+      <button data-domain="francais" class="francais">Français</button>
+      <button data-domain="histoire" class="histoire">Histoire</button>
+      <button data-domain="geographie" class="geographie">Géographie</button>
+      <button data-domain="sciences"   class="sciences">Sciences</button>
+    </nav>
+
+    <!-- Grille d’activités CM2 -->
+    <section class="activities-grid">
+      <!-- MATHÉMATIQUES -->
+      <div id="math" class="domain-panel active">
+        {% for act in maths_activities %}
+          <article class="activity-card">
+            <a href="{{ act.url }}">
+              <img src="{% static act.image %}" alt="{{ act.title }}">
+              <h3>{{ act.title }}</h3>
+              <p class="type">{{ act.type }}</p>
+            </a>
+          </article>
+        {% empty %}
+          <p>Aucune activité pour les Mathématiques.</p>
+        {% endfor %}
+      </div>
+      <!-- FRANÇAIS -->
+      <div id="francais" class="domain-panel">
+        {% for act in francais_activities %}
+          <article class="activity-card">
+            <a href="{{ act.url }}">
+              <img src="{% static act.image %}" alt="{{ act.title }}">
+              <h3>{{ act.title }}</h3>
+              <p class="type">{{ act.type }}</p>
+            </a>
+          </article>
+        {% empty %}
+          <p>Aucune activité pour le Français.</p>
+        {% endfor %}
+      </div>
+      <!-- HISTOIRE -->
+      <div id="histoire" class="domain-panel">
+        {% for act in histoire_activities %}
+          <article class="activity-card">
+            <a href="{{ act.url }}">
+              <img src="{% static act.image %}" alt="{{ act.title }}">
+              <h3>{{ act.title }}</h3>
+              <p class="type">{{ act.type }}</p>
+            </a>
+          </article>
+        {% empty %}
+          <p>Aucune activité pour l’Histoire.</p>
+        {% endfor %}
+      </div>
+      <!-- GÉOGRAPHIE -->
+      <div id="geographie" class="domain-panel">
+        {% for act in geographie_activities %}
+          <article class="activity-card">
+            <a href="{{ act.url }}">
+              <img src="{% static act.image %}" alt="{{ act.title }}">
+              <h3>{{ act.title }}</h3>
+              <p class="type">{{ act.type }}</p>
+            </a>
+          </article>
+        {% empty %}
+          <p>Aucune activité pour la Géographie.</p>
+        {% endfor %}
+      </div>
+      <!-- SCIENCES -->
+      <div id="sciences" class="domain-panel">
+        {% for act in sciences_activities %}
+          <article class="activity-card">
+            <a href="{{ act.url }}">
+              <img src="{% static act.image %}" alt="{{ act.title }}">
+              <h3>{{ act.title }}</h3>
+              <p class="type">{{ act.type }}</p>
+            </a>
+          </article>
+        {% empty %}
+          <p>Aucune activité pour les Sciences.</p>
+        {% endfor %}
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      &copy; 2025 Mes Petits Cours — Tous droits réservés
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.domain-nav button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.domain-nav button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.domain-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById(btn.dataset.domain).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <title>Mohamed – Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'assets/images/m.png' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <script>
+    // Appliquer le thème stocké (dark/light)
+    document.documentElement.setAttribute(
+      "data-theme",
+      localStorage.getItem("theme") || "light"
+    );
+  </script>
+
+
+</head>
+<body>
+  <!-- Top Navigation Header -->
+  <header class="top-header">
+    <div class="left-side">
+<button id="theme-toggle" class="theme-toggle">🌙/☀️</button>
+    </div>
+    <nav class="nav-links">
+      <a href="#about">About Me</a>
+      <a href="#skills">Projects</a>
+      <a href="#qualification">Qualification</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Section About -->
+    <section id="about" class="hero">
+      <div class="socials">
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="intro">
+        <h1>Hi, I'm <span>Mohamed</span></h1>
+        <h2><span class="typing"></span></h2>
+        <p>
+          I’ve been coding for over a year and a half. This website is the living
+          sketch of my progress. I develop both desktop and mobile applications,
+          and I'm always learning more. All my projects have been done in
+          Marseille.
+        </p>
+        <button class="contact-btn">
+          Contact Me <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+      <div class="photo">
+        <img src="{% static 'assets/images/mohamed.png' %}" alt="Mohamed Mesli">
+      </div>
+    </section>
+
+    <!-- Section Projects avec 3 boutons et panels -->
+    <section id="projects">
+      <div class="panels-nav">
+        <button id="btn-cert" class="panel-btn">Certifications</button>
+        <button id="btn-proj" class="panel-btn">My Projects</button>
+        <button id="btn-soft" class="panel-btn">Softwares</button>
+      </div>
+
+<div class="panel-content" id="content-cert" style="display: none;">
+  <ul>
+      <div class="cert-images">
+        <img src="{% static 'assets/images/itc.png' %}" alt="ITC">
+        <img src="{% static 'assets/images/eh.png'  %}" alt="EH">
+        <img src="{% static 'assets/images/OPB.png'%}" alt="OPB">
+      </div>
+  </ul>
+</div>
+
+      <!-- Panel My Projects -->
+      <div class="panel-content projects-grid" id="content-proj" style="display: none;">
+        <div class="project-card">
+          <img src="{% static 'assets/img/cpp.png' %}" alt="C++">
+          <span>BACKEND</span>
+          <h3>Concurrency, Synchronization, Performance</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/python.png' %}" alt="Python">
+          <span>BACKEND</span>
+          <h3>Reinforcement Learning – Nim AI</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/python.png' %}" alt="Python">
+          <span>BACKEND</span>
+          <h3>File CRUD Application</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/java.png' %}" alt="Java">
+          <span>BACKEND</span>
+          <h3>Interactive JavaFX/FXML UI</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/js.png' %}" alt="JavaScript">
+          <span>FRONTEND</span>
+          <h3>Tickethub UX Interface</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/php.png' %}" alt="PHP">
+          <span>FULLSTACK</span>
+          <h3>Social Network Platform</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/php.png' %}" alt="PHP">
+          <span>FULLSTACK</span>
+          <h3>Secretary Web App</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/python.png' %}" alt="Python">
+          <span>FULLSTACK</span>
+          <h3>Cybersecurity Insights Platform</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/python.png' %}" alt="Python">
+          <span>FULLSTACK</span>
+          <h3>Personal Portfolio Website</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/csharp.png' %}" alt="C#">
+          <span>FULLSTACK</span>
+          <h3>Task Management App</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/csharp.png' %}" alt="C#">
+          <span>FULLSTACK</span>
+          <h3>SmartBudget Tracker</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/ruby.png' %}" alt="Ruby">
+          <span>BACKEND</span>
+          <h3>MailCLI Email Sender</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/js.png' %}" alt="JavaScript">
+          <span>FULLSTACK</span>
+          <h3>TaskFlow Task Manager – POO</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/python.png' %}" alt="Python">
+          <span>BACKEND</span>
+          <h3>Solar System Simulation</h3>
+          <button class="btn">See the project</button>
+        </div>
+        <div class="project-card">
+          <img src="{% static 'assets/img/ruby.png' %}" alt="Ruby">
+          <span>BACKEND</span>
+          <h3>CSV Earthquake Analyzer</h3>
+          <button class="btn">See the project</button>
+        </div>
+      </div>
+
+      <!-- Panel Softwares -->
+      <div class="panel-content" id="content-soft" style="display: none;">
+        <!-- ==== DEV APPLICATIONS ==== -->
+        <div class="software-category">
+          <h2 class="category-title">🛠️ DEV APPLICATIONS</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/phpstorm.png' %}" alt="PHPStorm"><span>PHPStorm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/qtcreator.png' %}" alt="Qt Creator"><span>Qt Creator</span></div>
+              <div class="slide"><img src="{% static 'assets/images/webstorm.png' %}" alt="WebStorm"><span>WebStorm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/vscode.png' %}" alt="VS Code"><span>VS Code</span></div>
+              <div class="slide"><img src="{% static 'assets/images/pycharm.png' %}" alt="PyCharm"><span>PyCharm</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <!-- ==== CYBERSECURITY TOOLS ==== -->
+        <div class="software-category">
+          <h2 class="category-title">🔐 CYBERSECURITY TOOLS</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/packet.png' %}" alt="Cisco"><span>Cisco</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <!-- ==== MICROSOFT & OFFICE TOOLS ==== -->
+        <div class="software-category">
+          <h2 class="category-title">🪟 MICROSOFT & OFFICE TOOLS</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/windows.png' %}" alt="Windows"><span>Windows</span></div>
+              <div class="slide"><img src="{% static 'assets/images/word.png' %}" alt="Word"><span>Word</span></div>
+              <div class="slide"><img src="{% static 'assets/images/excel.png' %}" alt="Excel"><span>Excel</span></div>
+              <div class="slide"><img src="{% static 'assets/images/powerpoint.png' %}" alt="PowerPoint"><span>PowerPoint</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <!-- ==== BASE DE DONNÉES ==== -->
+        <div class="software-category">
+          <h2 class="category-title">📦 BASE DE DONNÉES</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/mySql.png' %}" alt="MySQL"><span>MySQL</span></div>
+              <div class="slide"><img src="{% static 'assets/images/sqlite.png' %}" alt="SQLite"><span>SQLite</span></div>
+              <div class="slide"><img src="{% static 'assets/images/phpMyAdmin.png' %}" alt="phpMyAdmin"><span>phpMyAdmin</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <!-- ==== DÉPLOIEMENT & INFRASTRUCTURE ==== -->
+        <div class="software-category">
+          <h2 class="category-title">🚀 DÉPLOIEMENT & INFRASTRUCTURE</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/docker.png' %}" alt="Docker"><span>Docker</span></div>
+              <div class="slide"><img src="{% static 'assets/images/nginx.png' %}" alt="Nginx"><span>Nginx</span></div>
+              <div class="slide"><img src="{% static 'assets/images/heroku.png' %}" alt="Heroku"><span>Heroku</span></div>
+              <div class="slide"><img src="{% static 'assets/images/vercel.png' %}" alt="Vercel"><span>Vercel</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <!-- ==== OUTILS DÉVELOPPEUR ==== -->
+        <div class="software-category">
+          <h2 class="category-title">🔧 OUTILS DÉVELOPPEUR</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/github.png' %}" alt="GitHub"><span>GitHub</span></div>
+              <div class="slide"><img src="{% static 'assets/images/gitlab.png' %}" alt="GitLab"><span>GitLab</span></div>
+              <div class="slide"><img src="{% static 'assets/images/bitbucket.png' %}" alt="Bitbucket"><span>Bitbucket</span></div>
+              <div class="slide"><img src="{% static 'assets/images/netlify.png' %}" alt="Netlify"><span>Netlify</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <!-- ==== UX/UI DESIGN TOOLS ==== -->
+        <div class="software-category">
+          <h2 class="category-title">🎨 UX/UI DESIGN</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/figma.png' %}" alt="Figma"><span>Figma</span></div>
+              <div class="slide"><img src="{% static 'assets/images/canva.png' %}" alt="Canva"><span>Canva</span></div>
+              <div class="slide"><img src="{% static 'assets/images/ae.png' %}" alt="After Effects"><span>After Effects</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Qualification -->
+    <section id="qualification">
+      <div class="timeline-nav">
+        <button id="edu-btn" class="timeline-btn">Education</button>
+        <button id="work-btn" class="timeline-btn active">Work</button>
+      </div>
+
+      <div id="timeline-edu" class="timeline">
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>University Bachelor of Technology</h3>
+            <p class="location">UIT – Aix-en-Provence, France</p>
+            <span class="date">2022 – Today</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>GCE A-Level</h3>
+            <p class="location">High School – Marseille, France</p>
+            <span class="date">2019 – 2022</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>GCSE (DNB)</h3>
+            <p class="location">Middle School – Marseille, France</p>
+            <span class="date">2015 – 2019</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="timeline-work" class="timeline active">
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>IT Maintenance Intern</h3>
+            <p class="location">
+              Duration: 2 months (2023)<br>
+              Responsibilities: maintaining and repairing office IT equipment<br>
+              Mission: ensure seamless operation of end-user workstations<br>
+              Learned: hardware troubleshooting techniques and user support best practices
+            </p>
+            <span class="date">2023</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Web Security & Deployment Intern</h3>
+            <p class="location">
+              Duration: Summer 2024 (internship)<br>
+              Responsibilities: deploying a secure web application and implementing message encryption<br>
+              Mission: build and launch a group-based social platform<br>
+              Learned: web security best practices, encryption methods and automated system monitoring
+            </p>
+            <span class="date">2024</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Python & Network Infrastructure Intern</h3>
+            <p class="location">
+              Duration: 2025 – present<br>
+              Responsibilities: developing a secure Python application and managing user accounts via Active Directory<br>
+              Mission: design and deploy a small-business network infrastructure; prototype a reinforcement-learning module<br>
+              Learned: advanced Python security, AD administration, network design principles and RL fundamentals
+            </p>
+            <span class="date">2025 – present</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Contact -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <h2>Contactez-moi</h2>
+    <form action="/MesPetisCours/" method="get" class="contact-form">
+      <div class="form-group">
+        <label for="name">Nom</label>
+        <input type="text" id="name" name="name" placeholder="Votre nom" required>
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Votre message…" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn-primary">Envoyer</button>
+    </form>
+    <p class="redirect-note">
+  En attendant, jetez un œil à
+  <a href="{% url 'mespetitscours' %}">Mes Petits Cours</a> !
+</p>
+  </div>
+</section>
+
+  </main>
+
+   <script src="{% static 'assets/js/theme.js' %}"></script>
+  <script src="{% static 'assets/js/panels.js' %}"></script>
+  <script src="{% static 'assets/js/timeline.js' %}"></script>
+
+</body>
+</html>

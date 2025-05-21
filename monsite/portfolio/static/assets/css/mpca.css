@@ -1,0 +1,230 @@
+/* mesPetitsCoursAcceuil.css */
+
+/* Variables de couleurs */
+:root {
+  --primary: #00a86b;
+  --secondary: #00754a;
+  --light-bg: #e0f7f1;
+  --gray-bg: #f9f9f9;
+  --light-gray: #f1f1f1;
+  --text: #333;
+  --white: #fff;
+}
+
+/* Reset et global */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 100%; /* base 16px */
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--gray-bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Header */
+.site-header {
+  background: var(--primary);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+.logo {
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.nav-main a {
+  margin-left: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.3s, color 0.3s;
+}
+.btn-home {
+  background: var(--light-gray);
+  color: var(--secondary);
+}
+.btn-home:hover {
+  background: #ddd;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid var(--white);
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,0.2);
+}
+.btn-primary {
+  background: var(--white);
+  color: var(--primary);
+  border: 2px solid var(--white);
+}
+.btn-primary:hover {
+  background: #eee;
+}
+
+/* Hero Section */
+.hero-section {
+  background: var(--light-bg);
+  padding: 4rem 0;
+}
+.hero-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.hero-text {
+  flex: 1 1 300px;
+}
+.hero-text h2 {
+  font-size: 2.25rem;
+  color: var(--secondary);
+  margin-bottom: 1rem;
+}
+.hero-text p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.hero-cta {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  transition: background 0.3s;
+}
+.hero-cta:hover {
+  background: var(--secondary);
+}
+.hero-img {
+  flex: 1 1 300px;
+  text-align: center;
+}
+.hero-img img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Features Section */
+.section {
+  padding: 3rem 0;
+}
+.section-title {
+  text-align: center;
+  font-size: 1.75rem;
+  color: var(--primary);
+  margin-bottom: 2rem;
+  position: relative;
+}
+.features-grid {
+  display: grid;
+  /* Passe de 250px à 320px de largeur mini */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.feature-card {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.feature-card h3 {
+  color: var(--secondary);
+  margin-bottom: 0.75rem;
+}
+.feature-card p {
+  font-size: 0.95rem;
+}
+
+/* Trust Section */
+.bg-light {
+  background: var(--white);
+}
+.trust-flex {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.trust-img img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.trust-text {
+  flex: 1 1 300px;
+}
+.trust-text h2 {
+  margin-bottom: 1rem;
+  color: var(--secondary);
+}
+.trust-list {
+  list-style: none;
+}
+.trust-list li {
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+.trust-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+}
+
+/* Call to Action */
+.text-center {
+  text-align: center;
+}
+.text-center .btn-primary {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--light-gray);
+  padding: 2rem 0;
+}
+.footer-content {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+.footer-content p + p {
+  margin-top: 0.75rem;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+  .hero-flex, .trust-flex {
+    flex-direction: column;
+  }
+  .nav-main a {
+    margin: 0.5rem 0;
+  }
+}

@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>CP – Mes Petits Cours</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Poppins + styles partagés -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/mpca.css' %}">
+  <!-- style CP spécifique -->
+  <link rel="stylesheet" href="{% static 'assets/css/cp_style.css' %}">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-flex">
+      <h1 class="logo">Mes Petits Cours</h1>
+      <nav class="nav-main">
+        <a href="/" class="btn-home">Accueil</a>
+        <a href="/primaire/" class="btn-outline active">Primaire</a>
+        <a href="/college/" class="btn-outline">Collège</a>
+        <a href="/lycee/" class="btn-outline">Lycée</a>
+        <a href="/specialites/informatique/" class="btn-outline">Spé Info</a>
+        <a href="/specialites/cybersecurite/" class="btn-outline">CyberSécurité</a>
+        <a href="/signup/" class="btn-outline">S'inscrire</a>
+        <a href="/login/" class="btn-primary">Se connecter</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- NIVEAUX -->
+    <section class="levels-nav">
+      <a href="{% url 'cp'  %}"  class="level-btn active">CP</a>
+      <a href="{% url 'ce1' %}"  class="level-btn">CE1</a>
+      <a href="{% url 'ce2' %}"  class="level-btn">CE2</a>
+      <a href="{% url 'cm1' %}"  class="level-btn">CM1</a>
+      <a href="{% url 'cm2' %}"  class="level-btn">CM2</a>
+    </section>
+
+    <!-- DOMAINES -->
+    <nav class="domain-nav">
+      <button data-domain="all"     class="active">Toutes les matières</button>
+      <button data-domain="math">Mathématiques</button>
+      <button data-domain="francais">Français</button>
+      <button data-domain="histoire">Histoire</button>
+      <button data-domain="geographie">Géographie</button>
+      <button data-domain="sciences">Sciences</button>
+    </nav>
+
+  <section class="activities-grid">
+  <!-- MATHÉMATIQUES (rouge) -->
+  <div id="math-card-1" class="activity-card red-card"       data-domain="math">
+    <h3>Comptez jusqu’à 5</h3>
+    <p class="numbers">0, 1, 2, 3, 4, 5</p>
+    <div class="activity-actions">
+      <a href="/primaire/cp/math/theorie/"   class="action-btn theory-btn">Théorie</a>
+      <a href="/primaire/cp/math/entrainement/" class="action-btn training-btn">Entraînement</a>
+    </div>
+  </div>
+  <div id="math-card-2" class="activity-card red-card"       data-domain="math">
+    <h3>Table d’addition</h3>
+    <p class="numbers">1+1, 2+2, 3+3…</p>
+    <div class="activity-actions">
+      <a href="/primaire/cp/math/theorie2/"  class="action-btn theory-btn">Théorie</a>
+      <a href="/primaire/cp/math/entrainement2/" class="action-btn training-btn">Entraînement</a>
+    </div>
+  </div>
+
+  <!-- FRANÇAIS (bleu) -->
+  <div id="fr-card-1"   class="activity-card blue-card"      data-domain="francais">
+    <h3>Les voyelles</h3>
+    <p class="description">a, e, i, o, u</p>
+    <div class="activity-actions">
+      <a href="/primaire/cp/fr/theorie/"    class="action-btn theory-btn">Théorie</a>
+      <a href="/primaire/cp/fr/entrainement/"  class="action-btn training-btn">Entraînement</a>
+    </div>
+  </div>
+  <div id="fr-card-2"   class="activity-card blue-card"      data-domain="francais">
+    <h3>Lecture syllabique</h3>
+    <p class="description">ba, be, bi…</p>
+    <div class="activity-actions">
+      <a href="/primaire/cp/fr/theorie2/"   class="action-btn theory-btn">Théorie</a>
+      <a href="/primaire/cp/fr/entrainement2/" class="action-btn training-btn">Entraînement</a>
+    </div>
+  </div>
+
+  <!-- HISTOIRE (vert) -->
+  <div id="hist-card-1" class="activity-card green-card"     data-domain="histoire">
+    <h3>Les chevaliers</h3>
+    <p class="description">MoyenÂge</p>
+    <div class="activity-actions">
+      <a href="/primaire/cp/histoire/theorie/"  class="action-btn theory-btn">Théorie</a>
+      <a href="/primaire/cp/histoire/entrainement/" class="action-btn training-btn">Entraînement</a>
+    </div>
+  </div>
+  <div id="hist-card-2" class="activity-card green-card"     data-domain="histoire">
+    <h3>Quiz rois de France</h3>
+    <p class="description">Clovis → Louis XVI</p>
+    <div class="activity-actions">
+      <a href="/primaire/cp/histoire/theorie2/" class="action-btn theory-btn">Théorie</a>
+      <a href="/primaire/cp/histoire/entrainement2/" class="action-btn training-btn">Entraînement</a>
+    </div>
+  </div>
+
+  <!-- GÉOGRAPHIE (turquoise) -->
+  <div id="geo-card-1"  class="activity-card teal-card"      data-domain="geographie">
+    <h3>Les continents</h3>
+    <p class="description">Europe, Asie…</p>
+    <div class="activity-actions">
+      <a href="/primaire/cp/geo/theorie/"     class="action-btn theory-btn">Théorie</a>
+      <a href="/primaire/cp/geo/entrainement/"  class="action-btn training-btn">Entraînement</a>
+    </div>
+  </div>
+  <div id="geo-card-2"  class="activity-card teal-card"      data-domain="geographie">
+    <h3>Drapeaux du monde</h3>
+    <p class="description">France, Brésil…</p>
+    <div class="activity-actions">
+      <a href="/primaire/cp/geo/theorie2/"    class="action-btn theory-btn">Théorie</a>
+      <a href="/primaire/cp/geo/entrainement2/"   class="action-btn training-btn">Entraînement</a>
+    </div>
+  </div>
+
+  <!-- SCIENCES (jaune) -->
+  <div id="sci-card-1"  class="activity-card yellow-card"    data-domain="sciences">
+    <h3>États de l’eau</h3>
+    <p class="description">Solide, Liquide, Gazeux</p>
+    <div class="activity-actions">
+      <a href="/primaire/cp/sciences/theorie/"  class="action-btn theory-btn">Théorie</a>
+      <a href="/primaire/cp/sciences/entrainement/" class="action-btn training-btn">Entraînement</a>
+    </div>
+  </div>
+  <div id="sci-card-2"  class="activity-card yellow-card"    data-domain="sciences">
+    <h3>Expérience glaçon</h3>
+    <p class="description">Fusion → Évaporation</p>
+    <div class="activity-actions">
+      <a href="/primaire/cp/sciences/theorie2/" class="action-btn theory-btn">Théorie</a>
+      <a href="/primaire/cp/sciences/entrainement2/" class="action-btn training-btn">Entraînement</a>
+    </div>
+  </div>
+</section>
+
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      &copy; 2025 Mes Petits Cours — Tous droits réservés
+    </div>
+  </footer>
+
+  <!-- JS de filtrage -->
+  <script>
+    const cards = document.querySelectorAll('.activity-card');
+    document.querySelectorAll('.domain-nav button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // state actif bouton
+        document.querySelectorAll('.domain-nav button')
+                .forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        // filtre cartes
+        const d = btn.dataset.domain;
+        cards.forEach(c => {
+          c.style.display = (d==='all' || c.dataset.domain===d) ? 'block' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
