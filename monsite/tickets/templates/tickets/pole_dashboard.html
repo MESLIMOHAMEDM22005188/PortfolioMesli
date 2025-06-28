@@ -1,0 +1,65 @@
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau de bord des pôles</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+        }
+        .pole-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .ticket {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 5px solid #ccc;
+            background: #f9f9f9;
+        }
+        .badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            color: white;
+        }
+        .badge-primary { background-color: #007bff; }
+        .badge-warning { background-color: #ffc107; }
+        .badge-orange { background-color: #fd7e14; }
+        .badge-success { background-color: #28a745; }
+        .badge-secondary { background-color: #6c757d; }
+        .badge-light { background-color: #d6d6d6; color: black; }
+    </style>
+</head>
+<body>
+
+    <h1>🎯 Tableau de bord des Pôles</h1>
+
+    {% for pole in poles %}
+    <div class="pole-section" style="border-left: 8px solid; {{ pole.color }}">
+        <h2>{{ pole.name }} <small>({{ pole.code }})</small></h2>
+        {% if pole.tickets.exists %}
+            {% for ticket in pole.tickets.all %}
+                <div class="ticket">
+                    <strong>{{ ticket.title }}</strong><br>
+                    <span class="badge {{ ticket.get_status_badge_class }}">{{ ticket.get_status_display }}</span>
+                    <p>{{ ticket.description|truncatewords:20 }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Aucun ticket pour ce pôle.</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+</body>
+</html>

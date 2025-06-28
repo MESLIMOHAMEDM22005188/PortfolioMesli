@@ -1,0 +1,81 @@
+{% load static %}
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Créer un ticket</title>
+  <link rel="stylesheet" href="{% static 'css/tickets_form.css' %}">
+</head>
+<body>
+{% block content %}
+<div class="create-container">
+  <h2>Créer un nouveau ticket</h2>
+  <form method="post" enctype="multipart/form-data" novalidate class="create-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <!-- Catégorie du problème -->
+    <div class="form-group">
+      {{ form.category.label_tag }}
+      {{ form.category }}
+      {{ form.category.errors }}
+    </div>
+
+    <!-- Sujet du ticket -->
+    <div class="form-group">
+      {{ form.title.label_tag }}
+      {{ form.title }}
+      {{ form.title.errors }}
+    </div>
+
+    <!-- Description détaillée -->
+    <div class="form-group">
+      {{ form.description.label_tag }}
+      {{ form.description }}
+      {{ form.description.errors }}
+    </div>
+
+    <!-- Plateforme concernée -->
+    <div class="form-group">
+      {{ form.platform.label_tag }}
+      {{ form.platform }}
+      {{ form.platform.errors }}
+    </div>
+
+    <!-- Niveau d'urgence -->
+    <div class="form-group">
+      {{ form.priority.label_tag }}
+      {{ form.priority }}
+      {{ form.priority.errors }}
+    </div>
+
+    <!-- Ajout de fichiers (captures, logs...) -->
+    <div class="form-group">
+      {{ form.attachment.label_tag }}
+      {{ form.attachment }}
+      {{ form.attachment.errors }}
+    </div>
+
+    <!-- Contact utilisateur -->
+    <div class="form-group">
+      {{ form.contact.label_tag }}
+      {{ form.contact }}
+      {{ form.contact.errors }}
+    </div>
+
+    <!-- Date et heure du problème -->
+    <div class="form-group">
+      {{ form.problem_date.label_tag }}
+      {{ form.problem_date }}
+      {{ form.problem_date.errors }}
+    </div>
+
+    <!-- Boutons -->
+    <div class="form-actions">
+      <button type="submit" class="btn-submit">Envoyer le ticket</button>
+      <a href="{% url 'tickets:ticket_list' %}" class="btn-cancel">Annuler</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
+</body>
+</html>

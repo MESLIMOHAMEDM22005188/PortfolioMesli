@@ -1,0 +1,60 @@
+{% load static %}
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil • MonSite Tickets</title>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .ticket-list { display: none; margin-top: 20px; }
+    .ticket-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background-color: #fafafa;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header avec bouton “Créer un ticket” -->
+  <header class="site-header">
+    <div class="header-container">
+      <h1 class="logo">MonSite Tickets</h1>
+<a href="{% url 'tickets:ticket_create' %}" class="btn-header">Créer un ticket</a>    </div>
+  </header>
+
+  <!-- Section centrale avec bouton “Voir mes tickets” -->
+  <main class="main-content">
+    <div class="main-card">
+      <p>Bienvenue, {{ user.username }} !<br>Que souhaitez-vous faire ?</p>
+      <button class="btn-center" onclick="toggleTickets()">Voir mes tickets</button>
+
+      <!-- Bloc des tickets -->
+      <div id="tickets-section" class="ticket-list">
+        {% if tickets %}
+          {% for ticket in tickets %}
+            <div class="ticket-card">
+              <strong>{{ ticket.title }}</strong><br>
+              <em>{{ ticket.get_category_display }} - {{ ticket.get_priority_display }}</em><br>
+              Statut : {{ ticket.get_status_display }}<br>
+  <!-- Créé le {{ ticket.problem_date|stringformat:"s" }} -->
+
+
+</div>
+          {% endfor %}
+        {% else %}
+          <p>Aucun ticket à afficher.</p>
+        {% endif %}
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleTickets() {
+      const section = document.getElementById('tickets-section');
+      section.style.display = section.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+/* static/css/accueil.css */
+
+body {
+  background: #f5f0e1; /* beige doux pour tout le fond */
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-card {
+  width: 360px;
+  background: #f5f0e1; /* mettre aussi beige sur la carte */
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.login-card header {
+  background: #2a9d8f;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.login-card .content {
+  padding: 2rem;
+}
+
+.login-card .message {
+  background: #ffeacc;
+  border: 1px solid #ffd5a6;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  color: #663c00;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.login-card .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.login-card .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.login-card .form-group input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-card .form-group input:focus {
+  border-color: #2a9d8f;
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+  outline: none;
+}
+
+.login-card .actions {
+  margin-top: 1rem;
+}
+
+.login-card .actions button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #2a9d8f;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-card .actions button:hover {
+  background: #21867a;
+}
+
+.login-card .links {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.login-card .links a {
+  color: #2a9d8f;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}

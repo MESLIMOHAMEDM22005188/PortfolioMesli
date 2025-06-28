@@ -1,0 +1,25 @@
+{% load static %}
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil • MonSite Tickets</title>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="home-container">
+    <div class="home-card">
+      <h1>Bienvenue sur votre espace Tickets</h1>
+      <p>Gérez vos demandes simplement :</p>
+      <div class="button-group">
+        <a href="{% url 'tickets:ticket_list' %}" class="btn btn-primary">
+          Voir mes tickets
+        </a>
+        <a href="{% url 'tickets:ticket_create' %}" class="btn btn-secondary">
+          Créer un ticket
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

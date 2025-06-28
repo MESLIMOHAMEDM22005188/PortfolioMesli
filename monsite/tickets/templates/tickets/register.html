@@ -1,0 +1,60 @@
+{% load static %}
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscription</title>
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <h2>Inscrivez-vous</h2>
+
+      {% if form.errors %}
+        <div class="errors">
+          <ul>
+            {% for field in form %}
+              {% for error in field.errors %}
+                <li>{{ field.label }} : {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="input-group">
+          {{ form.username.label_tag }}
+          {{ form.username }}
+        </div>
+
+        <div class="input-group">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+        </div>
+
+        <div class="input-group">
+          {{ form.password1.label_tag }}
+          {{ form.password1 }}
+        </div>
+
+        <div class="input-group">
+          {{ form.password2.label_tag }}
+          {{ form.password2 }}
+        </div>
+
+        <button type="submit" class="btn">S’inscrire</button>
+      </form>
+
+      <p class="auth-footer">
+        Déjà enregistré ? <a href="{% url 'tickets:login' %}">Connectez-vous</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

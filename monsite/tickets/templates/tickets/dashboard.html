@@ -1,0 +1,280 @@
+{% load static %}
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet"
+        href="{% static 'css/admin.css' %}">
+   <style>
+    :root {
+      --bg: #121212;
+      --text: #f0f0f0;
+      --card: #1e1e1e;
+      --border: #2c2c2c;
+      --accent1: #3ddc84;
+      --accent2: #00b4d8;
+      --accent3: #ffb703;
+      --sidebar: #1a1a1a;
+    }
+
+    body.light-mode {
+      --bg: #f4f4f4;
+      --text: #222;
+      --card: #fff;
+      --border: #ddd;
+      --sidebar: #e0e0e0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: 0.3s;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: var(--sidebar);
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    .sidebar h2 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    .sidebar a:hover {
+      background-color: var(--accent2);
+      color: white;
+    }
+
+    .admin-container {
+      margin-left: 240px;
+      padding: 40px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    h1, h2 {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 16px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      color: white;
+    }
+
+    .btn-blue { background-color: var(--accent2); }
+    .btn-orange { background-color: var(--accent3); color: black; }
+    .btn-green { background-color: var(--accent1); }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .user-info {
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .user-info span {
+      display: inline-block;
+      margin-right: 12px;
+    }
+
+    .sort-options {
+      margin-bottom: 20px;
+    }
+
+    .sort-options button {
+      margin-right: 10px;
+      padding: 6px 10px;
+      border: none;
+      background-color: var(--accent2);
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .sort-options button:hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .admin-container { margin: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  <nav class="sidebar">
+    <h2>Navigation</h2>
+    <a href="#poles" onclick="showSection('poles')">🏢 Voir les Pôles</a>
+    <a href="#tickets" onclick="showSection('tickets')">📋 Tickets</a>
+    <a href="#users" onclick="showSection('users')">👥 Utilisateurs</a>
+    <a href="#alerts" onclick="showSection('alerts')">🚨 Alertes</a>
+  </nav>
+
+  <div class="admin-container">
+    <h1>Tableau de bord Administrateur</h1>
+
+    <section id="poles">
+      <h2>🏢 Voir les Pôles</h2>
+      <ul>
+        {% for pole in poles %}
+          <li>
+            <span>{{ pole.name }} ({{ pole.code }})</span>
+            <div class="btn-group">
+              <a href="{% url 'tickets:ticket_create'  %}" class="btn-action btn-green">Créer un ticket</a>
+              <a href="{% url 'tickets:pole_description' pole.id %}" class="btn-action btn-orange">Voir description</a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section id="tickets" style="display:none">
+      <h2>📋 Tickets</h2>
+      <div class="sort-options">
+        <button onclick="sortTickets('priority')">Trier par urgence</button>
+        <button onclick="sortTickets('alpha')">Trier par nom (A-Z)</button>
+      </div>
+      <ul id="ticket-list">
+        {% for ticket in tickets %}
+          <li data-priority="{{ ticket.urgency }}" data-title="{{ ticket.title }}">
+            <span>{{ ticket.title }} — Statut : {{ ticket.status }}</span>
+            <div class="btn-group">
+              <button class="btn-action btn-blue">Répondre</button>
+              <button class="btn-action btn-orange">Modifier</button>
+              <button class="btn-action btn-green">Fermer</button>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section id="users" style="display:none">
+      <h2>👥 Utilisateurs</h2>
+      <ul>
+        {% for user in users %}
+          <li>
+            <div>
+              <strong>{{ user.username }}</strong>
+              <div class="user-info">
+                <span>Email : {{ user.email }}</span>
+                <span>Pôle : {{ user.pole.name }}</span>
+                <span>Inscrit le : {{ user.date_joined|date:"d/m/Y" }}</span>
+                <span>Dernière connexion : {{ user.last_login|date:"d/m/Y H:i" }}</span>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button class="btn-action btn-orange">✉️ MP</button>
+              <button class="btn-action btn-blue">🚫 Bannir</button>
+              <button class="btn-action btn-green">❌ Supprimer</button>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section id="alertes">
+  <h2>📢 Alertes récentes</h2>
+  <ul>
+    {% for alert in alerts %}
+      <li>
+        {{ alert.contenu }}
+        <span style="font-size: 0.8rem; color: gray;">({{ alert.created_at|date:"d/m/Y H:i" }})</span>
+      </li>
+    {% empty %}
+      <li>Aucune alerte pour le moment.</li>
+    {% endfor %}
+  </ul>
+</section>
+
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      const btn = document.querySelector('.theme-toggle');
+      btn.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+    }
+
+    function showSection(sectionId) {
+      ['poles', 'tickets', 'users', 'alerts'].forEach(id => {
+        document.getElementById(id).style.display = id === sectionId ? 'block' : 'none';
+      });
+    }
+
+    function sortTickets(criteria) {
+      const list = document.getElementById('ticket-list');
+      const items = Array.from(list.children);
+      items.sort((a, b) => {
+        if (criteria === 'priority') {
+          return b.dataset.priority.localeCompare(a.dataset.priority);
+        } else {
+          return a.dataset.title.localeCompare(b.dataset.title);
+        }
+      });
+      list.innerHTML = '';
+      items.forEach(el => list.appendChild(el));
+    }
+  </script>
+</body>
+</html>

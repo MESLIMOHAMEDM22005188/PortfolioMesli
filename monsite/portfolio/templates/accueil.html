@@ -75,101 +75,108 @@
         <img src="{% static 'assets/images/OPB.png'%}" alt="OPB">
       </div>
   </ul>
-</div>
+</div><div class="panel-content projects-grid" id="content-proj" style="display: none;">
+  <div class="project-card">
+    <img src="{% static 'assets/img/cpp.png' %}" alt="C++">
+    <span>BACKEND</span>
+    <h3>Concurrency, Synchronization, Performance</h3>
+    <a href="{% url 'portfolio:concurrency' %}"><button class="btn">See the project</button></a>
+  </div>
 
-      <!-- Panel My Projects -->
-      <div class="panel-content projects-grid" id="content-proj" style="display: none;">
-        <div class="project-card">
-          <img src="{% static 'assets/img/cpp.png' %}" alt="C++">
-          <span>BACKEND</span>
-          <h3>Concurrency, Synchronization, Performance</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/python.png' %}" alt="Python">
-          <span>BACKEND</span>
-          <h3>Reinforcement Learning – Nim AI</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/python.png' %}" alt="Python">
-          <span>BACKEND</span>
-          <h3>File CRUD Application</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/java.png' %}" alt="Java">
-          <span>BACKEND</span>
-          <h3>Interactive JavaFX/FXML UI</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/js.png' %}" alt="JavaScript">
-          <span>FRONTEND</span>
-          <h3>Tickethub UX Interface</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/php.png' %}" alt="PHP">
-          <span>FULLSTACK</span>
-          <h3>Social Network Platform</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/php.png' %}" alt="PHP">
-          <span>FULLSTACK</span>
-          <h3>Secretary Web App</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/python.png' %}" alt="Python">
-          <span>FULLSTACK</span>
-          <h3>Cybersecurity Insights Platform</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/python.png' %}" alt="Python">
-          <span>FULLSTACK</span>
-          <h3>Personal Portfolio Website</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/csharp.png' %}" alt="C#">
-          <span>FULLSTACK</span>
-          <h3>Task Management App</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/csharp.png' %}" alt="C#">
-          <span>FULLSTACK</span>
-          <h3>SmartBudget Tracker</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/ruby.png' %}" alt="Ruby">
-          <span>BACKEND</span>
-          <h3>MailCLI Email Sender</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/js.png' %}" alt="JavaScript">
-          <span>FULLSTACK</span>
-          <h3>TaskFlow Task Manager – POO</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/python.png' %}" alt="Python">
-          <span>BACKEND</span>
-          <h3>Solar System Simulation</h3>
-          <button class="btn">See the project</button>
-        </div>
-        <div class="project-card">
-          <img src="{% static 'assets/img/ruby.png' %}" alt="Ruby">
-          <span>BACKEND</span>
-          <h3>CSV Earthquake Analyzer</h3>
-          <button class="btn">See the project</button>
-        </div>
-      </div>
+  <div class="project-card">
+    <img src="{% static 'assets/img/python.png' %}" alt="Python">
+    <span>BACKEND</span>
+    <h3>Reinforcement Learning – Nim AI</h3>
+    <a href="{% url 'portfolio:nim_ai' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/python.png' %}" alt="Python">
+    <span>BACKEND</span>
+    <h3>File CRUD Application</h3>
+    <a href="{% url 'portfolio:file_crud' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/js.png' %}" alt="JavaScript">
+    <span>FRONTEND</span>
+    <h3>Tickethub UX Interface</h3>
+    <a href="{% url 'portfolio:tickethub_ui' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/php.png' %}" alt="PHP">
+    <span>FULLSTACK</span>
+    <h3>Social Network Platform</h3>
+    <a href="{% url 'portfolio:social_network' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/php.png' %}" alt="PHP">
+    <span>FULLSTACK</span>
+    <h3>Secretary Web App</h3>
+    <a href="{% url 'portfolio:secretary_app' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/python.png' %}" alt="RUST">
+    <span>FULLSTACK</span>
+    <h3>Cybersecurity Insights Platform</h3>
+    <a href="{% url 'portfolio:cybersecurity_insights' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/python.png' %}" alt="Python">
+    <span>FULLSTACK</span>
+    <h3>Personal Portfolio Website</h3>
+    <a href="{% url 'portfolio:portfolio_site' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/csharp.png' %}" alt="C#">
+    <span>FULLSTACK</span>
+    <h3>Task Management App</h3>
+    <a href="{% url 'portfolio:task_management' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/csharp.png' %}" alt="C#">
+    <span>FULLSTACK</span>
+    <h3>SmartBudget Tracker</h3>
+    <a href="{% url 'portfolio:smartbudget_tracker' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/ruby.png' %}" alt="Ruby">
+    <span>BACKEND</span>
+    <h3>MailCLI Email Sender</h3>
+    <a href="{% url 'portfolio:mailcli_sender' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/js.png' %}" alt="JavaScript">
+    <span>FULLSTACK</span>
+    <h3>TaskFlow Task Manager – POO</h3>
+    <a href="{% url 'portfolio:taskflow_poo' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/python.png' %}" alt="Python">
+    <span>BACKEND</span>
+    <h3>Solar System Simulation</h3>
+    <a href="{% url 'portfolio:solar_system' %}"><button class="btn">See the project</button></a>
+  </div>
+
+  <div class="project-card">
+    <img src="{% static 'assets/img/ruby.png' %}" alt="Ruby">
+    <span>BACKEND</span>
+    <h3>CSV Earthquake Analyzer</h3>
+    <a href="{% url 'portfolio:earthquake_analyzer' %}"><button class="btn">See the project</button></a>
+  </div>
+</div>
+s
+
+
 
       <!-- Panel Softwares -->
       <div class="panel-content" id="content-soft" style="display: none;">
@@ -374,7 +381,7 @@
     </form>
     <p class="redirect-note">
   En attendant, jetez un œil à
-  <a href="{% url 'mespetitscours' %}">Mes Petits Cours</a> !
+<a href="{% url 'portfolio:mespetitscours' %}">Mes Petits Cours</a>
 </p>
   </div>
 </section>
@@ -384,6 +391,26 @@
    <script src="{% static 'assets/js/theme.js' %}"></script>
   <script src="{% static 'assets/js/panels.js' %}"></script>
   <script src="{% static 'assets/js/timeline.js' %}"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".see-project-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".project-card");
+      const title = card.querySelector("h3")?.textContent?.trim();
+
+      if (!title) {
+        alert("❌ Impossible de déterminer le projet");
+        return;
+      }
+
+      const url = "/project-detail/?title=" + encodeURIComponent(title);
+      window.open(url, "_blank", "width=1000,height=700,resizable=yes,scrollbars=yes");
+    });
+  });
+});
+
+</script>
 
 </body>
 </html>

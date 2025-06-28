@@ -1,0 +1,123 @@
+/* static/css/home.css */
+
+/* 1. Fond général : dégradé multicolore (vert → bleu) */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(135deg, #2ecc71, #3498db);
+}
+
+/* 2. Header fixe en haut */
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo / nom du site */
+.logo {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* Bouton dans le header */
+.btn-header {
+  padding: 0.5rem 1rem;
+  background-color: #27ae60;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-header:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 3. Zone principale placée sous le header */
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* occupe toute la hauteur */
+  padding-top: 5rem; /* décale sous le header d’environ 80px */
+}
+
+/* Carte blanche au centre */
+.main-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  max-width: 350px;
+  width: 90%;
+}
+
+/* Message de bienvenue */
+.main-card p {
+  font-size: 1.1rem;
+  color: #555555;
+  margin-bottom: 1.5rem;
+}
+
+/* Bouton central “Voir mes tickets” */
+.btn-center {
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #2980b9;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-center:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 4. Responsive pour petits écrans */
+@media (max-width: 480px) {
+  .header-container {
+    padding: 0.75rem 1rem;
+  }
+  .logo {
+    font-size: 1.25rem;
+  }
+  .btn-header {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  .main-card {
+    padding: 1.5rem;
+  }
+  .main-card p {
+    font-size: 1rem;
+  }
+  .btn-center {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.9rem;
+  }
+}

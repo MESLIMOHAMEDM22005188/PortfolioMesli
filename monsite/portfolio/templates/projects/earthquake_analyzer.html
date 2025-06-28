@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Développement d’une Application – SAE2.01</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+    .carousel img {
+      min-width: 100%;
+      transition: transform 0.3s ease;
+    }
+    .carousel img:hover {
+      transform: scale(1.05);
+    }
+    @keyframes scrollGallery {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    .carousel-auto-scroll {
+      animation: scrollGallery 25s linear infinite;
+    }
+  </style>
+</head>
+<body class="bg-black text-white">
+
+<section class="text-center py-20 px-6">
+  <h1 class="text-5xl font-bold bg-gradient-to-r from-indigo-400 via-pink-500 to-red-500 text-transparent bg-clip-text">
+    Application Java d’Analyse Sismique
+  </h1>
+  <p class="mt-6 text-lg text-gray-300 max-w-2xl mx-auto">
+    Développée en Java avec JavaFX, cette application permet d’analyser et de visualiser des données sismiques issues du site SisFrance. Réalisée dans le cadre de la SAE 2.01 en une semaine, elle propose des filtres avancés, des graphiques interactifs et une carte dynamique.
+  </p>
+</section>
+
+  <section class="px-4 md:px-12 py-10">
+    <div class="overflow-hidden rounded-2xl border border-gray-700">
+      <div class="carousel carousel-auto-scroll flex space-x-6">
+        <img src="maquette_p1.png" alt="Maquette page 1" class="rounded-xl">
+        <img src="maquette_p2.png" alt="Maquette page 2" class="rounded-xl">
+        <img src="maquette_p3.png" alt="Maquette page 3" class="rounded-xl">
+        <img src="rendu_p1.png" alt="Rendu final page 1" class="rounded-xl">
+        <img src="rendu_p2.png" alt="Rendu final page 2" class="rounded-xl">
+        <img src="rendu2_p3.png" alt="Dashboard 1" class="rounded-xl">
+        <img src="rendu3_p3.png" alt="Dashboard 2" class="rounded-xl">
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-6">
+    <h2 class="text-3xl font-bold mb-8 text-center">Outils & Technologies</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div class="bg-gray-800 p-6 rounded-2xl"><strong>JavaFX & FXML</strong><br><span class="text-gray-400">Framework d’interface pour application Java.</span></div>
+      <div class="bg-gray-800 p-6 rounded-2xl"><strong>IntelliJ IDEA</strong><br><span class="text-gray-400">IDE utilisé pour tout le projet Java.</span></div>
+      <div class="bg-gray-800 p-6 rounded-2xl"><strong>Git & GitHub</strong><br><span class="text-gray-400">Suivi de version et collaboration continue.</span></div>
+      <div class="bg-gray-800 p-6 rounded-2xl"><strong>Overleaf (LaTeX)</strong><br><span class="text-gray-400">Rédaction collaborative du rapport.</span></div>
+      <div class="bg-gray-800 p-6 rounded-2xl"><strong>Figma</strong><br><span class="text-gray-400">Maquettes interactives & mockups.</span></div>
+      <div class="bg-gray-800 p-6 rounded-2xl"><strong>PlantUML</strong><br><span class="text-gray-400">Diagrammes UML et architecture.</span></div>
+    </div>
+  </section>
+
+  <section class="py-16 px-6 border-t border-gray-800">
+    <h2 class="text-3xl font-bold mb-6 text-center">Fonctionnalités Implémentées</h2>
+    <div class="max-w-5xl mx-auto space-y-6 text-gray-300">
+      <ul class="list-disc list-inside">
+        <li>Filtrage & tri de séismes depuis un fichier CSV</li>
+        <li>Autocomplétion sur les zones de recherche (ID, nom)</li>
+        <li>Visualisation sur carte Gluon avec points interactifs</li>
+        <li>Affichage de graphiques (camemberts, lignes)</li>
+        <li>Navigation entre 3 pages principales (recherche, tableau, dashboard)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="py-16 px-6 border-t border-gray-800">
+    <h2 class="text-3xl font-bold mb-6 text-center">Architecture MVVM</h2>
+    <p class="max-w-4xl mx-auto text-gray-400 text-center mb-6">
+      Le modèle MVVM a été utilisé pour structurer le projet : séparation claire entre les données, l’interface graphique et la logique de présentation. Organisation par packages : <code>datahandling</code>, <code>graphics</code>, <code>resources</code>.
+    </p>
+    <img src="UML_Project.png" alt="Diagramme UML" class="rounded-xl mx-auto border border-gray-700 max-w-4xl">
+  </section>
+
+  <section class="py-16 px-6 border-t border-gray-800 text-center">
+    <h2 class="text-3xl font-bold mb-6">Voir le Code Source</h2>
+    <a href="#" class="inline-block px-6 py-3 bg-pink-500 hover:bg-pink-600 transition rounded-full text-white font-semibold">Lien GitHub (à insérer)</a>
+  </section>
+
+</body>
+</html>

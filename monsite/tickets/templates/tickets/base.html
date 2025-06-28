@@ -1,0 +1,13 @@
+{# monsite/templates/base.html #}
+{% load static %}
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Mon Site{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/accueil.css' %}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  {% block content %}{% endblock %}
+</body>
+</html>
