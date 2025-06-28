@@ -1,17 +1,14 @@
 import os
-from decouple import Config, RepositoryEnv, Csv
+from decouple import config
 from pathlib   import Path
 
 # 1. Indique précisément où se trouve ton .env
 BASE_DIR = Path(__file__).resolve().parent.parent
-env_file = BASE_DIR / '.env'
-
-# 2. Crée un config qui lit le fichier
-config = Config(RepositoryEnv(env_file))
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
+
 LOGIN_URL = '/tickets/'
 LOGIN_REDIRECT_URL = '/tickets/list/'
 INSTALLED_APPS = [
