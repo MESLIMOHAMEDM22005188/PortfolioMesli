@@ -9,10 +9,9 @@ env_file = BASE_DIR / '.env'
 # 2. Crée un config qui lit le fichier
 config = Config(RepositoryEnv(env_file))
 
-# 3. Maintenant tes appels fonctionnent
-SECRET_KEY = os.getenv("SECRET_KEY", "change-me")
-DEBUG = os.getenv("DEBUG", "False") == "True"
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
 LOGIN_URL = '/tickets/'
 LOGIN_REDIRECT_URL = '/tickets/list/'
 INSTALLED_APPS = [
