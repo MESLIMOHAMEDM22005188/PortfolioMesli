@@ -12,13 +12,12 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
 LOGIN_URL = '/tickets/'
 LOGIN_REDIRECT_URL = '/tickets/list/'
 INSTALLED_APPS = [
-    'users',
     # Ton app “users” avec UserModel custom
     'users.apps.UsersConfig',
 
     # Ton app “tickets” (ici on utilise la classe TicketsConfig dans tickets/apps.py)
     'tickets.apps.TicketsConfig',
-
+    'users.apps.UsersConfig',
     # Apps Django indispensables
     'django.contrib.admin',
     'django.contrib.auth',
