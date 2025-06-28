@@ -12,6 +12,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
 LOGIN_URL = '/tickets/'
 LOGIN_REDIRECT_URL = '/tickets/list/'
 INSTALLED_APPS = [
+    'users',
     # Ton app “users” avec UserModel custom
     'users.apps.UsersConfig',
 
