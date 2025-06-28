@@ -3,7 +3,8 @@
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(BASE_DIR)
 print("BASE DIR:", os.getcwd())
 print("FILES:", os.listdir())
 def main():
