@@ -17,7 +17,6 @@ INSTALLED_APPS = [
 
     # Ton app “tickets” (ici on utilise la classe TicketsConfig dans tickets/apps.py)
     'tickets.apps.TicketsConfig',
-    'users.apps.UsersConfig',
     # Apps Django indispensables
     'django.contrib.admin',
     'django.contrib.auth',
