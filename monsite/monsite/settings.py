@@ -13,7 +13,7 @@ LOGIN_URL = '/tickets/'
 LOGIN_REDIRECT_URL = '/tickets/list/'
 INSTALLED_APPS = [
     # Ton app “users” avec UserModel custom
-    'monsite.users',
+    'users',
 
     # Ton app “tickets” (ici on utilise la classe TicketsConfig dans tickets/apps.py)
     'tickets.apps.TicketsConfig',
