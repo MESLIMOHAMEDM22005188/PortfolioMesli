@@ -48,7 +48,7 @@ ROOT_URLCONF = 'monsite.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'mysql.connector.django',
         # Ajoutez ici votre dossier templates :
         'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
