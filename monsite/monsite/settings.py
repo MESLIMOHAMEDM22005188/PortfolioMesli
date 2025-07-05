@@ -1,7 +1,9 @@
 import os
 from decouple import config
 from pathlib   import Path
+import pymysql
 
+pymysql.install_as_MySQLdb()
 # 1. Indique précisément où se trouve ton .env
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -70,7 +72,7 @@ WSGI_APPLICATION = 'monsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME':   config('DB_NAME'),
         'USER':   config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),

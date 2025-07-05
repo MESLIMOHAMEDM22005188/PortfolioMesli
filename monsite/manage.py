@@ -8,7 +8,7 @@ sys.path.append(BASE_DIR)
 print("BASE DIR:", os.getcwd())
 print("FILES:", os.listdir())
 def main():
-    """Run administrative tasks."""
+    """Run admiFmnistrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'monsite.settings')
     try:
         from django.core.management import execute_from_command_line
