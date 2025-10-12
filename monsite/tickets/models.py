@@ -1,9 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
-from django.contrib.auth.models import AbstractUser
-
-
 
 class Pole(models.Model):
     code  = models.CharField(max_length=10, unique=True)
@@ -18,7 +15,7 @@ class Pole(models.Model):
         return self.name
 
 class Ticket(models.Model):
-    pole = models.ForeignKey('Pole', on_delete=models.CASCADE, db_column='pole_id')
+    pole = models.ForeignKey(Pole, on_delete=models.CASCADE, related_name='tickets', null=True, blank=True)
 
     STATUS_CHOICES = [
         ('open', 'Ouvert'),
@@ -56,41 +53,12 @@ class Ticket(models.Model):
         related_name='assigned_tickets'
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    pole = models.ForeignKey(Pole, on_delete=models.CASCADE, related_name='tickets', null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
-    status = models.CharField(
-        max_length=20,
-        choices=STATUS_CHOICES,
-        default='open'
-    )
-    priority = models.CharField(
-        max_length=20,
-        choices=PRIORITY_CHOICES,
-        default='medium'
-    )
-    category = models.CharField(
-        max_length=20,
-        choices=CATEGORY_CHOICES,
-        default='support'
-    )
-    attachment = models.FileField(
-        upload_to='tickets/attachments/',
-        null=True,
-        blank=True
-    )
-    problem_date = models.DateTimeField(
-        verbose_name="Date du problème",
-        default=timezone.now
-    )
-
-    def get_status_badge_class(self):
-        return {
-            "open": "badge-primary",
-            "in_progress": "badge-warning",
-            "pending": "badge-orange",
-            "resolved": "badge-success",
-            "closed": "badge-secondary"
-        }.get(self.status, "badge-light")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
+    priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='medium')
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='support')
+    attachment = models.FileField(upload_to='tickets/attachments/', null=True, blank=True)
+    problem_date = models.DateTimeField(verbose_name="Date du problème", default=timezone.now)
 
     class Meta:
         db_table = 'tickets'
@@ -107,5 +75,3 @@ class Alert(models.Model):
 
     def __str__(self):
         return self.contenu[:50]
-
-

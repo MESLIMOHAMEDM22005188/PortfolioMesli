@@ -1,4 +1,3 @@
-# tickets/apps.py
 from django.apps import AppConfig
 
 class TicketsConfig(AppConfig):
