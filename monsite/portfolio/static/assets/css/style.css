@@ -1,4 +1,37 @@
 /* style.css */
+/* --- Bouton jour/nuit --- */
+.theme-toggle {
+  background: none;
+  border: 2px solid var(--text-color);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  transition: all 0.3s ease;
+  color: var(--text-color);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* --- Thèmes généraux --- */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #222222;
+}
+
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #f5f5f5;
+}
+
+/* --- Application des variables --- */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
 /*====================
   VARIABLES
