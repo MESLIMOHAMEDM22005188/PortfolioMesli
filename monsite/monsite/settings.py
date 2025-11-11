@@ -6,6 +6,7 @@ Version prod/dev sûre (AlwaysData, Render, etc.) – lit la config depuis l'env
 import os
 from pathlib import Path
 from decouple import config
+from django.conf import settings
 
 # Optional MySQL shim (ok si non utilisé)
 try:
