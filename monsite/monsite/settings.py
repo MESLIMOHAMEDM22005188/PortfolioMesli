@@ -175,6 +175,7 @@ LOGIN_REDIRECT_URL = '/tickets/list/'
 
 DJANGO_SETTINGS_MODULE = settings
 
+
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
