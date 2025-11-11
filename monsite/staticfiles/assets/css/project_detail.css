@@ -1,0 +1,74 @@
+/* Structure de la grille */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Style de chaque carte */
+.project-card {
+  background-color: #181a1e;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  text-align: center;
+  border: 1px solid #2f3238;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 255, 136, 0.2);
+}
+
+/* Icône + titre langue (ex: C++, Python) */
+.project-card img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.project-card span {
+  display: block;
+  color: #00ff88;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+/* Titre du projet */
+.project-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.2rem;
+}
+
+/* Bouton */
+.project-card .btn {
+  padding: 0.6rem 1.2rem;
+  background-color: transparent;
+  border: 2px solid #00ff88;
+  color: #00ff88;
+  border-radius: 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.project-card .btn:hover {
+  background-color: #00ff88;
+  color: #000;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

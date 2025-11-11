@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     'users',
     'tickets.apps.TicketsConfig',
     'portfolio',
-    'sslserver',
 
     # Django contrib
     'django.contrib.admin',

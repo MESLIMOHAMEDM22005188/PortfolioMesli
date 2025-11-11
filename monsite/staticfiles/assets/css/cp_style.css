@@ -1,0 +1,217 @@
+/* Corps vert pâle */
+body {
+  background-color: #e6ffd9;
+}
+
+/* Barre des niveaux */
+.levels-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.level-btn {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.level-btn.active,
+.level-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Domaines */
+.domain-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  background: #fff;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+.domain-nav button {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s, border-bottom 0.2s;
+  padding: 0.25rem;
+  color: #333;
+}
+.domain-nav button.active,
+.domain-nav button:hover {
+  border-bottom: 3px solid currentColor;
+}
+.domain-nav button:nth-child(2) { color: #000; }      /* Toutes */
+.domain-nav .mathematiques { color: #e74c3c; }
+.domain-nav .francais      { color: #2980b9; }
+.domain-nav .histoire      { color: #27ae60; }
+.domain-nav .geographie    { color: #1abc9c; }
+.domain-nav .sciences      { color: #f1c40f; }
+
+/* Grille d'activités */
+.activities-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.red-card,
+.blue-card,
+.green-card,
+.teal-card,
+.yellow-card {
+  border-radius: 16px;
+  padding: 1.5rem;
+  width: 260px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.red-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.red-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.red-card .numbers {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Conteneur des boutons Théorie / Entraînement */
+.activity-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Boutons d'action */
+.action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Théorie */
+.theory-btn {
+  background: #fff;
+  color: #e74c3c;
+  border: 2px solid #e74c3c;
+}
+.theory-btn:hover {
+  background: #e74c3c;
+  color: #fff;
+}
+
+/* Entraînement */
+.training-btn {
+  background: #ef00ff;
+  color: #fff;
+  border: 2px solid #ef00ff;
+}
+.training-btn:hover {
+  background: #f400ff;
+  color: #fff;
+}
+/* Styles communs à toutes les cartes colorées */
+.red-card,
+.blue-card,
+.green-card,
+.teal-card,
+.yellow-card {
+  border-radius: 16px;
+  padding: 1.5rem;
+  width: 260px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover identique partout */
+.red-card:hover,
+.blue-card:hover,
+.green-card:hover,
+.teal-card:hover,
+.yellow-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+/* Mathématiques – Rouge */
+.red-card {
+  background-color: #ff4d4d;
+  color: #000;
+}
+
+/* Français – Bleu */
+.blue-card {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+/* Histoire – Vert */
+.green-card {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+/* Géographie – Turquoise */
+.teal-card {
+  background-color: #1abc9c;
+  color: #fff;
+}
+
+/* Sciences – Jaune */
+.yellow-card {
+  background-color: #f1c40f;
+  color: #000;
+}
+
+/* Titres et descriptions héritent la couleur */
+.red-card h3,
+.blue-card h3,
+.green-card h3,
+.teal-card h3,
+.yellow-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Texte secondaire (.numbers, .description) */
+.red-card .numbers,
+.blue-card .numbers,
+.green-card .numbers,
+.teal-card .numbers,
+.yellow-card .numbers,
+.red-card .description,
+.blue-card .description,
+.green-card .description,
+.teal-card .description,
+.yellow-card .description {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .activities-grid { justify-content: center; }
+}
