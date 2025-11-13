@@ -5,6 +5,8 @@ Version prod/dev sûre (AlwaysData, Render, etc.) – lit la config depuis l'env
 
 import os
 from pathlib import Path
+
+import dj_database_url
 from decouple import config
 from django.conf import settings
 
@@ -129,33 +131,37 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # -----------------------
 DATABASE_URL = os.environ.get('DATABASE_URL') or config('DATABASE_URL', default='')
 
+DATABASE_URL = os.environ.get('DATABASE_URL') or config('DATABASE_URL', default='')
+
 if DATABASE_URL:
-    try:
-        import dj_database_url
-    except ImportError:
-        raise RuntimeError("dj-database-url is required when using DATABASE_URL. Install with: pip install dj-database-url")
-    DATABASES = {'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)}
+    # Production (Render, Railway, etc.)
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+    }
+
 else:
+    # 🔹 2. Sinon, on vérifie si on a une base Postgres locale
     DB_NAME = config('DB_NAME', default='')
     if DB_NAME:
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.postgresql',
                 'NAME': DB_NAME,
-                'USER': config('DB_USER', default=''),
+                'USER': config('DB_USER', default='postgres'),
                 'PASSWORD': config('DB_PASSWORD', default=''),
                 'HOST': config('DB_HOST', default='localhost'),
                 'PORT': config('DB_PORT', cast=int, default=5432),
             }
         }
-
     else:
+        # 🔹 3. Par défaut → base locale SQLite
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
                 'NAME': BASE_DIR / 'db.sqlite3',
             }
         }
+
 
 # -----------------------
 # Email (safe defaults)
