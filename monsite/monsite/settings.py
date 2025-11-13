@@ -13,13 +13,10 @@ from django.conf import settings
 
 DEBUG = True
 # Optional MySQL shim (ok si non utilisé)
-try:
-    import pymysql
-    pymysql.install_as_MySQLdb()
-except Exception:
-    pass
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+DATABASE_URL = os.environ.get('DATABASE_URL', '')
 
 # -----------------------
 # Security & flags
@@ -27,6 +24,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='dev-temporary-secret-key')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
+if DATABASE_URL:
+    # Use DATABASE_URL when present (Render, Railway, Heroku, etc.)
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+    }
+else:
+    # No DATABASE_URL -> use lightweight local SQLite (works on Render but ephemeral)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 def _csv(name: str, default: str = ""):
     """Lit une variable d'env CSV et la transforme en liste."""
@@ -129,39 +140,22 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # -----------------------
 # Database configuration
 # -----------------------
-DATABASE_URL = os.environ.get('DATABASE_URL') or config('DATABASE_URL', default='')
 
-DATABASE_URL = os.environ.get('DATABASE_URL') or config('DATABASE_URL', default='')
 
+DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
-    # Production (Render, Railway, etc.)
+    # En production (Render)
     DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+        'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
     }
-
 else:
-    # 🔹 2. Sinon, on vérifie si on a une base Postgres locale
-    DB_NAME = config('DB_NAME', default='')
-    if DB_NAME:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': DB_NAME,
-                'USER': config('DB_USER', default='postgres'),
-                'PASSWORD': config('DB_PASSWORD', default=''),
-                'HOST': config('DB_HOST', default='localhost'),
-                'PORT': config('DB_PORT', cast=int, default=5432),
-            }
+    # En local (développement)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
-    else:
-        # 🔹 3. Par défaut → base locale SQLite
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': BASE_DIR / 'db.sqlite3',
-            }
-        }
-
+    }
 
 # -----------------------
 # Email (safe defaults)
