@@ -138,15 +138,15 @@ else:
     if DB_NAME:
         DATABASES = {
             'default': {
-                'ENGINE': 'django.db.backends.mysql',
+                'ENGINE': 'django.db.backends.postgresql',
                 'NAME': DB_NAME,
                 'USER': config('DB_USER', default=''),
                 'PASSWORD': config('DB_PASSWORD', default=''),
-                'HOST': config('DB_HOST', default='127.0.0.1'),
-                'PORT': config('DB_PORT', cast=int, default=3306),
-                'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
+                'HOST': config('DB_HOST', default='localhost'),
+                'PORT': config('DB_PORT', cast=int, default=5432),
             }
         }
+
     else:
         DATABASES = {
             'default': {
