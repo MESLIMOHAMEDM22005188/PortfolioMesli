@@ -8,6 +8,8 @@ from pathlib import Path
 from decouple import config
 from django.conf import settings
 
+
+DEBUG = True
 # Optional MySQL shim (ok si non utilisé)
 try:
     import pymysql
