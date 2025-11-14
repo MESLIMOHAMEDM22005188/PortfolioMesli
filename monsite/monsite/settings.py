@@ -86,7 +86,6 @@ INSTALLED_APPS = [
 
     # Dev / utils
     'django_extensions',  # OK aussi en prod, mais peut être retiré
-    'widget_tweaks',
 ]
 
 # -----------------------
