@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'users',
     'tickets.apps.TicketsConfig',
     'portfolio',
+    'widget_tweaks',
 
     # Django contrib
     'django.contrib.admin',
