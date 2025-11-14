@@ -1,91 +1,70 @@
 """
 monsite/settings.py
-Version prod/dev sûre (AlwaysData, Render, etc.) – lit la config depuis l'environnement.
+Version propre et compatible Render/AlwaysData.
 """
 
 import os
 from pathlib import Path
-
-import dj_database_url
 from decouple import config
-from django.conf import settings
-
-
-DEBUG = True
-# Optional MySQL shim (ok si non utilisé)
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DATABASE_URL = os.environ.get('DATABASE_URL', '')
+# -----------------------
+# Security
+# -----------------------
+SECRET_KEY = config('SECRET_KEY', default='dev-secret')
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 # -----------------------
-# Security & flags
+# Allowed hosts
 # -----------------------
-SECRET_KEY = config('SECRET_KEY', default='dev-temporary-secret-key')
-DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
+
+if DEBUG:
+    ALLOWED_HOSTS += ['127.0.0.1', 'localhost']
+
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{h}" for h in ALLOWED_HOSTS if h and not h.startswith("http")
+]
+
+# -----------------------
+# Database
+# -----------------------
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
-    # Use DATABASE_URL when present (Render, Railway, Heroku, etc.)
-    import dj_database_url
     DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+        "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
 else:
-    # No DATABASE_URL -> use lightweight local SQLite (works on Render but ephemeral)
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3"
         }
     }
 
-def _csv(name: str, default: str = ""):
-    """Lit une variable d'env CSV et la transforme en liste."""
-    raw = config(name, default=default)
-    return [x.strip() for x in raw.split(",") if x.strip()]
-
-
-ALLOWED_HOSTS = _csv('ALLOWED_HOSTS')
-if DEBUG:
-    # Permet le test en local sans DisallowedHost
-    ALLOWED_HOSTS += ['127.0.0.1', 'localhost']
-
-CSRF_TRUSTED_ORIGINS = _csv('CSRF_TRUSTED_ORIGINS')
-if not CSRF_TRUSTED_ORIGINS and ALLOWED_HOSTS:
-    # Autorise HTTPS sur les hosts déclarés
-    CSRF_TRUSTED_ORIGINS = [f"https://{h}" for h in ALLOWED_HOSTS if not h.startswith('http')]
-
-# Toujours correct derrière un proxy (Render / AlwaysData)
-USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-SITE_ID = config('SITE_ID', default=1, cast=int)
-
-# Si on est en prod: ALLOWED_HOSTS doit être rempli
-if not DEBUG and not ALLOWED_HOSTS:
-    raise RuntimeError("ALLOWED_HOSTS must be set in production (env ALLOWED_HOSTS)")
-
 # -----------------------
-# Installed apps
+# Apps
 # -----------------------
 INSTALLED_APPS = [
-    # Project apps
     'users',
     'tickets.apps.TicketsConfig',
     'portfolio',
     'widget_tweaks',
 
-    # Django contrib
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django.contrib.sites',
 
-    # Dev / utils
-    'django_extensions',  # OK aussi en prod, mais peut être retiré
+    'django_extensions',
 ]
 
 # -----------------------
@@ -93,7 +72,7 @@ INSTALLED_APPS = [
 # -----------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # sert les statiques efficacement
+    'whitenoise.middleware.WhiteNoiseMiddleware',   # ESSENTIEL POUR LES STATIQUES
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -103,7 +82,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'monsite.urls'
-
 
 # -----------------------
 # Templates
@@ -129,70 +107,42 @@ WSGI_APPLICATION = 'monsite.wsgi.application'
 # -----------------------
 # Static files
 # -----------------------
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-_global_static = BASE_DIR / 'static'
-if _global_static.exists():
-    STATICFILES_DIRS = [_global_static]
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# Important : dossier "static" global
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
-# -----------------------
-# Database configuration
-# -----------------------
-
-
-DATABASE_URL = os.getenv("DATABASE_URL")
-if DATABASE_URL:
-    # En production (Render)
-    DATABASES = {
-        'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
-    }
-else:
-    # En local (développement)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # -----------------------
-# Email (safe defaults)
+# Auth config
 # -----------------------
-EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = config('EMAIL_HOST', default='')
-EMAIL_PORT = config('EMAIL_PORT', cast=int, default=587)
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=True)
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='webmaster@localhost')
-
-# -----------------------
-# Auth & misc
-# -----------------------
+AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/tickets/'
 LOGIN_REDIRECT_URL = '/tickets/list/'
 
-DJANGO_SETTINGS_MODULE = settings
+# -----------------------
+# Email
+# -----------------------
+EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
+EMAIL_HOST = config("EMAIL_HOST", default="")
+EMAIL_PORT = config("EMAIL_PORT", cast=int, default=587)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=True)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="webmaster@localhost")
 
-
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-]
-
-AUTH_USER_MODEL = 'users.User'
-
+# -----------------------
+# Internationalization
+# -----------------------
 LANGUAGE_CODE = 'fr-fr'
 TIME_ZONE = 'Europe/Paris'
 USE_I18N = True
 USE_TZ = True
 
 # -----------------------
-# Production security
+# Security in production
 # -----------------------
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
@@ -201,46 +151,5 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 3600
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-    X_FRAME_OPTIONS = 'DENY'
-    SECURE_REFERRER_POLICY = 'same-origin'
 
-else:
-    SECURE_SSL_REDIRECT = False
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
-if DEBUG:
-    import warnings
-    from django.http import HttpResponseRedirect
-
-    class ForceHttpMiddleware:
-        """Empêche toute tentative d'accès HTTPS en local"""
-        def __init__(self, get_response):
-            self.get_response = get_response
-
-        def __call__(self, request):
-            if request.is_secure():
-                url = request.build_absolute_uri(request.get_full_path())
-                url = url.replace("https://", "http://")
-                return HttpResponseRedirect(url)
-            return self.get_response(request)
-
-    MIDDLEWARE.insert(0, 'monsite.settings.ForceHttpMiddleware')
-# -----------------------
-# Logging
-# -----------------------
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "console": {"class": "logging.StreamHandler"},
-    },
-    "loggers": {
-        "django.request": {"handlers": ["console"], "level": "ERROR", "propagate": False},
-        "django.security.DisallowedHost": {"handlers": ["console"], "level": "ERROR", "propagate": False},
-    },
-}
-
-# -----------------------
-# Default primary key
-# -----------------------
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
