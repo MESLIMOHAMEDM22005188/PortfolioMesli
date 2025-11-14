@@ -6,7 +6,7 @@ body, html {
   padding: 0;
   height: 100%;
   font-family: "Segoe UI", Roboto, sans-serif;
-  background: linear-gradient(135deg, #2ecc71, #3498db);
+  background: linear-gradient(135deg, #2ecc71, #009aff);
 }
 
 /* 2. Header fixe en haut */
