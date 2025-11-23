@@ -31,20 +31,24 @@ def is_admin(user):
 # ---------------------- AUTHENTIFICATION ----------------------
 
 def login_view(request):
-    """
-    Affiche le formulaire de connexion et authentifie l’utilisateur.
-    Si la méthode est POST et que le couple (username, password) est valide,
-    on redirige vers la vue 'tickets:home'.
-    """
+    error = None
+    next_url = request.POST.get("next") or request.GET.get("next")
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('tickets:home')
+            return redirect(next_url or 'tickets:home')
+        else:
+            error = "Identifiants incorrects."
 
-    return render(request, 'tickets/login.html')
+    return render(request, 'tickets/login.html', {
+        "error": error,
+        "next": next_url
+    })
 
 
 def register_view(request):
@@ -241,7 +245,7 @@ def admin_dashboard(request):
     """
     tickets = Ticket.objects.all().order_by('-created_at')
     poles = Pole.objects.all()
-    users = User.objects.select_related('pole').all()
+    users = User.objects.all()
     alerts = Alert.objects.order_by('-created_at')[:10]
 
     context = {
