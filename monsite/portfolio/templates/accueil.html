@@ -41,6 +41,7 @@
         <a href="#"><i class="fab fa-twitter"></i></a>
         <a href="#"><i class="fab fa-instagram"></i></a>
       </div>
+
       <div class="intro">
         <h1>Hi, I'm <span>Mohamed</span></h1>
         <h2><span class="typing"></span></h2>
@@ -54,6 +55,7 @@
           Contact Me <i class="fas fa-paper-plane"></i>
         </button>
       </div>
+
       <div class="photo">
         <img src="{% static 'assets/images/mohamed.png' %}" alt="Mohamed Mesli">
       </div>
@@ -67,130 +69,126 @@
         <button id="btn-soft" class="panel-btn">Softwares</button>
       </div>
 
-<div class="panel-content" id="content-cert" style="display: none;">
-  <ul>
-      <div class="cert-images">
-        <img src="{% static 'assets/images/OPB.png' %}" alt="ITC">
-        <img src="{% static 'assets/images/eh.png'  %}" alt="EH">
-        <img src="{% static 'assets/images/iTC.png'%}" alt="OPB">
-        <img src="{% static 'assets/images/forti.png'%}" alt="forti">
-        <img src="{% static 'assets/images/forti2.png'%}" alt="forti2">
+      <!-- Panel Certifications -->
+      <div class="panel-content" id="content-cert" style="display: none;">
+        <ul class="cert-images">
+          <li><img src="{% static 'assets/images/OPB.png' %}" alt="OPB"></li>
+          <li><img src="{% static 'assets/images/eh.png' %}" alt="EH"></li>
+          <li><img src="{% static 'assets/images/iTC.png' %}" alt="ITC"></li>
+          <li><img src="{% static 'assets/images/forti.png' %}" alt="forti"></li>
+          <li><img src="{% static 'assets/images/forti2.png' %}" alt="forti2"></li>
+        </ul>
+      </div>
 
+      <!-- Panel Projects -->
+      <div class="panel-content projects-grid" id="content-proj" style="display: none;">
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/cpp.png' %}" alt="Python">
+          <span>BACKEND</span>
+          <h3>Concurrency, Synchronization, Performance</h3>
+          <a href="{% url 'portfolio:concurrency' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/django.png' %}" alt="Django">
+          <span>FULLSTACK</span>
+          <h3>Tickets Management System</h3>
+          <a href="{% url 'tickets:login' %}" class="btn">Open TicketHub</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>BACKEND</span>
+          <h3>Reinforcement Learning – Nim AI</h3>
+          <a href="{% url 'portfolio:nim_ai' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>BACKEND</span>
+          <h3>File CRUD Application</h3>
+          <a href="{% url 'portfolio:file_crud' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/js.png' %}" alt="JavaScript">
+          <span>FRONTEND</span>
+          <h3>Tickethub UX Interface</h3>
+          <a href="{% url 'portfolio:tickethub_ui' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/php.png' %}" alt="PHP">
+          <span>FULLSTACK</span>
+          <h3>Social Network Platform</h3>
+          <a href="{% url 'portfolio:social_network' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/php.png' %}" alt="PHP">
+          <span>FULLSTACK</span>
+          <h3>Secretary Web App</h3>
+          <a href="{% url 'portfolio:secretary_app' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="RUST">
+          <span>FULLSTACK</span>
+          <h3>Cybersecurity Insights Platform</h3>
+          <a href="{% url 'portfolio:cybersecurity_insights' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>FULLSTACK</span>
+          <h3>Personal Portfolio Website</h3>
+          <a href="{% url 'portfolio:portfolio_site' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/c#.png' %}" alt="C#">
+          <span>FULLSTACK</span>
+          <h3>Task Management App</h3>
+          <a href="{% url 'portfolio:task_management' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/c#.png' %}" alt="C#">
+          <span>FULLSTACK</span>
+          <h3>SmartBudget Tracker</h3>
+          <a href="{% url 'portfolio:smartbudget_tracker' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/ruby.png' %}" alt="Ruby">
+          <span>BACKEND</span>
+          <h3>MailCLI Email Sender</h3>
+          <a href="{% url 'portfolio:mailcli_sender' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/js.png' %}" alt="JavaScript">
+          <span>FULLSTACK</span>
+          <h3>TaskFlow Task Manager – POO</h3>
+          <a href="{% url 'portfolio:taskflow_poo' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>BACKEND</span>
+          <h3>Solar System Simulation</h3>
+          <a href="{% url 'portfolio:solar_system' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/ruby.png' %}" alt="Ruby">
+          <span>BACKEND</span>
+          <h3>CSV Earthquake Analyzer</h3>
+          <a href="{% url 'portfolio:earthquake_analyzer' %}" class="btn">See the project</a>
+        </div>
 
       </div>
-  </ul>
-</div><div class="panel-content projects-grid" id="content-proj" style="display: none;">
-  <div class="project-card">
-    <img src="{% static 'assets/images/cpp.png' %}" alt="Python">
-    <span>BACKEND</span>
-    <h3>Concurrency, Synchronization, Performance</h3>
-    <a href="{% url 'portfolio:concurrency' %}"><button class="btn">See the project</button></a>
-  </div>
-
-      <div class="project-card">
-  <img src="{% static 'assets/images/django.png' %}" alt="Django">
-  <span>FULLSTACK</span>
-  <h3>Tickets Management System</h3>
-  <a href="{% url 'tickets:login' %}">
-    <button class="btn">Open TicketHub</button>
-  </a>
-</div>
-
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/python.png' %}" alt="Python">
-    <span>BACKEND</span>
-    <h3>Reinforcement Learning – Nim AI</h3>
-    <a href="{% url 'portfolio:nim_ai' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/python.png' %}" alt="Python">
-    <span>BACKEND</span>
-    <h3>File CRUD Application</h3>
-    <a href="{% url 'portfolio:file_crud' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/js.png' %}" alt="JavaScript">
-    <span>FRONTEND</span>
-    <h3>Tickethub UX Interface</h3>
-    <a href="{% url 'portfolio:tickethub_ui' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/php.png' %}" alt="PHP">
-    <span>FULLSTACK</span>
-    <h3>Social Network Platform</h3>
-    <a href="{% url 'portfolio:social_network' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/php.png' %}" alt="PHP">
-    <span>FULLSTACK</span>
-    <h3>Secretary Web App</h3>
-    <a href="{% url 'portfolio:secretary_app' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/python.png' %}" alt="RUST">
-    <span>FULLSTACK</span>
-    <h3>Cybersecurity Insights Platform</h3>
-    <a href="{% url 'portfolio:cybersecurity_insights' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/python.png' %}" alt="Python">
-    <span>FULLSTACK</span>
-    <h3>Personal Portfolio Website</h3>
-    <a href="{% url 'portfolio:portfolio_site' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/c#.png' %}" alt="C#">
-    <span>FULLSTACK</span>
-    <h3>Task Management App</h3>
-    <a href="{% url 'portfolio:task_management' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/c#.png' %}" alt="C#">
-    <span>FULLSTACK</span>
-    <h3>SmartBudget Tracker</h3>
-    <a href="{% url 'portfolio:smartbudget_tracker' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/ruby.png' %}" alt="Ruby">
-    <span>BACKEND</span>
-    <h3>MailCLI Email Sender</h3>
-    <a href="{% url 'portfolio:mailcli_sender' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/js.png' %}" alt="JavaScript">
-    <span>FULLSTACK</span>
-    <h3>TaskFlow Task Manager – POO</h3>
-    <a href="{% url 'portfolio:taskflow_poo' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/python.png' %}" alt="Python">
-    <span>BACKEND</span>
-    <h3>Solar System Simulation</h3>
-    <a href="{% url 'portfolio:solar_system' %}"><button class="btn">See the project</button></a>
-  </div>
-
-  <div class="project-card">
-    <img src="{% static 'assets/images/ruby.png' %}" alt="Ruby">
-    <span>BACKEND</span>
-    <h3>CSV Earthquake Analyzer</h3>
-    <a href="{% url 'portfolio:earthquake_analyzer' %}"><button class="btn">See the project</button></a>
-  </div>
-</div>
-s
-
-
 
       <!-- Panel Softwares -->
       <div class="panel-content" id="content-soft" style="display: none;">
@@ -313,6 +311,7 @@ s
             <span class="date">2022 – Today</span>
           </div>
         </div>
+
         <div class="timeline-item">
           <div class="dot"></div>
           <div class="content">
@@ -321,6 +320,7 @@ s
             <span class="date">2019 – 2022</span>
           </div>
         </div>
+
         <div class="timeline-item">
           <div class="dot"></div>
           <div class="content">
@@ -329,140 +329,138 @@ s
             <span class="date">2015 – 2019</span>
           </div>
         </div>
-<div id="timeline-work" class="timeline active">
-
-  <div class="timeline-item">
-    <div class="dot"></div>
-    <div class="content">
-      <h3>IT Maintenance Intern</h3>
-      <p class="location">
-        Duration: 2 months (2023)<br>
-        Responsibilities: maintaining and repairing office IT equipment<br>
-        Mission: ensure seamless operation of end-user workstations<br>
-        Learned: hardware troubleshooting techniques and user support best practices
-      </p>
-      <span class="date">2023</span>
-    </div>
-  </div>
-
-  <div class="timeline-item">
-    <div class="dot"></div>
-    <div class="content">
-      <h3>Web Security & Deployment Intern</h3>
-      <p class="location">
-        Organization: Aix-Marseille University (AMU)<br>
-        Duration: Summer 2024 (internship)<br>
-        Responsibilities: deploying a secure web application and implementing message encryption<br>
-        Mission: build and launch a group-based social platform<br>
-        Learned: web security best practices, encryption methods and automated system monitoring
-      </p>
-      <span class="date">2024</span>
-    </div>
-  </div>
-
-  <!-- ✅ Added: AIRBUS (Aug 2025) -->
-  <div class="timeline-item">
-    <div class="dot"></div>
-    <div class="content">
-      <h3>Cybersecurity Intern – Confidential Data Protection</h3>
-      <p class="location">
-        Organization: Airbus<br>
-        Duration: August 2025<br>
-        Responsibilities: securing confidential technical files and access-controlled data<br>
-        Mission: analyze risks related to sensitive file handling and implement protection measures<br>
-        Learned: enterprise-grade security constraints, data classification, confidentiality workflows
-      </p>
-      <span class="date">August 2025</span>
-    </div>
-  </div>
-
-  <div class="timeline-item">
-    <div class="dot"></div>
-    <div class="content">
-      <h3>Python & Network Infrastructure Intern</h3>
-      <p class="location">
-        Duration: 2025 – present<br>
-        Responsibilities: developing a secure Python application and managing user accounts via Active Directory<br>
-        Mission: design and deploy a small-business network infrastructure; prototype a reinforcement-learning module<br>
-        Learned: advanced Python security, AD administration, network design principles and RL fundamentals
-      </p>
-      <span class="date">2025 – present</span>
-    </div>
-  </div>
-
-  <!-- ✅ Added/clarified: AMU In-Proto security (Jan 2026) -->
-  <div class="timeline-item">
-    <div class="dot"></div>
-    <div class="content">
-      <h3>Application Security – In-Proto Platform</h3>
-      <p class="location">
-        Organization: Aix-Marseille University (AMU)<br>
-        Duration: January 2026<br>
-        Responsibilities: securing the In-Proto application components and reducing exposed attack surface<br>
-        Mission: audit and harden sensitive routes and access control mechanisms; improve platform security posture<br>
-        Learned: application hardening, risk-based remediation, security-by-design constraints in real projects
-      </p>
-      <span class="date">January 2026</span>
-    </div>
-  </div>
-
-</div>
-
-
-    <!-- Section Contact -->
-<section id="contact" class="contact-section">
-  <div class="container">
-    <h2>Contactez-moi</h2>
-    <form action="/MesPetisCours/" method="get" class="contact-form">
-      <div class="form-group">
-        <label for="name">Nom</label>
-        <input type="text" id="name" name="name" placeholder="Votre nom" required>
       </div>
-      <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
-      </div>
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" placeholder="Votre message…" rows="5" required></textarea>
-      </div>
-      <button type="submit" class="btn-primary">Envoyer</button>
-    </form>
-    <p class="redirect-note">
-  En attendant, jetez un œil à
-<a href="{% url 'portfolio:mespetitscours' %}">Mes Petits Cours</a>
-</p>
-  </div>
-</section>
+
+      <div id="timeline-work" class="timeline active">
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>IT Maintenance Intern</h3>
+            <p class="location">
+              Duration: 2 months (2023)<br>
+              Responsibilities: maintaining and repairing office IT equipment<br>
+              Mission: ensure seamless operation of end-user workstations<br>
+              Learned: hardware troubleshooting techniques and user support best practices
+            </p>
+            <span class="date">2023</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Web Security & Deployment Intern</h3>
+            <p class="location">
+              Organization: Aix-Marseille University (AMU)<br>
+              Duration: Summer 2024 (internship)<br>
+              Responsibilities: deploying a secure web application and implementing message encryption<br>
+              Mission: build and launch a group-based social platform<br>
+              Learned: web security best practices, encryption methods and automated system monitoring
+            </p>
+            <span class="date">2024</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Cybersecurity Intern – Confidential Data Protection</h3>
+            <p class="location">
+              Organization: Airbus<br>
+              Duration: August 2025<br>
+              Responsibilities: securing confidential technical files and access-controlled data<br>
+              Mission: analyze risks related to sensitive file handling and implement protection measures<br>
+              Learned: enterprise-grade security constraints, data classification, confidentiality workflows
+            </p>
+            <span class="date">August 2025</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Python & Network Infrastructure Intern</h3>
+            <p class="location">
+              Duration: 2025 – present<br>
+              Responsibilities: developing a secure Python application and managing user accounts via Active Directory<br>
+              Mission: design and deploy a small-business network infrastructure; prototype a reinforcement-learning module<br>
+              Learned: advanced Python security, AD administration, network design principles and RL fundamentals
+            </p>
+            <span class="date">2025 – present</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Application Security – In-Proto Platform</h3>
+            <p class="location">
+              Organization: Aix-Marseille University (AMU)<br>
+              Duration: January 2026<br>
+              Responsibilities: securing the In-Proto application components and reducing exposed attack surface<br>
+              Mission: audit and harden sensitive routes and access control mechanisms; improve platform security posture<br>
+              Learned: application hardening, risk-based remediation, security-by-design constraints in real projects
+            </p>
+            <span class="date">January 2026</span>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- Section Contact -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2>Contactez-moi</h2>
+        <form action="/MesPetisCours/" method="get" class="contact-form">
+          <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" placeholder="Votre nom" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Votre message…" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary">Envoyer</button>
+        </form>
+
+        <p class="redirect-note">
+          En attendant, jetez un œil à
+          <a href="{% url 'portfolio:mespetitscours' %}">Mes Petits Cours</a>
+        </p>
+      </div>
+    </section>
 
   </main>
 
-   <script src="{% static 'assets/js/theme.js' %}"></script>
+  <script src="{% static 'assets/js/theme.js' %}"></script>
   <script src="{% static 'assets/js/panels.js' %}"></script>
   <script src="{% static 'assets/js/timeline.js' %}"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".see-project-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const card = btn.closest(".project-card");
-      const title = card.querySelector("h3")?.textContent?.trim();
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".see-project-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const card = btn.closest(".project-card");
+          const title = card.querySelector("h3")?.textContent?.trim();
 
-      if (!title) {
-        alert("❌ Impossible de déterminer le projet");
-        return;
-      }
+          if (!title) {
+            alert("❌ Impossible de déterminer le projet");
+            return;
+          }
 
-      const url = "/project-detail/?title=" + encodeURIComponent(title);
-      window.open(url, "_blank", "width=1000,height=700,resizable=yes,scrollbars=yes");
+          const url = "/project-detail/?title=" + encodeURIComponent(title);
+          window.open(url, "_blank", "width=1000,height=700,resizable=yes,scrollbars=yes");
+        });
+      });
     });
-  });
-});
-
-</script>
+  </script>
 
 </body>
 </html>
