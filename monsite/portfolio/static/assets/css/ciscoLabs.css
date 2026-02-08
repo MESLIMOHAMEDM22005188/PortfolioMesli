@@ -2,6 +2,32 @@
    CISCO LABS PAGE
 ==================== */
 
+.page-header {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 168, 107, 0.08),
+    transparent
+  );
+  padding: 4rem 1.5rem 3rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.page-header .page-subtitle {
+  font-size: 1.15rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+
 /* Conteneur principal */
 .container {
   max-width: 1100px;
