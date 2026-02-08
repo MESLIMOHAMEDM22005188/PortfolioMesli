@@ -209,16 +209,27 @@
         </div>
 
         <!-- ==== CYBERSECURITY TOOLS ==== -->
-        <div class="software-category">
-          <h2 class="category-title">🔐 CYBERSECURITY TOOLS</h2>
-          <div class="slider-wrapper">
-            <button class="slider-btn prev-btn">❮</button>
-            <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/packet.png' %}" alt="Cisco"><span>Cisco</span></div>
-            </div>
-            <button class="slider-btn next-btn">❯</button>
-          </div>
-        </div>
+<div class="software-category">
+  <h2 class="category-title">🔐 CYBERSECURITY TOOLS</h2>
+
+  <div class="slider-wrapper">
+    <button class="slider-btn prev-btn">❮</button>
+
+    <div class="slider-horizontal">
+      <div class="slide cisco-card">
+        <img src="{% static 'assets/images/packet.png' %}" alt="Cisco Packet Tracer">
+        <span>Cisco Packet Tracer</span>
+
+        <a href="{% url 'portfolio:cisco_labs' %}" class="btn cisco-btn">
+          View my labs & projects
+        </a>
+      </div>
+    </div>
+
+    <button class="slider-btn next-btn">❯</button>
+  </div>
+</div>
+
 
         <!-- ==== MICROSOFT & OFFICE TOOLS ==== -->
         <div class="software-category">
