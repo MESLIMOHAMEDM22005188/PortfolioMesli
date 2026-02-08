@@ -8,6 +8,7 @@ app_name = 'portfolio'
 urlpatterns = [
     # 1) Racine de l’app portfolio : /     ➜ affiche views.accueil
     path('', views.accueil, name='accueil'),
+    path("ciscoLabs/", views.cisco_labs, name='cisco-labs'),
 
     # 2) Ancienne URL “MesPetisCours” qui redirige vers “mes-petits-cours”
     path(

@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.http import Http404
 from django.shortcuts import render
 PROJECTS = {
@@ -31,6 +33,9 @@ def accueil(request):
 
 def ticketHub(request):
     return render(request, 'ticketHub.html')
+
+def ciscoLabs(request):
+    return render(request, 'ciscoLabs.html')
 
 def mesPetitsCours(request):
     return render(request, 'mesPetitsCours.html')
