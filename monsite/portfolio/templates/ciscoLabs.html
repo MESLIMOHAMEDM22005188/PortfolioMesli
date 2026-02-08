@@ -1,10 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Cisco Packet Tracer Labs – Mohamed Mesli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" href="{% static 'assets/images/m.png' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 </head>
+
 <body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="top-header">
+    <nav class="nav-links">
+      <a href="{% url 'portfolio:accueil' %}">Home</a>
+      <a href="{% url 'portfolio:accueil' %}#projects">Projects</a>
+      <a href="{% url 'portfolio:accueil' %}#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero hero-small">
+      <h1>Cisco Packet Tracer</h1>
+      <p class="subtitle">
+        Network labs & infrastructure projects
+      </p>
+    </section>
+
+    <!-- ===== INTRO ===== -->
+    <section class="content-block">
+      <p>
+        This page presents a selection of academic and personal network labs
+        designed and implemented using <strong>Cisco Packet Tracer</strong>.
+        The focus is on routing, switching, wireless networks, security and
+        real-world infrastructure logic.
+      </p>
+
+      <p>
+        Each project is documented and structured to reflect professional
+        network engineering practices.
+      </p>
+    </section>
+
+    <!-- ===== PROJECTS GRID ===== -->
+    <section class="projects-grid">
+
+      <!-- LAB 1 -->
+      <div class="project-card">
+        <span class="project-tag">NETWORKING</span>
+        <h3>Advanced Network Infrastructure</h3>
+        <p>
+          Multi-site topology including a Datacenter, two agencies and an ISP
+          backbone. Routing, VLAN segmentation and inter-site connectivity.
+        </p>
+
+        <ul class="project-skills">
+          <li>Routing (static / dynamic)</li>
+          <li>VLAN & switching</li>
+          <li>Enterprise topology design</li>
+        </ul>
+
+        <div class="project-actions">
+          <a href="#" class="btn disabled">Packet Tracer file</a>
+          <a href="#" class="btn disabled">Lab report</a>
+        </div>
+      </div>
+
+      <!-- LAB 2 -->
+      <div class="project-card">
+        <span class="project-tag">SECURITY</span>
+        <h3>Secure Wi-Fi Infrastructure</h3>
+        <p>
+          Wireless deployment with centralized authentication and access control.
+          Focus on enterprise Wi-Fi security mechanisms.
+        </p>
+
+        <ul class="project-skills">
+          <li>WPA2-Enterprise</li>
+          <li>RADIUS authentication</li>
+          <li>Wireless LAN Controller</li>
+        </ul>
+
+        <div class="project-actions">
+          <a href="#" class="btn disabled">Packet Tracer file</a>
+          <a href="#" class="btn disabled">Configuration details</a>
+        </div>
+      </div>
+
+      <!-- LAB 3 -->
+      <div class="project-card">
+        <span class="project-tag">PERFORMANCE</span>
+        <h3>QoS & Traffic Prioritization</h3>
+        <p>
+          Quality of Service configuration to prioritize critical network flows
+          and ensure performance under load.
+        </p>
+
+        <ul class="project-skills">
+          <li>QoS policies</li>
+          <li>Traffic classification</li>
+          <li>Performance analysis</li>
+        </ul>
+
+        <div class="project-actions">
+          <a href="#" class="btn disabled">Packet Tracer file</a>
+          <a href="#" class="btn disabled">Topology overview</a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===== NOTE ===== -->
+    <section class="content-block note">
+      <p>
+        ⚠️ Packet Tracer files and detailed reports can be provided upon request.
+        Some materials are intentionally not public for academic and security reasons.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>
+      © {{ now|date:"Y" }} Mohamed Mesli — Network & Cybersecurity Portfolio
+    </p>
+  </footer>
 
 </body>
 </html>
