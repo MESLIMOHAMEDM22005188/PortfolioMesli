@@ -26,90 +26,103 @@
 
     <!-- ===== HERO ===== -->
     <section class="hero hero-small">
-      <h1>Cisco Packet Tracer</h1>
+      <h1>Cisco Packet Tracer Labs</h1>
       <p class="subtitle">
-        Network labs & infrastructure projects
+        Network architecture, routing, wireless & QoS engineering
       </p>
     </section>
 
     <!-- ===== INTRO ===== -->
     <section class="content-block">
       <p>
-        This page presents a selection of academic and personal network labs
-        designed and implemented using <strong>Cisco Packet Tracer</strong>.
-        The focus is on routing, switching, wireless networks, security and
-        real-world infrastructure logic.
+        This page presents a curated selection of academic and personal
+        <strong>network infrastructure labs</strong> designed with
+        <strong>Cisco Packet Tracer</strong>.
       </p>
 
       <p>
-        Each project is documented and structured to reflect professional
-        network engineering practices.
+        The projects focus on realistic enterprise architectures:
+        multi-site routing, ISP interconnections, Wi-Fi security,
+        traffic engineering and resilience testing.
       </p>
     </section>
 
     <!-- ===== PROJECTS GRID ===== -->
     <section class="projects-grid">
 
-      <!-- LAB 1 -->
+      <!-- ===== MAIN PROJECT : BUT3 ===== -->
       <div class="project-card">
-        <span class="project-tag">NETWORKING</span>
-        <h3>Advanced Network Infrastructure</h3>
+        <span class="project-tag">ENTERPRISE NETWORK</span>
+
+        <h3>Advanced Multi-Site Network Infrastructure</h3>
+
         <p>
-          Multi-site topology including a Datacenter, two agencies and an ISP
-          backbone. Routing, VLAN segmentation and inter-site connectivity.
+          Complete enterprise topology composed of a Datacenter, two remote
+          agencies and a dual-ISP backbone. The project reproduces
+          real-world routing, wireless and security constraints.
         </p>
 
         <ul class="project-skills">
-          <li>Routing (static / dynamic)</li>
-          <li>VLAN & switching</li>
-          <li>Enterprise topology design</li>
+          <li>BGP (multi-AS, redundancy, failover)</li>
+          <li>DHCP centralization & IP helper</li>
+          <li>WPA2 / WPA2-Enterprise with RADIUS</li>
+          <li>QoS (SIP, RDP, traffic classification)</li>
+          <li>Enterprise Wi-Fi (WLC + APs)</li>
         </ul>
 
+        <p class="project-details">
+          <strong>Topology:</strong> Datacenter + 2 Agencies + 2 ISPs<br>
+          <strong>Hardware:</strong> ISR 2911, Catalyst 3650, WLC 2504, AP 3702i<br>
+          <strong>Protocols:</strong> BGP, DHCP, RADIUS, QoS
+        </p>
+
         <div class="project-actions">
-          <a href="#" class="btn disabled">Packet Tracer file</a>
-          <a href="#" class="btn disabled">Lab report</a>
+          <span class="btn disabled">Packet Tracer file</span>
+          <span class="btn disabled">Technical report</span>
         </div>
       </div>
 
-      <!-- LAB 2 -->
+      <!-- ===== SECONDARY LAB ===== -->
       <div class="project-card">
-        <span class="project-tag">SECURITY</span>
-        <h3>Secure Wi-Fi Infrastructure</h3>
+        <span class="project-tag">WIRELESS SECURITY</span>
+
+        <h3>Secure Wi-Fi Deployment</h3>
+
         <p>
-          Wireless deployment with centralized authentication and access control.
-          Focus on enterprise Wi-Fi security mechanisms.
+          Design and configuration of enterprise Wi-Fi networks with
+          centralized authentication and segmented access policies.
         </p>
 
         <ul class="project-skills">
           <li>WPA2-Enterprise</li>
           <li>RADIUS authentication</li>
-          <li>Wireless LAN Controller</li>
+          <li>SSID separation (Guest / Pro)</li>
         </ul>
 
         <div class="project-actions">
-          <a href="#" class="btn disabled">Packet Tracer file</a>
-          <a href="#" class="btn disabled">Configuration details</a>
+          <span class="btn disabled">Configuration</span>
         </div>
       </div>
 
-      <!-- LAB 3 -->
+      <!-- ===== SECONDARY LAB ===== -->
       <div class="project-card">
         <span class="project-tag">PERFORMANCE</span>
+
         <h3>QoS & Traffic Prioritization</h3>
+
         <p>
-          Quality of Service configuration to prioritize critical network flows
-          and ensure performance under load.
+          Implementation of Quality of Service policies to guarantee
+          performance for critical flows under network load.
         </p>
 
         <ul class="project-skills">
-          <li>QoS policies</li>
-          <li>Traffic classification</li>
-          <li>Performance analysis</li>
+          <li>ACL-based traffic classification</li>
+          <li>DSCP marking (EF, CS4)</li>
+          <li>Policy-map & service-policy</li>
         </ul>
 
         <div class="project-actions">
-          <a href="#" class="btn disabled">Packet Tracer file</a>
-          <a href="#" class="btn disabled">Topology overview</a>
+          <span class="btn disabled">QoS policy</span>
         </div>
       </div>
 
@@ -118,8 +131,9 @@
     <!-- ===== NOTE ===== -->
     <section class="content-block note">
       <p>
-        ⚠️ Packet Tracer files and detailed reports can be provided upon request.
-        Some materials are intentionally not public for academic and security reasons.
+        ⚠️ Packet Tracer files and detailed configurations are available
+        upon request. Some materials are intentionally not public for
+        academic integrity and security reasons.
       </p>
     </section>
 

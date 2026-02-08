@@ -1,0 +1,184 @@
+/* ====================
+   CISCO LABS PAGE
+==================== */
+
+/* Conteneur principal */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Hero réduit */
+.hero-small {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero-small h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.hero-small .subtitle {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+/* Blocs de texte */
+.content-block {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ====================
+   GRID DES LABS
+==================== */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Carte Cisco Lab */
+.project-card {
+  background-color: var(--card-bg);
+  border-radius: 1.2rem;
+  padding: 1.6rem;
+  box-shadow: 0 6px 18px var(--card-shadow);
+  border: 1px solid rgba(0, 168, 107, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 28px rgba(0, 168, 107, 0.25);
+}
+
+/* Tag */
+.project-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+/* Titre */
+.project-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: var(--text);
+}
+
+/* Description */
+.project-card p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-bottom: 1.2rem;
+}
+
+/* Liste compétences */
+.project-skills {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1.5rem;
+}
+
+.project-skills li {
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.project-skills li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+
+/* Actions */
+.project-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Boutons */
+.project-actions .btn {
+  padding: 0.55rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 30px;
+  border: 2px solid var(--primary);
+  background-color: transparent;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.project-actions .btn:hover {
+  background-color: var(--primary);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 168, 107, 0.35);
+}
+
+/* Bouton désactivé */
+.project-actions .btn.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ====================
+   NOTE DE BAS DE PAGE
+==================== */
+
+.note {
+  margin-top: 4rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background-color: rgba(0, 168, 107, 0.08);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ====================
+   MODE SOMBRE
+==================== */
+
+[data-theme="dark"] .project-card {
+  border-color: rgba(0, 255, 136, 0.2);
+}
+
+[data-theme="dark"] .note {
+  background-color: rgba(0, 255, 136, 0.1);
+}
+
+/* ====================
+   RESPONSIVE
+==================== */
+
+@media (max-width: 600px) {
+  .hero-small h1 {
+    font-size: 2rem;
+  }
+
+  .project-card {
+    padding: 1.3rem;
+  }
+}
