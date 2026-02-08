@@ -34,7 +34,7 @@ def accueil(request):
 def ticketHub(request):
     return render(request, 'ticketHub.html')
 
-def ciscoLabs(request):
+def cisco_Labs(request):
     return render(request, 'ciscoLabs.html')
 
 def mesPetitsCours(request):
