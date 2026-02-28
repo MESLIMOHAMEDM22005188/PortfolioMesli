@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow – Secure Task Manager</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <style>
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel img {
+      min-width: 100%;
+      transition: transform 0.3s ease;
+    }
+
+    .carousel img:hover {
+      transform: scale(1.03);
+    }
+
+    @keyframes scrollGallery {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .carousel-auto-scroll {
+      animation: scrollGallery 20s linear infinite;
+    }
+  </style>
+
+</head>
+
+<body class="bg-black text-white">
+
+<!-- HERO -->
+
+<section class="text-center py-20 px-6">
+
+  <h1 class="text-5xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-500 text-transparent bg-clip-text">
+    TaskFlow – Secure Task Manager
+  </h1>
+
+  <p class="mt-6 text-lg text-gray-300 max-w-2xl mx-auto">
+    Application complète de gestion de tâches sécurisée avec authentification JWT, architecture modulaire et base de données relationnelle, conçue pour offrir une gestion fiable, scalable et sécurisée des workflows utilisateurs.
+  </p>
+
+</section>
+
+<!-- GALLERY -->
+
+<section class="px-4 md:px-12 py-10">
+
+  <div class="overflow-hidden rounded-2xl border border-gray-700">
+
+    <div class="carousel carousel-auto-scroll flex space-x-6">
+
+      <img src="taskflow1.png" class="rounded-xl">
+      <img src="taskflow2.png" class="rounded-xl">
+      <img src="taskflow3.png" class="rounded-xl">
+      <img src="taskflow4.png" class="rounded-xl">
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="py-16 px-6">
+
+  <h2 class="text-3xl font-bold mb-10 text-center">
+    Fonctionnalités principales
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+
+    <div class="bg-gray-800 p-6 rounded-2xl">
+      <h3 class="text-xl font-semibold">
+        Authentification sécurisée
+      </h3>
+
+      <p class="text-gray-400 mt-2">
+        Système d’authentification basé sur JWT avec gestion des sessions, protection des routes et sécurité des données utilisateur.
+      </p>
+    </div>
+
+
+    <div class="bg-gray-800 p-6 rounded-2xl">
+      <h3 class="text-xl font-semibold">
+        Gestion complète des tâches
+      </h3>
+
+      <p class="text-gray-400 mt-2">
+        Création, modification, suppression et suivi des tâches avec persistance en base MySQL et gestion multi-utilisateurs.
+      </p>
+    </div>
+
+
+    <div class="bg-gray-800 p-6 rounded-2xl">
+      <h3 class="text-xl font-semibold">
+        Architecture modulaire
+      </h3>
+
+      <p class="text-gray-400 mt-2">
+        Backend structuré avec Node.js, services, controllers et routes séparés pour garantir une maintenabilité et une scalabilité optimales.
+      </p>
+    </div>
+
+
+    <div class="bg-gray-800 p-6 rounded-2xl">
+      <h3 class="text-xl font-semibold">
+        Base de données relationnelle
+      </h3>
+
+      <p class="text-gray-400 mt-2">
+        Utilisation de Prisma ORM avec MySQL pour assurer la cohérence des données et simplifier les opérations CRUD.
+      </p>
+    </div>
+
+
+    <div class="bg-gray-800 p-6 rounded-2xl">
+      <h3 class="text-xl font-semibold">
+        Interface utilisateur moderne
+      </h3>
+
+      <p class="text-gray-400 mt-2">
+        Frontend React moderne avec gestion des états, appels API sécurisés et interface responsive.
+      </p>
+    </div>
+
+
+    <div class="bg-gray-800 p-6 rounded-2xl">
+      <h3 class="text-xl font-semibold">
+        Architecture sécurisée
+      </h3>
+
+      <p class="text-gray-400 mt-2">
+        Middleware d’authentification, validation des requêtes et séparation claire entre frontend et backend.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- TECH STACK -->
+
+<section class="py-16 px-6 border-t border-gray-800">
+
+  <h2 class="text-3xl font-bold mb-10 text-center">
+    Stack technique
+  </h2>
+
+  <div class="flex flex-wrap justify-center gap-6 text-gray-300">
+
+    <span class="px-4 py-2 bg-gray-800 rounded-xl">React</span>
+    <span class="px-4 py-2 bg-gray-800 rounded-xl">Node.js</span>
+    <span class="px-4 py-2 bg-gray-800 rounded-xl">Express</span>
+    <span class="px-4 py-2 bg-gray-800 rounded-xl">Prisma ORM</span>
+    <span class="px-4 py-2 bg-gray-800 rounded-xl">MySQL</span>
+    <span class="px-4 py-2 bg-gray-800 rounded-xl">JWT</span>
+    <span class="px-4 py-2 bg-gray-800 rounded-xl">REST API</span>
+
+  </div>
+
+</section>
+
+<!-- DESCRIPTION -->
+
+<section class="py-12 px-6 border-t border-gray-800 text-center">
+
+  <p class="text-gray-400 max-w-xl mx-auto mb-8">
+    TaskFlow est une application complète développée avec une architecture moderne frontend/backend séparée. Elle met en œuvre des concepts avancés d’ingénierie logicielle, notamment la sécurité JWT, l’architecture modulaire, l’ORM Prisma et la gestion de base de données relationnelle.
+  </p>
+
+  <a href="https://github.com/ton-repo/taskflow"
+     class="inline-block px-6 py-3 bg-indigo-600 hover:bg-indigo-700 transition rounded-full font-semibold">
+     Voir le code GitHub
+  </a>
+
+</section>
+
+</body>
+</html>
