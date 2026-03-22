@@ -15,6 +15,8 @@ PROJECTS = {
     # Tu pourras en ajouter d'autres ici
 }
 
+def rsa_project(request):
+    return render(request, "portfolio/rsa_project.html")
 def project_detail(request):
     title = request.GET.get('title')
     if not title or title not in PROJECTS:

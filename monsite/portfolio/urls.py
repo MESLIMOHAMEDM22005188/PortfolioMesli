@@ -31,6 +31,7 @@ urlpatterns = [
     path("primaire/cm2/", views.cm2, name="cm2"),
 
     # Projects
+path("projects/rsa-algorithm/", views.rsa_project, name="rsa_project"),
     path("projects/concurrency/", views.concurrency, name="concurrency"),
     path("projects/nim-ai/", views.nim_ai, name="nim_ai"),
     path("projects/file-crud/", views.file_crud, name="file_crud"),
