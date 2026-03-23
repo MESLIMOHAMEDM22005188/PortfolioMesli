@@ -1,24 +1,59 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const mapBtn = {
-    'btn-cert':  'content-cert',
-    'btn-proj':  'content-proj',
-    'btn-soft': 'content-soft'
+// panels.js — gestion des 5 onglets
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // Mapping id-bouton → id-panel
+  const panels = {
+    cert:  { btn: "btn-cert",  content: "content-cert"  },
+    proj:  { btn: "btn-proj",  content: "content-proj"  },
+    soft:  { btn: "btn-soft",  content: "content-soft"  },
+    cyber: { btn: "btn-cyber", content: "content-cyber" },
+    algo:  { btn: "btn-algo",  content: "content-algo"  },
   };
 
-  function showPanel(id) {
-    document.querySelectorAll('.panel-content').forEach(el => el.style.display = 'none');
-    document.querySelectorAll('.panel-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(id).style.display = (id === 'content-proj') ? 'grid' : 'block';
+  function closeAll() {
+    Object.values(panels).forEach(({ btn, content }) => {
+      const b = document.getElementById(btn);
+      const c = document.getElementById(content);
+      if (b) b.classList.remove("active");
+      if (c) c.style.display = "none";
+    });
   }
 
-  Object.entries(mapBtn).forEach(([btnId, panelId]) => {
-    document.getElementById(btnId).addEventListener('click', () => {
-      showPanel(panelId);
-      document.getElementById(btnId).classList.add('active');
+  function openPanel(key) {
+    closeAll();
+    const { btn, content } = panels[key];
+    const b = document.getElementById(btn);
+    const c = document.getElementById(content);
+    if (b) b.classList.add("active");
+    if (c) {
+      // projects-grid panels use display:grid, others use display:block
+      c.style.display = c.classList.contains("projects-grid") ? "grid" : "block";
+    }
+  }
+
+  // Bind click on each button
+  Object.keys(panels).forEach(key => {
+    const btn = document.getElementById(panels[key].btn);
+    if (btn) btn.addEventListener("click", () => openPanel(key));
+  });
+
+  // ── Sliders (Softwares panel) ──────────────────────────
+  document.querySelectorAll(".slider-wrapper").forEach(wrapper => {
+    const track   = wrapper.querySelector(".slider-horizontal");
+    const prevBtn = wrapper.querySelector(".prev-btn");
+    const nextBtn = wrapper.querySelector(".next-btn");
+    if (!track) return;
+
+    const STEP = 200;
+
+    if (prevBtn) prevBtn.addEventListener("click", () => {
+      track.scrollBy({ left: -STEP, behavior: "smooth" });
+    });
+
+    if (nextBtn) nextBtn.addEventListener("click", () => {
+      track.scrollBy({ left: STEP, behavior: "smooth" });
     });
   });
 
-  // affichage par défaut
-  showPanel('content-proj');
-  document.getElementById('btn-proj').classList.add('active');
 });

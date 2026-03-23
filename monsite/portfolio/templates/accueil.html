@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   <script>
-    // Appliquer le thème stocké (dark/light)
     document.documentElement.setAttribute(
       "data-theme",
       localStorage.getItem("theme") || "light"
@@ -23,18 +22,17 @@
     <div class="left-side">
       <button id="theme-toggle" class="theme-toggle">🌙</button>
     </div>
-
     <nav class="nav-links">
       <a href="#about">About Me</a>
-      <a href="#skills">Projects</a>
+      <a href="#projects">Projects</a>
       <a href="#qualification">Qualification</a>
-      <a href="#portfolio">Portfolio</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <main>
-    <!-- Section About -->
+
+    <!-- ===== ABOUT ===== -->
     <section id="about" class="hero">
       <div class="socials">
         <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -46,10 +44,9 @@
         <h1>Hi, I'm <span>Mohamed</span></h1>
         <h2><span class="typing"></span></h2>
         <p>
-          I’ve been coding for over a year and a half. This website is the living
+          I've been coding for over a year and a half. This website is the living
           sketch of my progress. I develop both desktop and mobile applications,
-          and I'm always learning more. All my projects have been done in
-          Marseille.
+          and I'm always learning more. All my projects have been done in Marseille.
         </p>
         <button class="contact-btn">
           Contact Me <i class="fas fa-paper-plane"></i>
@@ -61,37 +58,34 @@
       </div>
     </section>
 
-    <!-- Section Projects avec 3 boutons et panels -->
+    <!-- ===== PROJECTS SECTION ===== -->
     <section id="projects">
+
+      <!-- 5 onglets -->
       <div class="panels-nav">
-        <button id="btn-cert" class="panel-btn">Certifications</button>
-        <button id="btn-proj" class="panel-btn">My Projects</button>
-        <button id="btn-soft" class="panel-btn">Softwares</button>
+        <button id="btn-cert"  class="panel-btn">Certifications</button>
+        <button id="btn-proj"  class="panel-btn">My Projects</button>
+        <button id="btn-soft"  class="panel-btn">Softwares</button>
+        <button id="btn-cyber" class="panel-btn">🔐 Cybersecurity</button>
+        <button id="btn-algo"  class="panel-btn">⚙️ Algorithms</button>
       </div>
 
-      <!-- Panel Certifications -->
-      <div class="panel-content" id="content-cert" style="display: none;">
+      <!-- ── Panel Certifications ── -->
+      <div class="panel-content" id="content-cert" style="display:none;">
         <ul class="cert-images">
-          <li><img src="{% static 'assets/images/OPB.png' %}" alt="OPB"></li>
-          <li><img src="{% static 'assets/images/eh.png' %}" alt="EH"></li>
-          <li><img src="{% static 'assets/images/iTC.png' %}" alt="ITC"></li>
-          <li><img src="{% static 'assets/images/forti.png' %}" alt="forti"></li>
-          <li><img src="{% static 'assets/images/forti2.png' %}" alt="forti2"></li>
+          <li><img src="{% static 'assets/images/OPB.png' %}"    alt="OPB"></li>
+          <li><img src="{% static 'assets/images/eh.png' %}"     alt="EH"></li>
+          <li><img src="{% static 'assets/images/iTC.png' %}"    alt="ITC"></li>
+          <li><img src="{% static 'assets/images/forti.png' %}"  alt="Forti"></li>
+          <li><img src="{% static 'assets/images/forti2.png' %}" alt="Forti2"></li>
         </ul>
       </div>
 
-      <div class="project-card project-card--cyber">
-  <img src="{% static 'assets/images/python.png' %}" alt="Python">
-  <span>CYBERSECURITY</span>
-  <h3>RSA Algorithm — From Scratch</h3>
-  <a href="{% url 'portfolio:rsa_project' %}" class="btn">See the project</a>
-</div>
-
-      <!-- Panel Projects -->
-      <div class="panel-content projects-grid" id="content-proj" style="display: none;">
+      <!-- ── Panel My Projects ── -->
+      <div class="panel-content projects-grid" id="content-proj" style="display:none;">
 
         <div class="project-card">
-          <img src="{% static 'assets/images/cpp.png' %}" alt="Python">
+          <img src="{% static 'assets/images/cpp.png' %}" alt="C++">
           <span>BACKEND</span>
           <h3>Concurrency, Synchronization, Performance</h3>
           <a href="{% url 'portfolio:concurrency' %}" class="btn">See the project</a>
@@ -140,7 +134,7 @@
         </div>
 
         <div class="project-card">
-          <img src="{% static 'assets/images/python.png' %}" alt="RUST">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
           <span>FULLSTACK</span>
           <h3>Cybersecurity Insights Platform</h3>
           <a href="{% url 'portfolio:cybersecurity_insights' %}" class="btn">See the project</a>
@@ -197,106 +191,93 @@
 
       </div>
 
-      <!-- Panel Softwares -->
-      <div class="panel-content" id="content-soft" style="display: none;">
-        <!-- ==== DEV APPLICATIONS ==== -->
+      <!-- ── Panel Softwares ── -->
+      <div class="panel-content" id="content-soft" style="display:none;">
+
         <div class="software-category">
           <h2 class="category-title">🛠️ DEV APPLICATIONS</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/phpstorm.png' %}" alt="PHPStorm"><span>PHPStorm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/phpstorm.png' %}"  alt="PHPStorm"><span>PHPStorm</span></div>
               <div class="slide"><img src="{% static 'assets/images/qtcreator.png' %}" alt="Qt Creator"><span>Qt Creator</span></div>
-              <div class="slide"><img src="{% static 'assets/images/webstorm.png' %}" alt="WebStorm"><span>WebStorm</span></div>
-              <div class="slide"><img src="{% static 'assets/images/vscode.png' %}" alt="VS Code"><span>VS Code</span></div>
-              <div class="slide"><img src="{% static 'assets/images/PyCharm.png' %}" alt="PyCharm"><span>PyCharm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/webstorm.png' %}"  alt="WebStorm"><span>WebStorm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/vscode.png' %}"    alt="VS Code"><span>VS Code</span></div>
+              <div class="slide"><img src="{% static 'assets/images/PyCharm.png' %}"   alt="PyCharm"><span>PyCharm</span></div>
             </div>
             <button class="slider-btn next-btn">❯</button>
           </div>
         </div>
 
-        <!-- ==== CYBERSECURITY TOOLS ==== -->
-<div class="software-category">
-  <h2 class="category-title">🔐 CYBERSECURITY TOOLS</h2>
+        <div class="software-category">
+          <h2 class="category-title">🔐 CYBERSECURITY TOOLS</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide cisco-card">
+                <img src="{% static 'assets/images/packet.png' %}" alt="Cisco Packet Tracer">
+                <span>Cisco Packet Tracer</span>
+                <a href="{% url 'portfolio:cisco_labs' %}" class="btn cisco-btn">View my labs</a>
+              </div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
 
-  <div class="slider-wrapper">
-    <button class="slider-btn prev-btn">❮</button>
-
-    <div class="slider-horizontal">
-      <div class="slide cisco-card">
-        <img src="{% static 'assets/images/packet.png' %}" alt="Cisco Packet Tracer">
-        <span>Cisco Packet Tracer</span>
-
-        <a href="{% url 'portfolio:cisco_labs' %}" class="btn cisco-btn">
-          View my labs & projects
-        </a>
-      </div>
-    </div>
-
-    <button class="slider-btn next-btn">❯</button>
-  </div>
-</div>
-
-
-        <!-- ==== MICROSOFT & OFFICE TOOLS ==== -->
         <div class="software-category">
           <h2 class="category-title">🪟 MICROSOFT & OFFICE TOOLS</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/windows.png' %}" alt="Windows"><span>Windows</span></div>
-              <div class="slide"><img src="{% static 'assets/images/word.png' %}" alt="Word"><span>Word</span></div>
-              <div class="slide"><img src="{% static 'assets/images/excel.png' %}" alt="Excel"><span>Excel</span></div>
+              <div class="slide"><img src="{% static 'assets/images/windows.png' %}"    alt="Windows"><span>Windows</span></div>
+              <div class="slide"><img src="{% static 'assets/images/word.png' %}"       alt="Word"><span>Word</span></div>
+              <div class="slide"><img src="{% static 'assets/images/excel.png' %}"      alt="Excel"><span>Excel</span></div>
               <div class="slide"><img src="{% static 'assets/images/powerpoint.png' %}" alt="PowerPoint"><span>PowerPoint</span></div>
             </div>
             <button class="slider-btn next-btn">❯</button>
           </div>
         </div>
 
-        <!-- ==== BASE DE DONNÉES ==== -->
         <div class="software-category">
           <h2 class="category-title">📦 BASE DE DONNÉES</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/mySql.png' %}" alt="MySQL"><span>MySQL</span></div>
-              <div class="slide"><img src="{% static 'assets/images/sqLite.png' %}" alt="SQLite"><span>SQLite</span></div>
+              <div class="slide"><img src="{% static 'assets/images/mySql.png' %}"      alt="MySQL"><span>MySQL</span></div>
+              <div class="slide"><img src="{% static 'assets/images/sqLite.png' %}"     alt="SQLite"><span>SQLite</span></div>
               <div class="slide"><img src="{% static 'assets/images/phpMyAdmin.png' %}" alt="phpMyAdmin"><span>phpMyAdmin</span></div>
             </div>
             <button class="slider-btn next-btn">❯</button>
           </div>
         </div>
 
-        <!-- ==== DÉPLOIEMENT & INFRASTRUCTURE ==== -->
         <div class="software-category">
           <h2 class="category-title">🚀 DÉPLOIEMENT & INFRASTRUCTURE</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/docker.png' %}" alt="Docker"><span>Docker</span></div>
-              <div class="slide"><img src="{% static 'assets/images/nginx.png' %}" alt="Nginx"><span>Nginx</span></div>
-              <div class="slide"><img src="{% static 'assets/images/heroku.png' %}" alt="Heroku"><span>Heroku</span></div>
-              <div class="slide"><img src="{% static 'assets/images/vercel.png' %}" alt="Vercel"><span>Vercel</span></div>
+              <div class="slide"><img src="{% static 'assets/images/docker.png' %}"  alt="Docker"><span>Docker</span></div>
+              <div class="slide"><img src="{% static 'assets/images/nginx.png' %}"   alt="Nginx"><span>Nginx</span></div>
+              <div class="slide"><img src="{% static 'assets/images/heroku.png' %}"  alt="Heroku"><span>Heroku</span></div>
+              <div class="slide"><img src="{% static 'assets/images/vercel.png' %}"  alt="Vercel"><span>Vercel</span></div>
             </div>
             <button class="slider-btn next-btn">❯</button>
           </div>
         </div>
 
-        <!-- ==== OUTILS DÉVELOPPEUR ==== -->
         <div class="software-category">
           <h2 class="category-title">🔧 OUTILS DÉVELOPPEUR</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/github.png' %}" alt="GitHub"><span>GitHub</span></div>
+              <div class="slide"><img src="{% static 'assets/images/github.png' %}"    alt="GitHub"><span>GitHub</span></div>
               <div class="slide"><img src="{% static 'assets/images/bitbucket.png' %}" alt="Bitbucket"><span>Bitbucket</span></div>
-              <div class="slide"><img src="{% static 'assets/images/netlify.png' %}" alt="Netlify"><span>Netlify</span></div>
+              <div class="slide"><img src="{% static 'assets/images/netlify.png' %}"   alt="Netlify"><span>Netlify</span></div>
             </div>
             <button class="slider-btn next-btn">❯</button>
           </div>
         </div>
 
-        <!-- ==== UX/UI DESIGN TOOLS ==== -->
         <div class="software-category">
           <h2 class="category-title">🎨 UX/UI DESIGN</h2>
           <div class="slider-wrapper">
@@ -308,13 +289,81 @@
             <button class="slider-btn next-btn">❯</button>
           </div>
         </div>
+
       </div>
+
+      <!-- ── Panel Cybersecurity (NOUVEAU) ── -->
+      <div class="panel-content projects-grid" id="content-cyber" style="display:none;">
+
+        <div class="project-card project-card--cyber">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>CRYPTOGRAPHY</span>
+          <h3>RSA Algorithm — From Scratch</h3>
+          <a href="{% url 'portfolio:rsa_project' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card project-card--cyber">
+          <img src="{% static 'assets/images/packet.png' %}" alt="Cisco">
+          <span>NETWORK</span>
+          <h3>Cisco Packet Tracer Labs</h3>
+          <a href="{% url 'portfolio:cisco_labs' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card project-card--cyber">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>PLATFORM</span>
+          <h3>Cybersecurity Insights Platform</h3>
+          <a href="{% url 'portfolio:cybersecurity_insights' %}" class="btn">See the project</a>
+        </div>
+
+      </div>
+
+      <!-- ── Panel Algorithms (NOUVEAU) ── -->
+      <div class="panel-content projects-grid" id="content-algo" style="display:none;">
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>AI · RL</span>
+          <h3>Reinforcement Learning – Nim AI</h3>
+          <a href="{% url 'portfolio:nim_ai' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>SIMULATION</span>
+          <h3>Solar System Simulation</h3>
+          <a href="{% url 'portfolio:solar_system' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/cpp.png' %}" alt="C++">
+          <span>BACKEND</span>
+          <h3>Concurrency, Synchronization, Performance</h3>
+          <a href="{% url 'portfolio:concurrency' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/ruby.png' %}" alt="Ruby">
+          <span>DATA</span>
+          <h3>CSV Earthquake Analyzer</h3>
+          <a href="{% url 'portfolio:earthquake_analyzer' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card project-card--cyber">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>CRYPTOGRAPHY</span>
+          <h3>RSA Algorithm — From Scratch</h3>
+          <a href="{% url 'portfolio:rsa_project' %}" class="btn">See the project</a>
+        </div>
+
+      </div>
+
     </section>
 
-    <!-- Section Qualification -->
+    <!-- ===== QUALIFICATION ===== -->
     <section id="qualification">
       <div class="timeline-nav">
-        <button id="edu-btn" class="timeline-btn">Education</button>
+        <button id="edu-btn"  class="timeline-btn">Education</button>
         <button id="work-btn" class="timeline-btn active">Work</button>
       </div>
 
@@ -327,7 +376,6 @@
             <span class="date">2022 – Today</span>
           </div>
         </div>
-
         <div class="timeline-item">
           <div class="dot"></div>
           <div class="content">
@@ -336,7 +384,6 @@
             <span class="date">2019 – 2022</span>
           </div>
         </div>
-
         <div class="timeline-item">
           <div class="dot"></div>
           <div class="content">
@@ -361,7 +408,6 @@
             <span class="date">2023</span>
           </div>
         </div>
-
         <div class="timeline-item">
           <div class="dot"></div>
           <div class="content">
@@ -376,7 +422,6 @@
             <span class="date">2024</span>
           </div>
         </div>
-
         <div class="timeline-item">
           <div class="dot"></div>
           <div class="content">
@@ -391,7 +436,6 @@
             <span class="date">August 2025</span>
           </div>
         </div>
-
         <div class="timeline-item">
           <div class="dot"></div>
           <div class="content">
@@ -405,7 +449,6 @@
             <span class="date">2025 – present</span>
           </div>
         </div>
-
         <div class="timeline-item">
           <div class="dot"></div>
           <div class="content">
@@ -423,7 +466,7 @@
       </div>
     </section>
 
-    <!-- Section Contact -->
+    <!-- ===== CONTACT ===== -->
     <section id="contact" class="contact-section">
       <div class="container">
         <h2>Contactez-moi</h2>
@@ -432,20 +475,16 @@
             <label for="name">Nom</label>
             <input type="text" id="name" name="name" placeholder="Votre nom" required>
           </div>
-
           <div class="form-group">
             <label for="email">E-mail</label>
             <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
           </div>
-
           <div class="form-group">
             <label for="message">Message</label>
             <textarea id="message" name="message" placeholder="Votre message…" rows="5" required></textarea>
           </div>
-
           <button type="submit" class="btn-primary">Envoyer</button>
         </form>
-
         <p class="redirect-note">
           En attendant, jetez un œil à
           <a href="{% url 'portfolio:mespetitscours' %}">Mes Petits Cours</a>
@@ -458,25 +497,6 @@
   <script src="{% static 'assets/js/theme.js' %}"></script>
   <script src="{% static 'assets/js/panels.js' %}"></script>
   <script src="{% static 'assets/js/timeline.js' %}"></script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll(".see-project-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const card = btn.closest(".project-card");
-          const title = card.querySelector("h3")?.textContent?.trim();
-
-          if (!title) {
-            alert("❌ Impossible de déterminer le projet");
-            return;
-          }
-
-          const url = "/project-detail/?title=" + encodeURIComponent(title);
-          window.open(url, "_blank", "width=1000,height=700,resizable=yes,scrollbars=yes");
-        });
-      });
-    });
-  </script>
 
 </body>
 </html>
