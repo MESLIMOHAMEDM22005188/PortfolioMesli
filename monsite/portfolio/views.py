@@ -107,7 +107,7 @@ def solar_system(request):
 def earthquake_analyzer(request):
     return render(request, 'projects/earthquake_analyzer.html')
 
-def rsa_project(request):
+def rsa_algorithm(request):
     logger.info("🚀 rsa_project view called")
     try:
         template_path = 'projects/rsa_project.html'

@@ -31,7 +31,6 @@ urlpatterns = [
     path("primaire/cm2/", views.cm2, name="cm2"),
 
     # Projects
-path("projects/rsa-algorithm/", views.rsa_project, name="rsa_project"),
     path("projects/concurrency/", views.concurrency, name="concurrency"),
     path("projects/nim-ai/", views.nim_ai, name="nim_ai"),
     path("projects/file-crud/", views.file_crud, name="file_crud"),
@@ -47,6 +46,7 @@ path("projects/rsa-algorithm/", views.rsa_project, name="rsa_project"),
     path("projects/taskflow-poo/", views.taskflow_poo, name="taskflow_poo"),
     path("projects/solar-system/", views.solar_system, name="solar_system"),
     path("projects/earthquake-analyzer/", views.earthquake_analyzer, name="earthquake_analyzer"),
+    path("projects/rsa-algorithm/", views.rsa_algorithm, name="rsa_algorithm"),
 
     path("project-detail/", views.project_detail, name="project_detail"),
     path("ticketHub/", views.ticketHub, name="ticketHub"),
