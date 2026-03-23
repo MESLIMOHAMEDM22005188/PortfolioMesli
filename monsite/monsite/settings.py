@@ -25,11 +25,10 @@ logger = logging.getLogger(__name__)
 # -----------------------
 SECRET_KEY = config('SECRET_KEY', default='dev-secret')
 DEBUG = config('DEBUG', default=True, cast=bool)
-
+ALLOWED_HOSTS = [h.strip() for h in config('ALLOWED_HOSTS', default='').split(',') if h.strip()]
 # -----------------------
 # Allowed hosts
 # -----------------------
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
 if DEBUG:
     ALLOWED_HOSTS += ['127.0.0.1', 'localhost']
