@@ -6,7 +6,7 @@ from . import views
 app_name = "portfolio"
 
 urlpatterns = [
-    path("", views.accueil, name="accueil"),
+    path("", views.accueil, name="portfolio:accueil"),
 
     # Cisco
     path("cisco-labs/", views.cisco_labs, name="cisco_labs"),
