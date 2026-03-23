@@ -7,8 +7,18 @@ import os
 from pathlib import Path
 from decouple import config
 import dj_database_url
+import logging
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# -----------------------
+# Logging simple pour debug serveur
+# -----------------------
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 # -----------------------
 # Security
@@ -21,19 +31,18 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 # -----------------------
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
-
 if DEBUG:
     ALLOWED_HOSTS += ['127.0.0.1', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = [
-    f"https://{h}" for h in ALLOWED_HOSTS if h and not h.startswith("http")
-]
+CSRF_TRUSTED_ORIGINS = []
+for h in ALLOWED_HOSTS:
+    if h and not h.startswith("http"):
+        CSRF_TRUSTED_ORIGINS.append(f"https://{h}")
 
 # -----------------------
 # Database
 # -----------------------
 DATABASE_URL = os.getenv("DATABASE_URL")
-
 if DATABASE_URL:
     DATABASES = {
         "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600)
@@ -61,7 +70,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'django.contrib.sites',
 
     'django_extensions',
@@ -72,7 +80,7 @@ INSTALLED_APPS = [
 # -----------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',   # ESSENTIEL POUR LES STATIQUES
+    'whitenoise.middleware.WhiteNoiseMiddleware',   # Essentiel pour les fichiers statiques
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -109,10 +117,7 @@ WSGI_APPLICATION = 'monsite.wsgi.application'
 # -----------------------
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# Important : dossier "static" global
 STATICFILES_DIRS = [BASE_DIR / "static"]
-
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # -----------------------
