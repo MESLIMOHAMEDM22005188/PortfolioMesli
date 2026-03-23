@@ -54,6 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (nextBtn) nextBtn.addEventListener("click", () => {
       track.scrollBy({ left: STEP, behavior: "smooth" });
     });
+    if (btn) btn.addEventListener("click", () => {
+  console.log("Clicked:", key);  // vérifie si btn-cyber est détecté
+  openPanel(key)
+});
   });
 
 });
