@@ -1,7 +1,9 @@
-from urllib import request
+from venv import logger
 
 from django.http import Http404
 from django.shortcuts import render
+import logging
+# Dictionnaire des projets pour project_detail
 PROJECTS = {
     "Concurrency, Synchronization, Performance": {
         "description": "Projet sur la concurrence en C++ avec gestion des threads.",
@@ -12,24 +14,21 @@ PROJECTS = {
         "hashtags": ["#C++", "#Multithreading", "#Performance"],
         "github": "https://github.com/moncompte/concurrency-project"
     },
-    # Tu pourras en ajouter d'autres ici
+    "RSA Algorithm — From Scratch": {
+        "description": "Projet de cryptographie RSA implémenté de A à Z en Python.",
+        "gallery": [
+            "assets/img/rsa1.png",
+            "assets/img/rsa2.png",
+        ],
+        "hashtags": ["#Python", "#Cryptography", "#RSA"],
+        "github": "https://github.com/moncompte/rsa-project"
+    },
+    # Ajoute d'autres projets ici si nécessaire
 }
 
-def rsa_project(request):
-    return render(request, "portfolio/rsa_project.html")
-def project_detail(request):
-    title = request.GET.get('title')
-    if not title or title not in PROJECTS:
-        raise Http404("Projet introuvable")
-
-    project = PROJECTS[title]
-    return render(request, 'project_detail.html', {
-        'title': title,
-        'description': project['description'],
-        'gallery': project['gallery'],
-        'hashtags': project['hashtags'],
-        'github': project['github']
-    })
+# =========================
+# Pages principales
+# =========================
 def accueil(request):
     return render(request, 'accueil.html')
 
@@ -41,6 +40,7 @@ def cisco_labs(request):
 
 def mesPetitsCours(request):
     return render(request, 'mesPetitsCours.html')
+
 def primaire(request):
     return render(request, 'primaire.html')
 
@@ -58,6 +58,10 @@ def cm1(request):
 
 def cm2(request):
     return render(request, 'cm2.html')
+
+# =========================
+# Projets
+# =========================
 def concurrency(request):
     return render(request, 'projects/concurrency.html')
 
@@ -102,3 +106,31 @@ def solar_system(request):
 
 def earthquake_analyzer(request):
     return render(request, 'projects/earthquake_analyzer.html')
+
+def rsa_project(request):
+    logger.info("🚀 rsa_project view called")
+    try:
+        template_path = 'projects/rsa_project.html'
+        logger.info(f"📄 Attempting to render template: {template_path}")
+        response = render(request, template_path)
+        logger.info("✅ Template rendered successfully")
+        return response
+    except Exception as e:
+        logger.error(f"❌ Error rendering rsa_project: {e}", exc_info=True)
+        raise
+# =========================
+# Vue générique pour un projet via GET param 'title'
+# =========================
+def project_detail(request):
+    title = request.GET.get('title')
+    if not title or title not in PROJECTS:
+        raise Http404("Projet introuvable")
+
+    project = PROJECTS[title]
+    return render(request, 'project_detail.html', {
+        'title': title,
+        'description': project['description'],
+        'gallery': project['gallery'],
+        'hashtags': project['hashtags'],
+        'github': project['github']
+    })
