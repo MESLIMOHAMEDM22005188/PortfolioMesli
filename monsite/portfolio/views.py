@@ -1,9 +1,10 @@
 from venv import logger
-
+import logging
 from django.http import Http404
 from django.shortcuts import render
-import logging
-# Dictionnaire des projets pour project_detail
+logger = logging.getLogger(__name__)
+def index(request):
+    return render(request, "index.html")
 PROJECTS = {
     "Concurrency, Synchronization, Performance": {
         "description": "Projet sur la concurrence en C++ avec gestion des threads.",
@@ -108,7 +109,7 @@ def earthquake_analyzer(request):
     return render(request, 'projects/earthquake_analyzer.html')
 
 def rsa_algorithm(request):
-    logger.info("🚀 rsa_project view called")
+    logger.info("🚀 rsa_algorithm view called")
     try:
         template_path = 'projects/rsa_project.html'
         logger.info(f"📄 Attempting to render template: {template_path}")
@@ -116,7 +117,7 @@ def rsa_algorithm(request):
         logger.info("✅ Template rendered successfully")
         return response
     except Exception as e:
-        logger.error(f"❌ Error rendering rsa_project: {e}", exc_info=True)
+        logger.error(f"❌ Error rendering rsa_algorithm: {e}", exc_info=True)
         raise
 # =========================
 # Vue générique pour un projet via GET param 'title'
