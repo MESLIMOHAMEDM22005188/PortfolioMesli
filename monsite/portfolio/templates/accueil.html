@@ -498,5 +498,95 @@
   <script src="{% static 'assets/js/panels.js' %}"></script>
   <script src="{% static 'assets/js/timeline.js' %}"></script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  console.log("Panels script loaded ✅");
+
+  const panels = {
+    cert:  { btn: "btn-cert",  content: "content-cert"  },
+    proj:  { btn: "btn-proj",  content: "content-proj"  },
+    soft:  { btn: "btn-soft",  content: "content-soft"  },
+    cyber: { btn: "btn-cyber", content: "content-cyber" },
+    algo:  { btn: "btn-algo",  content: "content-algo"  },
+  };
+
+  function closeAll() {
+    console.log("Closing all panels");
+    Object.values(panels).forEach(({ btn, content }) => {
+      const b = document.getElementById(btn);
+      const c = document.getElementById(content);
+      if (b) {
+        b.classList.remove("active");
+        console.log(`Removed active from button: ${btn}`);
+      }
+      if (c) {
+        c.style.display = "none";
+        console.log(`Hid content: ${content}`);
+      }
+    });
+  }
+
+  function openPanel(key) {
+    console.log("Opening panel:", key);
+    closeAll();
+    const { btn, content } = panels[key];
+    const b = document.getElementById(btn);
+    const c = document.getElementById(content);
+    if (b) {
+      b.classList.add("active");
+      console.log(`Activated button: ${btn}`);
+    }
+    if (c) {
+      if (c.classList.contains("projects-grid")) {
+        c.style.display = "grid";
+      } else {
+        c.style.display = "block";
+      }
+      console.log(`Displayed content: ${content}`);
+    }
+  }
+
+  // Bind click on each panel button
+  Object.keys(panels).forEach(key => {
+    const btn = document.getElementById(panels[key].btn);
+    if (btn) {
+      btn.addEventListener("click", () => {
+        console.log("Clicked panel button:", key);
+        openPanel(key);
+      });
+    } else {
+      console.warn(`Button not found: ${panels[key].btn}`);
+    }
+  });
+
+  // ── Sliders (Softwares panel) ──────────────────────────
+  document.querySelectorAll(".slider-wrapper").forEach(wrapper => {
+    const track   = wrapper.querySelector(".slider-horizontal");
+    const prevBtn = wrapper.querySelector(".prev-btn");
+    const nextBtn = wrapper.querySelector(".next-btn");
+
+    if (!track) {
+      console.warn("Slider track not found in wrapper", wrapper);
+      return;
+    }
+
+    const STEP = 200;
+
+    if (prevBtn) prevBtn.addEventListener("click", () => {
+      console.log("Slider prev clicked");
+      track.scrollBy({ left: -STEP, behavior: "smooth" });
+    });
+    else console.warn("Prev button not found in slider", wrapper);
+
+    if (nextBtn) nextBtn.addEventListener("click", () => {
+      console.log("Slider next clicked");
+      track.scrollBy({ left: STEP, behavior: "smooth" });
+    });
+    else console.warn("Next button not found in slider", wrapper);
+  });
+
+});
+</script>
 </body>
 </html>
