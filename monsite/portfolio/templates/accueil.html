@@ -1,49 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
 {% load static %}
-<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>RSA Project Debug</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
-        .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        img { width: 150px; margin: 10px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Mohamed – Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{% static 'assets/images/m.png' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <script>
+    document.documentElement.setAttribute(
+      "data-theme",
+      localStorage.getItem("theme") || "light"
+    );
+  </script>
 </head>
-<body>
-    <div class="container">
-        <h1>Projet RSA – Debug</h1>
-        <p>Si cette page s'affiche, le template fonctionne.</p>
 
-        <div class="gallery">
-            <img src="{% static 'assets/images/python.png' %}" alt="Python">
-            <img src="{% static 'assets/images/crypto.png' %}" alt="RSA Diagram">
-            <img src="{% static 'assets/images/keys.png' %}" alt="RSA Keys">
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="top-header">
+    <div class="left-side">
+      <button id="theme-toggle" class="theme-toggle">🌙</button>
+    </div>
+    <nav class="nav-links">
+      <a href="#about">About Me</a>
+      <a href="#projects">Projects</a>
+      <a href="#qualification">Qualification</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="hero">
+      <div class="socials">
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+
+      <div class="intro">
+        <h1>Hi, I'm <span>Mohamed</span></h1>
+        <h2><span class="typing"></span></h2>
+        <p>
+          I've been coding for over a year and a half. This website is the living
+          sketch of my progress. I develop both desktop and mobile applications,
+          and I'm always learning more. All my projects have been done in Marseille.
+        </p>
+        <button class="contact-btn">
+          Contact Me <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+
+      <div class="photo">
+        <img src="{% static 'assets/images/mohamed.png' %}" alt="Mohamed Mesli">
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS SECTION ===== -->
+    <section id="projects">
+
+      <!-- 5 onglets -->
+      <div class="panels-nav">
+        <button id="btn-cert"  class="panel-btn">Certifications</button>
+        <button id="btn-proj"  class="panel-btn">My Projects</button>
+        <button id="btn-soft"  class="panel-btn">Softwares</button>
+        <button id="btn-cyber" class="panel-btn">🔐 Cybersecurity</button>
+        <button id="btn-algo"  class="panel-btn">⚙️ Algorithms</button>
+      </div>
+
+      <!-- ── Panel Certifications ── -->
+      <div class="panel-content" id="content-cert" style="display:none;">
+        <ul class="cert-images">
+          <li><img src="{% static 'assets/images/OPB.png' %}"    alt="OPB"></li>
+          <li><img src="{% static 'assets/images/eh.png' %}"     alt="EH"></li>
+          <li><img src="{% static 'assets/images/iTC.png' %}"    alt="ITC"></li>
+          <li><img src="{% static 'assets/images/forti.png' %}"  alt="Forti"></li>
+          <li><img src="{% static 'assets/images/forti2.png' %}" alt="Forti2"></li>
+        </ul>
+      </div>
+
+      <!-- ── Panel My Projects ── -->
+      <div class="panel-content projects-grid" id="content-proj" style="display:none;">
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/cpp.png' %}" alt="C++">
+          <span>BACKEND</span>
+          <h3>Concurrency, Synchronization, Performance</h3>
+          <a href="{% url 'portfolio:concurrency' %}" class="btn">See the project</a>
         </div>
 
-        <p id="log-msg">Console debug activé...</p>
-    </div>
+        <div class="project-card">
+          <img src="{% static 'assets/images/django.png' %}" alt="Django">
+          <span>FULLSTACK</span>
+          <h3>Tickets Management System</h3>
+          <a href="{% url 'tickets:login' %}" class="btn">Open TicketHub</a>
+        </div>
 
-    <script>
-        console.log("✅ JS chargé correctement");
-        try {
-            console.log("🔹 Test variable:", window.someNonExistentVar);
-        } catch(e) {
-            console.error("Erreur JS détectée:", e);
-        }
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>BACKEND</span>
+          <h3>Reinforcement Learning – Nim AI</h3>
+          <a href="{% url 'portfolio:nim_ai' %}" class="btn">See the project</a>
+        </div>
 
-        document.addEventListener("DOMContentLoaded", () => {
-            console.log("📄 DOMContentLoaded");
-            const msg = document.getElementById("log-msg");
-            if (msg) {
-                msg.textContent += " | DOM ready!";
-                console.log("Message affiché dans la page:", msg.textContent);
-            }
-        });
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>BACKEND</span>
+          <h3>File CRUD Application</h3>
+          <a href="{% url 'portfolio:file_crud' %}" class="btn">See the project</a>
+        </div>
 
-        window.onerror = function(msg, url, lineNo, columnNo, error) {
-            console.error("💥 JS Error:", msg, "at", lineNo + ":" + columnNo);
-        };
-    </script>
+        <div class="project-card">
+          <img src="{% static 'assets/images/js.png' %}" alt="JavaScript">
+          <span>FRONTEND</span>
+          <h3>Tickethub UX Interface</h3>
+          <a href="{% url 'portfolio:tickethub_ui' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/php.png' %}" alt="PHP">
+          <span>FULLSTACK</span>
+          <h3>Social Network Platform</h3>
+          <a href="{% url 'portfolio:social_network' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/php.png' %}" alt="PHP">
+          <span>FULLSTACK</span>
+          <h3>Secretary Web App</h3>
+          <a href="{% url 'portfolio:secretary_app' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>FULLSTACK</span>
+          <h3>Cybersecurity Insights Platform</h3>
+          <a href="{% url 'portfolio:cybersecurity_insights' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>FULLSTACK</span>
+          <h3>Personal Portfolio Website</h3>
+          <a href="{% url 'portfolio:portfolio_site' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/c#.png' %}" alt="C#">
+          <span>FULLSTACK</span>
+          <h3>Task Management App</h3>
+          <a href="{% url 'portfolio:task_management' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/c#.png' %}" alt="C#">
+          <span>FULLSTACK</span>
+          <h3>SmartBudget Tracker</h3>
+          <a href="{% url 'portfolio:smartbudget_tracker' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/ruby.png' %}" alt="Ruby">
+          <span>BACKEND</span>
+          <h3>MailCLI Email Sender</h3>
+          <a href="{% url 'portfolio:mailcli_sender' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/js.png' %}" alt="JavaScript">
+          <span>FULLSTACK</span>
+          <h3>TaskFlow Task Manager – POO</h3>
+          <a href="{% url 'portfolio:taskflow_poo' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>BACKEND</span>
+          <h3>Solar System Simulation</h3>
+          <a href="{% url 'portfolio:solar_system' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/ruby.png' %}" alt="Ruby">
+          <span>BACKEND</span>
+          <h3>CSV Earthquake Analyzer</h3>
+          <a href="{% url 'portfolio:earthquake_analyzer' %}" class="btn">See the project</a>
+        </div>
+
+      </div>
+
+      <!-- ── Panel Softwares ── -->
+      <div class="panel-content" id="content-soft" style="display:none;">
+
+        <div class="software-category">
+          <h2 class="category-title">🛠️ DEV APPLICATIONS</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/phpstorm.png' %}"  alt="PHPStorm"><span>PHPStorm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/qtcreator.png' %}" alt="Qt Creator"><span>Qt Creator</span></div>
+              <div class="slide"><img src="{% static 'assets/images/webstorm.png' %}"  alt="WebStorm"><span>WebStorm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/vscode.png' %}"    alt="VS Code"><span>VS Code</span></div>
+              <div class="slide"><img src="{% static 'assets/images/PyCharm.png' %}"   alt="PyCharm"><span>PyCharm</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <div class="software-category">
+          <h2 class="category-title">🔐 CYBERSECURITY TOOLS</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide cisco-card">
+                <img src="{% static 'assets/images/packet.png' %}" alt="Cisco Packet Tracer">
+                <span>Cisco Packet Tracer</span>
+                <a href="{% url 'portfolio:cisco_labs' %}" class="btn cisco-btn">View my labs</a>
+              </div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <div class="software-category">
+          <h2 class="category-title">🪟 MICROSOFT & OFFICE TOOLS</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/windows.png' %}"    alt="Windows"><span>Windows</span></div>
+              <div class="slide"><img src="{% static 'assets/images/word.png' %}"       alt="Word"><span>Word</span></div>
+              <div class="slide"><img src="{% static 'assets/images/excel.png' %}"      alt="Excel"><span>Excel</span></div>
+              <div class="slide"><img src="{% static 'assets/images/powerpoint.png' %}" alt="PowerPoint"><span>PowerPoint</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <div class="software-category">
+          <h2 class="category-title">📦 BASE DE DONNÉES</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/mySql.png' %}"      alt="MySQL"><span>MySQL</span></div>
+              <div class="slide"><img src="{% static 'assets/images/sqLite.png' %}"     alt="SQLite"><span>SQLite</span></div>
+              <div class="slide"><img src="{% static 'assets/images/phpMyAdmin.png' %}" alt="phpMyAdmin"><span>phpMyAdmin</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <div class="software-category">
+          <h2 class="category-title">🚀 DÉPLOIEMENT & INFRASTRUCTURE</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/docker.png' %}"  alt="Docker"><span>Docker</span></div>
+              <div class="slide"><img src="{% static 'assets/images/nginx.png' %}"   alt="Nginx"><span>Nginx</span></div>
+              <div class="slide"><img src="{% static 'assets/images/heroku.png' %}"  alt="Heroku"><span>Heroku</span></div>
+              <div class="slide"><img src="{% static 'assets/images/vercel.png' %}"  alt="Vercel"><span>Vercel</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <div class="software-category">
+          <h2 class="category-title">🔧 OUTILS DÉVELOPPEUR</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/github.png' %}"    alt="GitHub"><span>GitHub</span></div>
+              <div class="slide"><img src="{% static 'assets/images/bitbucket.png' %}" alt="Bitbucket"><span>Bitbucket</span></div>
+              <div class="slide"><img src="{% static 'assets/images/netlify.png' %}"   alt="Netlify"><span>Netlify</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+        <div class="software-category">
+          <h2 class="category-title">🎨 UX/UI DESIGN</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/figma.png' %}" alt="Figma"><span>Figma</span></div>
+              <div class="slide"><img src="{% static 'assets/images/canva.png' %}" alt="Canva"><span>Canva</span></div>
+            </div>
+            <button class="slider-btn next-btn">❯</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Panel Cybersecurity (NOUVEAU) ── -->
+      <div class="panel-content projects-grid" id="content-cyber" style="display:none;">
+
+        <div class="project-card project-card--cyber">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>CRYPTOGRAPHY</span>
+          <h3>RSA Algorithm — From Scratch</h3>
+          <a href="{% url 'portfolio:rsa_project' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card project-card--cyber">
+          <img src="{% static 'assets/images/packet.png' %}" alt="Cisco">
+          <span>NETWORK</span>
+          <h3>Cisco Packet Tracer Labs</h3>
+          <a href="{% url 'portfolio:cisco_labs' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card project-card--cyber">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>PLATFORM</span>
+          <h3>Cybersecurity Insights Platform</h3>
+          <a href="{% url 'portfolio:cybersecurity_insights' %}" class="btn">See the project</a>
+        </div>
+
+      </div>
+
+      <!-- ── Panel Algorithms (NOUVEAU) ── -->
+      <div class="panel-content projects-grid" id="content-algo" style="display:none;">
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>AI · RL</span>
+          <h3>Reinforcement Learning – Nim AI</h3>
+          <a href="{% url 'portfolio:nim_ai' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>SIMULATION</span>
+          <h3>Solar System Simulation</h3>
+          <a href="{% url 'portfolio:solar_system' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/cpp.png' %}" alt="C++">
+          <span>BACKEND</span>
+          <h3>Concurrency, Synchronization, Performance</h3>
+          <a href="{% url 'portfolio:concurrency' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card">
+          <img src="{% static 'assets/images/ruby.png' %}" alt="Ruby">
+          <span>DATA</span>
+          <h3>CSV Earthquake Analyzer</h3>
+          <a href="{% url 'portfolio:earthquake_analyzer' %}" class="btn">See the project</a>
+        </div>
+
+        <div class="project-card project-card--cyber">
+          <img src="{% static 'assets/images/python.png' %}" alt="Python">
+          <span>CRYPTOGRAPHY</span>
+          <h3>RSA Algorithm — From Scratch</h3>
+          <a href="{% url 'portfolio:rsa_project' %}" class="btn">See the project</a>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===== QUALIFICATION ===== -->
+    <section id="qualification">
+      <div class="timeline-nav">
+        <button id="edu-btn"  class="timeline-btn">Education</button>
+        <button id="work-btn" class="timeline-btn active">Work</button>
+      </div>
+
+      <div id="timeline-edu" class="timeline">
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>University Bachelor of Technology</h3>
+            <p class="location">UIT – Aix-en-Provence, France</p>
+            <span class="date">2022 – Today</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>GCE A-Level</h3>
+            <p class="location">High School – Marseille, France</p>
+            <span class="date">2019 – 2022</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>GCSE (DNB)</h3>
+            <p class="location">Middle School – Marseille, France</p>
+            <span class="date">2015 – 2019</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="timeline-work" class="timeline active">
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>IT Maintenance Intern</h3>
+            <p class="location">
+              Duration: 2 months (2023)<br>
+              Responsibilities: maintaining and repairing office IT equipment<br>
+              Mission: ensure seamless operation of end-user workstations<br>
+              Learned: hardware troubleshooting techniques and user support best practices
+            </p>
+            <span class="date">2023</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Web Security & Deployment Intern</h3>
+            <p class="location">
+              Organization: Aix-Marseille University (AMU)<br>
+              Duration: Summer 2024 (internship)<br>
+              Responsibilities: deploying a secure web application and implementing message encryption<br>
+              Mission: build and launch a group-based social platform<br>
+              Learned: web security best practices, encryption methods and automated system monitoring
+            </p>
+            <span class="date">2024</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Cybersecurity Intern – Confidential Data Protection</h3>
+            <p class="location">
+              Organization: Airbus<br>
+              Duration: August 2025<br>
+              Responsibilities: securing confidential technical files and access-controlled data<br>
+              Mission: analyze risks related to sensitive file handling and implement protection measures<br>
+              Learned: enterprise-grade security constraints, data classification, confidentiality workflows
+            </p>
+            <span class="date">August 2025</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Python & Network Infrastructure Intern</h3>
+            <p class="location">
+              Duration: 2025 – present<br>
+              Responsibilities: developing a secure Python application and managing user accounts via Active Directory<br>
+              Mission: design and deploy a small-business network infrastructure; prototype a reinforcement-learning module<br>
+              Learned: advanced Python security, AD administration, network design principles and RL fundamentals
+            </p>
+            <span class="date">2025 – present</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Application Security – In-Proto Platform</h3>
+            <p class="location">
+              Organization: Aix-Marseille University (AMU)<br>
+              Duration: January 2026<br>
+              Responsibilities: securing the In-Proto application components and reducing exposed attack surface<br>
+              Mission: audit and harden sensitive routes and access control mechanisms; improve platform security posture<br>
+              Learned: application hardening, risk-based remediation, security-by-design constraints in real projects
+            </p>
+            <span class="date">January 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2>Contactez-moi</h2>
+        <form action="/MesPetisCours/" method="get" class="contact-form">
+          <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" placeholder="Votre nom" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Votre message…" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Envoyer</button>
+        </form>
+        <p class="redirect-note">
+          En attendant, jetez un œil à
+          <a href="{% url 'portfolio:mespetitscours' %}">Mes Petits Cours</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="{% static 'assets/js/theme.js' %}"></script>
+  <script src="{% static 'assets/js/timeline.js' %}"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  console.log("Panels script loaded ✅");
+
+  const panels = {
+    cert:  { btn: "btn-cert",  content: "content-cert"  },
+    proj:  { btn: "btn-proj",  content: "content-proj"  },
+    soft:  { btn: "btn-soft",  content: "content-soft"  },
+    cyber: { btn: "btn-cyber", content: "content-cyber" },
+    algo:  { btn: "btn-algo",  content: "content-algo"  },
+  };
+
+  function closeAll() {
+    console.log("Closing all panels");
+    Object.values(panels).forEach(({ btn, content }) => {
+      const b = document.getElementById(btn);
+      const c = document.getElementById(content);
+      if (b) {
+        b.classList.remove("active");
+        console.log(`Removed active from button: ${btn}`);
+      }
+      if (c) {
+        c.style.display = "none";
+        console.log(`Hid content: ${content}`);
+      }
+    });
+  }
+
+  function openPanel(key) {
+    console.log("Opening panel:", key);
+    closeAll();
+    const { btn, content } = panels[key];
+    const b = document.getElementById(btn);
+    const c = document.getElementById(content);
+    if (b) {
+      b.classList.add("active");
+      console.log(`Activated button: ${btn}`);
+    }
+    if (c) {
+      if (c.classList.contains("projects-grid")) {
+        c.style.display = "grid";
+      } else {
+        c.style.display = "block";
+      }
+      console.log(`Displayed content: ${content}`);
+    }
+  }
+
+  // Bind click on each panel button
+  Object.keys(panels).forEach(key => {
+    const btn = document.getElementById(panels[key].btn);
+    if (btn) {
+      btn.addEventListener("click", () => {
+        console.log("Clicked panel button:", key);
+        openPanel(key);
+      });
+    } else {
+      console.warn(`Button not found: ${panels[key].btn}`);
+    }
+  });
+
+  // ── Sliders (Softwares panel) ──────────────────────────
+  document.querySelectorAll(".slider-wrapper").forEach(wrapper => {
+    const track   = wrapper.querySelector(".slider-horizontal");
+    const prevBtn = wrapper.querySelector(".prev-btn");
+    const nextBtn = wrapper.querySelector(".next-btn");
+
+    if (!track) {
+      console.warn("Slider track not found in wrapper", wrapper);
+      return;
+    }
+
+    const STEP = 200;
+
+    if (prevBtn) prevBtn.addEventListener("click", () => {
+      console.log("Slider prev clicked");
+      track.scrollBy({ left: -STEP, behavior: "smooth" });
+    });
+    else console.warn("Prev button not found in slider", wrapper);
+
+    if (nextBtn) nextBtn.addEventListener("click", () => {
+      console.log("Slider next clicked");
+      track.scrollBy({ left: STEP, behavior: "smooth" });
+    });
+    else console.warn("Next button not found in slider", wrapper);
+  });
+
+});
+</script>
 </body>
 </html>
