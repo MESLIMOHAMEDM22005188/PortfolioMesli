@@ -2,33 +2,135 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>RSA Project</title>
+    <title>Cybersecurity Mini-Projects</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
-        h1 { color: #333; }
-        .gallery img { width: 200px; margin: 10px; border: 1px solid #ccc; }
-        .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        /* ===== Reset & Global ===== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #121212; color: #f4f4f4; line-height: 1.6; }
+        a { color: #ff79c6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ===== Container ===== */
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+
+        /* ===== Header ===== */
+        header { text-align: center; padding: 40px 20px; }
+        header h1 { font-size: 3rem; background: linear-gradient(90deg, #8be9fd, #ff79c6); -webkit-background-clip: text; color: transparent; }
+        header p { font-size: 1.2rem; margin-top: 10px; color: #bbbbbb; }
+
+        /* ===== Section ===== */
+        section { margin-top: 50px; }
+        section h2 { font-size: 2rem; margin-bottom: 20px; text-align: center; color: #50fa7b; }
+        section p { max-width: 800px; margin: 0 auto 20px; }
+
+        /* ===== Project Table ===== */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #333; padding: 12px 15px; text-align: left; }
+        th { background: #282a36; }
+        tr:nth-child(even) { background: #1e1f29; }
+
+        /* ===== Buttons ===== */
+        .btn { display: inline-block; margin-top: 10px; padding: 10px 20px; background: #6272a4; color: white; border-radius: 6px; transition: 0.3s; }
+        .btn:hover { background: #50fa7b; color: #121212; }
+
+        /* ===== Carousel for images ===== */
+        .carousel { display: flex; overflow-x: auto; gap: 20px; padding: 20px 0; scroll-behavior: smooth; }
+        .carousel img { width: 250px; border-radius: 12px; border: 2px solid #50fa7b; }
+        .carousel::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
+
+    <header>
+        <h1>Cybersecurity Mini-Projects (Enhanced Fork)</h1>
+        <p>License: MIT • Python Maintenance • Educational & Improved</p>
+    </header>
+
     <div class="container">
-        <h1>Projet RSA – From Scratch</h1>
-        <p>Bienvenue sur la page du projet RSA. Ici, vous pouvez voir quelques images et explications du projet.</p>
+        <section>
+            <h2>À propos de ce fork</h2>
+            <p>
+                Cette version améliorée du dépôt original “Cybersecurity-Mini-Projects” inclut des fonctionnalités supplémentaires, 
+                surtout pour le projet de keylogger. Les améliorations comprennent :
+            </p>
+            <ul>
+                <li>Chiffrement sécurisé des logs</li>
+                <li>Avertissements légaux pour la conformité</li>
+                <li>Code mieux structuré et documenté</li>
+                <li>Limites de temps et envoi sécurisé par e-mail</li>
+            </ul>
+        </section>
 
+        <section>
+            <h2>Présentation des Projets</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Projet</th>
+                        <th>Description</th>
+                        <th>Langage(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>RSA Algorithm</td>
+                        <td>Implémentation complète de RSA depuis zéro</td>
+                        <td>Python</td>
+                    </tr>
+                    <tr>
+                        <td>Keylogger (Éducatif)</td>
+                        <td>Keylogger amélioré avec fonctionnalités de sécurité</td>
+                        <td>Python</td>
+                    </tr>
+                    <tr>
+                        <td>Network Sniffer</td>
+                        <td>Scanner des appareils locaux du réseau</td>
+                        <td>Python</td>
+                    </tr>
+                    <tr>
+                        <td>Phishing Pages</td>
+                        <td>Simulation éducative de phishing</td>
+                        <td>HTML / PHP</td>
+                    </tr>
+                    <tr>
+                        <td>Steganography</td>
+                        <td>Implémentation LSB de stéganographie</td>
+                        <td>Python</td>
+                    </tr>
+                    <tr>
+                        <td>SSTI</td>
+                        <td>Exemple d’injection de template côté serveur</td>
+                        <td>Python / Flask</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-        <p>
-            Ce projet est un exemple de cryptographie RSA implémentée en Python.
-        </p>
+        <section>
+            <h2>Installation</h2>
+            <p>Cloner le dépôt et se placer dans le dossier :</p>
+            <pre><code>git clone https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects.git
+cd Cybersecurity-Mini-Projects</code></pre>
+            <a href="https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects" target="_blank" class="btn">Voir le dépôt GitHub</a>
+        </section>
 
-        <a href="https://github.com/moncompte/rsa-project" target="_blank">Voir le code sur GitHub</a>
+        <section>
+            <h2>Galerie</h2>
+            <div class="carousel">
+                <img src="assets/images/rsa1.png" alt="RSA Screenshot 1">
+                <img src="assets/images/keylogger.png" alt="Keylogger Screenshot">
+                <img src="assets/images/network_sniffer.png" alt="Network Sniffer Screenshot">
+                <img src="assets/images/phishing_page.png" alt="Phishing Page Screenshot">
+            </div>
+        </section>
     </div>
 
     <script>
-        console.log("✅ JS chargé pour RSA Project");
         document.addEventListener("DOMContentLoaded", () => {
-            console.log("📄 DOM ready pour RSA Project");
+            console.log("✅ Cybersecurity Mini-Projects page loaded");
         });
     </script>
+
 </body>
 </html>
