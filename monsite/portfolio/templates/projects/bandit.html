@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OverTheWire – Bandit Writeups</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --sidebar-bg: #0d1117;
+    --panel: #111820;
+    --border: #1e3a2a;
+    --green: #00ff88;
+    --green-dim: #00cc66;
+    --green-dark: #003d1a;
+    --cyan: #00e5ff;
+    --yellow: #ffd700;
+    --red: #ff4655;
+    --text: #c9d1d9;
+    --text-dim: #6e7a85;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-head: 'Orbitron', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Scanlines overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ===== SIDEBAR ===== */
+  #sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .sidebar-header {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--green);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  .logo span {
+    display: block;
+    color: var(--text-dim);
+    font-size: 9px;
+    letter-spacing: 3px;
+    margin-top: 4px;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 0;
+  }
+
+  .sidebar-nav::-webkit-scrollbar { width: 4px; }
+  .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+  .sidebar-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .nav-section-title {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    padding: 8px 20px 6px;
+    text-transform: uppercase;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-left: 2px solid transparent;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .nav-item:hover {
+    background: rgba(0,255,136,0.04);
+    color: var(--text);
+    border-left-color: var(--green-dim);
+  }
+
+  .nav-item.active {
+    background: rgba(0,255,136,0.08);
+    color: var(--green);
+    border-left-color: var(--green);
+  }
+
+  .nav-item .lvl-badge {
+    background: var(--green-dark);
+    color: var(--green);
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    min-width: 28px;
+    text-align: center;
+    font-family: var(--font-head);
+  }
+
+  .nav-item.active .lvl-badge {
+    background: var(--green);
+    color: var(--bg);
+  }
+
+  .nav-item .lvl-name {
+    font-size: 11px;
+  }
+
+  /* Status dot */
+  .nav-item .status {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    margin-left: auto;
+    box-shadow: 0 0 6px var(--green);
+    flex-shrink: 0;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  #main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+  }
+
+  #main::-webkit-scrollbar { width: 6px; }
+  #main::-webkit-scrollbar-track { background: transparent; }
+  #main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .level-page {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .level-page.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Top bar */
+  .topbar {
+    background: var(--sidebar-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .breadcrumb {
+    font-family: var(--font-head);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+  }
+
+  .breadcrumb span { color: var(--green); }
+
+  .level-title-bar {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 1px;
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+  .tag-green { color: var(--green); border-color: var(--green-dark); background: rgba(0,255,136,0.05); }
+  .tag-cyan { color: var(--cyan); border-color: rgba(0,229,255,0.2); background: rgba(0,229,255,0.05); }
+  .tag-yellow { color: var(--yellow); border-color: rgba(255,215,0,0.2); background: rgba(255,215,0,0.05); }
+
+  /* Page content */
+  .content {
+    padding: 32px;
+    max-width: 900px;
+  }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-family: var(--font-head);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Objective card */
+  .objective-card {
+    background: linear-gradient(135deg, rgba(0,255,136,0.06) 0%, rgba(0,229,255,0.03) 100%);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    border-radius: 6px;
+    padding: 18px 22px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .objective-card strong {
+    color: var(--green);
+  }
+
+  /* Theory block */
+  .theory-block {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 22px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .theory-block p { margin-bottom: 8px; }
+  .theory-block p:last-child { margin-bottom: 0; }
+
+  .highlight { color: var(--cyan); }
+  .hl-yellow { color: var(--yellow); }
+  .hl-green { color: var(--green); }
+  .hl-red { color: var(--red); }
+
+  /* Terminal block */
+  .terminal {
+    background: #050709;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .terminal-bar {
+    background: #0d1117;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .t-dot.red { background: #ff5f57; }
+  .t-dot.yellow { background: #ffbd2e; }
+  .t-dot.green { background: #28ca41; }
+
+  .t-title {
+    margin-left: 8px;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+
+  .terminal-body {
+    padding: 16px 20px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #7ec8a0;
+  }
+
+  .terminal-body .cmd::before { content: '$ '; color: var(--green); }
+  .terminal-body .cmd { color: #e0e0e0; }
+  .terminal-body .output { color: #7ec8a0; padding-left: 0; display: block; }
+  .terminal-body .comment { color: var(--text-dim); }
+  .terminal-body .prompt { color: var(--green-dim); }
+
+  /* Step list */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+  }
+
+  .step-num {
+    font-family: var(--font-head);
+    font-size: 11px;
+    color: var(--green);
+    background: var(--green-dark);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-content {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .step-content strong {
+    color: var(--cyan);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Password reveal */
+  .password-box {
+    background: linear-gradient(135deg, #001a0d, #00120a);
+    border: 1px solid var(--green-dim);
+    border-radius: 8px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 0 20px rgba(0,255,136,0.08), inset 0 1px 0 rgba(0,255,136,0.1);
+  }
+
+  .password-label {
+    font-family: var(--font-head);
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .password-value {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--green);
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px rgba(0,255,136,0.4);
+  }
+
+  .copy-btn {
+    background: var(--green-dark);
+    border: 1px solid var(--green-dim);
+    color: var(--green);
+    font-family: var(--font-head);
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .copy-btn:hover {
+    background: rgba(0,255,136,0.15);
+    box-shadow: 0 0 10px rgba(0,255,136,0.2);
+  }
+
+  .copy-btn.copied {
+    color: var(--yellow);
+    border-color: var(--yellow);
+    background: rgba(255,215,0,0.08);
+  }
+
+  /* Learned boxes */
+  .learned-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+  }
+
+  .learned-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .learned-card .lc-icon {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .learned-card .lc-title {
+    color: var(--cyan);
+    font-family: var(--font-head);
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  /* SSH command box */
+  .ssh-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-size: 13px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 0;
+    align-items: center;
+  }
+
+  .ssh-box .s-label {
+    color: var(--text-dim);
+    font-size: 11px;
+    width: 100%;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* Info grid */
+  .info-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .info-chip {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .info-chip .ic-key { color: var(--text-dim); }
+  .info-chip .ic-val { color: var(--cyan); }
+
+  /* Scrollbar */
+  #main::-webkit-scrollbar { width: 5px; }
+
+  /* Responsive sidebar collapse */
+  @media (max-width: 700px) {
+    #sidebar { width: 58px; min-width: 58px; }
+    .nav-item .lvl-name, .nav-item .status, .sidebar-header .logo span, .nav-section-title { display: none; }
+    .logo { font-size: 8px; }
+    .nav-item { padding: 10px; justify-content: center; }
+    .nav-item .lvl-badge { min-width: auto; }
+    .content { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">
+      BANDIT
+      <span>OVERTHEWIRE · CTF</span>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section-title">Niveaux</div>
+    <!-- Nav items generated by JS -->
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+
+  <!-- ====== LEVEL 0 ====== -->
+  <div class="level-page active" data-level="0">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="breadcrumb">BANDIT <span>/ NIVEAU 0</span></div>
+      </div>
+      <div class="topbar-right">
+        <span class="tag tag-green">SSH</span>
+        <span class="tag tag-green">DÉBUTANT</span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">
+          Se connecter au serveur OverTheWire via <strong>SSH</strong> et lire le fichier <strong>readme</strong> pour obtenir le mot de passe du niveau suivant.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Théorie – SSH</div>
+        <div class="theory-block">
+          <p><span class="highlight">SSH</span> (Secure Shell) est un protocole réseau qui permet de se connecter à un ordinateur distant de manière chiffrée et sécurisée.</p>
+          <p>Le <span class="hl-yellow">port standard</span> est le <strong>22</strong>, mais ici OverTheWire utilise le port <strong class="hl-green">2220</strong>.</p>
+          <p>Un port, c'est comme un <span class="highlight">numéro de bureau dans un bâtiment</span> : il indique à l'ordinateur quel service utiliser (SSH, HTTP, FTP…).</p>
+          <p>Syntaxe : <span class="hl-green">ssh utilisateur@hôte -p port</span></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Connexion</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bash</span></div>
+          <div class="terminal-body">
+            <div class="cmd">ssh bandit0@bandit.labs.overthewire.org -p 2220</div>
+            <span class="output prompt">bandit0@bandit:~$ <span style="color:var(--text-dim)">mot de passe : bandit0</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Étapes</div>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Lister les fichiers</strong>On tape <span class="hl-green">ls</span> et on trouve un fichier <span class="highlight">readme</span>.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Lire le fichier</strong>On tape <span class="hl-green">cat readme</span> et le mot de passe apparaît.</div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit0@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">ls</div>
+            <span class="output">readme</span>
+            <div class="cmd">cat readme</div>
+            <span class="output hl-green">ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 1</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, 'ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If')">Copier</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Ce que j'ai appris</div>
+        <div class="learned-grid">
+          <div class="learned-card"><span class="lc-icon">🔌</span><div class="lc-title">SSH</div>Protocole de connexion à distance sécurisée. Syntaxe : <span class="hl-green">ssh user@host -p port</span></div>
+          <div class="learned-card"><span class="lc-icon">📂</span><div class="lc-title">ls / cat</div>Commandes de base Linux pour lister et lire les fichiers.</div>
+          <div class="learned-card"><span class="lc-icon">🚪</span><div class="lc-title">Ports réseau</div>Numéro identifiant un service sur un serveur. Le port 2220 ici à la place du 22.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 1 ====== -->
+  <div class="level-page" data-level="1">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 1</span></div></div>
+      <div class="topbar-right"><span class="tag tag-green">FICHIER SPÉCIAL</span><span class="tag tag-cyan">TIRET</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Lire le contenu d'un fichier dont le nom est <strong>-</strong> (un simple tiret), ce qui est piégeux car le shell confond ce nom avec une option de commande.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Exploration</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit1@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">ls -la</div>
+            <span class="output">-rw-r----- 1 bandit2 bandit1 33 Oct 14 09:26 <span class="hl-yellow">-</span></span>
+            <span class="output">drwxr-xr-x 2 root root 4096 . ..</span>
+            <div class="cmd" style="margin-top:10px">cat -</div>
+            <span class="output hl-red"># ❌ Ne fonctionne pas ! Le shell attend une option.</span>
+            <div class="cmd">cat ./-</div>
+            <span class="output hl-green">263JGJPfgU6LtdEvgfWU1XP5yac29mFx</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Pourquoi ./ ?</div>
+        <div class="theory-block">
+          <p>Quand on tape <span class="hl-red">cat -</span>, le shell pense que <strong>-</strong> est une <span class="highlight">option de commande</span> (comme <code>-v</code>, <code>-n</code>…) et attend une entrée sur stdin.</p>
+          <p>En préfixant par <span class="hl-green">./</span>, on force le shell à interpréter <span class="hl-green">./-</span> comme un <span class="highlight">chemin relatif vers un fichier</span>.</p>
+          <p>Le <span class="hl-yellow">.</span> signifie "le répertoire courant", donc <span class="hl-green">./fichier</span> = "le fichier dans le dossier où je suis".</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 2</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">263JGJPfgU6LtdEvgfWU1XP5yac29mFx</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, '263JGJPfgU6LtdEvgfWU1XP5yac29mFx')">Copier</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Ce que j'ai appris</div>
+        <div class="learned-grid">
+          <div class="learned-card"><span class="lc-icon">⚡</span><div class="lc-title">Fichiers "-"</div>Les fichiers commençant par <span class="hl-yellow">-</span> doivent être référencés avec <span class="hl-green">./</span>.</div>
+          <div class="learned-card"><span class="lc-icon">🔍</span><div class="lc-title">Permissions</div><span class="highlight">rw-r-----</span> : lisible uniquement par bandit2, crucial de comprendre les droits.</div>
+          <div class="learned-card"><span class="lc-icon">📁</span><div class="lc-title">Chemins relatifs</div><span class="hl-green">./</span> = répertoire courant. Indispensable pour les noms de fichiers spéciaux.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 2 ====== -->
+  <div class="level-page" data-level="2">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 2</span></div></div>
+      <div class="topbar-right"><span class="tag tag-yellow">ESPACES</span><span class="tag tag-green">ÉCHAPPEMENT</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Lire un fichier dont le nom contient des <strong>espaces</strong> : <span class="highlight">--spaces in this filename--</span>. Les espaces sont des caractères spéciaux en shell.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Le problème avec les espaces</div>
+        <div class="theory-block">
+          <p>En shell, les espaces <span class="hl-red">séparent les arguments</span>. Si tu tapes <span class="hl-red">cat --spaces in this filename--</span>, le shell croit que tu lui passes <strong>4 fichiers différents</strong> : <code>--spaces</code>, <code>in</code>, <code>this</code>, <code>filename--</code>.</p>
+          <p>Pour lire un fichier avec des espaces, deux solutions :</p>
+          <p>1. Échapper chaque espace avec <span class="hl-green">\</span> : <code>cat ./--spaces\ in\ this\ filename--</code></p>
+          <p>2. Entourer le nom de guillemets : <code>cat "./--spaces in this filename--"</code></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit2@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">ls</div>
+            <span class="output hl-yellow">--spaces in this filename--</span>
+            <div class="cmd">cat ./--spaces\ in\ this\ filename--</div>
+            <span class="output hl-green">MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx</span>
+            <span class="comment"># Ou avec guillemets :</span>
+            <div class="cmd">cat "./--spaces in this filename--"</div>
+            <span class="output hl-green">MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 3</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, 'MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 3 ====== -->
+  <div class="level-page" data-level="3">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 3</span></div></div>
+      <div class="topbar-right"><span class="tag tag-cyan">FICHIERS CACHÉS</span><span class="tag tag-green">ls -la</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Trouver un <strong>fichier caché</strong> dans le répertoire <span class="highlight">inhere</span>. Sous Linux, un fichier est caché si son nom commence par un point <strong>.</strong></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Fichiers cachés sous Linux</div>
+        <div class="theory-block">
+          <p>Sous Linux, tout fichier dont le nom commence par <span class="hl-yellow">.</span> est <span class="highlight">invisible</span> avec <code>ls</code> classique.</p>
+          <p>Pour les voir, il faut utiliser <span class="hl-green">ls -a</span> (all) ou <span class="hl-green">ls -la</span> (all + détails).</p>
+          <p>Exemples connus : <code>.bashrc</code>, <code>.profile</code>, <code>.ssh</code>…</p>
+          <p>Ici, le fichier s'appelle <span class="hl-yellow">...Hiding-From-You</span> — trois points puis le nom !</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit3@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">ls</div>
+            <span class="output">inhere</span>
+            <div class="cmd">cd inhere/</div>
+            <div class="cmd">ls</div>
+            <span class="output hl-red"># Rien ! Le fichier est caché.</span>
+            <div class="cmd">ls -la</div>
+            <span class="output">total 12</span>
+            <span class="output">drwxr-xr-x 2 root root 4096 .</span>
+            <span class="output hl-yellow">-rw-r----- 1 bandit4 bandit3 33 Oct 14 09:26 ...Hiding-From-You</span>
+            <div class="cmd">cat ./...Hiding-From-You</div>
+            <span class="output hl-green">2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 4</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, '2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 4 ====== -->
+  <div class="level-page" data-level="4">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 4</span></div></div>
+      <div class="topbar-right"><span class="tag tag-cyan">COMMANDE FILE</span><span class="tag tag-yellow">ASCII VS BINARY</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Parmi 10 fichiers (<span class="highlight">-file00 à -file09</span>), un seul contient du texte lisible (ASCII). Les autres contiennent des données binaires. Il faut identifier le bon.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">La commande file</div>
+        <div class="theory-block">
+          <p>La commande <span class="hl-green">file</span> analyse le contenu d'un fichier et indique son type réel (peu importe l'extension).</p>
+          <p>Elle répond par exemple : <span class="highlight">ASCII text</span>, <span class="hl-red">data</span>, <span class="hl-yellow">gzip compressed</span>…</p>
+          <p>On peut l'appliquer à tous les fichiers d'un coup avec le wildcard <span class="hl-green">*</span> : <code>file ./*</code></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit4@bandit:~/inhere</span></div>
+          <div class="terminal-body">
+            <div class="cmd">file ./*</div>
+            <span class="output">./-file00: <span class="hl-red">data</span></span>
+            <span class="output">./-file01: <span class="hl-red">data</span></span>
+            <span class="output">./-file02: <span class="hl-red">data</span></span>
+            <span class="output">./-file03: <span class="hl-red">data</span></span>
+            <span class="output">./-file04: <span class="hl-red">data</span></span>
+            <span class="output">./-file05: <span class="hl-red">data</span></span>
+            <span class="output">./-file06: <span class="hl-red">data</span></span>
+            <span class="output">./-file07: <span class="hl-green">ASCII text</span>  ← ✅</span>
+            <span class="output">./-file08: <span class="hl-red">data</span></span>
+            <span class="output">./-file09: <span class="hl-red">data</span></span>
+            <div class="cmd">cat ./-file07</div>
+            <span class="output hl-green">4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 5</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, '4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 5 ====== -->
+  <div class="level-page" data-level="5">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 5</span></div></div>
+      <div class="topbar-right"><span class="tag tag-cyan">FIND</span><span class="tag tag-yellow">-SIZE</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Trouver un fichier dans 20 sous-dossiers (<span class="highlight">maybehere00 à maybehere19</span>) qui est lisible et fait exactement <strong>1033 bytes</strong>.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">La commande find</div>
+        <div class="theory-block">
+          <p><span class="hl-green">find</span> est une commande puissante pour chercher des fichiers selon des critères : nom, taille, permissions, propriétaire…</p>
+          <p>Ici on utilise :</p>
+          <p><span class="hl-green">-readable</span> : le fichier est lisible par l'utilisateur courant</p>
+          <p><span class="hl-green">-size 1033c</span> : taille de 1033 <span class="highlight">c</span>aractères/bytes (le <code>c</code> = bytes)</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit5@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">ls inhere/</div>
+            <span class="output">maybehere00 maybehere01 … maybehere19</span>
+            <div class="cmd">find . -readable -size 1033c</div>
+            <span class="output hl-yellow">./inhere/maybehere07/.file2</span>
+            <div class="cmd">cat ./inhere/maybehere07/.file2</div>
+            <span class="output hl-green">HWasnPhtq9AVKe0dmk45nxy20cvUa6EG</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 6</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">HWasnPhtq9AVKe0dmk45nxy20cvUa6EG</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, 'HWasnPhtq9AVKe0dmk45nxy20cvUa6EG')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 6 ====== -->
+  <div class="level-page" data-level="6">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 6</span></div></div>
+      <div class="topbar-right"><span class="tag tag-cyan">FIND AVANCÉ</span><span class="tag tag-yellow">-USER -GROUP</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Trouver un fichier n'importe où sur le système appartenant à <strong>l'utilisateur bandit7</strong> et au <strong>groupe bandit6</strong>, faisant <strong>33 bytes</strong>.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Find dans tout le système</div>
+        <div class="theory-block">
+          <p>On lance <span class="hl-green">find /</span> pour chercher depuis la racine du système entier.</p>
+          <p><span class="hl-green">-type f</span> : on cherche uniquement des fichiers (pas des dossiers)</p>
+          <p><span class="hl-green">-user bandit7</span> : appartenant à l'utilisateur bandit7</p>
+          <p><span class="hl-green">-group bandit6</span> : appartenant au groupe bandit6</p>
+          <p><span class="hl-green">-size 33c</span> : 33 bytes exactement</p>
+          <p>On ajoute <span class="hl-yellow">2>/dev/null</span> pour masquer les erreurs "Permission denied".</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit6@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">find / -type f -user bandit7 -group bandit6 -size 33c 2>/dev/null</div>
+            <span class="output hl-yellow">/var/lib/dpkg/info/bandit7.password</span>
+            <div class="cmd">cat /var/lib/dpkg/info/bandit7.password</div>
+            <span class="output hl-green">morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 7</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, 'morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 7 ====== -->
+  <div class="level-page" data-level="7">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 7</span></div></div>
+      <div class="topbar-right"><span class="tag tag-cyan">GREP</span><span class="tag tag-yellow">PIPE |</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Le mot de passe est stocké dans <span class="highlight">data.txt</span> à côté du mot <strong>"millionth"</strong>. Le fichier contient des milliers de lignes.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">grep + pipe</div>
+        <div class="theory-block">
+          <p><span class="hl-green">grep</span> cherche un motif dans un texte ou un fichier. Ici on cherche le mot "millionth".</p>
+          <p>Le <span class="hl-yellow">|</span> (pipe) redirige la sortie d'une commande vers l'entrée d'une autre.</p>
+          <p><span class="hl-green">cat data.txt | grep millionth</span> = affiche les lignes de data.txt qui contiennent "millionth".</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit7@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">cat data.txt | grep millionth</div>
+            <span class="output">millionth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hl-green">dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 8</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, 'dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 8 ====== -->
+  <div class="level-page" data-level="8">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 8</span></div></div>
+      <div class="topbar-right"><span class="tag tag-cyan">SORT</span><span class="tag tag-yellow">UNIQ -U</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Le mot de passe est la seule ligne qui <strong>apparaît une seule fois</strong> dans <span class="highlight">data.txt</span>. Toutes les autres lignes sont dupliquées.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">sort + uniq</div>
+        <div class="theory-block">
+          <p><span class="hl-green">sort</span> trie les lignes alphabétiquement. Nécessaire avant uniq car uniq ne repère les doublons que sur des lignes consécutives.</p>
+          <p><span class="hl-green">uniq -u</span> affiche uniquement les lignes <span class="highlight">uniques</span> (qui n'ont pas de doublon). Le <code>-u</code> = unique.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit8@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">sort data.txt | uniq -u</div>
+            <span class="output hl-green">4CKMh1JI91bUIZZPXDqGanal4xvAg0JM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 9</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">4CKMh1JI91bUIZZPXDqGanal4xvAg0JM</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, '4CKMh1JI91bUIZZPXDqGanal4xvAg0JM')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 9 ====== -->
+  <div class="level-page" data-level="9">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 9</span></div></div>
+      <div class="topbar-right"><span class="tag tag-cyan">STRINGS</span><span class="tag tag-yellow">GREP ==</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Le mot de passe est dans <span class="highlight">data.txt</span> (fichier binaire) et est précédé de plusieurs caractères <strong>=</strong>. Il faut extraire les chaînes lisibles du binaire.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">strings</div>
+        <div class="theory-block">
+          <p><span class="hl-green">strings</span> extrait toutes les <span class="highlight">chaînes de caractères lisibles</span> d'un fichier binaire. Très utile en reverse engineering.</p>
+          <p>On filtre ensuite avec <span class="hl-green">grep "=="</span> pour trouver la ligne contenant les signes <code>==</code>.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit9@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">strings data.txt | grep "=="</div>
+            <span class="output hl-yellow">========== the</span>
+            <span class="output hl-yellow">========== password</span>
+            <span class="output hl-yellow">========== is</span>
+            <span class="output">========== <span class="hl-green">FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 10</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, 'FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 10 ====== -->
+  <div class="level-page" data-level="10">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 10</span></div></div>
+      <div class="topbar-right"><span class="tag tag-yellow">BASE64</span><span class="tag tag-cyan">DÉCODAGE</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Le fichier <span class="highlight">data.txt</span> contient des données encodées en <strong>Base64</strong>. Il faut les décoder pour obtenir le mot de passe.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Qu'est-ce que Base64 ?</div>
+        <div class="theory-block">
+          <p><span class="hl-green">Base64</span> est un encodage (pas un chiffrement !) qui transforme n'importe quelle donnée binaire en une chaîne de caractères alphanumériques.</p>
+          <p>Une chaîne Base64 se reconnaît souvent par ses <span class="hl-yellow">= ou ==</span> à la fin (padding).</p>
+          <p>Pour décoder : <span class="hl-green">base64 -d fichier</span> ou <span class="hl-green">echo "chaine" | base64 -d</span></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit10@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">cat data.txt</div>
+            <span class="output hl-yellow">VGhlIHBhc3N3b3JkIGlzIGR0UjE3M2ZaS2IwUlJzREZTR3NnMlJXbnBOVmozcVJyCg==</span>
+            <div class="cmd">base64 -d data.txt</div>
+            <span class="output">The password is <span class="hl-green">dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 11</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, 'dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 11 ====== -->
+  <div class="level-page" data-level="11">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 11</span></div></div>
+      <div class="topbar-right"><span class="tag tag-yellow">ROT13</span><span class="tag tag-cyan">TR</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Le fichier <span class="highlight">data.txt</span> contient du texte chiffré en <strong>ROT13</strong> (rotation de 13 lettres de l'alphabet). Il faut le déchiffrer avec la commande <strong>tr</strong>.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">ROT13</div>
+        <div class="theory-block">
+          <p><span class="hl-green">ROT13</span> est un chiffrement par substitution très simple : chaque lettre est remplacée par la lettre 13 positions plus loin dans l'alphabet.</p>
+          <p>Exemple : A→N, B→O, N→A… C'est son propre inverse (appliquer ROT13 deux fois = texte d'origine).</p>
+          <p>Sous Linux, on utilise <span class="hl-green">tr</span> (translate) pour remplacer des caractères :</p>
+          <p><code>tr 'A-Za-z' 'N-ZA-Mn-za-m'</code> = décale toutes les lettres de 13 positions.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit11@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">cat data.txt</div>
+            <span class="output hl-yellow">Gur cnffjbeq vf 7k16JArUVv5LxVuJfsSVdbbtaHGlw9D4</span>
+            <div class="cmd">cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'</div>
+            <span class="output">The password is <span class="hl-green">7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 12</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, '7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 12 ====== -->
+  <div class="level-page" data-level="12">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 12</span></div></div>
+      <div class="topbar-right"><span class="tag tag-red" style="color:var(--red);border-color:rgba(255,70,85,0.3);background:rgba(255,70,85,0.05);">AVANCÉ</span><span class="tag tag-yellow">HEXDUMP + MULTI-COMPRESSION</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Le fichier <span class="highlight">data.txt</span> est un <strong>hexdump</strong> d'un fichier qui a été compressé plusieurs fois (gzip, bzip2, tar). Il faut décompresser toutes les couches pour obtenir le mot de passe.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Concepts clés</div>
+        <div class="theory-block">
+          <p><span class="hl-green">xxd -r</span> : Convertit un hexdump en binaire.</p>
+          <p><span class="hl-yellow">gzip / bzip2 / tar</span> : Formats de compression et d'archivage courants sous Linux.</p>
+          <p><span class="hl-green">file</span> : Identifie le type réel du fichier après chaque décompression.</p>
+          <p>Astuce : travailler dans <code>/tmp</code> car <code>/home/bandit12</code> est en lecture seule.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Chaîne de décompression</div>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Créer un espace de travail</strong><code>mkdir /tmp/work && cd /tmp/work && cp ~/data.txt .</code></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Hexdump → binaire</strong><code>xxd -r data.txt > data</code> → type : <span class="hl-yellow">gzip</span></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Décompresser gzip</strong><code>mv data data.gz && gzip -d data.gz</code> → type : <span class="hl-yellow">tar</span></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Extraire tar → data5.bin</strong><code>tar -xf data</code> → type : <span class="hl-yellow">tar</span></div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-content"><strong>Extraire tar → data6.bin</strong><code>tar -xf data5.bin</code> → type : <span class="hl-yellow">bzip2</span></div></div>
+          <div class="step"><div class="step-num">6</div><div class="step-content"><strong>Décompresser bzip2</strong><code>bzip2 -d data6.bin</code> → type : <span class="hl-yellow">tar</span></div></div>
+          <div class="step"><div class="step-num">7</div><div class="step-content"><strong>Extraire tar → data8.bin</strong><code>tar -xf data6</code> → type : <span class="hl-yellow">gzip</span></div></div>
+          <div class="step"><div class="step-num">8</div><div class="step-content"><strong>Décompresser gzip final</strong><code>mv data8.bin data8.gz && gzip -d data8.gz</code> → <span class="hl-green">ASCII text !</span></div></div>
+          <div class="step"><div class="step-num">9</div><div class="step-content"><strong>Lire le mot de passe</strong><code>cat data8</code></div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 13</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, 'wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 13 ====== -->
+  <div class="level-page" data-level="13">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 13</span></div></div>
+      <div class="topbar-right"><span class="tag tag-cyan">CLÉ SSH PRIVÉE</span><span class="tag tag-yellow">ssh -i</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Au lieu d'un mot de passe, le niveau 13 fournit une <strong>clé privée SSH</strong> (<span class="highlight">sshkey.private</span>) pour se connecter directement en tant que bandit14.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Authentification par clé SSH</div>
+        <div class="theory-block">
+          <p>SSH peut s'authentifier de deux façons : avec un <span class="hl-yellow">mot de passe</span> ou avec une <span class="hl-green">paire de clés cryptographiques</span>.</p>
+          <p>La clé privée (<code>.private</code>) reste sur ton machine, la clé publique est sur le serveur.</p>
+          <p>Le flag <span class="hl-green">-i</span> permet de spécifier le fichier de clé privée : <code>ssh -i cle.private user@host</code></p>
+          <p>Il faut aussi que la clé ait les bonnes permissions : <span class="hl-green">chmod 600 sshkey.private</span> (sinon SSH refuse).</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit13@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">ls</div>
+            <span class="output hl-yellow">sshkey.private</span>
+            <div class="cmd">ssh -i sshkey.private bandit14@localhost -p 2220</div>
+            <span class="output prompt">bandit14@bandit:~$</span>
+            <div class="cmd">cat /etc/bandit_pass/bandit14</div>
+            <span class="output hl-green">4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 14</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, '4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e')">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== LEVEL 14 ====== -->
+  <div class="level-page" data-level="14">
+    <div class="topbar">
+      <div class="topbar-left"><div class="breadcrumb">BANDIT <span>/ NIVEAU 14</span></div></div>
+      <div class="topbar-right"><span class="tag tag-cyan">NETCAT</span><span class="tag tag-yellow">TCP PORT 30000</span></div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="section-title">Objectif</div>
+        <div class="objective-card">Envoyer le mot de passe du niveau 14 au <strong>port 30000</strong> sur <span class="highlight">localhost</span>. Le service répondra avec le mot de passe du niveau 15.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">netcat (nc)</div>
+        <div class="theory-block">
+          <p><span class="hl-green">netcat</span> (nc) est le "couteau suisse des réseaux". Il permet d'ouvrir des connexions TCP/UDP brutes, d'écouter sur un port, d'envoyer des données…</p>
+          <p>Ici on s'en sert en mode client : <span class="hl-green">nc localhost 30000</span> = se connecte au port 30000.</p>
+          <p>Le <span class="hl-yellow">pipe |</span> avec <span class="hl-green">echo</span> permet d'envoyer le mot de passe automatiquement sans le taper manuellement :</p>
+          <p><code>echo "MOT_DE_PASSE" | nc localhost 30000</code></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Comment ça fonctionne ?</div>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><strong>echo produit le mot de passe</strong><code>echo "4wcYUJFw0k0..."</code> affiche le texte sur stdout.</div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Le pipe | redirige</strong>La sortie de echo devient l'entrée de nc (stdin de netcat).</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><strong>nc envoie les données</strong>netcat se connecte au port 30000 et envoie le texte reçu via le pipe.</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Le serveur répond</strong>Le service vérifie le mot de passe et retourne le suivant si correct.</div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Terminal</div>
+        <div class="terminal">
+          <div class="terminal-bar"><div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div><span class="t-title">bandit14@bandit</span></div>
+          <div class="terminal-body">
+            <div class="cmd">echo "4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e" | nc localhost 30000</div>
+            <span class="output hl-yellow">Correct!</span>
+            <span class="output hl-green">BfMYroe26WYalil77FoDi9qh59eK5xNr</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mot de passe → Bandit 15</div>
+        <div class="password-box">
+          <div><div class="password-label">Password</div><div class="password-value">BfMYroe26WYalil77FoDi9qh59eK5xNr</div></div>
+          <button class="copy-btn" onclick="copyPassword(this, 'BfMYroe26WYalil77FoDi9qh59eK5xNr')">Copier</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Prochaine étape</div>
+        <div class="theory-block">
+          <p>Le niveau 15→16 utilise la même technique, mais via <span class="hl-yellow">SSL/TLS</span> sur le port <strong>30001</strong>.</p>
+          <p>Il faudra utiliser <span class="hl-green">openssl s_client -connect localhost:30001</span> à la place de netcat.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const levels = [
+    { num: 0, name: "Connexion SSH" },
+    { num: 1, name: "Fichier '-'" },
+    { num: 2, name: "Espaces" },
+    { num: 3, name: "Fichiers cachés" },
+    { num: 4, name: "ASCII vs Binary" },
+    { num: 5, name: "find -size" },
+    { num: 6, name: "find -user" },
+    { num: 7, name: "grep + pipe" },
+    { num: 8, name: "sort + uniq" },
+    { num: 9, name: "strings" },
+    { num: 10, name: "Base64" },
+    { num: 11, name: "ROT13" },
+    { num: 12, name: "Multi-compression" },
+    { num: 13, name: "Clé SSH" },
+    { num: 14, name: "netcat" },
+  ];
+
+  const nav = document.querySelector('.sidebar-nav');
+  levels.forEach(l => {
+    const item = document.createElement('div');
+    item.className = 'nav-item' + (l.num === 0 ? ' active' : '');
+    item.dataset.level = l.num;
+    item.innerHTML = `
+      <span class="lvl-badge">${l.num}</span>
+      <span class="lvl-name">${l.name}</span>
+      <span class="status"></span>
+    `;
+    item.addEventListener('click', () => switchLevel(l.num));
+    nav.appendChild(item);
+  });
+
+  function switchLevel(n) {
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.level-page').forEach(el => el.classList.remove('active'));
+    document.querySelector(`.nav-item[data-level="${n}"]`).classList.add('active');
+    document.querySelector(`.level-page[data-level="${n}"]`).classList.add('active');
+    document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function copyPassword(btn, pw) {
+    navigator.clipboard.writeText(pw).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = 'Copié !';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

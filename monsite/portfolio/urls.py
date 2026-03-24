@@ -47,6 +47,7 @@ urlpatterns = [
     path("projects/solar-system/", views.solar_system, name="solar_system"),
     path("projects/earthquake-analyzer/", views.earthquake_analyzer, name="earthquake_analyzer"),
     path("projects/rsa-algorithm/", views.rsa_algorithm, name="rsa_algorithm"),
+    path("projects/bandit", views.bandit, name="bandit"),
 
     path("project-detail/", views.project_detail, name="project_detail"),
     path("ticketHub/", views.ticketHub, name="ticketHub"),

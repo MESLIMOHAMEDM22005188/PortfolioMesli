@@ -96,6 +96,8 @@ def task_management(request):
 def smartbudget_tracker(request):
     return render(request, 'projects/smartbudget_tracker.html')
 
+def bandit(request):
+    return render(request, 'projects/bandit.html')
 def mailcli_sender(request):
     return render(request, 'projects/mailcli_sender.html')
 
