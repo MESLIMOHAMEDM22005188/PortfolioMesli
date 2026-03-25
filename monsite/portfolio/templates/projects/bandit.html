@@ -1545,7 +1545,7 @@ Connexion sans mot de passe.
 
 </div>
 </div>
-  <div class="level-page" data-level="17">
+<div class="level-page" data-level="17">
 
 <div class="topbar">
 <div class="topbar-left">
@@ -1566,23 +1566,103 @@ Connexion sans mot de passe.
 <div class="section-title">Objectif</div>
 
 <div class="objective-card">
-Comparer deux fichiers pour trouver la seule ligne modifiée contenant le mot de passe.
+Deux fichiers sont présents :
+<strong>passwords.old</strong> et <strong>passwords.new</strong>.
+
+Le mot de passe du niveau suivant est
+<strong>la seule ligne différente entre les deux fichiers</strong>.
 </div>
 </div>
+
 
 
 <div class="section">
-<div class="section-title">Comparer fichiers</div>
+<div class="section-title">Observation des fichiers</div>
+
+<div class="theory-block">
+
+<p>Liste les fichiers présents :</p>
+
+<p><code>ls</code></p>
+
+<p>Résultat :</p>
+
+<p><code>passwords.old</code></p>
+<p><code>passwords.new</code></p>
+
+<p>Ces deux fichiers contiennent presque exactement les mêmes lignes.</p>
+
+<p>Une seule ligne change : c’est le mot de passe recherché.</p>
+
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Comparer les fichiers avec diff</div>
+
+<div class="theory-block">
+
+<p>Commande utilisée :</p>
+
+<p><code>diff passwords.old passwords.new</code></p>
+
+<p>Sortie typique :</p>
+
+<p><code>
+&lt ancien_password<br>
+---<br>
+&gt nouveau_password
+</code></p>
+
+<p>Interprétation :</p>
+
+<p>
+<span class="hl-yellow">&lt</span> = ligne supprimée (ancien mot de passe)
+</p>
+
+<p>
+<span class="hl-green">&gt</span> = ligne ajoutée (nouveau mot de passe)
+</p>
+
+<p>
+Donc le mot de passe recherché est la ligne précédée par
+<span class="hl-green">&gt</span>
+</p>
+
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Extraire uniquement le mot de passe (méthode rapide)</div>
 
 <div class="terminal">
+<div class="terminal-bar">
+<div class="t-dot red"></div>
+<div class="t-dot yellow"></div>
+<div class="t-dot green"></div>
+<span class="t-title">bandit17@bandit</span>
+</div>
+
 <div class="terminal-body">
 
 <div class="cmd">
-diff passwords.old passwords.new
+diff passwords.old passwords.new | grep "&gt;" | cut -d' ' -f2
 </div>
 
-<span class="output">
-> nouveau_password
+<span class="comment">
+# diff compare les fichiers
+</span>
+
+<span class="comment">
+# grep garde seulement la ligne contenant "&gt;"
+</span>
+
+<span class="comment">
+# cut extrait uniquement le mot de passe
 </span>
 
 </div>
@@ -1592,16 +1672,52 @@ diff passwords.old passwords.new
 
 
 <div class="section">
-<div class="section-title">Extraire uniquement le mot de passe</div>
+<div class="section-title">Connexion au niveau suivant</div>
 
 <div class="terminal">
+
 <div class="terminal-body">
 
 <div class="cmd">
-diff passwords.old passwords.new | grep ">" | cut -d' ' -f2
+ssh bandit18@bandit.labs.overthewire.org -p 2220
+</div>
+
+<span class="comment">
+# utiliser le mot de passe récupéré
+</span>
+
+</div>
 </div>
 
 </div>
+
+
+
+<div class="section">
+<div class="section-title">Pourquoi cette méthode est importante</div>
+
+<div class="theory-block">
+
+<p>La commande <strong>diff</strong> est essentielle en cybersécurité :</p>
+
+<p>
+Comparer deux fichiers système
+</p>
+
+<p>
+Analyser modifications suspectes
+</p>
+
+<p>
+Identifier changements après compromission
+</p>
+
+<p>
+Comparer logs ou configurations
+</p>
+
+<p>C’est une technique très utilisée en forensic Linux.</p>
+
 </div>
 </div>
 
@@ -1615,27 +1731,32 @@ diff passwords.old passwords.new | grep ">" | cut -d' ' -f2
 <div class="learned-card">
 <span class="lc-icon">📂</span>
 <div class="lc-title">diff</div>
-Comparer deux fichiers ligne par ligne.
+Comparer deux fichiers ligne par ligne pour détecter une modification.
 </div>
 
 <div class="learned-card">
 <span class="lc-icon">🔍</span>
 <div class="lc-title">grep</div>
-Filtrer sortie.
+Filtrer uniquement les lignes utiles dans une sortie.
 </div>
 
 <div class="learned-card">
 <span class="lc-icon">✂️</span>
 <div class="lc-title">cut</div>
-Extraire champs précis.
+Extraire précisément une information d’une ligne.
+</div>
+
+<div class="learned-card">
+<span class="lc-icon">🧠</span>
+<div class="lc-title">Analyse différentielle</div>
+Technique clé en forensic et pentest Linux.
 </div>
 
 </div>
 </div>
 
 </div>
-</div>
-  <div class="level-page" data-level="18">
+</div>  <div class="level-page" data-level="18">
 
 <div class="topbar">
 <div class="topbar-left">
