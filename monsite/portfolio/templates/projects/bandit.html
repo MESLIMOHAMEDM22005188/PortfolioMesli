@@ -1432,8 +1432,513 @@ kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
 
     </div>
   </div>
+<div class="level-page" data-level="16">
 
+<div class="topbar">
+<div class="topbar-left">
+<div class="breadcrumb">BANDIT <span>/ NIVEAU 16</span></div>
+</div>
+
+<div class="topbar-right">
+<span class="tag tag-cyan">NMAP</span>
+<span class="tag tag-yellow">SSL</span>
+</div>
+</div>
+
+
+<div class="content">
+
+
+<div class="section">
+<div class="section-title">Objectif</div>
+
+<div class="objective-card">
+Scanner les ports entre <strong>31000 et 32000</strong> pour trouver un service
+<strong>SSL</strong> demandant le mot de passe actuel afin d’obtenir une
+<strong>clé privée SSH</strong>.
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Scan des ports</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+nmap -p 31000-32000 -sV -sC localhost
+</div>
+
+<span class="output">
+31790 open ssl/unknown
+</span>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Connexion SSL</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+echo "PASSWORD_LEVEL15" | openssl s_client -connect localhost:31790 -quiet > key.private
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Connexion SSH</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+chmod 600 key.private
+</div>
+
+<div class="cmd">
+ssh -i key.private bandit17@bandit.labs.overthewire.org -p 2220
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Ce que j'ai appris</div>
+
+<div class="learned-grid">
+
+<div class="learned-card">
+<span class="lc-icon">📡</span>
+<div class="lc-title">Scan réseau</div>
+Identifier services actifs avec nmap.
+</div>
+
+<div class="learned-card">
+<span class="lc-icon">🔐</span>
+<div class="lc-title">SSL brute interaction</div>
+Connexion TLS via openssl.
+</div>
+
+<div class="learned-card">
+<span class="lc-icon">🗝️</span>
+<div class="lc-title">SSH key login</div>
+Connexion sans mot de passe.
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+  <div class="level-page" data-level="17">
+
+<div class="topbar">
+<div class="topbar-left">
+<div class="breadcrumb">BANDIT <span>/ NIVEAU 17</span></div>
+</div>
+
+<div class="topbar-right">
+<span class="tag tag-cyan">DIFF</span>
+<span class="tag tag-yellow">FILES</span>
+</div>
+</div>
+
+
+<div class="content">
+
+
+<div class="section">
+<div class="section-title">Objectif</div>
+
+<div class="objective-card">
+Comparer deux fichiers pour trouver la seule ligne modifiée contenant le mot de passe.
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">Comparer fichiers</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+diff passwords.old passwords.new
+</div>
+
+<span class="output">
+> nouveau_password
+</span>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Extraire uniquement le mot de passe</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+diff passwords.old passwords.new | grep ">" | cut -d' ' -f2
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Ce que j'ai appris</div>
+
+<div class="learned-grid">
+
+<div class="learned-card">
+<span class="lc-icon">📂</span>
+<div class="lc-title">diff</div>
+Comparer deux fichiers ligne par ligne.
+</div>
+
+<div class="learned-card">
+<span class="lc-icon">🔍</span>
+<div class="lc-title">grep</div>
+Filtrer sortie.
+</div>
+
+<div class="learned-card">
+<span class="lc-icon">✂️</span>
+<div class="lc-title">cut</div>
+Extraire champs précis.
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+  <div class="level-page" data-level="18">
+
+<div class="topbar">
+<div class="topbar-left">
+<div class="breadcrumb">BANDIT <span>/ NIVEAU 18</span></div>
+</div>
+
+<div class="topbar-right">
+<span class="tag tag-cyan">SSH</span>
+<span class="tag tag-yellow">BYPASS</span>
+</div>
+</div>
+
+
+<div class="content">
+
+
+<div class="section">
+<div class="section-title">Objectif</div>
+
+<div class="objective-card">
+Lire le mot de passe malgré un script qui déconnecte automatiquement.
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">Solution</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Ce que j'ai appris</div>
+
+<div class="learned-grid">
+
+<div class="learned-card">
+<span class="lc-icon">🚪</span>
+<div class="lc-title">SSH command exec</div>
+Exécuter commande directe via SSH.
+</div>
+
+<div class="learned-card">
+<span class="lc-icon">🧠</span>
+<div class="lc-title">Login bypass</div>
+Contourner script logout.
+</div>
+
+
+</div>
+</div>
+
+</div>
+</div>
+  <div class="level-page" data-level="19">
+
+<div class="topbar">
+<div class="topbar-left">
+<div class="breadcrumb">BANDIT <span>/ NIVEAU 19</span></div>
+</div>
+
+<div class="topbar-right">
+<span class="tag tag-cyan">SUID</span>
+<span class="tag tag-yellow">PRIVESC</span>
+</div>
+</div>
+
+
+<div class="content">
+
+
+<div class="section">
+<div class="section-title">Objectif</div>
+
+<div class="objective-card">
+Utiliser un programme SUID pour lire un fichier inaccessible.
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">Exécution</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+./bandit20-do cat /etc/bandit_pass/bandit20
+</div>
+
+<span class="output">
+PASSWORD
+</span>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Concept sécurité</div>
+
+<div class="theory-block">
+Programme exécuté avec privilèges du propriétaire grâce au bit SUID.
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Ce que j'ai appris</div>
+
+<div class="learned-grid">
+
+<div class="learned-card">
+<span class="lc-icon">⬆️</span>
+<div class="lc-title">Privilege escalation</div>
+Escalade locale via SUID.
+</div>
+
+<div class="learned-card">
+<span class="lc-icon">🔍</span>
+<div class="lc-title">Audit système</div>
+Trouver fichiers SUID.
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+  <div class="level-page" data-level="20">
+
+<div class="topbar">
+<div class="topbar-left">
+<div class="breadcrumb">BANDIT <span>/ NIVEAU 20</span></div>
+</div>
+
+<div class="topbar-right">
+<span class="tag tag-cyan">NETCAT</span>
+<span class="tag tag-yellow">LOCALHOST</span>
+</div>
+</div>
+
+
+<div class="content">
+
+
+<div class="section">
+<div class="section-title">Objectif</div>
+
+<div class="objective-card">
+Créer un serveur local recevant le mot de passe pour récupérer le suivant.
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">Listener</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+nc -lvp 1234
+</div>
+
+</div>
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">Connexion programme</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+./suconnect 1234
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Ce que j'ai appris</div>
+
+<div class="learned-grid">
+
+<div class="learned-card">
+<span class="lc-icon">📡</span>
+<div class="lc-title">Listener</div>
+Créer serveur temporaire local.
+</div>
+
+<div class="learned-card">
+<span class="lc-icon">🔄</span>
+<div class="lc-title">Reverse communication</div>
+Programme communique vers ton port.
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+  <div class="level-page" data-level="21">
+
+<div class="topbar">
+<div class="topbar-left">
+<div class="breadcrumb">BANDIT <span>/ NIVEAU 21</span></div>
+</div>
+
+<div class="topbar-right">
+<span class="tag tag-cyan">CRON</span>
+<span class="tag tag-yellow">AUTOMATION</span>
+</div>
+</div>
+
+
+<div class="content">
+
+
+<div class="section">
+<div class="section-title">Objectif</div>
+
+<div class="objective-card">
+Analyser une tâche cron exécutée automatiquement pour récupérer le mot de passe.
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">Analyse cron</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+cat /etc/cron.d/cronjob_bandit22
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Script exécuté</div>
+
+<div class="terminal">
+<div class="terminal-body">
+
+<div class="cmd">
+cat /usr/bin/cronjob_bandit22.sh
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="section">
+<div class="section-title">Ce que j'ai appris</div>
+
+<div class="learned-grid">
+
+<div class="learned-card">
+<span class="lc-icon">⏱️</span>
+<div class="lc-title">Cron jobs</div>
+Tâches automatiques Linux.
+</div>
+
+<div class="learned-card">
+<span class="lc-icon">📂</span>
+<div class="lc-title">Script analysis</div>
+Lire scripts système.
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
 </main>
+
 
 <script>
   const levels = [
@@ -1452,7 +1957,13 @@ kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
     { num: 12, name: "Multi-compression" },
     { num: 13, name: "Clé SSH" },
     { num: 14, name: "netcat" },
-    { num: 15, name: "openssl TLS"}
+    { num: 15, name: "openssl TLS"},
+          { num: 16, name: "nmap ssl scan" },
+{ num: 17, name: "diff passwords" },
+{ num: 18, name: "ssh bypass logout" },
+{ num: 19, name: "suid privesc" },
+{ num: 20, name: "netcat listener" },
+{ num: 21, name: "cron jobs" }
   ];
 
   const nav = document.querySelector('.sidebar-nav');
