@@ -159,6 +159,57 @@
     <p>
       <strong>Attention :</strong> Le point-virgule <code>;</code> ne fonctionne pas toujours sous l’invite de commandes Windows (CMD), mais il marche sous PowerShell.
     </p>
+      <section class="course-section">
+  <h2>🧪 Exploitation — Injection via le séparateur <code>;</code></h2>
+
+  <p>
+    Jusqu’ici, nous avons identifié que l’application <strong>Host Checker</strong>
+    pouvait être vulnérable à une <strong>OS Command Injection</strong>.
+    Nous allons maintenant tester une première tentative d’injection
+    en utilisant l’opérateur <strong>point-virgule (<code>;</code>)</strong>,
+    qui permet de chaîner plusieurs commandes système.
+  </p>
+
+  <h3>Injecter une commande</h3>
+
+  <p>
+    L’idée est simple : si l’application exécute une commande de type
+    <code>ping</code> avec une entrée utilisateur, nous tentons d’ajouter
+    une seconde commande après un point-virgule.
+  </p>
+
+  <pre><code>127.0.0.1; whoami</code></pre>
+
+  <p>
+    La commande finale exécutée côté serveur deviendrait alors :
+  </p>
+
+  <pre><code>ping -c 1 127.0.0.1; whoami</code></pre>
+
+  <h3>Validation locale</h3>
+
+  <p>
+    Avant toute exploitation web, il est crucial de comprendre
+    le comportement de la commande au niveau système.
+    Sur une machine Linux :
+  </p>
+
+  <pre><code>ping -c 1 127.0.0.1; whoami</code></pre>
+
+  <pre><code>PING 127.0.0.1 (127.0.0.1)
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=1.03 ms
+
+--- ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss
+
+21y4d</code></pre>
+
+  <p>
+    ✅ Les deux commandes s’exécutent correctement, et la sortie de
+    <code>whoami</code> est bien affichée.
+  </p>
+
+</section>
     <p>
       Dans la suite, on va essayer d’utiliser un de ces opérateurs pour exploiter l’exercice Host Checker et voir si on peut injecter une commande.
     </p>
