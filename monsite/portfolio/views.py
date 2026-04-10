@@ -140,3 +140,10 @@ def project_detail(request):
 def cyber_home(request):
     return render(request, 'cyber/cyber_home.html')
 
+
+# Command Injection
+def cmdi_course(request):
+    return render(request, 'cyber/courses/command_injection/index.html')
+
+def cmdi_exploit(request):
+    return render(request, 'cyber/courses/command_injection/exploit.html')

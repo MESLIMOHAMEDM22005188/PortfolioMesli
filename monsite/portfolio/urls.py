@@ -21,7 +21,8 @@ urlpatterns = [
             permanent=True
         ),
     ),
-
+path("cybersecurity/command-injection/", views.cmdi_course, name="cmdi_course"),
+path("cybersecurity/command-injection/exploit/", views.cmdi_exploit, name="cmdi_exploit"),
     path("mes-petits-cours/", views.mesPetitsCours, name="mespetitscours"),
 
     # Pages scolaires

@@ -1,0 +1,42 @@
+<h1>OS Command Injection</h1>
+
+<section>
+  <h2>🎯 Définition</h2>
+  <p>…</p>
+</section>
+
+<section>
+  <h2>⚠️ Impact</h2>
+  <ul>
+    <li>Exécution de commandes arbitraires</li>
+    <li>Compromission du serveur</li>
+    <li>Pivot réseau possible</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🧠 Pourquoi ça arrive</h2>
+  <p>Concaténation d’entrées utilisateur dans des fonctions système…</p>
+</section>
+
+<section>
+  <h2>🔍 Reconnaître une Command Injection</h2>
+  <ul>
+    <li>Fonctions système</li>
+    <li>Fonctionnalités utilitaires</li>
+    <li>Entrées liées aux fichiers / chemins</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🛡️ Prévention</h2>
+  <ul>
+    <li>Whitelist stricte</li>
+    <li>APIs sans shell</li>
+    <li>Arguments séparés</li>
+  </ul>
+</section>
+
+<a href="{% url 'portfolio:cmdi_exploit' %}" class="lab-btn">
+  ⚠️ Voir le walkthrough technique
+</a>
