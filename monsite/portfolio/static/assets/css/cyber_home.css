@@ -1,0 +1,398 @@
+/* =====================================================
+   cyber_home.css — Mohamed Mesli · Cybersecurity Page
+   ===================================================== */
+
+/* ─── BODY ─────────────────────────────────────────── */
+body {
+  background: #0a0c0f;
+  color: #c9d1d9;
+  font-family: 'Share Tech Mono', monospace;
+  margin: 0;
+}
+
+/* ─── CONTAINER ─────────────────────────────────────── */
+.cyber-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+/* ─── HEADINGS ──────────────────────────────────────── */
+h1, h2 {
+  font-family: 'Orbitron', monospace;
+  color: #00ff88;
+  letter-spacing: 2px;
+}
+
+h1 { font-size: 1.8rem; margin-bottom: 24px; }
+h2 { font-size: 1.1rem; margin-bottom: 24px; }
+
+/* ─── INTRO ─────────────────────────────────────────── */
+.intro {
+  margin-bottom: 50px;
+  line-height: 1.8;
+  color: #9aa4af;
+}
+
+/* ─── BACK LINK ─────────────────────────────────────── */
+.back-link {
+  display: inline-block;
+  margin-bottom: 40px;
+  font-size: 11px;
+  color: #6e7a85;
+  text-decoration: none;
+  letter-spacing: 2px;
+  transition: color 0.15s;
+}
+.back-link:hover { color: #00ff88; }
+
+/* ─── DISCLAIMER ────────────────────────────────────── */
+.disclaimer {
+  margin-top: 60px;
+  font-size: 11px;
+  color: #6e7a85;
+  border-top: 1px solid #1e3a2a;
+  padding-top: 20px;
+}
+
+/* =====================================================
+   LABS SECTION
+   ===================================================== */
+.labs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.lab-card {
+  background: #111820;
+  border: 1px solid #1e3a2a;
+  border-radius: 8px;
+  padding: 22px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.lab-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.08);
+  border-color: #00ff88;
+}
+
+.lab-tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #00ff88;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.lab-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #e6edf3;
+}
+
+.lab-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #9aa4af;
+  margin-bottom: 18px;
+}
+
+.lab-btn {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid #00ff88;
+  color: #00ff88;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  font-family: 'Share Tech Mono', monospace;
+  cursor: pointer;
+  background: transparent;
+}
+.lab-btn:hover { background: rgba(0, 255, 136, 0.1); }
+
+/* =====================================================
+   TOOLS SECTION
+   ===================================================== */
+.tools-section { margin-top: 70px; }
+
+/* TryHackMe live badge */
+.thm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #1e2d24;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 10px;
+  color: #6e7a85;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.thm-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00ff88;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* ─── FILTER BAR ─────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.filter-btn {
+  padding: 5px 16px;
+  border: 1px solid #1e3a2a;
+  background: transparent;
+  color: #6e7a85;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
+  transition: all 0.15s;
+}
+.filter-btn:hover       { border-color: #00ff88; color: #00ff88; }
+.filter-btn.active      { background: rgba(0, 255, 136, 0.12); border-color: #00ff88; color: #00ff88; }
+
+.count-label {
+  font-size: 10px;
+  color: #3a4a42;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* ─── TOOLS GRID ─────────────────────────────────────── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* ─── TOOL CARD ──────────────────────────────────────── */
+.tool-card {
+  background: #111820;
+  border: 1px solid #1e3a2a;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.tool-card:hover { transform: translateY(-3px); border-color: #2a4a3a; }
+
+/* top accent bar per category */
+.tool-card::before {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 100%;
+}
+.tool-card[data-cat="web"]::before     { background: linear-gradient(90deg, #00ff88, transparent); }
+.tool-card[data-cat="network"]::before { background: linear-gradient(90deg, #00c8ff, transparent); }
+.tool-card[data-cat="recon"]::before   { background: linear-gradient(90deg, #c778dd, transparent); }
+.tool-card[data-cat="exploit"]::before { background: linear-gradient(90deg, #ff6b6b, transparent); }
+.tool-card[data-cat="linux"]::before   { background: linear-gradient(90deg, #f0a500, transparent); }
+.tool-card[data-cat="crypto"]::before  { background: linear-gradient(90deg, #7dd3fc, transparent); }
+
+.tool-card-body { padding: 18px; }
+
+/* ─── CARD HEADER ────────────────────────────────────── */
+.tool-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+
+.tool-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 13px;
+  color: #e6edf3;
+}
+
+.tool-badge {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* badge colors per category */
+.tool-card[data-cat="web"]     .tool-badge { background: rgba(0,255,136,0.1);   color: #00ff88;  border: 1px solid rgba(0,255,136,0.2);   }
+.tool-card[data-cat="network"] .tool-badge { background: rgba(0,200,255,0.1);   color: #00c8ff;  border: 1px solid rgba(0,200,255,0.2);   }
+.tool-card[data-cat="recon"]   .tool-badge { background: rgba(199,120,221,0.1); color: #c778dd;  border: 1px solid rgba(199,120,221,0.2); }
+.tool-card[data-cat="exploit"] .tool-badge { background: rgba(255,107,107,0.1); color: #ff6b6b;  border: 1px solid rgba(255,107,107,0.2); }
+.tool-card[data-cat="linux"]   .tool-badge { background: rgba(240,165,0,0.1);   color: #f0a500;  border: 1px solid rgba(240,165,0,0.2);   }
+.tool-card[data-cat="crypto"]  .tool-badge { background: rgba(125,211,252,0.1); color: #7dd3fc;  border: 1px solid rgba(125,211,252,0.2); }
+
+/* ─── CARD CONTENT ───────────────────────────────────── */
+.tool-desc {
+  font-size: 12px;
+  color: #7a8694;
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+
+.tool-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.tool-tag {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #4a5560;
+  border: 1px solid #1e2d24;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.tool-level {
+  font-size: 9px;
+  color: #4a5560;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.level-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.lvl-beginner     { background: #2a4a2a; border: 1px solid #3a6a3a; }
+.lvl-intermediate { background: #f0a500; }
+.lvl-advanced     { background: #00ff88; }
+
+/* ─── TOGGLE BUTTON ──────────────────────────────────── */
+.toggle-detail-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  background: transparent;
+  border: 1px solid #1e2d24;
+  border-radius: 4px;
+  color: #4a5a50;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Share Tech Mono', monospace;
+  padding: 7px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+}
+
+.toggle-detail-btn:hover {
+  border-color: #00ff88;
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.04);
+}
+
+.toggle-detail-btn.open {
+  border-color: rgba(0, 255, 136, 0.3);
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.06);
+}
+
+.toggle-arrow {
+  font-size: 10px;
+  transition: transform 0.25s ease;
+  display: inline-block;
+  margin-left: auto;
+}
+.toggle-detail-btn.open .toggle-arrow { transform: rotate(180deg); }
+
+/* ─── DETAIL PANEL ───────────────────────────────────── */
+.tool-detail {
+  display: none;
+  border-top: 1px solid #1a2a20;
+  background: #0d1117;
+  padding: 16px 18px;
+}
+
+.tool-detail.open { display: block; }
+
+.detail-title {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #00ff88;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+  color: #7a8694;
+  line-height: 1.6;
+  margin-bottom: 7px;
+}
+
+.detail-item::before {
+  content: '▸';
+  color: #2a5a3a;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.detail-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #00ff88;
+  text-decoration: none;
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  padding: 4px 10px;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+.detail-link:hover { background: rgba(0, 255, 136, 0.1); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 600px) {
+  h1 { font-size: 1.2rem; }
+  .tools-grid,
+  .labs-grid { grid-template-columns: 1fr; }
+  .filter-bar { gap: 6px; }
+}

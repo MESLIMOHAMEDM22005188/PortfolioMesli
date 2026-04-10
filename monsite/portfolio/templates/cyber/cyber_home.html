@@ -6,138 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-
-  <style>
-    body {
-      background: #0a0c0f;
-      color: #c9d1d9;
-      font-family: 'Share Tech Mono', monospace;
-    }
-
-    .cyber-container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 60px 20px;
-    }
-
-    h1, h2 {
-      font-family: 'Orbitron', monospace;
-      color: #00ff88;
-      letter-spacing: 2px;
-    }
-
-    .intro {
-      margin-bottom: 50px;
-      line-height: 1.8;
-      color: #9aa4af;
-    }
-
-    .labs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .lab-card {
-      background: #111820;
-      border: 1px solid #1e3a2a;
-      border-radius: 8px;
-      padding: 22px;
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    .lab-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 25px rgba(0,255,136,0.08);
-      border-color: #00ff88;
-    }
-
-    .lab-tag {
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: #00ff88;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-
-    .lab-title {
-      font-family: 'Orbitron', monospace;
-      font-size: 14px;
-      margin-bottom: 12px;
-      color: #e6edf3;
-    }
-
-    .lab-desc {
-      font-size: 13px;
-      line-height: 1.6;
-      color: #9aa4af;
-      margin-bottom: 18px;
-    }
-
-    .lab-btn {
-      display: inline-block;
-      padding: 8px 14px;
-      border: 1px solid #00ff88;
-      color: #00ff88;
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      border-radius: 4px;
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-
-    .lab-btn:hover {
-      background: rgba(0,255,136,0.1);
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 40px;
-      font-size: 11px;
-      color: #6e7a85;
-      text-decoration: none;
-      letter-spacing: 2px;
-    }
-
-    .back-link:hover {
-      color: #00ff88;
-    }
-
-    .disclaimer {
-      margin-top: 60px;
-      font-size: 11px;
-      color: #6e7a85;
-      border-top: 1px solid #1e3a2a;
-      padding-top: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'assets/css/cyber_home.css' %}">
 </head>
 
 <body>
-
 <main class="cyber-container">
 
-  <a href="{% url 'portfolio:accueil' %}" class="back-link">
-    ← Retour au portfolio
-  </a>
+  <a href="{% url 'portfolio:accueil' %}" class="back-link">← Retour au portfolio</a>
 
   <h1>🔐 Cybersecurity Portfolio</h1>
 
   <p class="intro">
-    Je m’intéresse principalement à la <strong>sécurité applicative</strong>,
+    Je m'intéresse principalement à la <strong>sécurité applicative</strong>,
     au <strong>pentest web</strong> et aux <strong>fondamentaux systèmes Linux</strong>.
     Cette section regroupe mes <strong>labs pratiques</strong>, mes projets pédagogiques
     et mon raisonnement méthodologique en cybersécurité.
   </p>
 
-  <h2>🧪 Labs & Projets</h2>
+  <!-- ===== LABS & PROJETS ===== -->
+  <h2>🧪 Labs &amp; Projets</h2>
 
   <div class="labs-grid">
 
-    <!-- BANDIT -->
     <div class="lab-card">
       <div class="lab-tag">CTF · Linux · PrivEsc</div>
       <div class="lab-title">OverTheWire — Bandit</div>
@@ -146,26 +36,20 @@
         pipelines, encodage, réseau et élévation de privilèges.
         Chaque niveau est documenté avec raisonnement et commandes.
       </div>
-      <a href="{% url 'portfolio:bandit' %}" class="lab-btn">
-        Accéder au lab
-      </a>
+      <a href="{% url 'portfolio:bandit' %}" class="lab-btn">Accéder au lab</a>
     </div>
 
-    <!-- RSA -->
     <div class="lab-card">
       <div class="lab-tag">Cryptographie · Python</div>
       <div class="lab-title">RSA — From Scratch</div>
       <div class="lab-desc">
-        Implémentation complète de l’algorithme RSA afin de comprendre
+        Implémentation complète de l'algorithme RSA afin de comprendre
         la génération de clés, le chiffrement, le déchiffrement et
         les limites théoriques.
       </div>
-      <a href="{% url 'portfolio:rsa_algorithm' %}" class="lab-btn">
-        Voir le projet
-      </a>
+      <a href="{% url 'portfolio:rsa_algorithm' %}" class="lab-btn">Voir le projet</a>
     </div>
 
-    <!-- CISCO -->
     <div class="lab-card">
       <div class="lab-tag">Réseau · Infrastructure</div>
       <div class="lab-title">Cisco Packet Tracer Labs</div>
@@ -173,34 +57,443 @@
         Conception de topologies réseau, routage, segmentation,
         VLANs et compréhension des flux réseau.
       </div>
-      <a href="{% url 'portfolio:cisco_labs' %}" class="lab-btn">
-        Voir les labs
-      </a>
+      <a href="{% url 'portfolio:cisco_labs' %}" class="lab-btn">Voir les labs</a>
     </div>
 
-    <!-- À venir -->
     <div class="lab-card">
       <div class="lab-tag">Web · Pentest</div>
       <div class="lab-title">Web Security Labs</div>
       <div class="lab-desc">
         SQL Injection, XSS, fuzzing, analyse des entrées utilisateur
         et compréhension de la logique applicative.
-        (labs en cours d’ajout)
+        (labs en cours d'ajout)
       </div>
-      <span class="lab-btn" style="opacity:0.4;cursor:default;">
-        En préparation
-      </span>
+      <span class="lab-btn" style="opacity:0.4;cursor:default;">En préparation</span>
     </div>
 
   </div>
 
+
+  <!-- ===== TOOLS & ARSENAL ===== -->
+  <section class="tools-section">
+
+    <h2>⚙ Tools &amp; Arsenal</h2>
+
+    <div class="thm-badge">
+      <span class="thm-dot"></span>
+      Actuellement actif sur TryHackMe
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterTools('all', this)">Tout</button>
+      <button class="filter-btn" onclick="filterTools('web', this)">Web</button>
+      <button class="filter-btn" onclick="filterTools('network', this)">Réseau</button>
+      <button class="filter-btn" onclick="filterTools('recon', this)">Recon</button>
+      <button class="filter-btn" onclick="filterTools('exploit', this)">Exploit</button>
+      <button class="filter-btn" onclick="filterTools('linux', this)">Linux</button>
+      <button class="filter-btn" onclick="filterTools('crypto', this)">Crypto</button>
+    </div>
+
+    <p class="count-label" id="tool-count">12 outils</p>
+
+    <div class="tools-grid" id="tools-grid">
+
+      <!-- ── SQLMap ── -->
+      <div class="tool-card" data-cat="web">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">SQLMap</span>
+            <span class="tool-badge">Web</span>
+          </div>
+          <p class="tool-desc">Injection SQL automatisée — détection, exploitation et dump de base de données.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">SQLi</span>
+            <span class="tool-tag">Python</span>
+            <span class="tool-tag">Automation</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-intermediate"></span>Intermédiaire
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Détection et exploitation d'injections SQL sur DVWA (niveau Low → High)</div>
+          <div class="detail-item">Dump de tables utilisateurs avec <code>--dump</code> et bypass de filtres basiques</div>
+          <div class="detail-item">Utilisation de <code>--tamper</code> pour contourner des WAF simples</div>
+          <div class="detail-item">Challenges TryHackMe : rooms SQLi dédiées</div>
+        </div>
+      </div>
+
+      <!-- ── Burp Suite ── -->
+      <div class="tool-card" data-cat="web">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">Burp Suite</span>
+            <span class="tool-badge">Web</span>
+          </div>
+          <p class="tool-desc">Proxy HTTP d'interception — analyse de requêtes, fuzzing, repeater, détection XSS et IDOR.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">Proxy</span>
+            <span class="tool-tag">Fuzzing</span>
+            <span class="tool-tag">XSS</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-intermediate"></span>Intermédiaire
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Interception et modification de requêtes HTTP en temps réel (Proxy)</div>
+          <div class="detail-item">Détection de failles XSS reflected via le Repeater</div>
+          <div class="detail-item">Fuzzing de paramètres GET/POST avec Intruder (Sniper mode)</div>
+          <div class="detail-item">Analyse de flux d'authentification et test de logique IDOR</div>
+        </div>
+      </div>
+
+      <!-- ── Gobuster ── -->
+      <div class="tool-card" data-cat="web">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">Gobuster</span>
+            <span class="tool-badge">Web</span>
+          </div>
+          <p class="tool-desc">Bruteforce de répertoires et fichiers cachés sur serveurs web.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">Dirbusting</span>
+            <span class="tool-tag">Go</span>
+            <span class="tool-tag">Enumeration</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-beginner"></span>Débutant
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Découverte de routes d'administration cachées (mode <code>dir</code>)</div>
+          <div class="detail-item">Enumération de sous-domaines avec mode <code>dns</code></div>
+          <div class="detail-item">Utilisé sur plusieurs rooms TryHackMe (Basic Pentesting, etc.)</div>
+        </div>
+      </div>
+
+      <!-- ── Nmap ── -->
+      <div class="tool-card" data-cat="network">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">Nmap</span>
+            <span class="tool-badge">Réseau</span>
+          </div>
+          <p class="tool-desc">Scan de ports, détection de services et OS fingerprinting.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">Port scan</span>
+            <span class="tool-tag">OS detect</span>
+            <span class="tool-tag">Scripts NSE</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-intermediate"></span>Intermédiaire
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Scans SYN (<code>-sS</code>) et UDP (<code>-sU</code>) en phase de reconnaissance CTF</div>
+          <div class="detail-item">Détection de version de services (<code>-sV</code>) et fingerprinting OS (<code>-O</code>)</div>
+          <div class="detail-item">Utilisation de scripts NSE : <code>http-enum</code>, <code>vuln</code>, <code>smb-vuln-*</code></div>
+          <div class="detail-item">Scans sur les labs Cisco Packet Tracer et machines TryHackMe</div>
+        </div>
+      </div>
+
+      <!-- ── Wireshark ── -->
+      <div class="tool-card" data-cat="network">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">Wireshark</span>
+            <span class="tool-badge">Réseau</span>
+          </div>
+          <p class="tool-desc">Analyse de captures réseau pcap — suivi de flux TCP, extraction de credentials.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">PCAP</span>
+            <span class="tool-tag">TCP/IP</span>
+            <span class="tool-tag">Analyse</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-beginner"></span>Débutant
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Analyse de fichiers pcap fournis dans des challenges CTF</div>
+          <div class="detail-item">Suivi de flux TCP/HTTP pour extraire des credentials en clair</div>
+          <div class="detail-item">Filtrage par protocole (ARP, DNS, HTTP, FTP) pour isoler du trafic suspect</div>
+        </div>
+      </div>
+
+      <!-- ── theHarvester ── -->
+      <div class="tool-card" data-cat="recon">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">theHarvester</span>
+            <span class="tool-badge">Recon</span>
+          </div>
+          <p class="tool-desc">OSINT passif — collecte d'emails, sous-domaines, IPs depuis sources publiques.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">OSINT</span>
+            <span class="tool-tag">Python</span>
+            <span class="tool-tag">Passive</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-beginner"></span>Débutant
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Collecte passive d'emails et sous-domaines sur des domaines de lab autorisés</div>
+          <div class="detail-item">Comparaison des sources (Google, Bing, Hunter) pour croiser les résultats</div>
+          <div class="detail-item">Utilisé en phase OSINT dans des rooms TryHackMe (Passive Recon)</div>
+        </div>
+      </div>
+
+      <!-- ── Sublist3r ── -->
+      <div class="tool-card" data-cat="recon">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">Sublist3r</span>
+            <span class="tool-badge">Recon</span>
+          </div>
+          <p class="tool-desc">Enumération de sous-domaines via moteurs de recherche et services DNS.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">Subdomains</span>
+            <span class="tool-tag">DNS</span>
+            <span class="tool-tag">OSINT</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-beginner"></span>Débutant
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Enumération de sous-domaines sur des cibles de lab pour élargir la surface d'attaque</div>
+          <div class="detail-item">Couplé à Nmap pour scanner les sous-domaines découverts</div>
+        </div>
+      </div>
+
+      <!-- ── Metasploit ── -->
+      <div class="tool-card" data-cat="exploit">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">Metasploit</span>
+            <span class="tool-badge">Exploit</span>
+          </div>
+          <p class="tool-desc">Framework d'exploitation — modules CVE, sessions Meterpreter, post-exploitation.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">Framework</span>
+            <span class="tool-tag">CVE</span>
+            <span class="tool-tag">Post-exploit</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-beginner"></span>Débutant
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Exploitation de vulnérabilités connues (EternalBlue, vsftpd backdoor) sur VMs de lab</div>
+          <div class="detail-item">Ouverture et gestion de sessions Meterpreter (navigation, upload, hashdump)</div>
+          <div class="detail-item">Rooms TryHackMe dédiées Metasploit (Blue, ICE)</div>
+        </div>
+      </div>
+
+      <!-- ── Bash / Shell ── -->
+      <div class="tool-card" data-cat="linux">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">Bash / Shell</span>
+            <span class="tool-badge">Linux</span>
+          </div>
+          <p class="tool-desc">Scripting système, automation, navigation en environnements restreints (CTF Bandit).</p>
+          <div class="tool-tags">
+            <span class="tool-tag">Scripting</span>
+            <span class="tool-tag">Permissions</span>
+            <span class="tool-tag">Pipes</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-intermediate"></span>Intermédiaire
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Résolution complète de OverTheWire Bandit (niveaux 0 → 30+) avec documentation</div>
+          <div class="detail-item">Scripts d'automation : backup, monitoring de processus, gestion de fichiers</div>
+          <div class="detail-item">Navigation en environnement restreint : SUID, sticky bits, redirections</div>
+          <a href="{% url 'portfolio:bandit' %}" class="detail-link">Voir le writeup Bandit →</a>
+        </div>
+      </div>
+
+      <!-- ── John the Ripper ── -->
+      <div class="tool-card" data-cat="linux">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">John the Ripper</span>
+            <span class="tool-badge">Linux</span>
+          </div>
+          <p class="tool-desc">Cracking de hashes (MD5, SHA, bcrypt) avec wordlists personnalisées.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">Hash cracking</span>
+            <span class="tool-tag">Wordlist</span>
+            <span class="tool-tag">CTF</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-beginner"></span>Débutant
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Crack de hashes MD5 et SHA-1 récupérés via SQLMap ou Metasploit (hashdump)</div>
+          <div class="detail-item">Utilisation de rockyou.txt et wordlists personnalisées (<code>--wordlist</code>)</div>
+          <div class="detail-item">Identification automatique du type de hash avec <code>--format</code></div>
+        </div>
+      </div>
+
+      <!-- ── CyberChef ── -->
+      <div class="tool-card" data-cat="crypto">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">CyberChef</span>
+            <span class="tool-badge">Crypto</span>
+          </div>
+          <p class="tool-desc">Encodage/décodage multi-opérations — Base64, hex, rot13, XOR, AES en CTF.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">Encoding</span>
+            <span class="tool-tag">CTF</span>
+            <span class="tool-tag">Browser</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-intermediate"></span>Intermédiaire
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Déchiffrement de flags encodés en Base64, hex, rot13 dans des CTF</div>
+          <div class="detail-item">Chaînage d'opérations (Magic recipe) pour identifier automatiquement l'encodage</div>
+          <div class="detail-item">Analyse de données binaires extraites de fichiers pcap</div>
+        </div>
+      </div>
+
+      <!-- ── RSA from scratch ── -->
+      <div class="tool-card" data-cat="crypto">
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <span class="tool-name">RSA (from scratch)</span>
+            <span class="tool-badge">Crypto</span>
+          </div>
+          <p class="tool-desc">Implémentation personnelle en Python — génération de clés, chiffrement asymétrique.</p>
+          <div class="tool-tags">
+            <span class="tool-tag">Python</span>
+            <span class="tool-tag">Maths</span>
+            <span class="tool-tag">Custom</span>
+          </div>
+          <div class="tool-level">
+            <span class="level-dot lvl-advanced"></span>Avancé
+          </div>
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            Ce que j'ai fait
+            <span class="toggle-arrow">▾</span>
+          </button>
+        </div>
+        <div class="tool-detail">
+          <div class="detail-title">— Utilisations concrètes</div>
+          <div class="detail-item">Implémentation complète : génération de grands premiers, Euler, modexp</div>
+          <div class="detail-item">Chiffrement et déchiffrement de messages texte avec clés publique/privée</div>
+          <div class="detail-item">Compréhension des attaques classiques (small e, common modulus)</div>
+          <a href="{% url 'portfolio:rsa_algorithm' %}" class="detail-link">Voir le projet →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== DISCLAIMER ===== -->
   <div class="disclaimer">
     ⚠️ Tous les labs et démonstrations présentés ici sont réalisés
     dans des environnements pédagogiques ou autorisés (CTF, labs locaux).
-    Aucun système réel n’est ciblé.
+    Aucun système réel n'est ciblé.
   </div>
 
 </main>
+
+<script>
+  /* ── Filter tools by category ── */
+  function filterTools(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.tool-card');
+    let count = 0;
+
+    cards.forEach(card => {
+      const show = cat === 'all' || card.dataset.cat === cat;
+      card.style.display = show ? 'block' : 'none';
+      if (show) count++;
+    });
+
+    const label = document.getElementById('tool-count');
+    label.textContent = count + ' outil' + (count > 1 ? 's' : '');
+  }
+
+  /* ── Toggle detail panel ── */
+  function toggleDetail(btn) {
+    const card   = btn.closest('.tool-card');
+    const detail = card.querySelector('.tool-detail');
+    const isOpen = detail.classList.contains('open');
+
+    detail.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+
+    btn.querySelector('.toggle-arrow').style.transform = isOpen ? '' : 'rotate(180deg)';
+  }
+</script>
 
 </body>
 </html>
