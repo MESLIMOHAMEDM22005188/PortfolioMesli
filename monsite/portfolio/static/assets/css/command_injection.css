@@ -1,0 +1,196 @@
+/* =====================================================
+   command_injection.css — OS Command Injection Course
+   Mohamed Mesli · Cybersecurity
+   ===================================================== */
+
+/* ─── BASE ─────────────────────────────────────────── */
+body {
+  background: #0a0c0f;
+  color: #c9d1d9;
+  font-family: 'Share Tech Mono', monospace;
+  margin: 0;
+}
+
+.course-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 60px 20px 80px;
+}
+
+/* ─── HEADINGS ─────────────────────────────────────── */
+h1, h2, h3 {
+  font-family: 'Orbitron', monospace;
+  letter-spacing: 2px;
+}
+
+h1 {
+  color: #00ff88;
+  font-size: 1.7rem;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #00ff88;
+  font-size: 1.05rem;
+  margin: 42px 0 16px;
+}
+
+h3 {
+  color: #7dd3fc;
+  font-size: 0.9rem;
+  margin: 26px 0 10px;
+}
+
+/* ─── BACK LINK ────────────────────────────────────── */
+.back-link {
+  display: inline-block;
+  margin-bottom: 36px;
+  font-size: 11px;
+  color: #6e7a85;
+  text-decoration: none;
+  letter-spacing: 2px;
+  transition: color 0.15s;
+}
+.back-link:hover { color: #00ff88; }
+
+/* ─── TEXT CONTENT ─────────────────────────────────── */
+p {
+  font-size: 13px;
+  line-height: 1.85;
+  color: #9aa4af;
+  margin-bottom: 14px;
+}
+
+strong { color: #e6edf3; }
+
+/* ─── LISTS ────────────────────────────────────────── */
+ul {
+  margin: 12px 0 18px 18px;
+  padding: 0;
+}
+
+li {
+  font-size: 12px;
+  color: #8b98a5;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+li::marker {
+  color: #00ff88;
+}
+
+/* ─── SECTION BLOCK ────────────────────────────────── */
+.course-section {
+  background: #111820;
+  border: 1px solid #1e3a2a;
+  border-radius: 8px;
+  padding: 24px 26px;
+  margin-bottom: 26px;
+}
+
+/* accent top bar */
+.course-section::before {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 100%;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, #00ff88, transparent);
+}
+
+/* ─── INFO / WARNING BOXES ─────────────────────────── */
+.info-box,
+.warning-box {
+  border-radius: 6px;
+  padding: 16px 18px;
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 20px 0;
+}
+
+.info-box {
+  background: rgba(0, 255, 136, 0.06);
+  border: 1px solid rgba(0, 255, 136, 0.25);
+  color: #b6f5d3;
+}
+
+.warning-box {
+  background: rgba(255, 107, 107, 0.06);
+  border: 1px solid rgba(255, 107, 107, 0.25);
+  color: #ffb3b3;
+}
+
+/* ─── CODE BLOCKS (SAFE) ───────────────────────────── */
+pre {
+  background: #0d1117;
+  border: 1px solid #1a2a20;
+  border-radius: 6px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 14px 0 20px;
+}
+
+code {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: #7dd3fc;
+}
+
+/* ─── NAV BUTTONS ─────────────────────────────────── */
+.course-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+
+.course-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px 18px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Share Tech Mono', monospace;
+
+  color: #00ff88;
+  border: 1px solid #00ff88;
+  border-radius: 4px;
+  text-decoration: none;
+  background: transparent;
+
+  transition: all 0.15s ease;
+}
+
+.course-btn:hover {
+  background: rgba(0, 255, 136, 0.12);
+}
+
+.course-btn.secondary {
+  color: #7dd3fc;
+  border-color: #7dd3fc;
+}
+
+.course-btn.secondary:hover {
+  background: rgba(125, 211, 252, 0.12);
+}
+
+/* ─── DISCLAIMER ───────────────────────────────────── */
+.course-disclaimer {
+  margin-top: 60px;
+  font-size: 11px;
+  color: #6e7a85;
+  border-top: 1px solid #1e3a2a;
+  padding-top: 20px;
+  line-height: 1.7;
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 600px) {
+  h1 { font-size: 1.2rem; }
+  .course-container { padding: 40px 16px 60px; }
+  .course-section { padding: 20px; }
+}
