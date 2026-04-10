@@ -51,7 +51,10 @@ h3 {
   letter-spacing: 2px;
   transition: color 0.15s;
 }
-.back-link:hover { color: #00ff88; }
+
+.back-link:hover {
+  color: #00ff88;
+}
 
 /* ─── TEXT CONTENT ─────────────────────────────────── */
 p {
@@ -61,7 +64,9 @@ p {
   margin-bottom: 14px;
 }
 
-strong { color: #e6edf3; }
+strong {
+  color: #e6edf3;
+}
 
 /* ─── LISTS ────────────────────────────────────────── */
 ul {
@@ -89,7 +94,6 @@ li::marker {
   margin-bottom: 26px;
 }
 
-/* accent top bar */
 .course-section::before {
   content: '';
   display: block;
@@ -121,7 +125,7 @@ li::marker {
   color: #ffb3b3;
 }
 
-/* ─── CODE BLOCKS (SAFE) ───────────────────────────── */
+/* ─── CODE BLOCKS ──────────────────────────────────── */
 pre {
   background: #0d1117;
   border: 1px solid #1a2a20;
@@ -137,45 +141,23 @@ code {
   color: #7dd3fc;
 }
 
-/* ─── NAV BUTTONS ─────────────────────────────────── */
-.course-actions {
-  display: flex;
-  gap: 14px;
-  margin-top: 36px;
-  flex-wrap: wrap;
-}
-
+/* ─── ACTION BUTTON ────────────────────────────────── */
 .course-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 9px 18px;
+  display: inline-block;
+  margin-top: 24px;
+  padding: 10px 20px;
   font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  font-family: 'Share Tech Mono', monospace;
-
   color: #00ff88;
   border: 1px solid #00ff88;
   border-radius: 4px;
   text-decoration: none;
-  background: transparent;
-
   transition: all 0.15s ease;
 }
 
 .course-btn:hover {
   background: rgba(0, 255, 136, 0.12);
-}
-
-.course-btn.secondary {
-  color: #7dd3fc;
-  border-color: #7dd3fc;
-}
-
-.course-btn.secondary:hover {
-  background: rgba(125, 211, 252, 0.12);
 }
 
 /* ─── DISCLAIMER ───────────────────────────────────── */
@@ -190,7 +172,15 @@ code {
 
 /* ─── RESPONSIVE ───────────────────────────────────── */
 @media (max-width: 600px) {
-  h1 { font-size: 1.2rem; }
-  .course-container { padding: 40px 16px 60px; }
-  .course-section { padding: 20px; }
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .course-container {
+    padding: 40px 16px 60px;
+  }
+
+  .course-section {
+    padding: 20px;
+  }
 }

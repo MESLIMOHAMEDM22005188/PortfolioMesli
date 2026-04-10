@@ -1,42 +1,79 @@
-<h1>OS Command Injection</h1>
-{% static 'assets/css/courses/command_injection.css' %}
-<section>
-  <h2>🎯 Définition</h2>
-  <p>…</p>
-</section>
+{% load static %}
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>OS Command Injection | Mohamed Mesli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<section>
-  <h2>⚠️ Impact</h2>
-  <ul>
-    <li>Exécution de commandes arbitraires</li>
-    <li>Compromission du serveur</li>
-    <li>Pivot réseau possible</li>
-  </ul>
-</section>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/command_injection.css' %}">
+</head>
 
-<section>
-  <h2>🧠 Pourquoi ça arrive</h2>
-  <p>Concaténation d’entrées utilisateur dans des fonctions système…</p>
-</section>
+<body>
+<main class="course-container">
 
-<section>
-  <h2>🔍 Reconnaître une Command Injection</h2>
-  <ul>
-    <li>Fonctions système</li>
-    <li>Fonctionnalités utilitaires</li>
-    <li>Entrées liées aux fichiers / chemins</li>
-  </ul>
-</section>
+  <a href="{% url 'portfolio:accueil' %}" class="back-link">
+    ← Retour au portfolio
+  </a>
 
-<section>
-  <h2>🛡️ Prévention</h2>
-  <ul>
-    <li>Whitelist stricte</li>
-    <li>APIs sans shell</li>
-    <li>Arguments séparés</li>
-  </ul>
-</section>
+  <h1>🧨 OS Command Injection</h1>
 
-<a href="{% url 'portfolio:cmdi_exploit' %}" class="lab-btn">
-  ⚠️ Voir le walkthrough technique
-</a>
+  <section class="course-section">
+    <h2>🎯 Définition</h2>
+    <p>
+      Une <strong>OS Command Injection</strong> survient lorsqu’une application
+      exécute des commandes système en utilisant des entrées utilisateur
+      non filtrées, permettant à un attaquant d’exécuter du code arbitraire
+      sur le serveur.
+    </p>
+  </section>
+
+  <section class="course-section">
+    <h2>⚠️ Impact</h2>
+    <ul>
+      <li>Exécution de commandes arbitraires</li>
+      <li>Compromission complète du serveur</li>
+      <li>Pivot réseau vers d’autres machines</li>
+    </ul>
+  </section>
+
+  <section class="course-section">
+    <h2>🧠 Pourquoi ça arrive</h2>
+    <p>
+      Cette vulnérabilité est souvent causée par la concaténation directe
+      d’entrées utilisateur dans des fonctions système telles que
+      <code>system()</code>, <code>exec()</code> ou <code>popen()</code>.
+    </p>
+  </section>
+
+  <section class="course-section">
+    <h2>🔍 Reconnaître une Command Injection</h2>
+    <ul>
+      <li>Fonctions système exposées</li>
+      <li>Fonctionnalités de diagnostic (ping, traceroute)</li>
+      <li>Manipulation de chemins ou fichiers</li>
+    </ul>
+  </section>
+
+  <section class="course-section">
+    <h2>🛡️ Prévention</h2>
+    <ul>
+      <li>Whitelist stricte des entrées</li>
+      <li>APIs sans invocation de shell</li>
+      <li>Séparation des arguments</li>
+    </ul>
+  </section>
+
+  <a href="{% url 'portfolio:cmdi_exploit' %}" class="course-btn">
+    ⚠️ Voir le walkthrough technique
+  </a>
+
+  <div class="course-disclaimer">
+    ⚠️ Ce contenu est strictement pédagogique.
+    Toutes les démonstrations sont réalisées en environnement contrôlé
+    ou autorisé.
+  </div>
+
+</main>
+</body>
+</html>
