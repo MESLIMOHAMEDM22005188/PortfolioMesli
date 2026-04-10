@@ -64,6 +64,106 @@
     </ul>
   </section>
 
+  <section class="course-section">
+    <h2>💡 Détection des Injections de Commandes OS — Mon Apprentissage</h2>
+    <p>
+      Quand on cherche à détecter des vulnérabilités basiques d’injection de commandes système (OS Command Injection), on suit à peu près le même processus que pour les exploiter. On essaie d’ajouter nos propres commandes via différentes méthodes d’injection. Si la sortie de la commande change par rapport au résultat attendu, cela veut dire qu’on a réussi à exploiter la faille.
+    </p>
+    <p>
+      Pour des injections plus avancées, ce n’est pas toujours aussi simple. On peut alors utiliser des techniques comme le fuzzing ou la revue de code pour repérer des failles potentielles. Ensuite, on construit petit à petit notre payload jusqu’à réussir l’injection. Mais ici, on va se concentrer sur les injections basiques, où on contrôle une entrée utilisateur qui est directement utilisée dans une commande système, sans aucune protection ni nettoyage.
+    </p>
+    <h3>Exemple pratique : L’exercice Host Checker</h3>
+    <p>
+      Dans l’exercice qu’on va voir, on a une application web avec un outil appelé « Host Checker ». Il nous demande une adresse IP pour vérifier si elle est active.
+    </p>
+    <p>
+      On peut tester avec l’adresse IP locale, 127.0.0.1, et comme prévu, on reçoit le résultat de la commande ping qui nous confirme que la machine locale répond bien.
+    </p>
+    <p>
+      Même si on n’a pas accès au code source, on peut deviner que l’adresse IP qu’on entre est utilisée dans une commande ping, vu la sortie qu’on obtient. Par exemple, la commande pourrait ressembler à ça :
+    </p>
+    <pre><code>ping -c 1 NOTRE_ENTRÉE</code></pre>
+    <p>
+      Si l’entrée qu’on fournit n’est pas nettoyée ou échappée avant d’être utilisée, on peut essayer d’injecter une autre commande arbitraire. C’est ce qu’on va tester pour voir si l’application est vulnérable à une injection de commande OS.
+    </p>
+    <h3>Comment injecter une commande ?</h3>
+    <p>
+      Pour ajouter une commande supplémentaire à celle prévue, on peut utiliser plusieurs opérateurs d’injection, comme :
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Opérateur</th>
+          <th>Caractère</th>
+          <th>Encodage URL</th>
+          <th>Résultat de l’exécution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Point-virgule</td>
+          <td>;</td>
+          <td>%3b</td>
+          <td>Les deux commandes sont exécutées</td>
+        </tr>
+        <tr>
+          <td>Nouvelle ligne</td>
+          <td>\n</td>
+          <td>%0a</td>
+          <td>Les deux commandes sont exécutées</td>
+        </tr>
+        <tr>
+          <td>Arrière-plan</td>
+          <td>&amp;</td>
+          <td>%26</td>
+          <td>Les deux commandes, la seconde sortie souvent affichée en premier</td>
+        </tr>
+        <tr>
+          <td>Pipe</td>
+          <td>|</td>
+          <td>%7c</td>
+          <td>Les deux commandes, mais seule la sortie de la seconde est visible</td>
+        </tr>
+        <tr>
+          <td>ET logique (AND)</td>
+          <td>&amp;&amp;</td>
+          <td>%26%26</td>
+          <td>Les deux commandes, si la première réussit</td>
+        </tr>
+        <tr>
+          <td>OU logique (OR)</td>
+          <td>||</td>
+          <td>%7c%7c</td>
+          <td>La seconde commande, si la première échoue</td>
+        </tr>
+        <tr>
+          <td>Sous-shell</td>
+          <td>``</td>
+          <td>%60%60</td>
+          <td>Les deux commandes (Linux uniquement)</td>
+        </tr>
+        <tr>
+          <td>Sous-shell</td>
+          <td>$()</td>
+          <td>%24%28%29</td>
+          <td>Les deux commandes (Linux uniquement)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      On écrit d’abord notre entrée normale (par exemple une IP), puis on ajoute un de ces opérateurs, et enfin la commande qu’on veut injecter.
+    </p>
+    <p>
+      Ces opérateurs fonctionnent généralement pour toutes les applications web, peu importe le langage, le framework ou le serveur utilisé. Que ce soit une appli PHP sur Linux, .Net sur Windows, ou NodeJS sur macOS, nos injections devraient marcher.
+    </p>
+    <p>
+      <strong>Attention :</strong> Le point-virgule <code>;</code> ne fonctionne pas toujours sous l’invite de commandes Windows (CMD), mais il marche sous PowerShell.
+    </p>
+    <p>
+      Dans la suite, on va essayer d’utiliser un de ces opérateurs pour exploiter l’exercice Host Checker et voir si on peut injecter une commande.
+    </p>
+  </section>
+
   <a href="{% url 'portfolio:cmdi_exploit' %}" class="course-btn">
     ⚠️ Voir le walkthrough technique
   </a>
