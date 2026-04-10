@@ -1,0 +1,206 @@
+{% load static %}
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Cybersecurity | Mohamed Mesli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+  <style>
+    body {
+      background: #0a0c0f;
+      color: #c9d1d9;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .cyber-container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+
+    h1, h2 {
+      font-family: 'Orbitron', monospace;
+      color: #00ff88;
+      letter-spacing: 2px;
+    }
+
+    .intro {
+      margin-bottom: 50px;
+      line-height: 1.8;
+      color: #9aa4af;
+    }
+
+    .labs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .lab-card {
+      background: #111820;
+      border: 1px solid #1e3a2a;
+      border-radius: 8px;
+      padding: 22px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .lab-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 25px rgba(0,255,136,0.08);
+      border-color: #00ff88;
+    }
+
+    .lab-tag {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #00ff88;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .lab-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #e6edf3;
+    }
+
+    .lab-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #9aa4af;
+      margin-bottom: 18px;
+    }
+
+    .lab-btn {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid #00ff88;
+      color: #00ff88;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .lab-btn:hover {
+      background: rgba(0,255,136,0.1);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 40px;
+      font-size: 11px;
+      color: #6e7a85;
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .back-link:hover {
+      color: #00ff88;
+    }
+
+    .disclaimer {
+      margin-top: 60px;
+      font-size: 11px;
+      color: #6e7a85;
+      border-top: 1px solid #1e3a2a;
+      padding-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<main class="cyber-container">
+
+  <a href="{% url 'portfolio:accueil' %}" class="back-link">
+    ← Retour au portfolio
+  </a>
+
+  <h1>🔐 Cybersecurity Portfolio</h1>
+
+  <p class="intro">
+    Je m’intéresse principalement à la <strong>sécurité applicative</strong>,
+    au <strong>pentest web</strong> et aux <strong>fondamentaux systèmes Linux</strong>.
+    Cette section regroupe mes <strong>labs pratiques</strong>, mes projets pédagogiques
+    et mon raisonnement méthodologique en cybersécurité.
+  </p>
+
+  <h2>🧪 Labs & Projets</h2>
+
+  <div class="labs-grid">
+
+    <!-- BANDIT -->
+    <div class="lab-card">
+      <div class="lab-tag">CTF · Linux · PrivEsc</div>
+      <div class="lab-title">OverTheWire — Bandit</div>
+      <div class="lab-desc">
+        Série de niveaux axés sur Linux, SSH, permissions, fichiers spéciaux,
+        pipelines, encodage, réseau et élévation de privilèges.
+        Chaque niveau est documenté avec raisonnement et commandes.
+      </div>
+      <a href="{% url 'portfolio:bandit' %}" class="lab-btn">
+        Accéder au lab
+      </a>
+    </div>
+
+    <!-- RSA -->
+    <div class="lab-card">
+      <div class="lab-tag">Cryptographie · Python</div>
+      <div class="lab-title">RSA — From Scratch</div>
+      <div class="lab-desc">
+        Implémentation complète de l’algorithme RSA afin de comprendre
+        la génération de clés, le chiffrement, le déchiffrement et
+        les limites théoriques.
+      </div>
+      <a href="{% url 'portfolio:rsa_algorithm' %}" class="lab-btn">
+        Voir le projet
+      </a>
+    </div>
+
+    <!-- CISCO -->
+    <div class="lab-card">
+      <div class="lab-tag">Réseau · Infrastructure</div>
+      <div class="lab-title">Cisco Packet Tracer Labs</div>
+      <div class="lab-desc">
+        Conception de topologies réseau, routage, segmentation,
+        VLANs et compréhension des flux réseau.
+      </div>
+      <a href="{% url 'portfolio:cisco_labs' %}" class="lab-btn">
+        Voir les labs
+      </a>
+    </div>
+
+    <!-- À venir -->
+    <div class="lab-card">
+      <div class="lab-tag">Web · Pentest</div>
+      <div class="lab-title">Web Security Labs</div>
+      <div class="lab-desc">
+        SQL Injection, XSS, fuzzing, analyse des entrées utilisateur
+        et compréhension de la logique applicative.
+        (labs en cours d’ajout)
+      </div>
+      <span class="lab-btn" style="opacity:0.4;cursor:default;">
+        En préparation
+      </span>
+    </div>
+
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ Tous les labs et démonstrations présentés ici sont réalisés
+    dans des environnements pédagogiques ou autorisés (CTF, labs locaux).
+    Aucun système réel n’est ciblé.
+  </div>
+
+</main>
+
+</body>
+</html>

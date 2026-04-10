@@ -24,7 +24,6 @@ PROJECTS = {
         "hashtags": ["#Python", "#Cryptography", "#RSA"],
         "github": "https://github.com/moncompte/rsa-project"
     },
-    # Ajoute d'autres projets ici si nécessaire
 }
 
 # =========================
@@ -137,3 +136,7 @@ def project_detail(request):
         'hashtags': project['hashtags'],
         'github': project['github']
     })
+
+def cyber_home(request):
+    return render(request, 'cyber/cyber_home.html')
+
