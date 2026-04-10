@@ -11,7 +11,7 @@ urlpatterns = [
     # Cisco
     path("cisco-labs/", views.cisco_labs, name="cisco_labs"),
 
-    path("cybersecurity/", views.cybersecurity, name="cybersecurity"),
+    path("cybersecurity/", views.cyber_home, name="cyber_home"),
 
     # Redirection ancienne URL
     path(
