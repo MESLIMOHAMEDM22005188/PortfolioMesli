@@ -24,8 +24,12 @@ urlpatterns = [
     ),
 
 path("cybersecurity/web-fuzzing/", views.web_fuzzing, name="web_fuzzing"),
+path("cybersecurity/web-fuzzing/exploit.html/", views.web_fuzzing_exploit, name="web_fuzzing_exploit"),
+
 path("cybersecurity/command-injection/", views.cmdi_course, name="cmdi_course"),
-path("cybersecurity/command-injection/exploit/", views.cmdi_exploit, name="cmdi_exploit"),
+path("cybersecurity/command-injection/exploit.html/", views.cmdi_exploit, name="cmdi_exploit"),
+
+
     path("mes-petits-cours/", views.mesPetitsCours, name="mespetitscours"),
 
     # Pages scolaires

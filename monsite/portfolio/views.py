@@ -147,7 +147,10 @@ def cmdi_course(request):
     return render(request, 'cyber/courses/command_injection/index.html')
 
 def cmdi_exploit(request):
-    return render(request, 'cyber/courses/command_injection/index.html')
+    return render(request, 'cyber/courses/command_injection/exploit.html')
 
 def web_fuzzing(request):
     return render(request, 'cyber/courses/web_fuzzing/index.html')
+
+def web_fuzzing_exploit(request):
+    return  render(request, 'cyber/courses/web_fuzzing/exploit.html')
