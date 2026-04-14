@@ -11,6 +11,7 @@ urlpatterns = [
     # Cisco
     path("cisco-labs/", views.cisco_labs, name="cisco_labs"),
 
+
     path("cybersecurity/", views.cyber_home, name="cyber_home"),
 
     # Redirection ancienne URL
@@ -21,6 +22,8 @@ urlpatterns = [
             permanent=True
         ),
     ),
+
+path("cybersecurity/web-fuzzing/", views.web_fuzzing, name="web_fuzzing"),
 path("cybersecurity/command-injection/", views.cmdi_course, name="cmdi_course"),
 path("cybersecurity/command-injection/exploit/", views.cmdi_exploit, name="cmdi_exploit"),
     path("mes-petits-cours/", views.mesPetitsCours, name="mespetitscours"),
