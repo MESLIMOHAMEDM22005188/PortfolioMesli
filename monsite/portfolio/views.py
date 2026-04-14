@@ -1,4 +1,5 @@
-from venv import logger
+import logging
+logger = logging.getLogger(__name__)
 import logging
 from django.http import Http404
 from django.shortcuts import render
