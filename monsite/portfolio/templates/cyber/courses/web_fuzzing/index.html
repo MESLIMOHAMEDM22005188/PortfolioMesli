@@ -193,6 +193,418 @@ go install github.com/OJ/gobuster/v3@latest</code></pre>
       <li>Différences comportementales</li>
     </ul>
   </section>
+    <!-- ===== RECURSIVE FUZZING ===== -->
+  <section class="course-section">
+    <h2>🌳 Recursive Fuzzing</h2>
+
+    <p>
+      Jusqu’ici, on a fuzz uniquement un niveau (root ou dossier).
+      Mais les applications web peuvent avoir une structure profonde avec plusieurs dossiers imbriqués.
+    </p>
+
+    <p>
+      Le <strong>recursive fuzzing</strong> permet d’automatiser l’exploration complète.
+    </p>
+
+    <h3>⚙️ Fonctionnement</h3>
+
+    <ol>
+      <li>Fuzz du répertoire principal</li>
+      <li>Détection des dossiers valides</li>
+      <li>Relance automatique du fuzz dans chaque dossier</li>
+    </ol>
+
+    <p>
+      📌 Exemple :
+    </p>
+
+    <pre><code>ffuf -w directory-list-2.3-medium.txt \
+-u http://TARGET/FUZZ \
+-e .html \
+-recursion</code></pre>
+
+    <p>
+      🧠 Avantages :
+    </p>
+
+    <ul>
+      <li>Gain de temps énorme</li>
+      <li>Découverte de structures profondes</li>
+      <li>Moins d'effort manuel</li>
+    </ul>
+
+    <p>
+      ⚠️ Options utiles :
+    </p>
+
+    <pre><code>-recursion-depth 2
+-rate 500
+-timeout 10</code></pre>
+  </section>
+
+  <!-- ===== PARAMETER FUZZING ===== -->
+  <section class="course-section">
+    <h2>🧩 Parameter & Value Fuzzing</h2>
+
+    <p>
+      Ici on ne fuzz plus des dossiers mais des <strong>paramètres</strong>.
+    </p>
+
+    <h3>GET parameters</h3>
+
+    <pre><code>http://site.com/page?x=FUZZ</code></pre>
+
+    <p>
+      Exemple avec wenum :
+    </p>
+
+    <pre><code>wenum -w common.txt \
+-u "http://TARGET/get.php?x=FUZZ" \
+--hc 404</code></pre>
+
+    <h3>POST parameters</h3>
+
+    <pre><code>ffuf -u http://TARGET/post.php \
+-X POST \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "y=FUZZ" \
+-w common.txt \
+-mc 200</code></pre>
+
+    <p>
+      🎯 Objectif :
+    </p>
+
+    <ul>
+      <li>Trouver des valeurs valides</li>
+      <li>Contourner des contrôles</li>
+      <li>Déclencher des comportements cachés</li>
+    </ul>
+  </section>
+
+  <!-- ===== VHOST & SUBDOMAIN ===== -->
+  <section class="course-section">
+    <h2>🌐 VHost & Subdomain Fuzzing</h2>
+
+    <p>
+      Permet de découvrir des sites cachés sur un même serveur.
+    </p>
+
+    <h3>VHost (Gobuster)</h3>
+
+    <pre><code>gobuster vhost \
+-u http://target \
+-w common.txt \
+--append-domain</code></pre>
+
+    <h3>Subdomain</h3>
+
+    <pre><code>gobuster dns \
+-d example.com \
+-w subdomains.txt</code></pre>
+
+    <p>
+      🎯 Exemple :
+    </p>
+
+    <ul>
+      <li>admin.example.com</li>
+      <li>dev.example.com</li>
+      <li>test.example.com</li>
+    </ul>
+  </section>
+
+  <!-- ===== FILTERING ===== -->
+  <section class="course-section">
+    <h2>🎯 Filtering (très important)</h2>
+
+    <p>
+      Le fuzzing génère beaucoup de bruit.
+      Il faut filtrer pour voir l’essentiel.
+    </p>
+
+    <h3>FFUF</h3>
+
+    <pre><code>-mc 200        # match code
+-fc 404        # exclude code
+-fs 0-1000     # filter size
+-mt >500       # réponse lente</code></pre>
+
+    <p>
+      Exemple :
+    </p>
+
+    <pre><code>ffuf -u http://TARGET/FUZZ \
+-w wordlist.txt \
+-mc 200 \
+-fc 404</code></pre>
+
+    <p>
+      💡 Sans filtre = trop de faux positifs
+    </p>
+  </section>
+
+  <!-- ===== VALIDATION ===== -->
+  <section class="course-section">
+    <h2>✅ Validation des résultats</h2>
+
+    <p>
+      Tous les résultats ne sont pas des failles.
+    </p>
+
+    <p>
+      Il faut valider manuellement.
+    </p>
+
+    <h3>Étapes</h3>
+
+    <ol>
+      <li>Reproduire la requête</li>
+      <li>Analyser la réponse</li>
+      <li>Tester l’impact</li>
+    </ol>
+
+    <pre><code>curl http://TARGET/backup/</code></pre>
+
+    <p>
+      🔎 Vérifier :
+    </p>
+
+    <ul>
+      <li>Content-Length</li>
+      <li>Content-Type</li>
+      <li>Présence de fichiers sensibles</li>
+    </ul>
+
+    <p>
+      ⚠️ Toujours rester éthique (CTF / lab uniquement)
+    </p>
+  </section>
+
+  <!-- ===== WEB APIs ===== -->
+  <section class="course-section">
+    <h2>🔌 Web APIs</h2>
+
+    <p>
+      Une API permet à des applications de communiquer entre elles.
+    </p>
+
+    <h3>Types</h3>
+
+    <ul>
+      <li><strong>REST</strong> → JSON, endpoints multiples</li>
+      <li><strong>SOAP</strong> → XML, structure stricte</li>
+      <li><strong>GraphQL</strong> → requêtes flexibles</li>
+    </ul>
+
+    <p>
+      Exemple REST :
+    </p>
+
+    <pre><code>GET /users/123</code></pre>
+
+    <p>
+      🧠 Différence avec un site classique :
+    </p>
+
+    <ul>
+      <li>Site → HTML</li>
+      <li>API → JSON / XML</li>
+    </ul>
+  </section>
+
+  <!-- ===== ENDPOINT DISCOVERY ===== -->
+  <section class="course-section">
+    <h2>🎯 Identification des endpoints</h2>
+
+    <p>
+      Avant de fuzz une API, il faut trouver ses endpoints.
+    </p>
+
+    <h3>Méthodes</h3>
+
+    <ul>
+      <li>Documentation (Swagger)</li>
+      <li>Analyse réseau (Burp Suite)</li>
+      <li>Fuzzing des paramètres</li>
+    </ul>
+
+    <p>
+      Exemple :
+    </p>
+
+    <pre><code>/users
+/users/123
+/products/456</code></pre>
+  </section>
+
+  <!-- ===== SOAP & GRAPHQL ===== -->
+  <section class="course-section">
+    <h2>🧩 SOAP & GraphQL Fuzzing</h2>
+
+    <h3>🔎 Découverte des endpoints SOAP</h3>
+    <p>
+      Les API SOAP utilisent des fichiers <strong>WSDL</strong> pour définir leur structure.
+    </p>
+
+    <ul>
+      <li>Opérations disponibles (endpoints)</li>
+      <li>Paramètres d’entrée et de sortie</li>
+      <li>Types de données</li>
+      <li>URL du service</li>
+    </ul>
+
+    <p>
+      🛠️ Méthodes :
+    </p>
+    <ul>
+      <li>Analyse du fichier WSDL</li>
+      <li>Sniff réseau (Wireshark, tcpdump)</li>
+      <li>Fuzzing des paramètres XML</li>
+    </ul>
+
+    <h3>⚡ GraphQL</h3>
+    <p>
+      Contrairement à REST, GraphQL utilise un <strong>seul endpoint</strong> (souvent <code>/graphql</code>).
+    </p>
+
+    <h4>📥 Exemple de requête</h4>
+    <pre><code>query {
+  user(id: 123) {
+    name
+    email
+  }
+}</code></pre>
+
+    <h4>✏️ Mutation</h4>
+    <pre><code>mutation {
+  createPost(title: "Test") {
+    id
+  }
+}</code></pre>
+
+    <p>
+      🔍 Découverte :
+    </p>
+    <ul>
+      <li>Introspection GraphQL</li>
+      <li>Documentation (GraphiQL)</li>
+      <li>Analyse du trafic réseau</li>
+    </ul>
+  </section>
+
+  <!-- ===== API FUZZING ===== -->
+  <section class="course-section">
+    <h2>🚀 API Fuzzing</h2>
+
+    <p>
+      Le <strong>API fuzzing</strong> consiste à tester automatiquement les endpoints d’une API
+      avec des requêtes modifiées pour détecter des vulnérabilités.
+    </p>
+
+    <h3>🎯 Objectifs</h3>
+    <ul>
+      <li>Trouver des endpoints cachés</li>
+      <li>Tester la robustesse</li>
+      <li>Détecter des injections</li>
+      <li>Simuler un attaquant réel</li>
+    </ul>
+
+    <h3>🧪 Types de fuzzing API</h3>
+
+    <h4>1️⃣ Parameter Fuzzing</h4>
+    <p>Tester différentes valeurs pour un paramètre :</p>
+    <pre><code>?id=FUZZ</code></pre>
+
+    <h4>2️⃣ Data Format Fuzzing</h4>
+    <p>Modifier le JSON / XML :</p>
+    <pre><code>{
+  "id": "AAAAA"
+}</code></pre>
+
+    <h4>3️⃣ Sequence Fuzzing</h4>
+    <p>
+      Tester l’ordre des requêtes (important pour les APIs complexes).
+    </p>
+  </section>
+
+  <!-- ===== API ENUMERATION ===== -->
+  <section class="course-section">
+    <h2>🔍 Découverte d’API (Endpoints)</h2>
+
+    <p>
+      Une API peut contenir des endpoints cachés non documentés.
+    </p>
+
+    <h3>📚 Exemple d’API</h3>
+    <ul>
+      <li>GET / → accueil</li>
+      <li>GET /items/{id}</li>
+      <li>POST /items</li>
+      <li>PUT /items/{id}</li>
+      <li>DELETE /items/{id}</li>
+    </ul>
+
+    <p>
+      ⚠️ Certains endpoints peuvent être cachés !
+    </p>
+
+    <h3>🛠️ Fuzzer une API</h3>
+
+    <pre><code>git clone https://github.com/PandaSt0rm/webfuzz_api.git
+cd webfuzz_api
+pip3 install -r requirements.txt
+
+python3 api_fuzzer.py http://IP:PORT</code></pre>
+
+    <h3>📊 Résultat</h3>
+
+    <pre><code>Found valid endpoints:
+- /docs
+- /secret_endpoint</code></pre>
+
+    <p>
+      💡 Endpoint caché trouvé → accès possible à une <strong>flag</strong>
+    </p>
+  </section>
+
+  <!-- ===== VALIDATION ===== -->
+  <section class="course-section">
+    <h2>✅ Validation des résultats</h2>
+
+    <p>
+      Le fuzzing génère souvent des <strong>faux positifs</strong>.
+      Il faut toujours vérifier manuellement.
+    </p>
+
+    <h3>🛠️ Méthode</h3>
+    <ol>
+      <li>Reproduire avec curl</li>
+      <li>Analyser la réponse</li>
+      <li>Confirmer la vulnérabilité</li>
+    </ol>
+
+    <h3>📌 Exemple</h3>
+
+    <pre><code>curl http://IP:PORT/backup/</code></pre>
+
+    <p>
+      Si tu vois une liste de fichiers → vulnérabilité confirmée ⚠️
+    </p>
+
+    <h3>🔎 Headers utiles</h3>
+
+    <pre><code>curl -I http://IP:PORT/backup/password.txt</code></pre>
+
+    <ul>
+      <li>Content-Type</li>
+      <li>Content-Length</li>
+    </ul>
+
+    <p>
+      💡 Permet d’analyser sans exposer les données sensibles
+    </p>
+  </section>
 
   <a href="{% url 'portfolio:web_fuzzing_exploit' %}" class="course-btn">
     ⚠️ Voir le walkthrough technique
