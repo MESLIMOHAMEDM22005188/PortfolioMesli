@@ -221,14 +221,14 @@ code {
 .exercise-menu button {
   width: 100%;
   background: #020617;
-  color: #38bdf8;
-  border: 1px solid #38bdf8;
+  color: #306e53;
+  border: 1px solid #306e53;
   padding: 8px;
   cursor: pointer;
   border-radius: 6px;
 }
 
 .exercise-menu button:hover {
-  background: #38bdf8;
+  background: #306e53;
   color: #020617;
 }
