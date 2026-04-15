@@ -138,7 +138,7 @@ pre {
 code {
   font-family: 'Share Tech Mono', monospace;
   font-size: 12px;
-  color: #7dd3fc;
+  color: #7dfc83;
 }
 
 /* ─── ACTION BUTTON ────────────────────────────────── */
@@ -198,8 +198,8 @@ code {
   right: 20px;
   top: 120px;
   width: 200px;
-  background: #0f172a;
-  border: 1px solid #1e293b;
+  background: #0f2a10;
+  border: 1px solid #223b1e;
   padding: 15px;
   border-radius: 8px;
 }
