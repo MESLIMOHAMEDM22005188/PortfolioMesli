@@ -184,3 +184,51 @@ code {
     padding: 20px;
   }
 }
+.exercise {
+  display: none;
+}
+
+.exercise.active {
+  display: block;
+}
+
+/* Menu à droite */
+.exercise-menu {
+  position: fixed;
+  right: 20px;
+  top: 120px;
+  width: 200px;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.exercise-menu h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.exercise-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.exercise-menu li {
+  margin-bottom: 10px;
+}
+
+.exercise-menu button {
+  width: 100%;
+  background: #020617;
+  color: #38bdf8;
+  border: 1px solid #38bdf8;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.exercise-menu button:hover {
+  background: #38bdf8;
+  color: #020617;
+}
