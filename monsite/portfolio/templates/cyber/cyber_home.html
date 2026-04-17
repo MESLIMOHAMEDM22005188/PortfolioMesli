@@ -75,46 +75,43 @@
   <section class="courses-section">
 
   <h2>📚 Courses & Vulnerabilities</h2>
-
-  <div class="labs-grid">
-
-    <!-- OS Command Injection -->
-    <div class="lab-card">
-      <div class="lab-tag">Injection · OS · Critical</div>
-
-      <div class="lab-title">OS Command Injection</div>
-
-      <div class="lab-desc">
-        Comprendre comment une entrée utilisateur non maîtrisée
-        peut mener à l’exécution de commandes système sur un serveur.
-        Inclut théorie, analyse de code et démonstration pédagogique.
-      </div>
-
-      <a href="{% url 'portfolio:cmdi_course' %}" class="lab-btn">
-        Voir le cours
-      </a>
-    </div>
-
-  </div>
     <div class="labs-grid">
 
-    <!-- OS Command Injection -->
-    <div class="lab-card">
-      <div class="lab-tag">Fuzzing · Web</div>
+  <!-- OS Command Injection -->
+  <div class="lab-card">
+    <div class="lab-tag">Injection · OS · Critical</div>
 
-      <div class="lab-title"> Web Fuzzing</div>
+    <div class="lab-title">OS Command Injection</div>
 
-      <div class="lab-desc">
-            Apprentissage du fuzzing web : découverte de répertoires,
-    fuzzing de paramètres et analyse des réponses avec des outils comme ffuf.
-      </div>
-
-      <a href="{% url 'portfolio:web_fuzzing' %}" class="lab-btn">
-        Voir le cours
-      </a>
+    <div class="lab-desc">
+      Comprendre comment une entrée utilisateur non maîtrisée
+      peut mener à l’exécution de commandes système sur un serveur.
+      Inclut théorie, analyse de code et démonstration pédagogique.
     </div>
 
-      <div class="lab-card">
+    <a href="{% url 'portfolio:cmdi_course' %}" class="lab-btn">
+      Voir le cours
+    </a>
+  </div>
+
+  <!-- Web Fuzzing -->
+  <div class="lab-card">
+    <div class="lab-tag">Fuzzing · Web</div>
+
+    <div class="lab-title">Web Fuzzing</div>
+
+    <div class="lab-desc">
+      Apprentissage du fuzzing web : découverte de répertoires,
+      fuzzing de paramètres et analyse des réponses avec des outils comme ffuf.
+    </div>
+
+    <a href="{% url 'portfolio:web_fuzzing' %}" class="lab-btn">
+      Voir le cours
+    </a>
+  </div>
+
+  <!-- Server-Side Attack -->
+  <div class="lab-card">
     <div class="lab-tag">Server-side · SSRF · SSTI · SSI · Critical</div>
 
     <div class="lab-title">Server-Side Attack</div>
@@ -133,11 +130,12 @@
       Includes hands-on exercises and a final skills assessment.
     </div>
 
+    <a href="{% url 'portfolio:server_side_attack' %}" class="lab-btn">
       Voir le cours
     </a>
   </div>
-  </div>
 
+</div>
 </section>
 
 
