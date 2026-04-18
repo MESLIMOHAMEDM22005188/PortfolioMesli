@@ -1,0 +1,699 @@
+{% load static %}
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Fuzzing | Mohamed Mesli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/command_injection.css' %}">
+</head>
+
+<body>
+<main class="course-container">
+
+  <a href="{% url 'portfolio:accueil' %}" class="back-link">
+    ← Retour au portfolio
+  </a>
+
+  <h1>🧪 Web Fuzzing</h1>
+
+  <!-- ===== DEFINITION ===== -->
+  <section class="course-section">
+    <h2>🎯 Définition</h2>
+    <p>
+      Les <strong>server side attacks</strong> ciblent l'application ou le service fourni par un serveur,
+        tandis que les attaques <strong> coté client</strong>  se produisent sur la machine du client et non
+        sur le serveurlui meme. Comprendre et identifi ces differences sera etentile en pentest et bubounty
+
+        Par exemples les vulnérabilité comme le Cross-SiteScriptiong (XSS) ciblent le navigateur web c'est a dire le client
+        à l'inverse les attaques coré serveur ciblent le serveur web.
+    </p>
+  </section>
+
+
+<section class="course-section">
+  <h2>🎯 Les différents types de failles côté serveur</h2>
+
+  <ul>
+    <li><strong>Server-Side Request Forgery (SSRF)</strong></li>
+    <li><strong>Server-Side Template Injection (SSTI)</strong></li>
+    <li><strong>Server-Side Includes (SSI) Injection</strong></li>
+    <li><strong>eXtensible Stylesheet Language Transformations (XSLT) Server-Side Injection</strong></li>
+  </ul>
+
+</section>
+
+
+<section class="course-section">
+  <h3>Server-Side Request Forgery (SSRF)</h3>
+  <p>
+    La <strong>Server-Side Request Forgery (SSRF)</strong> est une vulnérabilité qui permet à un attaquant
+    de manipuler une application web afin de lui faire envoyer des requêtes non autorisées depuis le serveur lui‑même.
+    Cette faille apparaît généralement lorsqu’une application effectue des requêtes HTTP vers d’autres serveurs
+    en utilisant des données fournies par l’utilisateur.
+    <br><br>
+    Lorsqu’elle est exploitée avec succès, une SSRF peut permettre à un attaquant d’accéder à des systèmes internes,
+    de contourner des pare-feux ou encore de récupérer des informations sensibles.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>Server-Side Template Injection (SSTI)</h3>
+  <p>
+    Les applications web utilisent souvent des moteurs de templates et des modèles côté serveur
+    pour générer dynamiquement des réponses, comme du contenu HTML. Cette génération repose
+    fréquemment sur des données fournies par l’utilisateur, permettant à l’application de
+    s’adapter dynamiquement à ses actions.
+    <br><br>
+    Lorsqu’un attaquant parvient à injecter du code dans un template, une vulnérabilité
+    de type <strong>Server-Side Template Injection (SSTI)</strong> peut se produire.
+    Une SSTI peut entraîner divers risques de sécurité, notamment la fuite de données
+    et, dans les cas les plus graves, la compromission complète du serveur via
+    l’exécution de code à distance.
+  </p>
+</section>
+<section class="course-section">
+  <h3>XSLT Server-Side Injection</h3>
+  <p>
+    La <strong>XSLT Server-Side Injection</strong> est une vulnérabilité qui apparaît lorsqu’un attaquant
+    parvient à manipuler les transformations XSLT exécutées sur le serveur. Le langage
+    <strong>XSLT (Extensible Stylesheet Language Transformations)</strong> est utilisé pour transformer
+    des documents XML en d’autres formats, comme du HTML, et il est fréquemment employé dans les
+    applications web pour générer du contenu dynamiquement.
+    <br><br>
+    Dans le cadre d’une injection XSLT côté serveur, l’attaquant exploite des faiblesses dans la manière
+    dont les transformations XSLT sont traitées. Cela peut lui permettre d’injecter et d’exécuter du code
+    arbitraire sur le serveur, entraînant des risques majeurs tels que la fuite de données ou la
+    compromission complète du système.
+  </p>
+</section>
+
+<h2>Introduction à la SSRF</h2>
+<p>
+  Les vulnérabilités de type <strong>Server-Side Request Forgery (SSRF)</strong> font partie du
+  <strong>Top 10 de l’OWASP</strong>. Ce type de vulnérabilité apparaît lorsqu’une application web
+  récupère des ressources distantes en se basant sur des données fournies par l’utilisateur,
+  comme une URL.
+</p>
+
+<h3>Server-Side Request Forgery</h3>
+<p>
+  Lorsqu’un serveur web récupère des ressources distantes en fonction d’une entrée utilisateur,
+  un attaquant peut potentiellement forcer le serveur à effectuer des requêtes vers des URL arbitraires
+  qu’il contrôle. Dans ce cas, le serveur est vulnérable à une SSRF.
+  <br><br>
+  Même si cela peut sembler anodin au premier abord, selon la configuration de l’application web,
+  une SSRF peut avoir des conséquences dévastatrices, comme nous le verrons dans les sections suivantes.
+</p>
+
+<p>
+  De plus, si l’application web repose sur un schéma ou un protocole d’URL fourni par l’utilisateur,
+  un attaquant peut provoquer des comportements encore plus dangereux en manipulant ce schéma.
+  Voici quelques exemples de schémas d’URL couramment utilisés dans l’exploitation des vulnérabilités SSRF :
+</p>
+
+<ul>
+  <li>
+    <strong>http:// et https://</strong> : Ces schémas permettent de récupérer du contenu via des requêtes HTTP/S.
+    Un attaquant peut les utiliser pour contourner des WAF, accéder à des endpoints restreints ou
+    atteindre des services internes.
+  </li>
+
+  <li>
+    <strong>file://</strong> : Ce schéma permet de lire un fichier présent sur le système local.
+    Un attaquant peut l’exploiter pour lire des fichiers locaux sur le serveur (LFI).
+  </li>
+
+  <li>
+    <strong>gopher://</strong> : Ce protocole permet d’envoyer des octets arbitraires à une adresse donnée.
+    Un attaquant peut l’utiliser pour envoyer des requêtes HTTP POST avec un payload personnalisé ou
+    communiquer avec d’autres services, comme des serveurs SMTP ou des bases de données.
+  </li>
+</ul>
+
+<p>
+  Pour plus de détails sur les techniques avancées d’exploitation SSRF, comme les contournements de filtres
+  ou le DNS rebinding, consultez le module <em>Modern Web Exploitation Techniques</em>.
+</p>
+
+  <!-- ===== CONCEPTS ===== -->
+  <section class="course-section">
+    <h2>🧠 Concepts essentiels</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Concept</th>
+          <th>Description</th>
+          <th>Exemple</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Wordlist</td>
+          <td>Liste de mots utilisée pour fuzz</td>
+          <td>admin, login, backup</td>
+        </tr>
+        <tr>
+          <td>Payload</td>
+          <td>Donnée envoyée</td>
+          <td>' OR 1=1 --</td>
+        </tr>
+        <tr>
+          <td>Fuzzer</td>
+          <td>Outil automatisé</td>
+          <td>ffuf, gobuster</td>
+        </tr>
+        <tr>
+          <td>Response</td>
+          <td>Réponse du serveur</td>
+          <td>200, 403, 500</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ===== OUTILS ===== -->
+  <section class="course-section">
+    <h2>🛠️ Outils principaux</h2>
+
+    <ul>
+      <li><strong>ffuf</strong> → rapide et flexible</li>
+      <li><strong>Gobuster</strong> → simple et efficace</li>
+      <li><strong>Feroxbuster</strong> → scan récursif</li>
+      <li><strong>wfuzz / wenum</strong> → fuzzing avancé de paramètres</li>
+    </ul>
+
+    <h3>Installation rapide</h3>
+
+    <pre><code>sudo apt update
+sudo apt install golang python3 python3-pip pipx
+
+go install github.com/ffuf/ffuf/v2@latest
+go install github.com/OJ/gobuster/v3@latest</code></pre>
+  </section>
+
+  <!-- ===== DIRECTORY FUZZING ===== -->
+  <section class="course-section">
+    <h2>📂 Directory Fuzzing</h2>
+
+    <p>
+      Permet de découvrir des dossiers cachés comme :
+      <strong>/admin, /backup, /dev</strong>
+    </p>
+
+    <h3>Commande ffuf</h3>
+
+    <pre><code>ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt \
+-u http://TARGET/FUZZ</code></pre>
+
+    <p>
+      🔎 Le mot-clé <code>FUZZ</code> est remplacé par chaque entrée de la wordlist.
+    </p>
+  </section>
+
+  <!-- ===== FILE FUZZING ===== -->
+  <section class="course-section">
+    <h2>📄 File Fuzzing</h2>
+
+    <p>
+      Permet de trouver des fichiers sensibles :
+      <strong>.php, .txt, .bak, .js</strong>
+    </p>
+
+    <pre><code>ffuf -w common.txt \
+-u http://TARGET/FUZZ \
+-e .php,.html,.txt,.bak,.js</code></pre>
+
+    <p>
+      ⚠️ Exemple :
+      <br>
+      <code>config.php.bak</code> → fuite de credentials
+    </p>
+  </section>
+
+  <!-- ===== WORDLISTS ===== -->
+  <section class="course-section">
+    <h2>📚 Wordlists (très important)</h2>
+
+    <p>
+      Les wordlists sont la base du fuzzing.
+    </p>
+
+    <ul>
+      <li>common.txt → rapide</li>
+      <li>directory-list-2.3-medium.txt → standard</li>
+      <li>big.txt → très complet</li>
+    </ul>
+
+    <pre><code>/usr/share/seclists/Discovery/Web-Content/</code></pre>
+  </section>
+
+  <!-- ===== METHODO ===== -->
+  <section class="course-section">
+    <h2>🧠 Méthodologie (mon workflow)</h2>
+
+    <ol>
+      <li>Recon → analyser le site</li>
+      <li>Directory fuzzing</li>
+      <li>File fuzzing</li>
+      <li>Analyse des réponses</li>
+      <li>Pivot vers exploitation</li>
+    </ol>
+
+    <p>
+      💡 Toujours regarder :
+    </p>
+
+    <ul>
+      <li>Status code (200, 403, 500)</li>
+      <li>Taille réponse</li>
+      <li>Différences comportementales</li>
+    </ul>
+  </section>
+    <!-- ===== RECURSIVE FUZZING ===== -->
+  <section class="course-section">
+    <h2>🌳 Recursive Fuzzing</h2>
+
+    <p>
+      Jusqu’ici, on a fuzz uniquement un niveau (root ou dossier).
+      Mais les applications web peuvent avoir une structure profonde avec plusieurs dossiers imbriqués.
+    </p>
+
+    <p>
+      Le <strong>recursive fuzzing</strong> permet d’automatiser l’exploration complète.
+    </p>
+
+    <h3>⚙️ Fonctionnement</h3>
+
+    <ol>
+      <li>Fuzz du répertoire principal</li>
+      <li>Détection des dossiers valides</li>
+      <li>Relance automatique du fuzz dans chaque dossier</li>
+    </ol>
+
+    <p>
+      📌 Exemple :
+    </p>
+
+    <pre><code>ffuf -w directory-list-2.3-medium.txt \
+-u http://TARGET/FUZZ \
+-e .html \
+-recursion</code></pre>
+
+    <p>
+      🧠 Avantages :
+    </p>
+
+    <ul>
+      <li>Gain de temps énorme</li>
+      <li>Découverte de structures profondes</li>
+      <li>Moins d'effort manuel</li>
+    </ul>
+
+    <p>
+      ⚠️ Options utiles :
+    </p>
+
+    <pre><code>-recursion-depth 2
+-rate 500
+-timeout 10</code></pre>
+  </section>
+
+  <!-- ===== PARAMETER FUZZING ===== -->
+  <section class="course-section">
+    <h2>🧩 Parameter & Value Fuzzing</h2>
+
+    <p>
+      Ici on ne fuzz plus des dossiers mais des <strong>paramètres</strong>.
+    </p>
+
+    <h3>GET parameters</h3>
+
+    <pre><code>http://site.com/page?x=FUZZ</code></pre>
+
+    <p>
+      Exemple avec wenum :
+    </p>
+
+    <pre><code>wenum -w common.txt \
+-u "http://TARGET/get.php?x=FUZZ" \
+--hc 404</code></pre>
+
+    <h3>POST parameters</h3>
+
+    <pre><code>ffuf -u http://TARGET/post.php \
+-X POST \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "y=FUZZ" \
+-w common.txt \
+-mc 200</code></pre>
+
+    <p>
+      🎯 Objectif :
+    </p>
+
+    <ul>
+      <li>Trouver des valeurs valides</li>
+      <li>Contourner des contrôles</li>
+      <li>Déclencher des comportements cachés</li>
+    </ul>
+  </section>
+
+  <!-- ===== VHOST & SUBDOMAIN ===== -->
+  <section class="course-section">
+    <h2>🌐 VHost & Subdomain Fuzzing</h2>
+
+    <p>
+      Permet de découvrir des sites cachés sur un même serveur.
+    </p>
+
+    <h3>VHost (Gobuster)</h3>
+
+    <pre><code>gobuster vhost \
+-u http://target \
+-w common.txt \
+--append-domain</code></pre>
+
+    <h3>Subdomain</h3>
+
+    <pre><code>gobuster dns \
+-d example.com \
+-w subdomains.txt</code></pre>
+
+    <p>
+      🎯 Exemple :
+    </p>
+
+    <ul>
+      <li>admin.example.com</li>
+      <li>dev.example.com</li>
+      <li>test.example.com</li>
+    </ul>
+  </section>
+
+  <!-- ===== FILTERING ===== -->
+  <section class="course-section">
+    <h2>🎯 Filtering (très important)</h2>
+
+    <p>
+      Le fuzzing génère beaucoup de bruit.
+      Il faut filtrer pour voir l’essentiel.
+    </p>
+
+    <h3>FFUF</h3>
+
+    <pre><code>-mc 200        # match code
+-fc 404        # exclude code
+-fs 0-1000     # filter size
+-mt >500       # réponse lente</code></pre>
+
+    <p>
+      Exemple :
+    </p>
+
+    <pre><code>ffuf -u http://TARGET/FUZZ \
+-w wordlist.txt \
+-mc 200 \
+-fc 404</code></pre>
+
+    <p>
+      💡 Sans filtre = trop de faux positifs
+    </p>
+  </section>
+
+  <!-- ===== VALIDATION ===== -->
+  <section class="course-section">
+    <h2>✅ Validation des résultats</h2>
+
+    <p>
+      Tous les résultats ne sont pas des failles.
+    </p>
+
+    <p>
+      Il faut valider manuellement.
+    </p>
+
+    <h3>Étapes</h3>
+
+    <ol>
+      <li>Reproduire la requête</li>
+      <li>Analyser la réponse</li>
+      <li>Tester l’impact</li>
+    </ol>
+
+    <pre><code>curl http://TARGET/backup/</code></pre>
+
+    <p>
+      🔎 Vérifier :
+    </p>
+
+    <ul>
+      <li>Content-Length</li>
+      <li>Content-Type</li>
+      <li>Présence de fichiers sensibles</li>
+    </ul>
+
+    <p>
+      ⚠️ Toujours rester éthique (CTF / lab uniquement)
+    </p>
+  </section>
+
+  <!-- ===== WEB APIs ===== -->
+  <section class="course-section">
+    <h2>🔌 Web APIs</h2>
+
+    <p>
+      Une API permet à des applications de communiquer entre elles.
+    </p>
+
+    <h3>Types</h3>
+
+    <ul>
+      <li><strong>REST</strong> → JSON, endpoints multiples</li>
+      <li><strong>SOAP</strong> → XML, structure stricte</li>
+      <li><strong>GraphQL</strong> → requêtes flexibles</li>
+    </ul>
+
+    <p>
+      Exemple REST :
+    </p>
+
+    <pre><code>GET /users/123</code></pre>
+
+    <p>
+      🧠 Différence avec un site classique :
+    </p>
+
+    <ul>
+      <li>Site → HTML</li>
+      <li>API → JSON / XML</li>
+    </ul>
+  </section>
+
+  <!-- ===== ENDPOINT DISCOVERY ===== -->
+  <section class="course-section">
+    <h2>🎯 Identification des endpoints</h2>
+
+    <p>
+      Avant de fuzz une API, il faut trouver ses endpoints.
+    </p>
+
+    <h3>Méthodes</h3>
+
+    <ul>
+      <li>Documentation (Swagger)</li>
+      <li>Analyse réseau (Burp Suite)</li>
+      <li>Fuzzing des paramètres</li>
+    </ul>
+
+    <p>
+      Exemple :
+    </p>
+
+    <pre><code>/users
+/users/123
+/products/456</code></pre>
+  </section>
+
+  <!-- ===== SOAP & GRAPHQL ===== -->
+  <section class="course-section">
+    <h2>🧩 SOAP & GraphQL Fuzzing</h2>
+
+    <h3>🔎 Découverte des endpoints SOAP</h3>
+    <p>
+      Les API SOAP utilisent des fichiers <strong>WSDL</strong> pour définir leur structure.
+    </p>
+
+    <ul>
+      <li>Opérations disponibles (endpoints)</li>
+      <li>Paramètres d’entrée et de sortie</li>
+      <li>Types de données</li>
+      <li>URL du service</li>
+    </ul>
+
+    <p>
+      🛠️ Méthodes :
+    </p>
+    <ul>
+      <li>Analyse du fichier WSDL</li>
+      <li>Sniff réseau (Wireshark, tcpdump)</li>
+      <li>Fuzzing des paramètres XML</li>
+    </ul>
+
+    <h3>⚡ GraphQL</h3>
+    <p>
+      Contrairement à REST, GraphQL utilise un <strong>seul endpoint</strong> (souvent <code>/graphql</code>).
+    </p>
+
+    <h4>📥 Exemple de requête</h4>
+    <pre><code>query {
+  user(id: 123) {
+    name
+    email
+  }
+}</code></pre>
+
+    <h4>✏️ Mutation</h4>
+    <pre><code>mutation {
+  createPost(title: "Test") {
+    id
+  }
+}</code></pre>
+
+    <p>
+      🔍 Découverte :
+    </p>
+    <ul>
+      <li>Introspection GraphQL</li>
+      <li>Documentation (GraphiQL)</li>
+      <li>Analyse du trafic réseau</li>
+    </ul>
+  </section>
+
+  <!-- ===== API FUZZING ===== -->
+  <section class="course-section">
+    <h2>🚀 API Fuzzing</h2>
+
+    <p>
+      Le <strong>API fuzzing</strong> consiste à tester automatiquement les endpoints d’une API
+      avec des requêtes modifiées pour détecter des vulnérabilités.
+    </p>
+
+    <h3>🎯 Objectifs</h3>
+    <ul>
+      <li>Trouver des endpoints cachés</li>
+      <li>Tester la robustesse</li>
+      <li>Détecter des injections</li>
+      <li>Simuler un attaquant réel</li>
+    </ul>
+
+    <h3>🧪 Types de fuzzing API</h3>
+
+    <h4>1️⃣ Parameter Fuzzing</h4>
+    <p>Tester différentes valeurs pour un paramètre :</p>
+    <pre><code>?id=FUZZ</code></pre>
+
+    <h4>2️⃣ Data Format Fuzzing</h4>
+    <p>Modifier le JSON / XML :</p>
+    <pre><code>{
+  "id": "AAAAA"
+}</code></pre>
+
+    <h4>3️⃣ Sequence Fuzzing</h4>
+    <p>
+      Tester l’ordre des requêtes (important pour les APIs complexes).
+    </p>
+  </section>
+
+  <!-- ===== API ENUMERATION ===== -->
+  <section class="course-section">
+    <h2>🔍 Découverte d’API (Endpoints)</h2>
+
+    <p>
+      Une API peut contenir des endpoints cachés non documentés.
+    </p>
+
+    <h3>📚 Exemple d’API</h3>
+    <ul>
+      <li>GET / → accueil</li>
+      <li>GET /items/{id}</li>
+      <li>POST /items</li>
+      <li>PUT /items/{id}</li>
+      <li>DELETE /items/{id}</li>
+    </ul>
+
+    <p>
+      ⚠️ Certains endpoints peuvent être cachés !
+    </p>
+
+    <h3>🛠️ Fuzzer une API</h3>
+
+    <pre><code>git clone https://github.com/PandaSt0rm/webfuzz_api.git
+cd webfuzz_api
+pip3 install -r requirements.txt
+
+python3 api_fuzzer.py http://IP:PORT</code></pre>
+
+    <h3>📊 Résultat</h3>
+
+    <pre><code>Found valid endpoints:
+- /docs
+- /secret_endpoint</code></pre>
+
+    <p>
+      💡 Endpoint caché trouvé → accès possible à une <strong>flag</strong>
+    </p>
+  </section>
+
+  <!-- ===== VALIDATION ===== -->
+  <section class="course-section">
+    <h2>✅ Validation des résultats</h2>
+
+    <p>
+      Le fuzzing génère souvent des <strong>faux positifs</strong>.
+      Il faut toujours vérifier manuellement.
+    </p>
+
+    <h3>🛠️ Méthode</h3>
+    <ol>
+      <li>Reproduire avec curl</li>
+      <li>Analyser la réponse</li>
+      <li>Confirmer la vulnérabilité</li>
+    </ol>
+
+    <h3>📌 Exemple</h3>
+
+    <pre><code>curl http://IP:PORT/backup/</code></pre>
+
+    <p>
+      Si tu vois une liste de fichiers → vulnérabilité confirmée ⚠️
+    </p>
+
+    <h3>🔎 Headers utiles</h3>
+
+    <pre><code>curl -I http://IP:PORT/backup/password.txt</code></pre>
+
+    <ul>
+      <li>Content-Type</li>
+      <li>Content-Length</li>
+    </ul>
+
+    <p>
+      💡 Permet d’analyser sans exposer les données sensibles
+    </p>
+  </section>
+
+  <a href="{% url 'portfolio:web_fuzzing_exploit' %}" class="course-btn">
+    ⚠️ Voir le walkthrough technique
+  </a>
+  <!-- ===== DISCLAIMER ===== -->
+  <div class="course-disclaimer">
+    ⚠️ Contenu éducatif uniquement.
+    Utiliser uniquement sur des systèmes autorisés (CTF, labs).
+  </div>
+
+</main>
+</body>
+</html>p
