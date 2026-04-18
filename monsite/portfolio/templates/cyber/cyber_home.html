@@ -76,63 +76,75 @@
 
   <h2>📚 Courses & Vulnerabilities</h2>
     <div class="labs-grid">
+      <h3 class="category-title">💉 Injection Attacks</h3>
+<div class="labs-grid">
 
-  <!-- OS Command Injection -->
-  <div class="lab-card">
-    <div class="lab-tag">Injection · OS · Critical</div>
+  <div class="lab-card critical">
+    <div class="lab-tag">OS Injection · Critical</div>
 
     <div class="lab-title">OS Command Injection</div>
 
     <div class="lab-desc">
-      Comprendre comment une entrée utilisateur non maîtrisée
-      peut mener à l’exécution de commandes système sur un serveur.
-      Inclut théorie, analyse de code et démonstration pédagogique.
+      Exploitation d’entrées utilisateur menant à l’exécution de commandes système.
+      Analyse de code vulnérable, payloads et techniques de bypass.
     </div>
 
     <a href="{% url 'portfolio:cmdi_course' %}" class="lab-btn">
-      Voir le cours
+      Voir le module
     </a>
   </div>
 
+</div>
+
+  <!-- OS Command Injection -->
   <!-- Web Fuzzing -->
   <div class="lab-card">
-    <div class="lab-tag">Fuzzing · Web</div>
+   <h3 class="category-title">🔎 Recon & Discovery</h3>
+<div class="labs-grid">
+
+  <div class="lab-card">
+    <div class="lab-tag">Fuzzing · Enumeration</div>
 
     <div class="lab-title">Web Fuzzing</div>
 
     <div class="lab-desc">
-      Apprentissage du fuzzing web : découverte de répertoires,
-      fuzzing de paramètres et analyse des réponses avec des outils comme ffuf.
+      Découverte de surface d’attaque via fuzzing :
+      répertoires, endpoints et paramètres.
+      Utilisation d’outils comme ffuf.
     </div>
 
     <a href="{% url 'portfolio:web_fuzzing' %}" class="lab-btn">
-      Voir le cours
+      Voir le module
     </a>
+  </div>
+
+</div>
   </div>
 
   <!-- Server-Side Attack -->
   <div class="lab-card">
     <div class="lab-tag">Server-side · SSRF · SSTI · SSI · Critical</div>
 
-    <div class="lab-title">Server-Side Attack</div>
+    <h3 class="category-title">🖥️ Server-Side Attacks</h3>
+<div class="labs-grid">
+
+  <div class="lab-card critical">
+    <div class="lab-tag">SSRF · SSTI · RCE</div>
+
+    <div class="lab-title">Server-Side Exploitation</div>
 
     <div class="lab-desc">
-      A backend that handles user-supplied input insecurely can lead to
-      severe vulnerabilities such as sensitive information disclosure and
-      remote code execution.
-      <br><br>
-      This module covers identification and exploitation of:
-      <br>• SSRF (Server-Side Request Forgery)
-      <br>• SSTI (Server-Side Template Injection)
-      <br>• SSI (Server-Side Includes)
-      <br>• XSLT Injection
-      <br><br>
-      Includes hands-on exercises and a final skills assessment.
+      Identification et exploitation de vulnérabilités backend :
+      SSRF, SSTI, SSI et injections XSLT.
+      Impact : fuite de données, accès interne, RCE.
     </div>
 
     <a href="{% url 'portfolio:server_side_attack' %}" class="lab-btn">
-      Voir le cours
+      Voir le module
     </a>
+  </div>
+
+</div>
   </div>
 
 </div>
