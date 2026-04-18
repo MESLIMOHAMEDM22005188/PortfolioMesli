@@ -154,3 +154,5 @@ def web_fuzzing(request):
 
 def web_fuzzing_exploit(request):
     return  render(request, 'cyber/courses/web_fuzzing/exploit.html')
+def server_side_attack(request):
+    return render(request, 'cyber/courses/server_side/index.html')
