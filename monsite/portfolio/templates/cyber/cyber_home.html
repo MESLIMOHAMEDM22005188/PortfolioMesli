@@ -72,84 +72,71 @@
     </div>
   </div>
 
-  <section class="courses-section">
+<section class="courses-section">
 
   <h2>📚 Courses & Vulnerabilities</h2>
-    <div class="labs-grid">
-      <h3 class="category-title">💉 Injection Attacks</h3>
-<div class="labs-grid">
 
-  <div class="lab-card critical">
-    <div class="lab-tag">OS Injection · Critical</div>
+  <!-- Injection -->
+  <h3 class="category-title">💉 Injection Attacks</h3>
+  <div class="labs-grid">
 
-    <div class="lab-title">OS Command Injection</div>
+    <div class="lab-card critical">
+      <div class="lab-tag">OS Injection · Critical</div>
 
-    <div class="lab-desc">
-      Exploitation d’entrées utilisateur menant à l’exécution de commandes système.
-      Analyse de code vulnérable, payloads et techniques de bypass.
+      <div class="lab-title">OS Command Injection</div>
+
+      <div class="lab-desc">
+        Exploitation d’entrées utilisateur menant à l’exécution de commandes système.
+      </div>
+
+      <a href="{% url 'portfolio:cmdi_course' %}" class="lab-btn">
+        Voir le module
+      </a>
     </div>
 
-    <a href="{% url 'portfolio:cmdi_course' %}" class="lab-btn">
-      Voir le module
-    </a>
   </div>
 
-</div>
+  <!-- Recon -->
+  <h3 class="category-title">🔎 Recon & Discovery</h3>
+  <div class="labs-grid">
 
-  <!-- OS Command Injection -->
-  <!-- Web Fuzzing -->
-  <div class="lab-card">
-   <h3 class="category-title">🔎 Recon & Discovery</h3>
-<div class="labs-grid">
+    <div class="lab-card">
+      <div class="lab-tag">Fuzzing · Enumeration</div>
 
-  <div class="lab-card">
-    <div class="lab-tag">Fuzzing · Enumeration</div>
+      <div class="lab-title">Web Fuzzing</div>
 
-    <div class="lab-title">Web Fuzzing</div>
+      <div class="lab-desc">
+        Découverte de surface d’attaque via fuzzing.
+      </div>
 
-    <div class="lab-desc">
-      Découverte de surface d’attaque via fuzzing :
-      répertoires, endpoints et paramètres.
-      Utilisation d’outils comme ffuf.
+      <a href="{% url 'portfolio:web_fuzzing' %}" class="lab-btn">
+        Voir le module
+      </a>
     </div>
 
-    <a href="{% url 'portfolio:web_fuzzing' %}" class="lab-btn">
-      Voir le module
-    </a>
   </div>
 
-</div>
-  </div>
+  <!-- Server Side -->
+  <h3 class="category-title">🖥️ Server-Side Attacks</h3>
+  <div class="labs-grid">
 
-  <!-- Server-Side Attack -->
-  <div class="lab-card">
-    <div class="lab-tag">Server-side · SSRF · SSTI · SSI · Critical</div>
+    <div class="lab-card critical">
+      <div class="lab-tag">SSRF · SSTI · RCE</div>
 
-    <h3 class="category-title">🖥️ Server-Side Attacks</h3>
-<div class="labs-grid">
+      <div class="lab-title">Server-Side Exploitation</div>
 
-  <div class="lab-card critical">
-    <div class="lab-tag">SSRF · SSTI · RCE</div>
+      <div class="lab-desc">
+        Vulnérabilités backend critiques.
+      </div>
 
-    <div class="lab-title">Server-Side Exploitation</div>
-
-    <div class="lab-desc">
-      Identification et exploitation de vulnérabilités backend :
-      SSRF, SSTI, SSI et injections XSLT.
-      Impact : fuite de données, accès interne, RCE.
+      <a href="{% url 'portfolio:server_side_attack' %}" class="lab-btn">
+        Voir le module
+      </a>
     </div>
 
-    <a href="{% url 'portfolio:server_side_attack' %}" class="lab-btn">
-      Voir le module
-    </a>
   </div>
 
-</div>
-  </div>
-
-</div>
 </section>
-
 
   <!-- ===== TOOLS & ARSENAL ===== -->
   <section class="tools-section">
