@@ -4,6 +4,7 @@ Version propre et compatible Render/AlwaysData.
 """
 
 import os
+from logging import DEBUG
 from pathlib import Path
 from decouple import config
 import dj_database_url
@@ -24,7 +25,7 @@ logger = logging.getLogger(__name__)
 # Security
 # -----------------------
 SECRET_KEY = config('SECRET_KEY', default='dev-secret')
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = True
 ALLOWED_HOSTS = [h.strip() for h in config('ALLOWED_HOSTS', default='').split(',') if h.strip()]
 # -----------------------
 # Allowed hosts
