@@ -665,20 +665,25 @@ Hello Pedant!</code></pre>
     Par exemple, on commence par :
   </p>
 
-  <pre><code>${7*7}</code></pre>
+  {% verbatim %}
+<pre><code>${7*7}</code></pre>
+
+    {% endverbatim %}
 
   <p>
     Si ce payload est exécuté, on suit une branche (par exemple, résultat <code>49</code>), sinon on teste un autre payload :
   </p>
-
+{% verbatim %}
   <pre><code>{{7*7}}</code></pre>
+{% endverbatim %}
 
   <p>
     Si cette fois le résultat affiché est <code>49</code>, on sait que le moteur exécute cette syntaxe.
     On peut alors raffiner avec un payload comme :
   </p>
-
+{% verbatim %}
   <pre><code>{{7*'7'}}</code></pre>
+{% endverbatim %}
 
   <p>
     Selon le moteur, le résultat diffère :
