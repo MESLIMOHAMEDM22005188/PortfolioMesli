@@ -805,8 +805,7 @@ Hello Pedant!</code></pre>
     L’un d’eux, <code>file_excerpt</code>, permet de lire des fichiers locaux :
   </p>
 
-  <pre><code>{{ "/etc/passwd"|file_excerpt(1, -1) }}</code></pre>
-
+<pre><code>{% verbatim %}{{ "/etc/passwd"|file_excerpt(1, -1) }}{% endverbatim %}</code></pre>
   <p>
     Ce payload lit le fichier <code>/etc/passwd</code> et en affiche le contenu.
   </p>
