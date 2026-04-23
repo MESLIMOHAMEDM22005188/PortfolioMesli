@@ -13,14 +13,14 @@
   <h1>🧪 Web Fuzzing</h1>
   <section class="course-section">
     <h2>🎯 Définition</h2>
-    <p>
-      Les <strong>server side attacks</strong> ciblent l'application ou le service fourni par un serveur,
-        tandis que les attaques <strong> coté client</strong>  se produisent sur la machine du client et non
-        sur le serveurlui meme. Comprendre et identifi ces differences sera etentile en pentest et bubounty
+<p>
+  Les <strong>server-side attacks</strong> ciblent l'application ou le service fourni par un serveur,
+  tandis que les attaques <strong>côté client</strong> se produisent sur la machine du client et non
+  sur le serveur lui-même. Comprendre et identifier ces différences sera essentiel en pentest et bug bounty.
 
-        Par exemples les vulnérabilité comme le Cross-SiteScriptiong (XSS) ciblent le navigateur web c'est a dire le client
-        à l'inverse les attaques coré serveur ciblent le serveur web.
-    </p>
+  Par exemple, les vulnérabilités comme le Cross-Site Scripting (XSS) ciblent le navigateur web,
+  c'est-à-dire le client, à l'inverse des attaques côté serveur qui ciblent le serveur web.
+</p>
   </section>
   <section class="course-section">
   <h2>🎯 Les différents types de failles côté serveur</h2>
@@ -721,8 +721,9 @@ Hello Pedant!</code></pre>
     Par exemple, pour afficher la configuration Flask, on peut utiliser :
   </p>
 
-  <pre><code>{{ config.items() }}</code></pre>
-
+{% verbatim %}
+<pre><code>{{ config.items() }}</code></pre>
+{% endverbatim %}
   <p>
     Ce payload divulgue l’intégralité de la configuration, y compris d’éventuelles clés secrètes,
     ce qui peut faciliter des attaques ultérieures.
