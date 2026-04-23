@@ -829,7 +829,8 @@ Hello Pedant!</code></pre>
   <p><strong>Exemple de payload RCE :</strong></p>
 
   {% verbatim %}
-  <pre><code>{{ ['id'] | filter('system') }}</code></pre>
+
+<pre><code>{{ ['id'] | filter('system') }}</code></pre>
   {% endverbatim %}
 
   <p>
