@@ -30,6 +30,8 @@ path("cybersecurity/command-injection/", views.cmdi_course, name="cmdi_course"),
 path("cybersecurity/command-injection/exploit.html/", views.cmdi_exploit, name="cmdi_exploit"),
 
 path("cybersecurity/server-side/", views.server_side_attack, name="server_side_attack"),
+path("cybersecurity/server-side/", views.server_side_exploit, name="server_side_exploit"),
+
 
     path("mes-petits-cours/", views.mesPetitsCours, name="mespetitscours"),
 
