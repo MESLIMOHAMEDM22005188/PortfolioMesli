@@ -1,0 +1,132 @@
+/* ===== GLOBAL ===== */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0a0a0a;
+    color: #e6e6e6;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* ===== CONTAINER ===== */
+.course-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+/* ===== BACK LINK ===== */
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #00ffcc;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* ===== TITLE ===== */
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #00ffcc;
+}
+
+/* ===== SECTIONS ===== */
+.course-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #1f1f1f;
+    background-color: #111;
+    border-radius: 8px;
+}
+
+/* ===== SUBTITLES ===== */
+h2 {
+    color: #00ffcc;
+    margin-bottom: 10px;
+}
+
+h3 {
+    color: #00ffaa;
+    margin-top: 15px;
+}
+
+/* ===== TEXT ===== */
+p {
+    margin-bottom: 10px;
+}
+
+/* ===== LISTS ===== */
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* ===== CODE BLOCK ===== */
+pre {
+    background-color: #000;
+    border: 1px solid #00ffcc;
+    padding: 15px;
+    overflow-x: auto;
+    border-radius: 5px;
+}
+
+code {
+    color: #00ffcc;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #333;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #111;
+    color: #00ffcc;
+}
+
+td {
+    background-color: #0d0d0d;
+}
+
+/* ===== BUTTON ===== */
+.course-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #00ffcc;
+    color: #000;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.course-btn:hover {
+    background-color: #00ccaa;
+}
+
+/* ===== DISCLAIMER ===== */
+.course-disclaimer {
+    margin-top: 40px;
+    padding: 15px;
+    background-color: #1a1a1a;
+    border-left: 4px solid #ff4d4d;
+    font-size: 14px;
+}
