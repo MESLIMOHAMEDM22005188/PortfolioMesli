@@ -105,10 +105,120 @@
     </ul>
   </section>
 
-  <div class="course-disclaimer">
-    ⚠️ Ce contenu est fourni à des fins pédagogiques uniquement.
-    Toute utilisation doit être réalisée dans un cadre légal et autorisé.
-  </div>
+  <section class="course-section">
+  <h2>🛠️ Outil : Medusa</h2>
+
+  <h3>🎯 Présentation</h3>
+  <p>
+    <strong>Medusa</strong> est un outil de brute‑force rapide, modulaire et
+    hautement parallèle, utilisé en cybersécurité pour tester la robustesse
+    des mécanismes d’authentification à distance.
+  </p>
+
+  <p>
+    Il permet de vérifier la résistance de nombreux services exposés
+    (SSH, FTP, HTTP, RDP, bases de données, e‑mail, etc.) face aux attaques
+    par dictionnaire ou credential stuffing.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>📥 Installation</h3>
+  <p>
+    Medusa est souvent préinstallé sur les distributions orientées pentest.
+    Sinon, l’installation est simple :
+  </p>
+
+  <pre><code>sudo apt update
+sudo apt install medusa</code></pre>
+
+  <p>Vérification :</p>
+  <pre><code>medusa -h</code></pre>
+</section>
+
+<section class="course-section">
+  <h3>⚙️ Syntaxe générale</h3>
+
+  <pre><code>medusa [options_cible] [options_identifiants] -M module [options_module]</code></pre>
+
+  <ul>
+    <li><code>-h</code> / <code>-H</code> : cible unique ou liste de cibles</li>
+    <li><code>-u</code> / <code>-U</code> : utilisateur ou liste d’utilisateurs</li>
+    <li><code>-p</code> / <code>-P</code> : mot de passe ou wordlist</li>
+    <li><code>-M</code> : module correspondant au service</li>
+    <li><code>-t</code> : nombre de tentatives parallèles</li>
+    <li><code>-f</code> : arrêt après la première réussite</li>
+    <li><code>-v</code> : niveau de verbosité</li>
+  </ul>
+</section>
+
+<section class="course-section">
+  <h3>🧩 Services supportés</h3>
+
+  <ul>
+    <li><strong>SSH</strong> – Accès distant sécurisé</li>
+    <li><strong>FTP</strong> – Transfert de fichiers</li>
+    <li><strong>HTTP / Web forms</strong> – Authentification web</li>
+    <li><strong>RDP</strong> – Bureau à distance Windows</li>
+    <li><strong>MySQL</strong> – Bases de données</li>
+    <li><strong>IMAP / POP3</strong> – Serveurs de messagerie</li>
+    <li><strong>Telnet</strong> – Services legacy</li>
+    <li><strong>VNC</strong> – Accès graphique distant</li>
+  </ul>
+</section>
+
+<section class="course-section">
+  <h3>🚀 Exemple : test SSH</h3>
+
+  <p>
+    Évaluation de la sécurité d’un serveur SSH à l’aide d’une liste
+    d’utilisateurs et de mots de passe :
+  </p>
+
+  <pre><code>medusa -h 192.168.0.100 -U usernames.txt -P passwords.txt -M ssh</code></pre>
+
+  <p>
+    Medusa teste automatiquement chaque combinaison afin d’identifier
+    d’éventuels comptes faibles.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>🌐 Exemple : HTTP Basic Authentication</h3>
+
+  <p>
+    Test d’authentification basique sur plusieurs serveurs web :
+  </p>
+
+  <pre><code>medusa -H web_servers.txt -U usernames.txt -P passwords.txt -M http -m GET</code></pre>
+</section>
+
+<section class="course-section">
+  <h3>🧪 Détection de mots de passe faibles</h3>
+
+  <p>
+    Medusa peut également tester des configurations dangereuses comme :
+  </p>
+
+  <ul>
+    <li>Mot de passe vide</li>
+    <li>Mot de passe identique au nom d’utilisateur</li>
+  </ul>
+
+  <pre><code>medusa -h 10.0.0.5 -U usernames.txt -e ns -M ssh</code></pre>
+</section>
+
+<section class="course-section">
+  <h3>🛡️ Prévention</h3>
+
+  <ul>
+    <li>Limiter le nombre de tentatives de connexion</li>
+    <li>Mettre en place un délai après échecs</li>
+    <li>Utiliser des mots de passe forts et uniques</li>
+    <li>Activer l’authentification multi‑facteurs (MFA)</li>
+    <li>Surveiller activement les logs d’accès</li>
+  </ul>
+</section>
 
 </main>
 </body>
