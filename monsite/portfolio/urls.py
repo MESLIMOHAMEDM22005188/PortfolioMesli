@@ -33,6 +33,8 @@ path("cybersecurity/server-side-attack/", views.server_side_attack, name="server
 path("cybersecurity/server-side/", views.server_side_exploit, name="server_side_exploit"),
 
 
+path("cybersecurity/brute_force/", views.brute_force_html, name="brute_force_html"),
+
     path("mes-petits-cours/", views.mesPetitsCours, name="mespetitscours"),
 
     # Pages scolaires

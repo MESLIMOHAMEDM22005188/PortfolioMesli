@@ -27,9 +27,6 @@ PROJECTS = {
     },
 }
 
-# =========================
-# Pages principales
-# =========================
 def accueil(request):
     return render(request, 'accueil.html')
 
@@ -60,9 +57,6 @@ def cm1(request):
 def cm2(request):
     return render(request, 'cm2.html')
 
-# =========================
-# Projets
-# =========================
 def concurrency(request):
     return render(request, 'projects/concurrency.html')
 
@@ -98,6 +92,7 @@ def smartbudget_tracker(request):
 
 def bandit(request):
     return render(request, 'projects/bandit.html')
+
 def mailcli_sender(request):
     return render(request, 'projects/mailcli_sender.html')
 
@@ -141,8 +136,6 @@ def project_detail(request):
 def cyber_home(request):
     return render(request, 'cyber/cyber_home.html')
 
-
-# Command Injection
 def cmdi_course(request):
     return render(request, 'cyber/courses/command_injection/index.html')
 
@@ -154,9 +147,12 @@ def web_fuzzing(request):
 
 def web_fuzzing_exploit(request):
     return  render(request, 'cyber/courses/web_fuzzing/exploit.html')
+
 def server_side_attack(request):
     return render(request, 'cyber/courses/server_side/index.html')
 
-
 def server_side_exploit(request):
     return render(request, 'cyber/courses/server_side/exploit.html')
+
+def brute_force_html(request):
+    return render(request, 'cyber/courses/brute_force/index.html')
