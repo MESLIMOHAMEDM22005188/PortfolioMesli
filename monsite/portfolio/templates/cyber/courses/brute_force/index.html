@@ -343,7 +343,150 @@ HTB{...}</code></pre>
     peuvent être compromises en cas de mauvaise hygiène de sécurité.
   </p>
 </section>
+<section class="course-section">
+  <h2>🧠 Section 11 / 13 – Wordlists personnalisées (Custom Wordlists)</h2>
 
+  <h3>🎯 Pourquoi des wordlists personnalisées ?</h3>
+  <p>
+    Les wordlists génériques comme <strong>rockyou</strong> ou <strong>SecLists</strong>
+    couvrent un large spectre de mots de passe et d’identifiants, mais restent
+    peu efficaces lorsqu’une cible précise utilise des conventions internes
+    spécifiques.
+  </p>
+
+  <p>
+    Lors d’un test d’intrusion ciblé, une approche <em>sur mesure</em> permet de réduire
+    drastiquement le bruit et d’augmenter fortement le taux de succès en
+    s’appuyant sur des informations contextuelles (OSINT).
+  </p>
+
+  <h3>👤 Exemple concret</h3>
+  <p>
+    Une cible nommée <strong>Thomas Edison</strong> n’utilisera probablement pas un identifiant
+    générique présent dans une liste de plusieurs millions d’entrées.
+    Les conventions peuvent inclure :
+  </p>
+
+  <ul>
+    <li>prenom.nom</li>
+    <li>nomprenom</li>
+    <li>nom + initiale</li>
+    <li>variantes tronquées</li>
+  </ul>
+
+  <p>
+    D’où l’intérêt de générer des listes adaptées à l’environnement de la cible.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>🧩 Username Anarchy</h3>
+
+  <p>
+    <strong>Username Anarchy</strong> automatise la génération de noms d’utilisateurs à partir
+    des prénoms et noms, en tenant compte des initiales, abréviations, séparateurs
+    et variantes courantes.
+  </p>
+
+  <h4>📥 Installation</h4>
+  <pre><code>sudo apt install ruby -y
+git clone https://github.com/urbanadventurer/username-anarchy.git
+cd username-anarchy</code></pre>
+
+  <h4>🚀 Génération de noms d’utilisateur</h4>
+  <pre><code>./username-anarchy Jane Smith > jane_smith_usernames.txt</code></pre>
+
+  <p>
+    Le fichier généré inclut :
+  </p>
+  <ul>
+    <li>janesmith, smithjane</li>
+    <li>j.smith, jane.s</li>
+    <li>js, sj</li>
+    <li>Variantes en majuscules / mixtes</li>
+  </ul>
+</section>
+
+<section class="course-section">
+  <h3>🔐 CUPP – Génération de mots de passe ciblés</h3>
+
+  <p>
+    <strong>CUPP (Common User Passwords Profiler)</strong> crée des wordlists de mots de passe
+    hautement personnalisées à partir d’informations OSINT :
+  </p>
+
+  <ul>
+    <li>Réseaux sociaux</li>
+    <li>Données professionnelles</li>
+    <li>Famille, animaux, loisirs</li>
+    <li>Dates importantes</li>
+  </ul>
+
+  <h4>📥 Installation</h4>
+  <pre><code>sudo apt install cupp -y</code></pre>
+
+  <h4>⚙️ Mode interactif</h4>
+  <pre><code>cupp -i</code></pre>
+
+  <p>
+    CUPP applique automatiquement :
+  </p>
+  <ul>
+    <li>Leetspeak (a → 4, e → 3, i → 1)</li>
+    <li>Capitalisation</li>
+    <li>Ajout de chiffres et caractères spéciaux</li>
+    <li>Combinaisons avancées</li>
+  </ul>
+</section>
+
+<section class="course-section">
+  <h3>📏 Filtrage selon une politique de mot de passe</h3>
+
+  <p>
+    Si l’entreprise impose une politique stricte (majuscules, chiffres, caractères
+    spéciaux), il est possible de filtrer efficacement la wordlist générée :
+  </p>
+
+  <pre><code>grep -E '^.{6,}$' jane.txt \
+| grep -E '[A-Z]' \
+| grep -E '[a-z]' \
+| grep -E '[0-9]' \
+| grep -E '([!@#$%^&*].*){2,}' > jane-filtered.txt</code></pre>
+
+  <p>
+    ✅ Réduction massive de la taille de la wordlist tout en respectant la politique
+    de sécurité.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>🚀 Exploitation avec Hydra</h3>
+
+  <p>
+    Les deux wordlists générées peuvent alors être utilisées simultanément
+    dans une attaque par formulaire HTTP :
+  </p>
+
+  <pre><code>hydra -L jane_smith_usernames.txt -P jane-filtered.txt IP -s PORT \
+http-post-form "/:username=^USER^&password=^PASS^:Invalid credentials"</code></pre>
+
+  <p>
+    ✅ Cette méthode ciblée maximise l’efficacité tout en réduisant les tentatives
+    inutiles.
+  </p>
+</section>
+
+<section class="course-section">
+  <h3>🛡️ Leçon défensive</h3>
+
+  <ul>
+    <li>Éviter les conventions de noms prévisibles</li>
+    <li>Politiques de mots de passe robustes</li>
+    <li>Rate limiting & verrouillage de compte</li>
+    <li>MFA obligatoire</li>
+    <li>Surveillance des tentatives d’authentification</li>
+  </ul>
+</section>
 <section class="course-section">
   <h3>🛡️ Leçon de sécurité</h3>
 
