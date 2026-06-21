@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+SOC + SIEM Lab | Mesli Portfolio
+{% endblock %}
+
+{% block content %}
+
+<section class="cyber-page">
+
+    <div class="cyber-header">
+
+        <span class="cyber-badge">
+            Wazuh · Elasticsearch · Kibana
+        </span>
+
+        <h1>SOC + SIEM Lab</h1>
+
+        <p class="cyber-intro">
+            A Security Operations Center (SOC) laboratory designed to
+            centralize logs, detect suspicious activities and provide
+            real-time monitoring capabilities for Windows and Linux systems.
+        </p>
+
+    </div>
+
+
+    <section class="cyber-section">
+
+        <h2>Overview</h2>
+
+        <p>
+            This project focuses on building a small Security Operations
+            Center using Wazuh, Elasticsearch and Kibana. The objective is
+            to collect logs from Windows and Linux systems, detect attacks
+            and visualize security events through dashboards.
+        </p>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Architecture</h2>
+
+<pre>
+                  Kali Linux
+                       │
+        ┌──────────────┴──────────────┐
+        │                             │
+  Windows Active Directory       Ubuntu Server
+        │                             │
+        └──────────────┬──────────────┘
+                       │
+                     Wazuh
+                       │
+                 Elasticsearch
+                       │
+                     Kibana
+</pre>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Main Components</h2>
+
+        <ul>
+            <li><strong>DC01</strong> - Windows Server 2022</li>
+            <li><strong>WEB01</strong> - Ubuntu Server</li>
+            <li><strong>KALI</strong> - Kali Linux</li>
+            <li><strong>Wazuh Manager</strong></li>
+            <li><strong>Elasticsearch</strong></li>
+            <li><strong>Kibana</strong></li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Features</h2>
+
+        <ul>
+            <li>Centralized log collection</li>
+            <li>Windows Event Viewer monitoring</li>
+            <li>Linux journal monitoring</li>
+            <li>Real-time alerts</li>
+            <li>Dashboard visualization</li>
+            <li>Incident investigation</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Attack Detection</h2>
+
+        <ul>
+            <li>SSH brute-force attempts</li>
+            <li>Multiple failed logins</li>
+            <li>Suspicious authentication events</li>
+            <li>Unauthorized access attempts</li>
+            <li>Abnormal system activity</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Blue Team Capabilities</h2>
+
+        <ul>
+            <li>Security monitoring</li>
+            <li>Threat detection</li>
+            <li>Incident response</li>
+            <li>Event correlation</li>
+            <li>Log analysis</li>
+            <li>Alert triage</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Technologies</h2>
+
+        <ul>
+            <li>Wazuh</li>
+            <li>Elasticsearch</li>
+            <li>Kibana</li>
+            <li>Windows Server 2022</li>
+            <li>Ubuntu Server</li>
+            <li>Kali Linux</li>
+            <li>PowerShell</li>
+            <li>Bash</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Skills Developed</h2>
+
+        <ul>
+            <li>SOC operations</li>
+            <li>SIEM administration</li>
+            <li>Log analysis</li>
+            <li>Blue Team methodologies</li>
+            <li>Incident response</li>
+            <li>Threat detection</li>
+            <li>Security monitoring</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Future Improvements</h2>
+
+        <ul>
+            <li>Suricata integration</li>
+            <li>Telegram alerts</li>
+            <li>Docker deployment</li>
+            <li>Ransomware detection rules</li>
+            <li>Custom dashboards</li>
+            <li>Threat intelligence feeds</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Current Status</h2>
+
+        <p>
+            🚧 Planned
+        </p>
+
+    </section>
+
+</section>
+
+{% endblock %}

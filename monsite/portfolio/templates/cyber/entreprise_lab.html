@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Enterprise Cybersecurity Lab | Mesli Portfolio
+{% endblock %}
+
+{% block content %}
+
+<section class="cyber-page">
+
+    <div class="cyber-header">
+
+        <span class="cyber-badge">
+            Active Directory · Linux · Kali
+        </span>
+
+        <h1>Enterprise Cybersecurity Lab</h1>
+
+        <p class="cyber-intro">
+            A hands-on enterprise lab designed to simulate a real-world
+            infrastructure combining Windows Server, Linux services and
+            offensive security tools.
+        </p>
+
+    </div>
+
+
+    <section class="cyber-section">
+
+        <h2>Overview</h2>
+
+        <p>
+            This project reproduces a small enterprise environment using
+            Oracle VirtualBox. The objective is to develop practical
+            skills in system administration, networking, Active Directory,
+            Linux hardening and cybersecurity.
+        </p>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Architecture</h2>
+
+<pre>
+                 Internet
+                     │
+                Kali Linux
+                     │
+            ┌────────┴────────┐
+            │                 │
+      Windows Server       Ubuntu Server
+         Active Directory        WEB01
+</pre>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Machines</h2>
+
+        <ul>
+            <li><strong>DC01</strong> - Windows Server 2022</li>
+            <li><strong>WEB01</strong> - Ubuntu Server</li>
+            <li><strong>KALI</strong> - Kali Linux</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Windows Services</h2>
+
+        <ul>
+            <li>Active Directory Domain Services</li>
+            <li>DNS Server</li>
+            <li>DHCP Server</li>
+            <li>Group Policy Objects</li>
+            <li>PowerShell administration</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Linux Services</h2>
+
+        <ul>
+            <li>OpenSSH</li>
+            <li>Apache2</li>
+            <li>Fail2Ban</li>
+            <li>Cron jobs</li>
+            <li>Rsync backups</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Security Tools</h2>
+
+        <ul>
+            <li>Nmap</li>
+            <li>Wireshark</li>
+            <li>Burp Suite</li>
+            <li>Hydra</li>
+            <li>Metasploit</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Active Directory Implementation</h2>
+
+        <ul>
+            <li>4 Organizational Units</li>
+            <li>30 users</li>
+            <li>5 groups</li>
+            <li>Password policies</li>
+            <li>Account lockout policies</li>
+            <li>Wallpaper deployment via GPO</li>
+            <li>Control Panel restrictions</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Logging and Monitoring</h2>
+
+        <ul>
+            <li>Windows Event Viewer</li>
+            <li>journalctl</li>
+            <li>Network packet analysis</li>
+            <li>System troubleshooting</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Technologies</h2>
+
+        <ul>
+            <li>Oracle VirtualBox</li>
+            <li>Windows Server 2022</li>
+            <li>Ubuntu Server</li>
+            <li>Kali Linux</li>
+            <li>PowerShell</li>
+            <li>Bash</li>
+            <li>Apache</li>
+            <li>SSH</li>
+            <li>Fail2Ban</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Skills Developed</h2>
+
+        <ul>
+            <li>System administration</li>
+            <li>Active Directory management</li>
+            <li>Linux administration</li>
+            <li>Network troubleshooting</li>
+            <li>Cybersecurity fundamentals</li>
+            <li>PowerShell scripting</li>
+            <li>Infrastructure design</li>
+        </ul>
+
+    </section>
+
+
+    <section class="cyber-section">
+
+        <h2>Current Status</h2>
+
+        <p>
+            🚧 In Progress
+        </p>
+
+    </section>
+
+</section>
+
+{% endblock %}
