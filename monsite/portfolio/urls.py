@@ -66,4 +66,21 @@ path("cybersecurity/brute_force/", views.brute_force_html, name="brute_force_htm
 
     path("project-detail/", views.project_detail, name="project_detail"),
     path("ticketHub/", views.ticketHub, name="ticketHub"),
+path(
+    "labs/foundations/",
+    views.foundations_lab,
+    name="foundations_lab",
+),
+
+path(
+    "labs/enterprise/",
+    views.enterprise_lab,
+    name="enterprise_lab",
+),
+
+path(
+    "labs/soc/",
+    views.soc_lab,
+    name="soc_lab",
+),
 ]

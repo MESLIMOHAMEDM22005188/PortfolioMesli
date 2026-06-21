@@ -156,3 +156,15 @@ def server_side_exploit(request):
 
 def brute_force_html(request):
     return render(request, 'cyber/courses/brute_force/index.html')
+
+
+def foundations_lab(request):
+    return render(request, "cyber/foundations_lab.html")
+
+
+def enterprise_lab(request):
+    return render(request, "cyber/enterprise_lab.html")
+
+
+def soc_lab(request):
+    return render(request, "cyber/soc_lab.html")
