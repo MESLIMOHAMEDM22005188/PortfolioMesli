@@ -1,8 +1,5 @@
 /* style.css */
 
-/*====================
-  VARIABLES
-====================*/
 :root {
   --bg-light: #f1f9f1;
   --bg-dark: #1a1f1a;
@@ -43,9 +40,7 @@ body {
   line-height: 1.5;
 }
 
-/*====================
-  HEADER
-====================*/
+
 .top-header {
   display: flex;
   justify-content: space-between;
@@ -89,9 +84,7 @@ body {
   color: var(--primary);
 }
 
-/*====================
-  HERO (ABOUT)
-====================*/
+
 .hero {
   display: flex;
   flex-wrap: wrap;
@@ -171,9 +164,7 @@ body {
   object-fit: cover;
 }
 
-/*====================
-  PANELS NAV & CONTENT
-====================*/
+
 .panels-nav {
   display: flex;
   justify-content: center;
@@ -183,8 +174,8 @@ body {
 
 .panel-btn {
   background-color: transparent;
-  border: 2px solid #00a86b;     /* bordure verte */
-  color: #00a86b;                /* texte vert */
+  border: 2px solid #00a86b;
+  color: #00a86b;
   padding: 1rem 2rem;
   font-size: 1.2rem;
   font-weight: 600;
@@ -195,12 +186,12 @@ body {
 }
 
 .panel-btn:hover {
-  background-color: #eafff4;     /* léger vert pâle au hover */
+  background-color: #eafff4;
   transform: scale(1.05);
 }
 
 .panel-btn.active {
-  background-color: #f0f0f0;     /* fond gris quand actif */
+  background-color: #f0f0f0;
   color: #00a86b;
   border-color: #00a86b;
   transform: scale(1.05);
@@ -218,7 +209,6 @@ body {
 }
 
 
-/* Ajoute cette règle pour forcer la forme carrée + coins arrondis */
 .project-card {
   background-color: var(--card-bg);
   border-radius: 12px;    /* coins arrondis */
@@ -239,10 +229,16 @@ body {
   height: 40px;
   margin-bottom: 1rem;
 }
-@media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width:768px){
+
+.projects-grid{
+    grid-template-columns:1fr;
+}
+
+.panels-nav{
+    flex-direction:column;
+    align-items:center;
+}
 }
 .slider-wrapper {
   display: flex;
@@ -256,7 +252,7 @@ body {
   overflow-x: auto;
   scroll-behavior: smooth;
   gap: 2rem;
-  flex-wrap: nowrap; /* CRUCIAL */
+  flex-wrap: nowrap;
 }
 
 .slider-horizontal::-webkit-scrollbar {
@@ -313,18 +309,16 @@ body {
   margin-bottom: 1rem;
   flex-grow: 1;
 }
-/* ↪ Centre les catégories de la section Softwares */
+
 #content-soft .software-category {
-  margin: 2rem auto;    /* marge auto pour centrer horizontalement */
+  margin: 2rem auto;
 }
 
-/* ↪ Centre le slider à l’intérieur de chaque catégorie */
 #content-soft .slider-wrapper {
   display: flex;
-  justify-content: center;  /* aligne le slider au centre */
+  justify-content: center;
 }
 
-/* ↪ Boutons de navigation (Certif / Projects / Softwares) */
 .panel-btn {
   background-color: transparent;
   border: 2px solid #00a86b;
@@ -342,10 +336,9 @@ body {
   transform: scale(1.05);
 }
 
-/* ↪ État actif : fond vert + texte blanc */
 .panel-btn.active {
-  background-color: #00a86b;  /* vert */
-  color: #ffffff;             /* blanc */
+  background-color: #00a86b;
+  color: #ffffff;
   border-color: #00a86b;
   transform: scale(1.05);
 }
@@ -368,9 +361,7 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px var(--card-shadow);
 }
-/*====================
-  TIMELINE NAV (Education / Work)
-====================*/
+
 #qualification {
   display: flex;
   flex-direction: column;
@@ -378,7 +369,6 @@ body {
   padding: 2rem 1rem;
   gap: 2rem;
 }
-/* === Slider Container === */
 .slider-container {
   position: relative;
   display: flex;
@@ -415,7 +405,6 @@ body {
   margin-left: 0.5rem;
 }
 
-/* === Piste défilante === */
 .slider {
   display: flex;
   overflow: hidden;
@@ -423,7 +412,6 @@ body {
   width: 100%;
 }
 
-/* === Chaque Slide === */
 .slide {
   flex: 0 0 auto;
   width: 120px;
@@ -438,7 +426,6 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* === Légende sous l’icône === */
 .software-name {
   display: block;
   margin-top: 0.5rem;
@@ -483,13 +470,9 @@ body {
   border-radius: 2px;
 }
 
-.timeline { display: none; }
 .timeline.active { display: block; }
 
 
-/*====================
-  TIMELINE CONTAINER
-====================*/
 .timeline {
   display: none;
   position: relative;
@@ -502,7 +485,6 @@ body {
   display: block;
 }
 
-/* vertical line */
 .timeline::before {
   content: "";
   position: absolute;
@@ -515,9 +497,7 @@ body {
   opacity: 0.3;
 }
 
-/*====================
-  TIMELINE ITEM
-====================*/
+
 .timeline-item {
   display: flex;
   align-items: flex-start;
@@ -556,9 +536,6 @@ body {
   color: #999;
 }
 
-/*====================
-  RESPONSIVE
-====================*/
 @media (max-width: 600px) {
   .timeline {
     padding-left: 1rem;
@@ -574,9 +551,6 @@ body {
   }
 }
 
-/*====================
-  CONTACT FORM
-====================*/
 #contact form {
   display: flex;
   flex-direction: column;
@@ -622,9 +596,7 @@ body {
   box-shadow: 0 4px 12px var(--card-shadow);
 }
 
-/*====================
-  RESPONSIVE
-====================*/
+
 @media (max-width: 768px) {
   .nav-links {
     flex-direction: column;
@@ -644,32 +616,12 @@ body {
   }
   .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colonnes, quoi qu’il arrive */
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 1rem;
 }
 }
-/*====================
-  TIMELINE NAV
-====================*/
-.timeline-nav {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
 
-.timeline-btn {
-  background: none;
-  border: none;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text);
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  position: relative;
-  transition: color 0.3s;
-}
 
 .timeline-btn.active,
 .timeline-btn:hover {
@@ -688,9 +640,7 @@ body {
   border-radius: 2px;
 }
 
-/*====================
-  TIMELINE CONTAINER
-====================*/
+
 .timeline {
   display: none;
   position: relative;
@@ -714,17 +664,6 @@ body {
   opacity: 0.3;
 }
 
-/*====================
-  TIMELINE ITEM
-====================*/
-.timeline-item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-/* le point */
 .timeline-item .dot {
   width: 12px;
   height: 12px;
@@ -735,7 +674,6 @@ body {
   top: 0.25rem;
 }
 
-/* contenu textuel */
 .timeline-item .content {
   margin-left: 2rem;
 }
@@ -758,8 +696,8 @@ body {
   color: #999;
 }
 
-/* responsive */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+
   .timeline {
     padding-left: 1rem;
   }
@@ -774,7 +712,6 @@ body {
   }
 }
 
-/* Contact section */
 .contact-section .container {
   max-width: 500px;
   margin: 0 auto;
@@ -840,30 +777,27 @@ body {
   text-decoration: underline;
 }
 
-/* —— Centre et agrandit les certificats —— */
 #content-cert ul {
-  text-align: center;       /* centre le texte et les images */
-  padding-left: 0;          /* supprime l’indentation des puces */
+  text-align: center;
+  padding-left: 0;
   list-style-position: inside;
 }
 
 #content-cert .cert-images {
   display: flex;
-  justify-content: center;  /* aligne horizontalement au centre */
-  gap: 1rem;                /* espace entre chaque vignette */
-  margin: 1.5rem 0;         /* décale un peu vers le bas et le haut */
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
 }
 
-/* —— Ajustement de l’agrandissement —— */
 #content-cert .cert-images img {
-  max-height: 6em;           /* un peu moins grand */
+  max-height: 6em;
   transition: transform .2s;
 }
 
 #content-cert .cert-images img:hover {
-  transform: scale(1.80);    /* zoom discret au survol */
+  transform: scale(1.80);
 }
-/* === Contraste renforcé pour la timeline en mode sombre === */
 [data-theme="dark"] .timeline-item .content h3 {
   color: #ffffff !important;
 }

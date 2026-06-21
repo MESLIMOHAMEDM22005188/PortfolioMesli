@@ -63,12 +63,25 @@
 
       <!-- 5 onglets -->
       <div class="panels-nav">
-        <button id="btn-cert"  class="panel-btn">Certifications</button>
-        <button id="btn-proj"  class="panel-btn">My Projects</button>
-        <button id="btn-soft"  class="panel-btn">Softwares</button>
-        <a href="{% url 'portfolio:cyber_home' %}" class="panel-btn cyber-btn">
-  🔐 Cybersecurity
-</a>        <button id="btn-algo"  class="panel-btn">⚙️ Algorithms</button>
+        <button id="btn-cert" class="panel-btn">
+    Certifications
+</button>
+
+<button id="btn-proj" class="panel-btn">
+    Projects
+</button>
+
+<button id="btn-soft" class="panel-btn">
+    Technologies
+</button>
+
+<a href="{% url 'portfolio:cyber_home' %}" class="panel-btn">
+    Cybersecurity & Cloud Labs
+</a>
+
+<button id="btn-algo" class="panel-btn">
+    Algorithms
+</button>
       </div>
 
       <!-- ── Panel Certifications ── -->
@@ -196,7 +209,7 @@
       <div class="panel-content" id="content-soft" style="display:none;">
 
         <div class="software-category">
-          <h2 class="category-title">🛠️ DEV APPLICATIONS</h2>
+          <h2 class="category-title">Development Tools </h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
@@ -211,7 +224,7 @@
         </div>
 
         <div class="software-category">
-          <h2 class="category-title">🔐 CYBERSECURITY TOOLS</h2>
+          <h2 class="category-title">Cybersecurity Tools</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
@@ -226,7 +239,7 @@
         </div>
 
         <div class="software-category">
-          <h2 class="category-title">🪟 MICROSOFT & OFFICE TOOLS</h2>
+          <h2 class="category-title"> Microsoft Ecosystem</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
@@ -240,7 +253,7 @@
         </div>
 
         <div class="software-category">
-          <h2 class="category-title">📦 BASE DE DONNÉES</h2>
+          <h2 class="category-title">Databases</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
@@ -253,7 +266,7 @@
         </div>
 
         <div class="software-category">
-          <h2 class="category-title">🚀 DÉPLOIEMENT & INFRASTRUCTURE</h2>
+          <h2 class="category-title">☁Deployment & Infrastructure</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
@@ -267,7 +280,7 @@
         </div>
 
         <div class="software-category">
-          <h2 class="category-title">🔧 OUTILS DÉVELOPPEUR</h2>
+          <h2 class="category-title">Developer Tools</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
@@ -280,7 +293,7 @@
         </div>
 
         <div class="software-category">
-          <h2 class="category-title">🎨 UX/UI DESIGN</h2>
+          <h2 class="category-title"> Design Tools</h2>
           <div class="slider-wrapper">
             <button class="slider-btn prev-btn">❮</button>
             <div class="slider-horizontal">
@@ -292,9 +305,6 @@
         </div>
 
       </div>
-
-      <!-- ── Panel Cybersecurity (NOUVEAU) ── -->
-      <div class="panel-content projects-grid" id="content-cyber" style="display:none;">
 
         <div class="project-card project-card--cyber">
           <img src="{% static 'assets/images/python.png' %}" alt="Python">
