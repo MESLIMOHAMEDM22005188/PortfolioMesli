@@ -5,11 +5,17 @@
 Foundations Lab | Mesli Portfolio
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{% static 'assets/css/foundation_lab.css' %}">
+{% endblock %}
+
 {% block content %}
 
 <section class="cyber-page">
 
     <div class="cyber-header">
+
         <span class="cyber-badge">
             Linux · Networking · Windows
         </span>
@@ -21,6 +27,7 @@ Foundations Lab | Mesli Portfolio
             administration, networking, Active Directory and
             PowerShell fundamentals.
         </p>
+
     </div>
 
 
@@ -76,9 +83,9 @@ Foundations Lab | Mesli Portfolio
 
         <h2>Status</h2>
 
-        <p>
-            🚧 In Progress
-        </p>
+        <div class="status-progress">
+    🚧 In Progress
+</div>
 
     </section>
 
