@@ -73,7 +73,7 @@ path(
 ),
 
 path(
-    "labs/enterprise/",
+    "labs/entreprise/",
     views.enterprise_lab,
     name="enterprise_lab",
 ),
