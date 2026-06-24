@@ -5,194 +5,90 @@
 Enterprise Cybersecurity Lab | Mesli Portfolio
 {% endblock %}
 
-{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'assets/css/enterprise_lab.css' %}">
+{% endblock %}
 
+{% block content %}
 <section class="cyber-page">
 
     <div class="cyber-header">
-
-        <span class="cyber-badge">
-            Active Directory · Linux · Kali
-        </span>
-
+        <span class="cyber-badge">Active Directory · Linux · Kali</span>
         <h1>Enterprise Cybersecurity Lab</h1>
-
         <p class="cyber-intro">
-            A hands-on enterprise lab designed to simulate a real-world
-            infrastructure combining Windows Server, Linux services and
-            offensive security tools.
+            Architecture d'entreprise complète intégrant Windows Server,
+            Active Directory, Ubuntu Server et des outils offensifs Kali Linux
+            dans un environnement de lab virtuel.
         </p>
-
     </div>
 
-
     <section class="cyber-section">
-
-        <h2>Overview</h2>
-
-        <p>
-            This project reproduces a small enterprise environment using
-            Oracle VirtualBox. The objective is to develop practical
-            skills in system administration, networking, Active Directory,
-            Linux hardening and cybersecurity.
-        </p>
-
-    </section>
-
-
-    <section class="cyber-section">
-
         <h2>Architecture</h2>
-
-<pre>
-                 Internet
-                     │
-                Kali Linux
-                     │
-            ┌────────┴────────┐
-            │                 │
-      Windows Server       Ubuntu Server
-         Active Directory        WEB01
-</pre>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Machines</h2>
-
-        <ul>
-            <li><strong>DC01</strong> - Windows Server 2022</li>
-            <li><strong>WEB01</strong> - Ubuntu Server</li>
-            <li><strong>KALI</strong> - Kali Linux</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Windows Services</h2>
-
-        <ul>
-            <li>Active Directory Domain Services</li>
-            <li>DNS Server</li>
-            <li>DHCP Server</li>
-            <li>Group Policy Objects</li>
-            <li>PowerShell administration</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Linux Services</h2>
-
-        <ul>
-            <li>OpenSSH</li>
-            <li>Apache2</li>
-            <li>Fail2Ban</li>
-            <li>Cron jobs</li>
-            <li>Rsync backups</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Security Tools</h2>
-
-        <ul>
-            <li>Nmap</li>
-            <li>Wireshark</li>
-            <li>Burp Suite</li>
-            <li>Hydra</li>
-            <li>Metasploit</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Active Directory Implementation</h2>
-
-        <ul>
-            <li>4 Organizational Units</li>
-            <li>30 users</li>
-            <li>5 groups</li>
-            <li>Password policies</li>
-            <li>Account lockout policies</li>
-            <li>Wallpaper deployment via GPO</li>
-            <li>Control Panel restrictions</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Logging and Monitoring</h2>
-
-        <ul>
-            <li>Windows Event Viewer</li>
-            <li>journalctl</li>
-            <li>Network packet analysis</li>
-            <li>System troubleshooting</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Technologies</h2>
-
-        <ul>
-            <li>Oracle VirtualBox</li>
-            <li>Windows Server 2022</li>
-            <li>Ubuntu Server</li>
-            <li>Kali Linux</li>
-            <li>PowerShell</li>
-            <li>Bash</li>
-            <li>Apache</li>
-            <li>SSH</li>
-            <li>Fail2Ban</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Skills Developed</h2>
-
-        <ul>
-            <li>System administration</li>
-            <li>Active Directory management</li>
-            <li>Linux administration</li>
-            <li>Network troubleshooting</li>
-            <li>Cybersecurity fundamentals</li>
-            <li>PowerShell scripting</li>
-            <li>Infrastructure design</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Current Status</h2>
-
         <p>
-            🚧 In Progress
+            L'environnement simule un réseau d'entreprise classique :
+            un contrôleur de domaine Windows Server 2022, deux postes clients
+            (Windows 11 et Windows 10), un serveur Ubuntu exposant Apache,
+            et une machine Kali Linux pour les tests offensifs.
         </p>
+    </section>
 
+    <section class="cyber-section">
+        <h2>Machines</h2>
+        <ul>
+            <li><strong>DC01</strong> — Windows Server 2022 : Active Directory, DNS, DHCP, GPO</li>
+            <li><strong>CLIENT01</strong> — Windows 11, machine du domaine</li>
+            <li><strong>CLIENT02</strong> — Windows 10, machine du domaine</li>
+            <li><strong>WEB01</strong> — Ubuntu Server : Apache, SSH, Fail2Ban</li>
+            <li><strong>KALI</strong> — Kali Linux : Nmap, Wireshark, Burp Suite, Hydra, Metasploit</li>
+        </ul>
+    </section>
+
+    <section class="cyber-section">
+        <h2>Active Directory</h2>
+        <ul>
+            <li>4 unités d'organisation (OU)</li>
+            <li>30 utilisateurs créés</li>
+            <li>5 groupes de sécurité</li>
+        </ul>
+    </section>
+
+    <section class="cyber-section">
+        <h2>GPO mises en place</h2>
+        <ul>
+            <li>Politique de mot de passe complexe</li>
+            <li>Verrouillage du compte après 5 essais</li>
+            <li>Désactivation du panneau de configuration</li>
+            <li>Fond d'écran d'entreprise déployé</li>
+        </ul>
+    </section>
+
+    <section class="cyber-section">
+        <h2>Configuration Linux</h2>
+        <ul>
+            <li>SSH par authentification par clé</li>
+            <li>Fail2Ban pour la protection contre le bruteforce</li>
+            <li>Tâches Cron planifiées</li>
+            <li>Sauvegardes automatiques via Rsync</li>
+        </ul>
+    </section>
+
+    <section class="cyber-section">
+        <h2>Sécurité & Journalisation</h2>
+        <p>
+            Scan réseau effectué avec <strong>Nmap</strong>, analyse de paquets
+            avec <strong>Wireshark</strong>. Journalisation côté Linux via
+            <code>journalctl</code>, côté Windows via l'Event Viewer.
+        </p>
+    </section>
+
+    <section class="cyber-section">
+        <h2>Scripts PowerShell</h2>
+        <ul>
+            <li>Création automatique d'utilisateurs</li>
+            <li>Scripts de sauvegarde</li>
+            <li>Génération de rapports</li>
+        </ul>
     </section>
 
 </section>
-
 {% endblock %}
