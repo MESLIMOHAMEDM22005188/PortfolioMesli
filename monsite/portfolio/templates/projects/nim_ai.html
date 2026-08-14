@@ -36,11 +36,16 @@
 </head>
 <body class="bg-black text-white">
 
-  <section class="text-center py-20 px-6">
-    <h1 class="text-5xl font-bold bg-gradient-to-r from-blue-400 via-pink-500 to-red-500 text-transparent bg-clip-text">Jeu de Nim – IA Apprenante</h1>
-    <p class="mt-6 text-lg text-gray-300 max-w-2xl mx-auto">Une IA qui apprend partie après partie. Interface claire, mode sombre, statistiques intégrées… et un seul but : vous battre !</p>
-  </section>
+<section class="relative text-center py-20 px-6">
 
+  <a href="{% url 'portfolio:accueil' %}"
+     class="absolute top-6 right-6 z-20 px-5 py-2.5 rounded-full
+            bg-gray-800/80 border border-gray-700
+            text-white font-semibold text-sm
+            hover:bg-white hover:text-black
+            transition duration-300">
+    ← Accueil
+  </a>
   <section class="px-4 md:px-12 py-10">
     <div class="overflow-hidden rounded-2xl border border-gray-700">
       <div class="carousel carousel-auto-scroll flex space-x-6">
