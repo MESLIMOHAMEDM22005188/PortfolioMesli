@@ -1,64 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestionnaire de fichiers – Application de bureau</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    .carousel {
-      display: flex;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
-    .carousel::-webkit-scrollbar {
-      display: none;
-    }
-    .carousel img {
-      min-width: 100%;
-      transition: transform 0.3s ease;
-    }
-    .carousel img:hover {
-      transform: scale(1.05);
-    }
-    @keyframes scrollGallery {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-    .carousel-auto-scroll {
-      animation: scrollGallery 25s linear infinite;
-    }
-  </style>
-</head>
-<body class="bg-gradient-to-b from-black via-gray-900 to-black text-white font-sans">
-<div class="absolute top-6 left-6 z-50">
-   <section class="relative text-center py-20 px-6">
+<!DOCTYPE html> <html lang="fr"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Gestionnaire de fichiers – Application de bureau</title> <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> <style> .carousel { display: flex; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; } .carousel::-webkit-scrollbar { display: none; } .carousel img { min-width: 100%; transition: transform 0.3s ease; } .carousel img:hover { transform: scale(1.05); } @keyframes scrollGallery { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } } .carousel-auto-scroll { animation: scrollGallery 25s linear infinite; } </style> </head> <body class="bg-gradient-to-b from-black via-gray-900 to-black text-white font-sans"> <!-- HERO --> <section class="relative text-center py-20 px-6"> <!-- Bouton Accueil --> <a href="{% url 'portfolio:accueil' %}" class="absolute top-6 right-6 z-20 px-5 py-2.5 rounded-full bg-gray-800/80 border border-gray-700 text-white font-semibold text-sm hover:bg-white hover:text-black transition duration-300"> ← Accueil </a>
 
-  <a href="{% url 'portfolio:accueil' %}"
-     class="absolute top-6 right-6 z-20 px-5 py-2.5 rounded-full
-            bg-gray-800/80 border border-gray-700
-            text-white font-semibold text-sm
-            hover:bg-white hover:text-black
-            transition duration-300">
-    ← Accueil
-  </a>
-
-</div>
-  <!-- HERO -->
   <section class="text-center py-24 px-6 relative">
-
-    <!-- BOUTON RETOUR ACCUEIL -->
-<div class="absolute top-6 left-6 z-50">
-  <a href="/"
-     class="inline-flex items-center px-5 py-2.5 rounded-full
-            bg-gray-800/80 backdrop-blur-sm border border-gray-700
-            hover:bg-gray-700 hover:border-pink-500
-            transition duration-300 font-semibold text-white shadow-lg
-            transform hover:scale-105">
-    ← Retour à l'accueil
-  </a>
-</div>
     <div class="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-blue-500/10 blur-3xl"></div>
     <div class="relative z-10">
       <h1 class="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-blue-400 via-pink-500 to-red-500 text-transparent bg-clip-text">
@@ -132,6 +74,8 @@
   <footer class="py-8 text-center text-gray-500 text-sm border-t border-gray-800">
     © 2025 Mohamed Mesli — Tous droits réservés
   </footer>
-
+   </section>
+</div>
 </body>
 </html>
+<
