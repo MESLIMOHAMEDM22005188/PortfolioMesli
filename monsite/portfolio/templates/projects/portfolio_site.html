@@ -1,10 +1,482 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  {% load static %}
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Portfolio Website – Django & Render</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  >
+
+  <style>
+    .gradient-text {
+      background: linear-gradient(
+        90deg,
+        #60a5fa,
+        #ec4899,
+        #f43f5e
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .glass {
+      background: rgba(17, 24, 39, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .card {
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(236, 72, 153, 0.4);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .screen {
+      transition: transform 0.4s ease;
+    }
+
+    .screen:hover {
+      transform: scale(1.02);
+    }
+  </style>
 </head>
-<body>
+
+<body class="bg-black text-white">
+
+  <!-- ===================== -->
+  <!-- HERO -->
+  <!-- ===================== -->
+
+  <section class="relative text-center py-24 px-6">
+
+    <!-- Retour -->
+    <a
+      href="{% url 'portfolio:accueil' %}"
+      class="absolute top-6 right-6 z-20 px-5 py-2.5 rounded-full
+             bg-gray-800/80 border border-gray-700
+             text-white font-semibold text-sm
+             hover:bg-white hover:text-black
+             transition duration-300"
+    >
+      ← Accueil
+    </a>
+
+    <div class="max-w-4xl mx-auto">
+
+      <span class="inline-block px-4 py-2 rounded-full glass
+                   text-sm text-gray-300 mb-7">
+        Web Development · Django · Deployment
+      </span>
+
+      <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
+        <span class="gradient-text">Personal Portfolio Website</span>
+      </h1>
+
+      <p class="mt-7 text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
+        A personal portfolio website designed to showcase my projects,
+        technologies, certifications, algorithms, cybersecurity labs
+        and professional experiences in one centralized platform.
+      </p>
+
+      <div class="mt-10 flex justify-center gap-4 flex-wrap">
+
+        <a
+          href="{% url 'portfolio:accueil' %}"
+          class="px-7 py-3 rounded-full
+                 bg-gradient-to-r from-blue-500 via-pink-500 to-red-500
+                 font-semibold hover:scale-105
+                 transition transform shadow-xl"
+        >
+          Visit the Portfolio
+        </a>
+
+        <a
+          href="https://portfoliomesli.onrender.com"
+          target="_blank"
+          class="px-7 py-3 rounded-full glass
+                 border border-gray-700
+                 font-semibold hover:bg-gray-800
+                 transition"
+        >
+          Open Live Website
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ===================== -->
+  <!-- PROJECT OVERVIEW -->
+  <!-- ===================== -->
+
+  <section class="px-6 py-20">
+
+    <div class="max-w-6xl mx-auto">
+
+      <div class="text-center mb-14">
+
+        <h2 class="text-4xl md:text-5xl font-bold">
+          What is this <span class="gradient-text">website?</span>
+        </h2>
+
+        <p class="mt-5 text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          This website is more than a CV. It is a web application built to
+          centralize and present my technical progression through projects,
+          experiments, certifications and professional experiences.
+        </p>
+
+      </div>
+
+
+      <div class="grid md:grid-cols-3 gap-7">
+
+        <div class="card glass rounded-2xl p-7">
+
+          <h3 class="text-xl font-bold mb-3">
+            Project Showcase
+          </h3>
+
+          <p class="text-gray-400 leading-relaxed">
+            Each project has its own dedicated presentation page containing
+            its purpose, technologies, features and links to the source code
+            when available.
+          </p>
+
+        </div>
+
+
+        <div class="card glass rounded-2xl p-7">
+
+          <h3 class="text-xl font-bold mb-3">
+            Technical Profile
+          </h3>
+
+          <p class="text-gray-400 leading-relaxed">
+            The portfolio brings together my programming languages,
+            development tools, databases, deployment technologies,
+            cybersecurity tools and algorithms.
+          </p>
+
+        </div>
+
+
+        <div class="card glass rounded-2xl p-7">
+
+          <h3 class="text-xl font-bold mb-3">
+            Professional Journey
+          </h3>
+
+          <p class="text-gray-400 leading-relaxed">
+            A dedicated timeline presents my education, internships,
+            technical missions and professional experiences.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ===================== -->
+  <!-- TECHNOLOGIES -->
+  <!-- ===================== -->
+
+  <section class="px-6 py-20 bg-gray-950">
+
+    <div class="max-w-6xl mx-auto">
+
+      <div class="text-center mb-14">
+
+        <p class="text-pink-400 uppercase tracking-widest text-sm font-semibold">
+          Technology Stack
+        </p>
+
+        <h2 class="text-4xl md:text-5xl font-bold mt-3">
+          Built with <span class="gradient-text">Django</span>
+        </h2>
+
+      </div>
+
+
+      <div class="grid md:grid-cols-2 gap-7">
+
+        <div class="card glass rounded-2xl p-8">
+
+          <h3 class="text-2xl font-bold mb-4">
+            Backend
+          </h3>
+
+          <p class="text-gray-400 leading-relaxed">
+            The website is developed with <strong class="text-white">Django</strong>,
+            using Django templates and named URL routes to organize the different
+            portfolio pages and project views.
+          </p>
+
+        </div>
+
+
+        <div class="card glass rounded-2xl p-8">
+
+          <h3 class="text-2xl font-bold mb-4">
+            Frontend
+          </h3>
+
+          <p class="text-gray-400 leading-relaxed">
+            The interface combines HTML, CSS and JavaScript with
+            <strong class="text-white">Tailwind CSS</strong> on several project
+            presentation pages to create responsive and interactive layouts.
+          </p>
+
+        </div>
+
+
+        <div class="card glass rounded-2xl p-8">
+
+          <h3 class="text-2xl font-bold mb-4">
+            Dynamic Content
+          </h3>
+
+          <p class="text-gray-400 leading-relaxed">
+            Django templates are used to generate navigation links,
+            project pages, static resources and reusable elements across the site.
+          </p>
+
+        </div>
+
+
+        <div class="card glass rounded-2xl p-8">
+
+          <h3 class="text-2xl font-bold mb-4">
+            Deployment
+          </h3>
+
+          <p class="text-gray-400 leading-relaxed">
+            The website is deployed online using
+            <strong class="text-white">Render</strong>, making the portfolio
+            publicly accessible through a production deployment.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ===================== -->
+  <!-- FEATURES -->
+  <!-- ===================== -->
+
+  <section class="px-6 py-20">
+
+    <div class="max-w-6xl mx-auto">
+
+      <div class="text-center mb-14">
+
+        <h2 class="text-4xl md:text-5xl font-bold">
+          Main <span class="gradient-text">Features</span>
+        </h2>
+
+      </div>
+
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="card glass rounded-2xl p-6">
+
+          <div class="text-3xl mb-4">📁</div>
+
+          <h3 class="font-bold text-xl mb-2">
+            Project Pages
+          </h3>
+
+          <p class="text-gray-400">
+            Dedicated pages for applications, algorithms and technical projects.
+          </p>
+
+        </div>
+
+
+        <div class="card glass rounded-2xl p-6">
+
+          <div class="text-3xl mb-4">🛡️</div>
+
+          <h3 class="font-bold text-xl mb-2">
+            Cybersecurity Section
+          </h3>
+
+          <p class="text-gray-400">
+            Dedicated space for cybersecurity labs, CTFs,
+            vulnerabilities and security experiments.
+          </p>
+
+        </div>
+
+
+        <div class="card glass rounded-2xl p-6">
+
+          <div class="text-3xl mb-4">🏆</div>
+
+          <h3 class="font-bold text-xl mb-2">
+            Certifications
+          </h3>
+
+          <p class="text-gray-400">
+            A dedicated section to showcase completed certifications
+            and technical training.
+          </p>
+
+        </div>
+
+
+        <div class="card glass rounded-2xl p-6">
+
+          <div class="text-3xl mb-4">🌙</div>
+
+          <h3 class="font-bold text-xl mb-2">
+            Responsive Interface
+          </h3>
+
+          <p class="text-gray-400">
+            Responsive layouts with interactive navigation,
+            dark mode and dedicated project interfaces.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ===================== -->
+  <!-- SCREENSHOTS -->
+  <!-- ===================== -->
+
+  <section class="px-6 py-20 bg-gray-950">
+
+    <div class="max-w-6xl mx-auto">
+
+      <div class="text-center mb-12">
+
+        <p class="text-blue-400 uppercase tracking-widest text-sm font-semibold">
+          Interface
+        </p>
+
+        <h2 class="text-4xl md:text-5xl font-bold mt-3">
+          Portfolio <span class="gradient-text">Overview</span>
+        </h2>
+
+      </div>
+
+
+      <div class="grid md:grid-cols-2 gap-7">
+
+        <!-- Replace these paths with your actual screenshots -->
+        <div class="glass rounded-2xl overflow-hidden">
+          <img
+            src="{% static 'assets/images/portfolio-home.png' %}"
+            alt="Portfolio homepage"
+            class="screen w-full"
+          >
+        </div>
+
+        <div class="glass rounded-2xl overflow-hidden">
+          <img
+            src="{% static 'assets/images/portfolio-projects.png' %}"
+            alt="Portfolio projects section"
+            class="screen w-full"
+          >
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ===================== -->
+  <!-- DEPLOYMENT -->
+  <!-- ===================== -->
+
+  <section class="px-6 py-20">
+
+    <div class="max-w-5xl mx-auto">
+
+      <div class="glass rounded-3xl p-10 md:p-14 text-center">
+
+        <p class="text-green-400 uppercase tracking-widest text-sm font-semibold">
+          Deployment
+        </p>
+
+        <h2 class="text-4xl md:text-5xl font-bold mt-3">
+          From local development to <span class="gradient-text">production</span>
+        </h2>
+
+        <p class="mt-6 text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          After developing the website with Django, I deployed it using
+          Render so that the portfolio could be accessed publicly online.
+          This project therefore covers both application development and
+          real-world deployment.
+        </p>
+
+        <div class="mt-8">
+
+          <a
+            href="https://portfoliomesli.onrender.com"
+            target="_blank"
+            class="inline-block px-8 py-3 rounded-full
+                   bg-gradient-to-r from-green-400 to-blue-500
+                   text-black font-bold
+                   hover:scale-105 transition transform"
+          >
+            Visit the live website →
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ===================== -->
+  <!-- FOOTER -->
+  <!-- ===================== -->
+
+  <footer class="border-t border-gray-800 py-8 text-center">
+
+    <p class="text-gray-500 text-sm">
+      © 2026 Mohamed Mesli — Personal Portfolio
+    </p>
+
+  </footer>
 
 </body>
 </html>
