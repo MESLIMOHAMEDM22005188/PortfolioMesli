@@ -1,3 +1,4 @@
+```
 <html lang="en">
 {% load static %}
 <head>
@@ -198,106 +199,137 @@
 
       </div>
 
-      <!-- ── Panel Softwares ── -->
+      <!-- ── Panel Technologies ── -->
       <div class="panel-content" id="content-soft" style="display:none;">
 
-        <div class="software-category">
-          <h2 class="category-title">Development Tools </h2>
+        <!-- IDE & Code Editors -->
+        <section class="software-category" aria-labelledby="tools-ide">
+          <h2 class="category-title" id="tools-ide">IDE &amp; Code Editors</h2>
           <div class="slider-wrapper">
-            <button class="slider-btn prev-btn">❮</button>
+            <button class="slider-btn prev-btn" type="button" aria-label="Previous IDE tools">❮</button>
             <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/phpstorm.png' %}"  alt="PHPStorm"><span>PHPStorm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/vscode.png' %}" alt="Visual Studio Code"><span>VS Code</span></div>
+              <div class="slide"><img src="{% static 'assets/images/PyCharm.png' %}" alt="PyCharm"><span>PyCharm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/webstorm.png' %}" alt="WebStorm"><span>WebStorm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/phpstorm.png' %}" alt="PhpStorm"><span>PhpStorm</span></div>
+              <div class="slide"><img src="{% static 'assets/images/clion.png' %}" alt="CLion"><span>CLion</span></div>
               <div class="slide"><img src="{% static 'assets/images/qtcreator.png' %}" alt="Qt Creator"><span>Qt Creator</span></div>
-              <div class="slide"><img src="{% static 'assets/images/webstorm.png' %}"  alt="WebStorm"><span>WebStorm</span></div>
-              <div class="slide"><img src="{% static 'assets/images/vscode.png' %}"    alt="VS Code"><span>VS Code</span></div>
-              <div class="slide"><img src="{% static 'assets/images/PyCharm.png' %}"   alt="PyCharm"><span>PyCharm</span></div>
-              <div class="slide"><img src="{% static 'assets/images/clion.png' %}"   alt="PyCharm"><span>PyCharm</span></div>
-
             </div>
-            <button class="slider-btn next-btn">❯</button>
+            <button class="slider-btn next-btn" type="button" aria-label="Next IDE tools">❯</button>
           </div>
-        </div>
+        </section>
 
-        <div class="software-category">
-          <h2 class="category-title">Cybersecurity Tools</h2>
+        <!-- Version Control & Collaboration -->
+        <section class="software-category" aria-labelledby="tools-versioning">
+          <h2 class="category-title" id="tools-versioning">Version Control &amp; Collaboration</h2>
           <div class="slider-wrapper">
-            <button class="slider-btn prev-btn">❮</button>
+            <button class="slider-btn prev-btn" type="button" aria-label="Previous collaboration tools">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/git.png' %}" alt="Git"><span>Git</span></div>
+              <div class="slide"><img src="{% static 'assets/images/github.png' %}" alt="GitHub"><span>GitHub</span></div>
+              <div class="slide"><img src="{% static 'assets/images/bitbucket.png' %}" alt="Bitbucket"><span>Bitbucket</span></div>
+              <div class="slide"><img src="{% static 'assets/images/github-actions.png' %}" alt="GitHub Actions"><span>GitHub Actions</span></div>
+            </div>
+            <button class="slider-btn next-btn" type="button" aria-label="Next collaboration tools">❯</button>
+          </div>
+        </section>
+
+        <!-- Cybersecurity & Networking -->
+        <section class="software-category" aria-labelledby="tools-cyber">
+          <h2 class="category-title" id="tools-cyber">Cybersecurity &amp; Networking</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn" type="button" aria-label="Previous cybersecurity tools">❮</button>
             <div class="slider-horizontal">
               <div class="slide cisco-card">
                 <img src="{% static 'assets/images/packet.png' %}" alt="Cisco Packet Tracer">
                 <span>Cisco Packet Tracer</span>
                 <a href="{% url 'portfolio:cisco_labs' %}" class="btn cisco-btn">View my labs</a>
               </div>
+              <div class="slide"><img src="{% static 'assets/images/wireshark.png' %}" alt="Wireshark"><span>Wireshark</span></div>
+              <div class="slide"><img src="{% static 'assets/images/nmap.png' %}" alt="Nmap"><span>Nmap</span></div>
+              <div class="slide"><img src="{% static 'assets/images/burpsuite.png' %}" alt="Burp Suite"><span>Burp Suite</span></div>
+              <div class="slide"><img src="{% static 'assets/images/owasp-zap.png' %}" alt="OWASP ZAP"><span>OWASP ZAP</span></div>
             </div>
-            <button class="slider-btn next-btn">❯</button>
+            <button class="slider-btn next-btn" type="button" aria-label="Next cybersecurity tools">❯</button>
           </div>
-        </div>
+        </section>
 
-        <div class="software-category">
-          <h2 class="category-title"> Microsoft Ecosystem</h2>
+        <!-- Databases -->
+        <section class="software-category" aria-labelledby="tools-databases">
+          <h2 class="category-title" id="tools-databases">Databases &amp; Data Management</h2>
           <div class="slider-wrapper">
-            <button class="slider-btn prev-btn">❮</button>
+            <button class="slider-btn prev-btn" type="button" aria-label="Previous database tools">❮</button>
             <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/windows.png' %}"    alt="Windows"><span>Windows</span></div>
-              <div class="slide"><img src="{% static 'assets/images/word.png' %}"       alt="Word"><span>Word</span></div>
-              <div class="slide"><img src="{% static 'assets/images/excel.png' %}"      alt="Excel"><span>Excel</span></div>
-              <div class="slide"><img src="{% static 'assets/images/powerpoint.png' %}" alt="PowerPoint"><span>PowerPoint</span></div>
-            </div>
-            <button class="slider-btn next-btn">❯</button>
-          </div>
-        </div>
-
-        <div class="software-category">
-          <h2 class="category-title">Databases</h2>
-          <div class="slider-wrapper">
-            <button class="slider-btn prev-btn">❮</button>
-            <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/mySql.png' %}"      alt="MySQL"><span>MySQL</span></div>
-              <div class="slide"><img src="{% static 'assets/images/sqLite.png' %}"     alt="SQLite"><span>SQLite</span></div>
+              <div class="slide"><img src="{% static 'assets/images/mySql.png' %}" alt="MySQL"><span>MySQL</span></div>
+              <div class="slide"><img src="{% static 'assets/images/sqLite.png' %}" alt="SQLite"><span>SQLite</span></div>
+              <div class="slide"><img src="{% static 'assets/images/postgresql.png' %}" alt="PostgreSQL"><span>PostgreSQL</span></div>
               <div class="slide"><img src="{% static 'assets/images/phpMyAdmin.png' %}" alt="phpMyAdmin"><span>phpMyAdmin</span></div>
+              <div class="slide"><img src="{% static 'assets/images/dbeaver.png' %}" alt="DBeaver"><span>DBeaver</span></div>
             </div>
-            <button class="slider-btn next-btn">❯</button>
+            <button class="slider-btn next-btn" type="button" aria-label="Next database tools">❯</button>
           </div>
-        </div>
+        </section>
 
-        <div class="software-category">
-          <h2 class="category-title">☁Deployment & Infrastructure</h2>
+        <!-- DevOps & Infrastructure -->
+        <section class="software-category" aria-labelledby="tools-devops">
+          <h2 class="category-title" id="tools-devops">DevOps &amp; Infrastructure</h2>
           <div class="slider-wrapper">
-            <button class="slider-btn prev-btn">❮</button>
+            <button class="slider-btn prev-btn" type="button" aria-label="Previous infrastructure tools">❮</button>
             <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/docker.png' %}"  alt="Docker"><span>Docker</span></div>
-              <div class="slide"><img src="{% static 'assets/images/nginx.png' %}"   alt="Nginx"><span>Nginx</span></div>
-              <div class="slide"><img src="{% static 'assets/images/heroku.png' %}"  alt="Heroku"><span>Heroku</span></div>
-              <div class="slide"><img src="{% static 'assets/images/vercel.png' %}"  alt="Vercel"><span>Vercel</span></div>
+              <div class="slide"><img src="{% static 'assets/images/docker.png' %}" alt="Docker"><span>Docker</span></div>
+              <div class="slide"><img src="{% static 'assets/images/nginx.png' %}" alt="Nginx"><span>Nginx</span></div>
+              <div class="slide"><img src="{% static 'assets/images/linux.png' %}" alt="Linux"><span>Linux</span></div>
+              <div class="slide"><img src="{% static 'assets/images/render.png' %}" alt="Render"><span>Render</span></div>
+              <div class="slide"><img src="{% static 'assets/images/vercel.png' %}" alt="Vercel"><span>Vercel</span></div>
+              <div class="slide"><img src="{% static 'assets/images/heroku.png' %}" alt="Heroku"><span>Heroku</span></div>
             </div>
-            <button class="slider-btn next-btn">❯</button>
+            <button class="slider-btn next-btn" type="button" aria-label="Next infrastructure tools">❯</button>
           </div>
-        </div>
+        </section>
 
-        <div class="software-category">
-          <h2 class="category-title">Developer Tools</h2>
+        <!-- Microsoft Ecosystem -->
+        <section class="software-category" aria-labelledby="tools-microsoft">
+          <h2 class="category-title" id="tools-microsoft">Microsoft Ecosystem</h2>
           <div class="slider-wrapper">
-            <button class="slider-btn prev-btn">❮</button>
+            <button class="slider-btn prev-btn" type="button" aria-label="Previous Microsoft tools">❮</button>
             <div class="slider-horizontal">
-              <div class="slide"><img src="{% static 'assets/images/github.png' %}"    alt="GitHub"><span>GitHub</span></div>
-              <div class="slide"><img src="{% static 'assets/images/bitbucket.png' %}" alt="Bitbucket"><span>Bitbucket</span></div>
-              <div class="slide"><img src="{% static 'assets/images/netlify.png' %}"   alt="Netlify"><span>Netlify</span></div>
+              <div class="slide"><img src="{% static 'assets/images/windows.png' %}" alt="Windows"><span>Windows</span></div>
+              <div class="slide"><img src="{% static 'assets/images/word.png' %}" alt="Microsoft Word"><span>Word</span></div>
+              <div class="slide"><img src="{% static 'assets/images/excel.png' %}" alt="Microsoft Excel"><span>Excel</span></div>
+              <div class="slide"><img src="{% static 'assets/images/powerpoint.png' %}" alt="Microsoft PowerPoint"><span>PowerPoint</span></div>
+              <div class="slide"><img src="{% static 'assets/images/powershell.png' %}" alt="PowerShell"><span>PowerShell</span></div>
+              <div class="slide"><img src="{% static 'assets/images/powerbi.png' %}" alt="Power BI"><span>Power BI</span></div>
+              <div class="slide"><img src="{% static 'assets/images/azure.png' %}" alt="Microsoft Azure"><span>Azure</span></div>
             </div>
-            <button class="slider-btn next-btn">❯</button>
+            <button class="slider-btn next-btn" type="button" aria-label="Next Microsoft tools">❯</button>
           </div>
-        </div>
+        </section>
 
-        <div class="software-category">
-          <h2 class="category-title"> Design Tools</h2>
+        <!-- API & Identity -->
+        <section class="software-category" aria-labelledby="tools-api-identity">
+          <h2 class="category-title" id="tools-api-identity">API Testing &amp; Identity Management</h2>
           <div class="slider-wrapper">
-            <button class="slider-btn prev-btn">❮</button>
+            <button class="slider-btn prev-btn" type="button" aria-label="Previous API tools">❮</button>
+            <div class="slider-horizontal">
+              <div class="slide"><img src="{% static 'assets/images/postman.png' %}" alt="Postman"><span>Postman</span></div>
+              <div class="slide"><img src="{% static 'assets/images/keycloak.png' %}" alt="Keycloak"><span>Keycloak</span></div>
+            </div>
+            <button class="slider-btn next-btn" type="button" aria-label="Next API tools">❯</button>
+          </div>
+        </section>
+
+        <!-- Design & Documentation -->
+        <section class="software-category" aria-labelledby="tools-design">
+          <h2 class="category-title" id="tools-design">Design &amp; Documentation</h2>
+          <div class="slider-wrapper">
+            <button class="slider-btn prev-btn" type="button" aria-label="Previous design tools">❮</button>
             <div class="slider-horizontal">
               <div class="slide"><img src="{% static 'assets/images/figma.png' %}" alt="Figma"><span>Figma</span></div>
               <div class="slide"><img src="{% static 'assets/images/canva.png' %}" alt="Canva"><span>Canva</span></div>
             </div>
-            <button class="slider-btn next-btn">❯</button>
+            <button class="slider-btn next-btn" type="button" aria-label="Next design tools">❯</button>
           </div>
-        </div>
+        </section>
 
       </div>
 
@@ -614,3 +646,4 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
+
