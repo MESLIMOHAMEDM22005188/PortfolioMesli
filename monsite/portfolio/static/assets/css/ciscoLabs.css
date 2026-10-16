@@ -36,13 +36,31 @@
    BASE
 ================================================== */
 
+
 .network-page {
   min-height: 100vh;
-  overflow: hidden;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   background: var(--cisco-bg);
   color: var(--cisco-text);
   font-family: inherit;
   line-height: 1.65;
+}
+
+
+html {
+  min-height: 100%;
+  height: auto;
+  overflow-y: auto;
+}
+
+body.network-page {
+  display: block;
+  min-height: 100vh;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .network-page *,
