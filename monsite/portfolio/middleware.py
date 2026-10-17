@@ -45,8 +45,8 @@ class LanguageSwitcherMiddleware:
         )
 
         assets = (
-            f'\n<link rel="stylesheet" href="{static("assets/css/language-switcher.css")}">'
-            f'\n<script src="{static("assets/js/language-switcher.js")}" defer></script>\n'
+            f'\n<link rel="stylesheet" href="{static("assets/css/language-switcher.css")}?v=20261017-2">'
+            f'\n<script src="{static("assets/js/language-switcher.js")}?v=20261017-2" defer></script>\n'
         )
         html, head_count = re.subn(
             r"</head\s*>",
