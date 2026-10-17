@@ -1,43 +1,73 @@
 {% load static %}
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Connexion</title>
-  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion | TicketHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{color-scheme:dark;--bg:#07100e;--surface:#0d1916;--line:rgba(142,207,174,.19);--text:#e7f2eb;--muted:#91a69a;--green:#8de6b2;--green2:#43b97c}
+    *{box-sizing:border-box}
+    body{min-height:100vh;margin:0;padding:36px 18px;display:grid;place-items:center;background:radial-gradient(ellipse at 10% 0%,rgba(46,139,87,.18),transparent 32rem),#07100e;color:var(--text);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.65}
+    a{color:var(--green);text-decoration:none}a:hover{text-decoration:underline}
+    .auth-shell{width:min(480px,100%);margin:0 auto}
+    .auth-brand{display:flex;align-items:center;gap:11px;margin:0 0 22px;color:var(--text);font:700 11px Orbitron,monospace;letter-spacing:1.5px}
+    .brand-mark{display:grid;width:38px;height:38px;place-items:center;border:1px solid rgba(141,230,178,.4);border-radius:10px;background:rgba(141,230,178,.08);color:var(--green);font:700 16px monospace}
+    .auth-card{padding:clamp(24px,6vw,38px);border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(15,29,24,.97),rgba(9,18,15,.98));box-shadow:0 28px 90px rgba(0,0,0,.28)}
+    .eyebrow{color:var(--green);font:11px "Share Tech Mono",monospace;letter-spacing:1.4px;text-transform:uppercase}
+    h1{margin:10px 0 8px;font:700 clamp(25px,6vw,32px)/1.25 Orbitron,sans-serif;letter-spacing:-.04em}
+    .subtitle{margin:0 0 25px;color:var(--muted);font-size:13px}
+    .input-group{margin:0 0 18px}
+    .input-group label{display:block;margin:0 0 7px;color:#c9dacf;font-size:12px;font-weight:700}
+    .input-group input{display:block;width:100%;min-height:46px;padding:12px 13px;border:1px solid #2c4639;border-radius:9px;outline:none;background:#09120f;color:var(--text);font:14px Inter,"Segoe UI",Arial,sans-serif;transition:border-color .18s ease,box-shadow .18s ease}
+    .input-group input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(141,230,178,.1)}
+    .field-help{margin:7px 0 0;color:#83978b;font-size:11px;line-height:1.6}
+    .field-help ul{margin:6px 0;padding-left:18px}
+    .password-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .password-toggle{border:0;padding:0;background:transparent;color:var(--green);font-size:11px;cursor:pointer}
+    .primary-button{width:100%;min-height:47px;margin-top:5px;border:1px solid var(--green);border-radius:9px;background:var(--green);color:#07100e;font-weight:800;cursor:pointer;transition:transform .18s ease,background .18s ease}
+    .primary-button:hover{transform:translateY(-1px);background:#b5f2c9}
+    .alert{margin:0 0 18px;padding:12px 14px;border:1px solid rgba(248,113,113,.3);border-radius:9px;background:rgba(127,29,29,.15);color:#fecaca;font-size:12px}
+    .alert ul{margin:5px 0 0;padding-left:18px}
+    .auth-links{display:flex;flex-direction:column;gap:12px;margin-top:23px;color:var(--muted);font-size:12px;text-align:center}
+    .auth-links p{margin:0}
+    .auth-links .muted-link{color:var(--muted)}
+    .back-link{display:block;margin-top:20px;color:#74897d;font-size:11px;text-align:center}
+    @media(max-width:420px){body{padding:22px 13px}.auth-card{padding:24px 20px}}
+  </style>
 </head>
 <body>
-  <div class="auth-container">
-    <div class="auth-card">
-      <h2>Se connecter</h2>
-
-      {% if error %}
-        <div class="errors"><p>{{ error }}</p></div>
-      {% endif %}
-
+  <main class="auth-shell">
+    <a class="auth-brand" href="{% url 'portfolio:accueil' %}"><span class="brand-mark">&gt;_</span><span>MESLI / TICKETHUB</span></a>
+    <section class="auth-card">
+      <div class="eyebrow">Secure access</div>
+      <h1>Content de te revoir.</h1>
+      <p class="subtitle">Connecte-toi pour retrouver ton espace TicketHub.</p>
+      {% if error %}<div class="alert" role="alert">{{ error }}</div>{% endif %}
       <form method="post" novalidate>
         {% csrf_token %}
         <div class="input-group">
           <label for="id_username">Nom d’utilisateur</label>
-          <input type="text" name="username" id="id_username" placeholder="Nom d’utilisateur" required>
+          <input type="text" name="username" id="id_username" autocomplete="username" placeholder="Ton nom d’utilisateur" required>
         </div>
         <div class="input-group">
-          <label for="id_password">Mot de passe</label>
-          <input type="password" name="password" id="id_password" placeholder="Mot de passe" required>
+          <div class="password-row"><label for="id_password">Mot de passe</label><button class="password-toggle" type="button" data-password-toggle="id_password">Afficher</button></div>
+          <input type="password" name="password" id="id_password" autocomplete="current-password" placeholder="Ton mot de passe" required>
         </div>
-        {% if next %}
-          <input type="hidden" name="next" value="{{ next }}">
-        {% endif %}
-        <button type="submit" class="btn">Connexion</button>
+        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+        <button class="primary-button" type="submit">Se connecter →</button>
       </form>
-
-      <p class="auth-footer">
-        <a href="{% url 'tickets:reset' %}">Mot de passe oublié ?</a>
-      </p>
-
-      <p class="auth-footer">
-        Pas encore de compte ? <a href="{% url 'tickets:register' %}">Inscrivez-vous</a>
-      </p>
-    </div>
-  </div>
+      <div class="auth-links">
+        <p><a href="{% url 'tickets:reset' %}">Mot de passe oublié ?</a></p>
+        <p>Pas encore de compte ? <a href="{% url 'tickets:register' %}">Créer un compte</a></p>
+      </div>
+      <a class="back-link" href="{% url 'portfolio:accueil' %}">← Retour au portfolio</a>
+    </section>
+  </main>
+  <script>
+    document.querySelectorAll("[data-password-toggle]").forEach(function(button){button.addEventListener("click",function(){var input=document.getElementById(button.dataset.passwordToggle);if(!input)return;var visible=input.type==="password";input.type=visible?"text":"password";button.textContent=visible?"Masquer":"Afficher";});});
+  </script>
 </body>
 </html>
