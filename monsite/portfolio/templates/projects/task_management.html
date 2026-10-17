@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Task Management App developed in C#.">
+
+    <title>Task Management App in C#</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #0b1110;
+            --surface: #121c19;
+            --border: #263d34;
+            --text: #edf7f1;
+            --muted: #a8bdb1;
+            --accent: #86efac;
+            --accent-dark: #4ade80;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(
+                    circle at 85% 8%,
+                    rgba(74, 222, 128, 0.12),
+                    transparent 30rem
+                ),
+                var(--bg);
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, 90%);
+            margin: 0 auto;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            min-height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+
+        .back-link {
+            color: var(--muted);
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            padding: 105px 0 85px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 6px 13px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            background: rgba(134, 239, 172, 0.07);
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            font-size: 0.82rem;
+        }
+
+        h1 {
+            max-width: 900px;
+            margin: 0;
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.05;
+            letter-spacing: -0.055em;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        .intro {
+            max-width: 720px;
+            margin-top: 28px;
+            color: var(--muted);
+            font-size: 1.15rem;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 32px;
+        }
+
+        .button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px 20px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-weight: 700;
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .button-primary {
+            color: #092012;
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .button-primary:hover {
+            background: var(--accent-dark);
+        }
+
+        .preview {
+            margin-top: 55px;
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: linear-gradient(
+                145deg,
+                rgba(22, 42, 32, 0.95),
+                rgba(14, 23, 20, 0.98)
+            );
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+        }
+
+        .preview-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .preview-label {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 7px;
+            background: rgba(134, 239, 172, 0.1);
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .preview-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .preview-item {
+            padding: 19px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(6, 14, 10, 0.3);
+        }
+
+        .preview-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .preview-item p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        section.content {
+            padding: 65px 0;
+        }
+
+        .section-heading {
+            max-width: 700px;
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            margin: 0 0 14px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.2;
+        }
+
+        .section-heading p,
+        .card p,
+        .closing p {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            padding: 26px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: var(--surface);
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-dark);
+        }
+
+        .card-number {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.07em;
+        }
+
+        h3 {
+            margin: 14px 0 8px;
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            margin-bottom: 0;
+        }
+
+        .stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .stack-item {
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: var(--accent);
+            background: rgba(134, 239, 172, 0.05);
+        }
+
+        .closing {
+            padding: 65px 0 90px;
+            text-align: center;
+        }
+
+        .closing p {
+            max-width: 620px;
+            margin: 15px auto 0;
+        }
+
+        footer {
+            padding: 24px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 760px) {
+            .hero {
+                padding-top: 70px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-body {
+                grid-template-columns: 1fr;
+            }
+
+            .preview {
+                padding: 19px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container nav">
+            <a class="brand"
+               href="{% url 'portfolio:accueil' %}">
+                MESLI / PROJECTS
+            </a>
+
+            <a class="back-link"
+               href="{% url 'portfolio:accueil' %}">
+                ← Back to portfolio
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <span class="eyebrow">
+                    Software Development · C#
+                </span>
+
+                <h1>
+                    Task Management <span>App.</span>
+                </h1>
+
+                <p class="intro">
+                    A task management application developed in C#.
+                    This project focuses on the design of a software
+                    tool dedicated to organising tasks and structuring
+                    a user's workflow.
+                </p>
+
+                <div class="actions">
+                    <a class="button button-primary"
+                       href="#overview">
+                        Explore the project ↓
+                    </a>
+
+                    <a class="button"
+                       href="{% url 'portfolio:accueil' %}">
+                        Back to portfolio
+                    </a>
+                </div>
+
+                <div class="preview" aria-label="Project concept">
+                    <div class="preview-top">
+                        <div>
+                            <strong>Task Management</strong>
+                            <div class="preview-label">
+                                Project overview
+                            </div>
+                        </div>
+
+                        <span class="status">C# Project</span>
+                    </div>
+
+                    <div class="preview-body">
+                        <div class="preview-item">
+                            <strong>Task organisation</strong>
+                            <p>
+                                A software project centred on
+                                organising and managing tasks.
+                            </p>
+                        </div>
+
+                        <div class="preview-item">
+                            <strong>Application design</strong>
+                            <p>
+                                A structured approach to the
+                                development of a task-oriented tool.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content" id="overview">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Project Overview</h2>
+
+                    <p>
+                        Task Management App explores the development
+                        of a task-oriented application using C#.
+                        The page presents the project's purpose and
+                        development focus without assuming a specific
+                        framework or unverified technical features.
+                    </p>
+                </div>
+
+                <div class="grid">
+                    <article class="card">
+                        <span class="card-number">01 / PURPOSE</span>
+                        <h3>Task Organisation</h3>
+                        <p>
+                            Focused on the general problem of
+                            organising tasks through a dedicated
+                            software application.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <span class="card-number">02 / DEVELOPMENT</span>
+                        <h3>C# Application</h3>
+                        <p>
+                            Built around C#, with the implementation
+                            details to be documented according to
+                            the actual project source code.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <span class="card-number">03 / DESIGN</span>
+                        <h3>Maintainable Software</h3>
+                        <p>
+                            An opportunity to consider code
+                            organisation, readability and the
+                            structure of an application.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Technology</h2>
+
+                    <p>
+                        The programming language identified for
+                        this project is:
+                    </p>
+                </div>
+
+                <div class="stack">
+                    <span class="stack-item">C#</span>
+                    <span class="stack-item">Task Management</span>
+                    <span class="stack-item">Software Development</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="closing">
+            <div class="container">
+                <h2>Discover More Projects</h2>
+
+                <p>
+                    Return to the portfolio to explore other
+                    software development and cybersecurity projects.
+                </p>
+
+                <a class="button button-primary"
+                   href="{% url 'portfolio:accueil' %}">
+                    Back to portfolio
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            © 2026 Mesli Portfolio
+        </div>
+    </footer>
+</body>
+</html>
