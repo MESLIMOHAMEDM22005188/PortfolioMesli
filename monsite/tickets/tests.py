@@ -54,3 +54,24 @@ class PasswordResetSecurityTests(TestCase):
         )
 
         self.assertRedirects(response, reverse("tickets:home"))
+
+    def test_alert_creation_requires_staff_login(self):
+        response = self.client.get(reverse("tickets:create_alert"))
+
+        self.assertRedirects(
+            response,
+            f"{reverse('tickets:login')}?next={reverse('tickets:create_alert')}",
+        )
+
+    def test_closing_ticket_rejects_get_requests(self):
+        staff_user = User.objects.create_user(
+            username="ticket-admin",
+            email="ticket-admin@example.com",
+            password="A-strong-test-password-934!",
+            is_staff=True,
+        )
+        self.client.force_login(staff_user)
+
+        response = self.client.get(reverse("tickets:ticket_close", args=[999]))
+
+        self.assertEqual(response.status_code, 405)
