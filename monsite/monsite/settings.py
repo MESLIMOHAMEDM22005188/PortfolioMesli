@@ -150,7 +150,8 @@ WSGI_APPLICATION = "monsite.wsgi.application"
 # Static files
 # -----------------------
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# Use a clean, untracked build directory; the legacy staticfiles/ directory in GitHub contains stale assets.
+STATIC_ROOT = BASE_DIR / "staticfiles_build"
 
 # Only add the project-level static directory if it actually exists.
 # Django will still discover static directories inside installed apps.
