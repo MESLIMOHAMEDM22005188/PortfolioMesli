@@ -2,9 +2,593 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="SmartBudget Tracker — a personal budget tracking project.">
 
+    <title>SmartBudget Tracker — Portfolio</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #0b100f;
+            --surface: #121a17;
+            --surface-light: #19231e;
+            --border: #2b3b32;
+            --text: #f0f7f2;
+            --muted: #a6b8ac;
+            --accent: #6ee7b7;
+            --accent-dark: #34d399;
+            --blue: #93c5fd;
+            --red: #fca5a5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(
+                    circle at 80% 5%,
+                    rgba(52, 211, 153, 0.12),
+                    transparent 32rem
+                ),
+                var(--bg);
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .container {
+            width: min(1120px, 90%);
+            margin-inline: auto;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            min-height: 78px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+
+        .back-link {
+            color: var(--muted);
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            padding: 100px 0 70px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 6px 13px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(110, 231, 183, 0.07);
+            color: var(--accent);
+            font-size: 0.82rem;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 900px;
+            margin: 25px 0 0;
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.04;
+            letter-spacing: -0.055em;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        .intro {
+            max-width: 730px;
+            margin-top: 25px;
+            color: var(--muted);
+            font-size: 1.15rem;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 13px;
+            margin-top: 30px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 11px 19px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-weight: 700;
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .button-primary {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #092117;
+        }
+
+        .button-primary:hover {
+            background: var(--accent-dark);
+        }
+
+        .dashboard {
+            margin-top: 52px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: rgba(18, 26, 23, 0.96);
+            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.22);
+        }
+
+        .dashboard-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding-bottom: 21px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dashboard-top h2 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .demo-label {
+            padding: 5px 10px;
+            border-radius: 7px;
+            background: rgba(147, 197, 253, 0.1);
+            color: var(--blue);
+            font-size: 0.8rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .metric {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: var(--surface-light);
+            min-width: 0;
+        }
+
+        .metric-label {
+            display: block;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .metric-value {
+            display: block;
+            margin-top: 9px;
+            font-size: clamp(1.1rem, 2.5vw, 1.7rem);
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .green {
+            color: var(--accent);
+        }
+
+        .blue {
+            color: var(--blue);
+        }
+
+        .budget-bar {
+            height: 9px;
+            margin-top: 24px;
+            overflow: hidden;
+            border-radius: 99px;
+            background: #27352e;
+        }
+
+        .budget-bar span {
+            display: block;
+            width: 62%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(
+                90deg,
+                var(--accent-dark),
+                #a7f3d0
+            );
+        }
+
+        .budget-caption {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        section.content {
+            padding: 65px 0;
+        }
+
+        .section-heading {
+            max-width: 740px;
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            margin: 0 0 13px;
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            line-height: 1.2;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .feature {
+            padding: 26px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: var(--surface);
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-dark);
+        }
+
+        .feature-number {
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+
+        h3 {
+            margin: 14px 0 9px;
+            font-size: 1.2rem;
+        }
+
+        .feature p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 11px;
+        }
+
+        .stack-item {
+            padding: 9px 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: rgba(110, 231, 183, 0.05);
+            color: var(--accent);
+        }
+
+        .note {
+            margin-top: 23px;
+            padding: 18px 20px;
+            border-left: 3px solid var(--accent-dark);
+            background: rgba(110, 231, 183, 0.05);
+            color: var(--muted);
+            border-radius: 0 9px 9px 0;
+            font-size: 0.92rem;
+        }
+
+        .closing {
+            padding: 65px 0 90px;
+            text-align: center;
+        }
+
+        .closing p {
+            max-width: 650px;
+            margin: 16px auto 0;
+            color: var(--muted);
+        }
+
+        footer {
+            padding: 24px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 760px) {
+            .hero {
+                padding-top: 70px;
+            }
+
+            .dashboard-grid,
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard {
+                padding: 17px;
+            }
+
+            .nav {
+                padding: 18px 0;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container nav">
+            <a class="brand"
+               href="{% url 'portfolio:accueil' %}">
+                MESLI / PROJECTS
+            </a>
+
+            <a class="back-link"
+               href="{% url 'portfolio:accueil' %}">
+                ← Back to portfolio
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <span class="eyebrow">
+                    Personal Finance · C#
+                </span>
+
+                <h1>
+                    SmartBudget <span>Tracker.</span>
+                </h1>
+
+                <p class="intro">
+                    A personal budget tracking project focused on
+                    the organisation of financial information and
+                    the visualisation of a budget. The goal is to
+                    make financial tracking easier to understand
+                    through a dedicated software application.
+                </p>
+
+                <div class="actions">
+                    <a class="button button-primary"
+                       href="#overview">
+                        Explore the project ↓
+                    </a>
+
+                    <a class="button"
+                       href="{% url 'portfolio:accueil' %}">
+                        Back to portfolio
+                    </a>
+                </div>
+
+                <div class="dashboard"
+                     aria-label="Illustrative budget dashboard preview">
+                    <div class="dashboard-top">
+                        <h2>Budget overview</h2>
+                        <span class="demo-label">
+                            Illustrative preview
+                        </span>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="metric">
+                            <span class="metric-label">
+                                Monthly budget
+                            </span>
+                            <strong class="metric-value">
+                                €2,000
+                            </strong>
+                        </div>
+
+                        <div class="metric">
+                            <span class="metric-label">
+                                Expenses
+                            </span>
+                            <strong class="metric-value blue">
+                                €1,240
+                            </strong>
+                        </div>
+
+                        <div class="metric">
+                            <span class="metric-label">
+                                Remaining
+                            </span>
+                            <strong class="metric-value green">
+                                €760
+                            </strong>
+                        </div>
+                    </div>
+
+                    <div class="budget-bar"
+                         role="img"
+                         aria-label="Illustrative budget usage of 62 percent">
+                        <span></span>
+                    </div>
+
+                    <div class="budget-caption">
+                        <span>Illustrative spending progress</span>
+                        <span>62%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content" id="overview">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Project Overview</h2>
+
+                    <p>
+                        SmartBudget Tracker is presented as a
+                        budget-oriented software project developed
+                        in C#. Its central theme is helping users
+                        understand the relationship between a budget,
+                        expenses and the remaining available amount.
+                    </p>
+                </div>
+
+                <div class="features">
+                    <article class="feature">
+                        <span class="feature-number">
+                            01 / BUDGET
+                        </span>
+                        <h3>Budget Tracking</h3>
+                        <p>
+                            Representing a budget and making its
+                            allocation easier to understand.
+                        </p>
+                    </article>
+
+                    <article class="feature">
+                        <span class="feature-number">
+                            02 / EXPENSES
+                        </span>
+                        <h3>Financial Overview</h3>
+                        <p>
+                            Presenting the relationship between
+                            spending and the remaining budget.
+                        </p>
+                    </article>
+
+                    <article class="feature">
+                        <span class="feature-number">
+                            03 / SOFTWARE
+                        </span>
+                        <h3>Application Development</h3>
+                        <p>
+                            Exploring the structure and presentation
+                            of a finance-oriented application in C#.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="note">
+                    The amounts and progress indicator above are
+                    illustrative design examples, not live financial
+                    data from the application.
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Technology</h2>
+
+                    <p>
+                        The portfolio identifies C# as the project's
+                        programming language. Additional frameworks,
+                        storage mechanisms and implemented features
+                        should be added once confirmed in the source code.
+                    </p>
+                </div>
+
+                <div class="stack">
+                    <span class="stack-item">C#</span>
+                    <span class="stack-item">Budget Tracking</span>
+                    <span class="stack-item">Software Development</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="closing">
+            <div class="container">
+                <h2>Explore More Projects</h2>
+
+                <p>
+                    Return to the portfolio to discover other
+                    software development projects and technical work.
+                </p>
+
+                <div class="actions"
+                     style="justify-content: center;">
+                    <a class="button button-primary"
+                       href="{% url 'portfolio:accueil' %}">
+                        Back to portfolio
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            © 2026 Mesli Portfolio
+        </div>
+    </footer>
 </body>
 </html>
