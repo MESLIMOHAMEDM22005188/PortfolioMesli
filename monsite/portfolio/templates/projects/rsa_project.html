@@ -1,137 +1,143 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Cybersecurity Mini-Projects</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* ===== Reset & Global ===== */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #121212; color: #f4f4f4; line-height: 1.6; }
-        a { color: #ff79c6; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-
-
-        /* ===== Container ===== */
-        .container { max-width: 1100px; margin: auto; padding: 20px; }
-
-        /* ===== Header ===== */
-        header { text-align: center; padding: 40px 20px; }
-        header h1 { font-size: 3rem; background: linear-gradient(90deg, #8be9fd, #ff79c6); -webkit-background-clip: text; color: transparent; }
-        header p { font-size: 1.2rem; margin-top: 10px; color: #bbbbbb; }
-
-        /* ===== Section ===== */
-        section { margin-top: 50px; }
-        section h2 { font-size: 2rem; margin-bottom: 20px; text-align: center; color: #50fa7b; }
-        section p { max-width: 800px; margin: 0 auto 20px; }
-
-        /* ===== Project Table ===== */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #333; padding: 12px 15px; text-align: left; }
-        th { background: #282a36; }
-        tr:nth-child(even) { background: #1e1f29; }
-
-        /* ===== Buttons ===== */
-        .btn { display: inline-block; margin-top: 10px; padding: 10px 20px; background: #6272a4; color: white; border-radius: 6px; transition: 0.3s; }
-        .btn:hover { background: #50fa7b; color: #121212; }
-
-        /* ===== Carousel for images ===== */
-        .carousel { display: flex; overflow-x: auto; gap: 20px; padding: 20px 0; scroll-behavior: smooth; }
-        .carousel img { width: 250px; border-radius: 12px; border: 2px solid #50fa7b; }
-        .carousel::-webkit-scrollbar { display: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cybersecurity Mini-Projects — cryptography, network analysis, security tooling and web security labs.">
+  <title>Cybersecurity Mini-Projects | Mesli Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme:dark; --bg:#07100e; --surface:#0d1916; --surface2:#12221d; --line:rgba(142,207,174,.17); --text:#e7f2eb; --muted:#91a69a; --green:#8de6b2; --green2:#43b97c; --cyan:#91e8e2; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:radial-gradient(ellipse at 12% 0%,rgba(46,139,87,.14),transparent 34rem),radial-gradient(ellipse at 95% 30%,rgba(26,108,77,.09),transparent 28rem),var(--bg); color:var(--text); font-family:Inter,"Segoe UI",Arial,sans-serif; line-height:1.7; }
+    a { color:inherit; text-decoration:none; }
+    .container { width:min(1180px,calc(100% - 40px)); margin:0 auto; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:22px 0; border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:11px; color:var(--text); font:700 11px Orbitron,sans-serif; letter-spacing:1.8px; }
+    .brand-mark { display:grid; width:36px; height:36px; place-items:center; border:1px solid rgba(141,230,178,.4); border-radius:9px; background:rgba(141,230,178,.08); color:var(--green); font:700 15px monospace; }
+    .back { color:var(--muted); font-size:13px; }
+    .back:hover { color:var(--green); }
+    .hero { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr); gap:clamp(28px,5vw,68px); align-items:center; padding:clamp(64px,9vw,110px) 0 78px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:10px; color:var(--green); font:12px 'Share Tech Mono',monospace; letter-spacing:1.5px; text-transform:uppercase; }
+    .eyebrow::before { content:""; width:25px; height:1px; background:var(--green); }
+    h1 { margin:22px 0 20px; font:700 clamp(2.5rem,5.4vw,4.8rem)/1.1 Orbitron,sans-serif; letter-spacing:-.055em; }
+    h1 span { color:var(--green); display:block; }
+    .intro { max-width:650px; color:#a9bbb0; font-size:1rem; }
+    .tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:25px; }
+    .tag { padding:7px 10px; border:1px solid var(--line); border-radius:6px; background:rgba(141,230,178,.035); color:#b9d1c2; font:10px 'Share Tech Mono',monospace; letter-spacing:.05em; }
+    .terminal { overflow:hidden; border:1px solid rgba(141,230,178,.23); border-radius:14px; background:rgba(10,23,19,.94); box-shadow:0 22px 75px rgba(0,0,0,.25); }
+    .terminal-head { display:flex; align-items:center; gap:7px; padding:14px 17px; border-bottom:1px solid var(--line); color:#728e7d; font:10px 'Share Tech Mono',monospace; }
+    .dot { width:8px; height:8px; border-radius:50%; background:#365b49; }
+    .file { margin-left:auto; }
+    .terminal-body { padding:23px; color:#9fb5a5; font:12px/2.15 'Share Tech Mono',monospace; overflow-wrap:anywhere; }
+    .prompt { color:var(--green); }
+    .command { color:#e2f3e8; }
+    .comment { color:#5f816c; }
+    .section { padding:0 0 78px; }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:25px; }
+    .kicker { display:block; margin-bottom:7px; color:var(--green); font:11px 'Share Tech Mono',monospace; letter-spacing:1.5px; text-transform:uppercase; }
+    h2 { margin:0; font:600 clamp(1.5rem,3vw,2rem)/1.4 Orbitron,sans-serif; }
+    .index { color:#547362; font:12px 'Share Tech Mono',monospace; white-space:nowrap; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px; }
+    .card { display:flex; min-height:246px; flex-direction:column; padding:24px; border:1px solid var(--line); border-radius:12px; background:linear-gradient(145deg,rgba(18,34,29,.88),rgba(10,22,18,.8)); transition:transform .2s ease,border-color .2s ease,background .2s ease; }
+    .card:hover { transform:translateY(-4px); border-color:rgba(141,230,178,.38); background:rgba(18,34,29,.94); }
+    .card-top { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:20px; }
+    .number { color:var(--green); font:12px 'Share Tech Mono',monospace; }
+    .card-type { padding:4px 7px; border:1px solid var(--line); border-radius:5px; color:#86b39a; font:9px 'Share Tech Mono',monospace; text-transform:uppercase; }
+    h3 { margin:0 0 10px; color:#e5f2e9; font-size:16px; line-height:1.5; }
+    .card p { margin:0 0 22px; color:var(--muted); font-size:13px; line-height:1.8; }
+    .card-link { display:inline-flex; align-items:center; gap:8px; margin-top:auto; color:var(--green); font-size:12px; font-weight:700; }
+    .card-link:hover { color:#c0f7d0; }
+    .repo-panel { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:24px; padding:28px; border:1px solid rgba(141,230,178,.25); border-radius:13px; background:radial-gradient(ellipse at right center,rgba(67,185,124,.1),transparent 58%),var(--surface); }
+    .repo-panel h3 { margin-bottom:5px; font-size:17px; }
+    .repo-panel p { margin:0; color:var(--muted); font-size:13px; }
+    .repo-actions { display:flex; flex-wrap:wrap; gap:10px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:43px; padding:10px 14px; border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:12px; font-weight:750; white-space:nowrap; transition:transform .18s ease,border-color .18s ease; }
+    .button:hover { transform:translateY(-2px); border-color:var(--green); }
+    .button.primary { border-color:var(--green); background:var(--green); color:#07100e; }
+    .clone { display:block; margin-top:22px; padding:16px; border:1px solid var(--line); border-radius:9px; background:#080f0d; color:#bed1c4; font:12px/1.8 'Share Tech Mono',monospace; overflow-wrap:anywhere; }
+    .clone-label { display:block; margin-bottom:7px; color:#62836f; font-size:10px; text-transform:uppercase; letter-spacing:1px; }
+    .notice { margin-top:20px; padding:16px 18px; border-left:2px solid #779b86; background:rgba(141,230,178,.035); color:#98ada0; font-size:12px; line-height:1.8; }
+    footer { display:flex; justify-content:space-between; gap:20px; padding:22px 0 30px; border-top:1px solid var(--line); color:#71877a; font:10px 'Share Tech Mono',monospace; letter-spacing:.5px; }
+    @media(max-width:900px) { .hero { grid-template-columns:1fr; } .terminal { max-width:760px; } .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media(max-width:600px) { .container { width:calc(100% - 32px); } .hero { padding:58px 0; } .grid { grid-template-columns:1fr; } .section-head { align-items:flex-start; } .index { display:none; } .repo-panel { grid-template-columns:1fr; padding:22px; } .repo-actions { flex-direction:column; align-items:stretch; } footer { flex-direction:column; gap:9px; } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; scroll-behavior:auto!important; transition:none!important; } }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <nav class="topbar" aria-label="Project navigation">
+      <a href="{% url 'portfolio:accueil' %}" class="brand"><span class="brand-mark">&gt;_</span><span>MESLI / SECURITY LAB</span></a>
+      <a href="{% url 'portfolio:accueil' %}" class="back">← Back to portfolio</a>
+    </nav>
 
-    <header>
-        <h1>Cybersecurity Mini-Projects (Enhanced Fork)</h1>
-        <p>License: MIT • Python Maintenance • Educational & Improved</p>
+    <header class="hero">
+      <div>
+        <div class="eyebrow">Cybersecurity · Practical research</div>
+        <h1>Cybersecurity <span>Mini-Projects.</span></h1>
+        <p class="intro">A collection of hands-on security projects exploring cryptography, network traffic, security tooling and web application vulnerabilities. Each exercise is designed to build technical understanding in controlled lab environments.</p>
+        <div class="tags"><span class="tag">PYTHON</span><span class="tag">CRYPTOGRAPHY</span><span class="tag">NETWORKING</span><span class="tag">WEB SECURITY</span></div>
+      </div>
+      <div class="terminal" aria-label="Decorative command-line preview">
+        <div class="terminal-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="file">security_lab / README</span></div>
+        <div class="terminal-body">
+          <div class="comment"># Cybersecurity Mini-Projects</div>
+          <div><span class="prompt">operator@security:~$</span> <span class="command">ls projects/</span></div>
+          <div>rsa_algorithm/</div><div>educational_keylogger/</div><div>network_sniffer/</div><div>phishing_simulations/</div><div>steganography/</div><div>ssti_lab/</div>
+          <br>
+          <div><span class="prompt">operator@security:~$</span> <span class="command">echo $LAB_MODE</span></div>
+          <div class="prompt">controlled · educational · authorized</div>
+        </div>
+      </div>
     </header>
 
-    <div class="container">
-        <section>
-            <h2>À propos de ce fork</h2>
-            <p>
-                Cette version améliorée du dépôt original “Cybersecurity-Mini-Projects” inclut des fonctionnalités supplémentaires, 
-                surtout pour le projet de keylogger. Les améliorations comprennent :
-            </p>
-            <ul>
-                <li>Chiffrement sécurisé des logs</li>
-                <li>Avertissements légaux pour la conformité</li>
-                <li>Code mieux structuré et documenté</li>
-                <li>Limites de temps et envoi sécurisé par e-mail</li>
-            </ul>
-        </section>
+    <section class="section">
+      <div class="section-head"><div><span class="kicker">01 / Project collection</span><h2>Explore the security lab</h2></div><span class="index">PROJECTS / 06</span></div>
+      <div class="grid">
+        <article class="card"><div class="card-top"><span class="number">01</span><span class="card-type">Cryptography</span></div><h3>RSA Algorithm</h3><p>An implementation-focused exploration of RSA public-key cryptography, from key generation concepts to encryption and decryption.</p><a class="card-link" href="https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects" target="_blank" rel="noopener noreferrer">View repository ↗</a></article>
+        <article class="card"><div class="card-top"><span class="number">02</span><span class="card-type">Security tooling</span></div><h3>Educational Keylogger</h3><p>A controlled demonstration of keystroke-capture concepts for defensive awareness and understanding endpoint monitoring risks.</p><a class="card-link" href="https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects" target="_blank" rel="noopener noreferrer">View repository ↗</a></article>
+        <article class="card"><div class="card-top"><span class="number">03</span><span class="card-type">Networking</span></div><h3>Network Sniffer</h3><p>Explore packet capture and network traffic inspection to better understand protocols and troubleshoot connectivity.</p><a class="card-link" href="https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects" target="_blank" rel="noopener noreferrer">View repository ↗</a></article>
+        <article class="card"><div class="card-top"><span class="number">04</span><span class="card-type">Awareness</span></div><h3>Phishing Page Simulations</h3><p>Educational simulations for recognizing deceptive interfaces and discussing common social-engineering warning signs.</p><a class="card-link" href="https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects" target="_blank" rel="noopener noreferrer">View repository ↗</a></article>
+        <article class="card"><div class="card-top"><span class="number">05</span><span class="card-type">Data hiding</span></div><h3>Steganography</h3><p>Investigate how information can be embedded in media files and explore the basic principles behind detection and analysis.</p><a class="card-link" href="https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects" target="_blank" rel="noopener noreferrer">View repository ↗</a></article>
+        <article class="card"><div class="card-top"><span class="number">06</span><span class="card-type">Web security</span></div><h3>Server-Side Template Injection</h3><p>A lab-focused introduction to SSTI risk, how unsafe template evaluation happens and why input handling matters.</p><a class="card-link" href="https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects" target="_blank" rel="noopener noreferrer">View repository ↗</a></article>
+      </div>
+    </section>
 
-        <section>
-            <h2>Présentation des Projets</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Projet</th>
-                        <th>Description</th>
-                        <th>Langage(s)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>RSA Algorithm</td>
-                        <td>Implémentation complète de RSA depuis zéro</td>
-                        <td>Python</td>
-                    </tr>
-                    <tr>
-                        <td>Keylogger (Éducatif)</td>
-                        <td>Keylogger amélioré avec fonctionnalités de sécurité</td>
-                        <td>Python</td>
-                    </tr>
-                    <tr>
-                        <td>Network Sniffer</td>
-                        <td>Scanner des appareils locaux du réseau</td>
-                        <td>Python</td>
-                    </tr>
-                    <tr>
-                        <td>Phishing Pages</td>
-                        <td>Simulation éducative de phishing</td>
-                        <td>HTML / PHP</td>
-                    </tr>
-                    <tr>
-                        <td>Steganography</td>
-                        <td>Implémentation LSB de stéganographie</td>
-                        <td>Python</td>
-                    </tr>
-                    <tr>
-                        <td>SSTI</td>
-                        <td>Exemple d’injection de template côté serveur</td>
-                        <td>Python / Flask</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+    <section class="section">
+      <div class="section-head"><div><span class="kicker">02 / Source code</span><h2>Get the project</h2></div><span class="index">GITHUB</span></div>
+      <div class="repo-panel">
+        <div><h3>Cybersecurity-Mini-Projects</h3><p>Browse the repository for source code and project notes.</p></div>
+        <div class="repo-actions"><a class="button primary" href="https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects" target="_blank" rel="noopener noreferrer">Open GitHub ↗</a><button class="button" type="button" id="copy-command">Copy clone command</button></div>
+      </div>
+      <div class="clone"><span class="clone-label">Clone with Git</span><code id="clone-command">git clone https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects.git</code></div>
+      <p class="notice">These projects are intended for learning, defensive analysis and authorized test environments. Only run security tools against systems and networks you own or have explicit permission to assess.</p>
+    </section>
 
-        <section>
-            <h2>Installation</h2>
-            <p>Cloner le dépôt et se placer dans le dossier :</p>
-            <pre><code>git clone https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects.git
-cd Cybersecurity-Mini-Projects</code></pre>
-            <a href="https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects" target="_blank" class="btn">Voir le dépôt GitHub</a>
-        </section>
-
-        <section>
-            <h2>Galerie</h2>
-            <div class="carousel">
-                <img src="assets/images/rsa1.png" alt="RSA Screenshot 1">
-                <img src="assets/images/keylogger.png" alt="Keylogger Screenshot">
-                <img src="assets/images/network_sniffer.png" alt="Network Sniffer Screenshot">
-                <img src="assets/images/phishing_page.png" alt="Phishing Page Screenshot">
-            </div>
-        </section>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            console.log("✅ Cybersecurity Mini-Projects page loaded");
-        });
-    </script>
-
+    <footer><span>MESLI PORTFOLIO / CYBERSECURITY MINI-PROJECTS</span><span>LEARN · TEST · UNDERSTAND</span></footer>
+  </div>
+  <script>
+    (function () {
+      const button = document.getElementById("copy-command");
+      const command = document.getElementById("clone-command");
+      if (!button || !command) return;
+      button.addEventListener("click", async function () {
+        const text = command.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = "Copied";
+        } catch (error) {
+          const selection = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(command);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          button.textContent = "Select and copy";
+        }
+        window.setTimeout(function () { button.textContent = "Copy clone command"; }, 1800);
+      });
+    })();
+  </script>
 </body>
 </html>
