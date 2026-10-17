@@ -1,11 +1,8 @@
 import logging
-logger = logging.getLogger(__name__)
-import logging
 from django.http import Http404
 from django.shortcuts import render
+
 logger = logging.getLogger(__name__)
-def index(request):
-    return render(request, "index.html")
 PROJECTS = {
     "Concurrency, Synchronization, Performance": {
         "description": "Projet sur la concurrence en C++ avec gestion des threads.",
@@ -14,7 +11,7 @@ PROJECTS = {
             "assets/img/proj2.png",
         ],
         "hashtags": ["#C++", "#Multithreading", "#Performance"],
-        "github": "https://github.com/moncompte/concurrency-project"
+        "github": "https://github.com/MESLIMOHAMEDM22005188/ConcurrencyThreading"
     },
     "RSA Algorithm — From Scratch": {
         "description": "Projet de cryptographie RSA implémenté de A à Z en Python.",
@@ -23,21 +20,21 @@ PROJECTS = {
             "assets/img/rsa2.png",
         ],
         "hashtags": ["#Python", "#Cryptography", "#RSA"],
-        "github": "https://github.com/moncompte/rsa-project"
+        "github": "https://github.com/MESLIMOHAMEDM22005188/Cybersecurity-Mini-Projects"
     },
 }
 
 def accueil(request):
     return render(request, 'accueil.html')
 
-def ticketHub(request):
-    return render(request, 'ticketHub.html')
+def ticket_hub(request):
+    return render(request, 'ticket_hub.html')
 
 def cisco_labs(request):
-    return render(request, 'ciscoLabs.html')
+    return render(request, 'cisco_labs.html')
 
-def mesPetitsCours(request):
-    return render(request, "mespetitscours/mesPetitsCours.html")
+def mes_petits_cours(request):
+    return render(request, "mespetitscours/mes_petits_cours.html")
 
 
 def primaire(request):
