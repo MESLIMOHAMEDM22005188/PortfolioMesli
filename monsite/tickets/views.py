@@ -11,6 +11,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.http import urlsafe_base64_decode, url_has_allowed_host_and_scheme
+from django.views.decorators.http import require_POST
 
 from .forms import RegisterForm, TicketForm
 from .models import Ticket, Pole, Alert
@@ -183,6 +184,7 @@ def ticket_create(request):
 
 @login_required
 @user_passes_test(is_admin)
+@require_POST
 def ticket_close(request, pk):
     """
     Ferme un ticket : passe le statut à 'closed' et redirige vers la liste des tickets.
@@ -205,6 +207,8 @@ def home(request):
 
 # ---------------------- ALERTES ----------------------
 
+@login_required
+@staff_member_required
 def create_alert(request):
     """
     Méthode factice pour créer une alerte via un formulaire.
