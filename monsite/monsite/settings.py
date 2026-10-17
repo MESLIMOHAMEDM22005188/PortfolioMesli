@@ -120,6 +120,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "portfolio.middleware.LanguageSwitcherMiddleware",
 ]
 
 ROOT_URLCONF = "monsite.urls"
