@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Network Engineering | Mohamed Mesli</title>
+  <meta
+    name="description"
+    content="Network engineering portfolio featuring enterprise routing, wireless security, QoS and Cisco Packet Tracer lab architectures."
+  >
+  <meta name="theme-color" content="#0b1120">
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="{% static 'assets/images/m.png' %}"
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    rel="stylesheet"
+    href="{% static 'assets/css/ciscoLabs.css' %}"
+  >
+</head>
+
+<body class="network-page">
+
+  <header class="top-header">
+    <a
+      class="brand"
+      href="{% url 'portfolio:accueil' %}"
+      aria-label="Mohamed Mesli — Home"
+    >
+      <span class="brand-mark">M.</span>
+      <span class="brand-name">MOHAMED MESLI<span class="brand-dot">.</span></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="{% url 'portfolio:accueil' %}">Home</a>
+      <a href="{% url 'portfolio:accueil' %}#projects">Projects</a>
+      <a href="{% url 'portfolio:accueil' %}#contact">Contact</a>
+    </nav>
+
+    <span class="header-label">TECHNICAL PORTFOLIO / 01</span>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="hero hero-engineering">
+      <div class="hero-copy">
+        <div class="eyebrow">
+          <span class="status-dot"></span>
+          NETWORK ENGINEERING · CISCO PACKET TRACER
+        </div>
+
+        <h1>
+          Designing networks.<br>
+          <span>Engineering reliability.</span>
+        </h1>
+
+        <p class="hero-description">
+          A technical portfolio exploring enterprise network architecture,
+          routing resilience, wireless security and traffic engineering
+          through practical network simulation.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            Explore projects <span aria-hidden="true">↘</span>
+          </a>
+          <a
+            href="{% url 'portfolio:accueil' %}#contact"
+            class="btn btn-secondary"
+          >
+            Get in touch
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Network architecture illustration">
+        <div class="visual-topline">
+          <span>NETWORK OVERVIEW</span>
+          <span>SIMULATION / PT</span>
+        </div>
+
+        <div class="network-diagram">
+          <div class="network-node node-isp">
+            <span class="node-icon">↗</span>
+            <span class="node-title">ISP BACKBONE</span>
+            <span class="node-subtitle">External connectivity</span>
+          </div>
+
+          <div class="network-connector"></div>
+
+          <div class="network-node node-core">
+            <span class="node-icon">⌘</span>
+            <span class="node-title">CORE NETWORK</span>
+            <span class="node-subtitle">Routing & resilience</span>
+          </div>
+
+          <div class="network-branches">
+            <div class="branch">
+              <span class="branch-line"></span>
+              <div class="network-node node-edge">
+                <span class="node-title">DATACENTER</span>
+                <span class="node-subtitle">Central services</span>
+              </div>
+            </div>
+
+            <div class="branch">
+              <span class="branch-line"></span>
+              <div class="network-node node-edge">
+                <span class="node-title">AGENCY 01</span>
+                <span class="node-subtitle">Remote network</span>
+              </div>
+            </div>
+
+            <div class="branch">
+              <span class="branch-line"></span>
+              <div class="network-node node-edge">
+                <span class="node-title">AGENCY 02</span>
+                <span class="node-subtitle">Remote network</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="visual-footer">
+          <span><span class="status-dot"></span> ARCHITECTURE CONCEPT</span>
+          <span>01 — 03</span>
+        </div>
+      </div>
+
+      <div class="hero-index">01 / NETWORK SYSTEMS</div>
+    </section>
+
+    <!-- TECHNICAL SCOPE -->
+    <section class="scope-strip" aria-label="Technical scope">
+      <div class="scope-item">
+        <span class="scope-index">01</span>
+        <div>
+          <strong>Routing & Resilience</strong>
+          <span>BGP · Multi-AS · Failover</span>
+        </div>
+      </div>
+
+      <div class="scope-item">
+        <span class="scope-index">02</span>
+        <div>
+          <strong>Network Security</strong>
+          <span>WPA2 · RADIUS · Segmentation</span>
+        </div>
+      </div>
+
+      <div class="scope-item">
+        <span class="scope-index">03</span>
+        <div>
+          <strong>Traffic Engineering</strong>
+          <span>QoS · ACL · DSCP</span>
+        </div>
+      </div>
+
+      <div class="scope-item">
+        <span class="scope-index">04</span>
+        <div>
+          <strong>Infrastructure</strong>
+          <span>DHCP · WLC · Switching</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section class="section-intro">
+      <div class="section-heading">
+        <span class="section-kicker">01 / APPROACH</span>
+        <h2>From topology to <span>configuration.</span></h2>
+      </div>
+
+      <div class="intro-copy">
+        <p>
+          These labs document hands-on work with network infrastructure
+          using Cisco Packet Tracer, from topology design to protocol
+          configuration and traffic management.
+        </p>
+        <p>
+          The objective is to understand how network components interact,
+          how access policies are enforced and how architectural choices
+          affect connectivity, security and service continuity.
+        </p>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="projects-section" id="projects">
+      <div class="projects-heading">
+        <div>
+          <span class="section-kicker">02 / SELECTED WORK</span>
+          <h2>Network <span>laboratory.</span></h2>
+        </div>
+        <span class="project-count">03 PROJECTS / LABS</span>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- MAIN PROJECT -->
+        <article class="project-card project-card-featured">
+          <div class="project-card-top">
+            <span class="project-tag">
+              <span class="tag-dot"></span>
+              ENTERPRISE NETWORK
+            </span>
+            <span class="project-number">LAB_001</span>
+          </div>
+
+          <div class="project-card-body">
+            <div class="project-overline">NETWORK ARCHITECTURE / MULTI-SITE</div>
+
+            <h3>Advanced Multi-Site Network Infrastructure</h3>
+
+            <p class="project-description">
+              Enterprise topology connecting a central datacenter,
+              two remote agencies and a dual-ISP backbone. The lab
+              brings together routing, centralized services, wireless
+              access and traffic prioritization.
+            </p>
+
+            <div class="architecture-summary">
+              <div>
+                <span class="summary-value">01</span>
+                <span class="summary-label">Datacenter</span>
+              </div>
+              <div>
+                <span class="summary-value">02</span>
+                <span class="summary-label">Remote agencies</span>
+              </div>
+              <div>
+                <span class="summary-value">02</span>
+                <span class="summary-label">ISP connections</span>
+              </div>
+            </div>
+
+            <div class="project-subsection">
+              <h4>Technical implementation</h4>
+              <ul class="project-skills">
+                <li>BGP — multi-AS routing, redundancy and failover</li>
+                <li>DHCP centralization and IP helper</li>
+                <li>WPA2-Enterprise and RADIUS authentication</li>
+                <li>QoS policies for SIP and RDP traffic</li>
+                <li>Wireless LAN controller and access points</li>
+              </ul>
+            </div>
+
+            <div class="project-subsection">
+              <h4>Simulated equipment</h4>
+              <div class="tech-tags">
+                <span>ISR 2911</span>
+                <span>Catalyst 3650</span>
+                <span>WLC 2504</span>
+                <span>AP 3702i</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card-footer">
+            <div class="project-stack">
+              <span>BGP</span>
+              <span>DHCP</span>
+              <span>RADIUS</span>
+              <span>QoS</span>
+            </div>
+            <span class="availability-label">
+              TECHNICAL DOCUMENTATION
+            </span>
+          </div>
+        </article>
+
+        <!-- WIRELESS SECURITY -->
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="project-tag">WIRELESS SECURITY</span>
+            <span class="project-number">LAB_002</span>
+          </div>
+
+          <div class="project-illustration illustration-wireless"
+               aria-hidden="true">
+            <div class="wireless-ring ring-one"></div>
+            <div class="wireless-ring ring-two"></div>
+            <div class="wireless-ring ring-three"></div>
+            <div class="wireless-core">Wi-Fi</div>
+            <span class="illustration-label">AUTHENTICATION / ACCESS</span>
+          </div>
+
+          <div class="project-card-body">
+            <div class="project-overline">ACCESS CONTROL / AUTHENTICATION</div>
+
+            <h3>Secure Wi-Fi Deployment</h3>
+
+            <p class="project-description">
+              Design of enterprise wireless access with centralized
+              authentication and differentiated access policies
+              for professional and guest networks.
+            </p>
+
+            <div class="project-subsection">
+              <h4>Technical focus</h4>
+              <ul class="project-skills">
+                <li>WPA2-Enterprise</li>
+                <li>RADIUS authentication</li>
+                <li>Guest / professional SSID separation</li>
+              </ul>
+            </div>
+
+            <div class="project-subsection">
+              <h4>Core technologies</h4>
+              <div class="tech-tags">
+                <span>WLAN</span>
+                <span>RADIUS</span>
+                <span>Access policies</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card-footer">
+            <div class="project-stack">
+              <span>WIRELESS</span>
+              <span>AUTH</span>
+            </div>
+            <span class="availability-label">LAB_002</span>
+          </div>
+        </article>
+
+        <!-- QOS -->
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="project-tag">TRAFFIC ENGINEERING</span>
+            <span class="project-number">LAB_003</span>
+          </div>
+
+          <div class="project-illustration illustration-qos"
+               aria-hidden="true">
+            <div class="traffic-row">
+              <span class="traffic-label">SIP</span>
+              <span class="traffic-track"><span class="traffic-fill fill-high"></span></span>
+              <span class="traffic-priority">HIGH</span>
+            </div>
+            <div class="traffic-row">
+              <span class="traffic-label">RDP</span>
+              <span class="traffic-track"><span class="traffic-fill fill-medium"></span></span>
+              <span class="traffic-priority">MED</span>
+            </div>
+            <div class="traffic-row">
+              <span class="traffic-label">DATA</span>
+              <span class="traffic-track"><span class="traffic-fill fill-low"></span></span>
+              <span class="traffic-priority">LOW</span>
+            </div>
+            <span class="illustration-label">TRAFFIC CLASSIFICATION / QoS</span>
+          </div>
+
+          <div class="project-card-body">
+            <div class="project-overline">QUALITY OF SERVICE / PACKET PRIORITY</div>
+
+            <h3>QoS & Traffic Prioritization</h3>
+
+            <p class="project-description">
+              Configuration of traffic classification and prioritization
+              policies intended to protect critical application flows
+              when network resources are constrained.
+            </p>
+
+            <div class="project-subsection">
+              <h4>Technical focus</h4>
+              <ul class="project-skills">
+                <li>ACL-based traffic classification</li>
+                <li>DSCP marking: EF and CS4</li>
+                <li>Policy-map and service-policy</li>
+              </ul>
+            </div>
+
+            <div class="project-subsection">
+              <h4>Core technologies</h4>
+              <div class="tech-tags">
+                <span>QoS</span>
+                <span>ACL</span>
+                <span>DSCP</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card-footer">
+            <div class="project-stack">
+              <span>CLASSIFICATION</span>
+              <span>PRIORITY</span>
+            </div>
+            <span class="availability-label">LAB_003</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- TECHNICAL METHODOLOGY -->
+    <section class="methodology-section">
+      <div class="section-heading">
+        <span class="section-kicker">03 / ENGINEERING PROCESS</span>
+        <h2>A structured <span>approach.</span></h2>
+      </div>
+
+      <div class="methodology-grid">
+        <article class="method-step">
+          <span class="method-number">01</span>
+          <h3>Design</h3>
+          <p>
+            Define the topology, network boundaries, addressing
+            requirements and connectivity objectives.
+          </p>
+        </article>
+
+        <article class="method-step">
+          <span class="method-number">02</span>
+          <h3>Configure</h3>
+          <p>
+            Implement routing, network services, wireless access
+            and traffic policies.
+          </p>
+        </article>
+
+        <article class="method-step">
+          <span class="method-number">03</span>
+          <h3>Validate</h3>
+          <p>
+            Use connectivity checks and simulation tests to investigate
+            protocol behavior and configuration issues.
+          </p>
+        </article>
+
+        <article class="method-step">
+          <span class="method-number">04</span>
+          <h3>Document</h3>
+          <p>
+            Record architecture decisions, configurations and
+            relevant observations for future troubleshooting.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- AVAILABILITY -->
+    <section class="documentation-section">
+      <div class="documentation-copy">
+        <span class="section-kicker">04 / RESOURCES</span>
+        <h2>Interested in the <span>technical details?</span></h2>
+        <p>
+          Packet Tracer files and detailed configurations can be
+          shared upon request, subject to availability.
+        </p>
+      </div>
+
+      <a
+        href="{% url 'portfolio:accueil' %}#contact"
+        class="btn btn-primary"
+      >
+        Request documentation <span aria-hidden="true">↗</span>
+      </a>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <a href="{% url 'portfolio:accueil' %}" class="footer-brand">
+      MOHAMED MESLI<span class="brand-dot">.</span>
+    </a>
+
+    <p>
+      © {{ now|date:"Y" }} Mohamed Mesli · Network Engineering
+      & Cybersecurity
+    </p>
+
+    <a href="{% url 'portfolio:accueil' %}#projects">
+      Back to portfolio ↑
+    </a>
+  </footer>
+
+</body>
+</html>
