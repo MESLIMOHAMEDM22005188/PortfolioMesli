@@ -37,25 +37,31 @@ def cisco_labs(request):
     return render(request, 'ciscoLabs.html')
 
 def mesPetitsCours(request):
-    return render(request, 'mesPetitsCours.html')
+    return render(request, "mespetitscours/mesPetitsCours.html")
+
 
 def primaire(request):
-    return render(request, 'primaire.html')
+    return render(request, "mespetitscours/primaire.html")
+
 
 def cp(request):
-    return render(request, 'cp.html')
+    return render(request, "mespetitscours/cp.html")
+
 
 def ce1(request):
-    return render(request, 'ce1.html')
+    return render(request, "mespetitscours/ce1.html")
+
 
 def ce2(request):
-    return render(request, 'ce2.html')
+    return render(request, "mespetitscours/ce2.html")
+
 
 def cm1(request):
-    return render(request, 'cm1.html')
+    return render(request, "mespetitscours/cm1.html")
+
 
 def cm2(request):
-    return render(request, 'cm2.html')
+    return render(request, "mespetitscours/cm2.html")
 
 def concurrency(request):
     return render(request, 'projects/concurrency.html')

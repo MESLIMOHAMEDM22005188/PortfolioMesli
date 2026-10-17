@@ -19,7 +19,7 @@
     <div class="container header-flex">
       <h1 class="logo">Mes Petits Cours</h1>
       <nav class="nav-main">
-        <a href="/monsite/portfolio/static" class="btn-home">Accueil</a>
+<a href="{% url 'portfolio:mespetitscours' %}" class="btn-home">Accueil</a>
         <a href="/primaire/" class="btn-outline">Primaire</a>
         <a href="/college/" class="btn-outline">Collège</a>
         <a href="/lycee/" class="btn-outline">Lycée</a>
@@ -35,11 +35,11 @@
 
     <!-- Barre des Niveaux -->
     <section class="levels-nav">
-      <a href="{% url 'cp'  %}"  class="level-btn">CP</a>
-      <a href="{% url 'ce1' %}"  class="level-btn">CE1</a>
-      <a href="{% url 'ce2' %}"  class="level-btn">CE2</a>
-      <a href="{% url 'cm1' %}"  class="level-btn">CM1</a>
-      <a href="{% url 'cm2' %}"  class="level-btn active">CM2</a>
+      <a href="{% url 'portfolio:cp' %}"  class="level-btn">CP</a>
+      <a href="{% url 'portfolio:ce1' %}"  class="level-btn">CE1</a>
+      <a href="{% url 'portfolio:ce2' %}"  class="level-btn">CE2</a>
+      <a href="{% url 'portfolio:cm1' %}"  class="level-btn">CM1</a>
+      <a href="{% url 'portfolio:cm2' %}"  class="level-btn active">CM2</a>
     </section>
 
     <!-- Navigation Domaines -->
