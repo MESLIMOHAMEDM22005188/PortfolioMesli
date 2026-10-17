@@ -7,13 +7,10 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib import messages
-from django.core.mail import send_mail
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.http import urlsafe_base64_decode, url_has_allowed_host_and_scheme
 
 from .forms import RegisterForm, TicketForm
 from .models import Ticket, Pole, Alert
@@ -33,6 +30,16 @@ def is_admin(user):
 def login_view(request):
     error = None
     next_url = request.POST.get("next") or request.GET.get("next")
+    allowed_hosts = {request.get_host()}
+    safe_next_url = (
+        next_url
+        if next_url and url_has_allowed_host_and_scheme(
+            url=next_url,
+            allowed_hosts=allowed_hosts,
+            require_https=request.is_secure(),
+        )
+        else None
+    )
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -41,13 +48,12 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect(next_url or 'tickets:home')
-        else:
-            error = "Identifiants incorrects."
+            return redirect(safe_next_url or 'tickets:home')
+        error = "Identifiants incorrects."
 
     return render(request, 'tickets/login.html', {
         "error": error,
-        "next": next_url
+        "next": safe_next_url or "",
     })
 
 
@@ -68,29 +74,23 @@ def register_view(request):
 
 def password_reset_request(request):
     """
-    Gère la demande de réinitialisation de mot de passe.
-    Envoie un email contenant un lien de reset si l’email existe.
+    Envoie un lien de réinitialisation par e-mail sans le conserver dans la
+    session ni l'afficher dans le navigateur du demandeur.
+
+    La réponse reste identique que l'adresse e-mail existe ou non, afin de
+    limiter l'énumération des comptes.
     """
     if request.method == 'POST':
         form = PasswordResetForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
-            user = User.objects.filter(email=email).first()
-            if user:
-                uid = urlsafe_base64_encode(force_bytes(user.pk))
-                token = default_token_generator.make_token(user)
-                reset_link = request.build_absolute_uri(f"/tickets/reset/{uid}/{token}/")
-
-                subject = "Réinitialisation de votre mot de passe"
-                message_body = render_to_string('tickets/password_reset_email.html', {
-                    'user': user,
-                    'reset_link': reset_link,
-                })
-                send_mail(subject, message_body, 'no-reply@votresite.tld', [user.email])
-
-                request.session['pwd_reset_user'] = user.username
-                request.session['pwd_reset_link'] = reset_link
-
+            form.save(
+                request=request,
+                use_https=request.is_secure(),
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                email_template_name='tickets/password_reset_email.txt',
+                html_email_template_name='tickets/password_reset_email.html',
+                subject_template_name='tickets/password_reset_subject.txt',
+            )
             return redirect('tickets:password_reset_done')
     else:
         form = PasswordResetForm()
@@ -99,19 +99,8 @@ def password_reset_request(request):
 
 
 def password_reset_email_page(request):
-    """
-    Affiche la page de confirmation d’envoi d’email de réinitialisation,
-    en récupérant l’utilisateur et le lien stockés en session.
-    """
-    username = request.session.pop('pwd_reset_user', None)
-    reset_link = request.session.pop('pwd_reset_link', None)
-    context = {}
-
-    if username and reset_link:
-        context['user'] = User.objects.filter(username=username).first()
-        context['reset_link'] = reset_link
-
-    return render(request, 'tickets/password_reset_email.html', context)
+    """Confirmation générique : ne révèle ni compte ni lien de réinitialisation."""
+    return render(request, 'tickets/password_reset_done.html')
 
 
 def password_reset_confirm(request, uidb64, token):
@@ -266,4 +255,3 @@ def pole_description(request, pole_id):
     """
     pole = get_object_or_404(Pole, pk=pole_id)
     return render(request, 'tickets/pole_description.html', {'pole': pole})
-
