@@ -35,7 +35,7 @@ path("cybersecurity/server-side/", views.server_side_exploit, name="server_side_
 
 path("cybersecurity/brute_force/", views.brute_force_html, name="brute_force_html"),
 
-    path("mes-petits-cours/", views.mesPetitsCours, name="mespetitscours"),
+    path("mes-petits-cours/", views.mes_petits_cours, name="mespetitscours"),
 
     # Pages scolaires
     path("primaire/", views.primaire, name="primaire"),
@@ -65,7 +65,8 @@ path("cybersecurity/brute_force/", views.brute_force_html, name="brute_force_htm
     path("projects/bandit/", views.bandit, name="bandit"),
 
     path("project-detail/", views.project_detail, name="project_detail"),
-    path("ticketHub/", views.ticketHub, name="ticketHub"),
+    path("ticket-hub/", views.ticket_hub, name="ticket_hub"),
+    path("ticketHub/", RedirectView.as_view(pattern_name="portfolio:ticket_hub", permanent=True), name="ticketHub"),
 path(
     "labs/foundations/",
     views.foundations_lab,

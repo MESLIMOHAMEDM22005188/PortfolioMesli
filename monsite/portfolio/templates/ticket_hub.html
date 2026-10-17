@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TicketHub — a support ticket management application.">
+  <title>TicketHub | Mesli Portfolio</title>
+  <style>
+    :root { color-scheme: dark; --bg:#0b0d12; --surface:#141821; --line:#2b3240; --text:#f1f5f9; --muted:#a2adbd; --accent:#9de8b7; --accent-strong:#55c987; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-height:100vh; background:radial-gradient(ellipse at 12% 0%,rgba(85,201,135,.12),transparent 34rem),radial-gradient(ellipse at 95% 45%,rgba(125,140,248,.10),transparent 30rem),var(--bg); color:var(--text); font-family:Inter,"Segoe UI",Arial,sans-serif; line-height:1.7; }
+    a { color:inherit; text-decoration:none; }
+    .container { width:min(1120px,calc(100% - 40px)); margin-inline:auto; }
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:22px 0; border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:12px; font-size:.82rem; font-weight:800; letter-spacing:.14em; }
+    .brand-mark { display:grid; place-items:center; width:38px; height:38px; border:1px solid rgba(157,232,183,.4); border-radius:10px; background:rgba(157,232,183,.08); color:var(--accent); font-family:monospace; }
+    .back { color:var(--muted); font-size:.9rem; }
+    .back:hover { color:var(--accent); }
+    .hero { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr); align-items:center; gap:clamp(32px,6vw,80px); padding:clamp(64px,10vw,120px) 0 90px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:10px; padding:7px 12px; border:1px solid rgba(157,232,183,.24); border-radius:999px; color:var(--accent); background:rgba(157,232,183,.055); font:11px monospace; letter-spacing:.12em; text-transform:uppercase; }
+    h1 { margin:22px 0 20px; max-width:700px; font-size:clamp(3rem,7vw,5.8rem); line-height:1.02; letter-spacing:-.065em; }
+    h1 span { color:var(--accent); }
+    .intro { max-width:620px; color:var(--muted); font-size:1.08rem; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:11px 17px; border:1px solid var(--line); border-radius:10px; font-weight:750; transition:transform .2s ease,border-color .2s ease,background .2s ease; }
+    .button:hover { transform:translateY(-2px); border-color:var(--accent); }
+    .button.primary { color:#07100b; border-color:var(--accent); background:var(--accent); }
+    .button.primary:hover { background:#b6f3ca; }
+    .terminal { overflow:hidden; border:1px solid rgba(157,232,183,.23); border-radius:16px; background:rgba(14,20,25,.88); box-shadow:0 24px 80px rgba(0,0,0,.26); }
+    .terminal-bar { display:flex; align-items:center; gap:7px; padding:15px 18px; border-bottom:1px solid var(--line); color:#8291a2; font:11px monospace; }
+    .dot { width:8px; height:8px; border-radius:50%; background:#456752; }
+    .terminal-title { margin-left:auto; }
+    .terminal-body { padding:24px; color:#a3b3c1; font:12px/2.1 monospace; }
+    .green { color:var(--accent); }
+    .section { padding:0 0 76px; }
+    .section h2 { margin:0 0 22px; font-size:clamp(1.55rem,3vw,2rem); letter-spacing:-.04em; }
+    .features { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .feature { min-height:170px; padding:24px; border:1px solid var(--line); border-radius:13px; background:linear-gradient(145deg,rgba(20,24,33,.95),rgba(13,17,24,.85)); }
+    .feature-number { color:var(--accent); font:12px monospace; }
+    .feature h3 { margin:18px 0 7px; font-size:1rem; }
+    .feature p { margin:0; color:var(--muted); font-size:.9rem; }
+    footer { padding:24px 0 30px; border-top:1px solid var(--line); color:#7f8b9a; font:10px monospace; letter-spacing:.09em; }
+    @media(max-width:800px) { .hero { grid-template-columns:1fr; gap:32px; padding:70px 0; } .features { grid-template-columns:1fr; } }
+    @media(max-width:480px) { .container { width:calc(100% - 30px); } .nav { align-items:flex-start; } .back { font-size:.8rem; } .terminal-body { padding:18px; } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none!important; scroll-behavior:auto!important; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav" aria-label="Project navigation">
+      <a href="{% url 'portfolio:accueil' %}" class="brand"><span class="brand-mark">&gt;_</span><span>MESLI / PROJECTS</span></a>
+      <a href="{% url 'portfolio:accueil' %}" class="back">← Back to portfolio</a>
+    </nav>
+    <main>
+      <section class="hero">
+        <div>
+          <span class="eyebrow">Django · Support Operations</span>
+          <h1>Meet <span>TicketHub.</span></h1>
+          <p class="intro">A ticket management application designed to centralize support requests, streamline follow-up and make communication between users and support teams easier.</p>
+          <div class="actions">
+            <a class="button primary" href="{% url 'tickets:login' %}">Open TicketHub →</a>
+            <a class="button" href="{% url 'tickets:register' %}">Create an account</a>
+          </div>
+        </div>
+        <div class="terminal" aria-label="Decorative TicketHub terminal preview">
+          <div class="terminal-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="terminal-title">tickethub / overview</span></div>
+          <div class="terminal-body">
+            <div><span class="green">system</span> &gt; TicketHub initialized</div>
+            <div><span class="green">module</span> &gt; Ticket tracking</div>
+            <div><span class="green">module</span> &gt; Status updates</div>
+            <div><span class="green">module</span> &gt; Support workflows</div>
+            <br>
+            <div><span class="green">status</span> &gt; Ready for access</div>
+            <div><span class="green">auth</span> &gt; Sign in to continue</div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Designed for clear support workflows.</h2>
+        <div class="features">
+          <article class="feature"><span class="feature-number">01 / ORGANIZE</span><h3>Centralized requests</h3><p>Keep support requests gathered in one place instead of scattered across conversations.</p></article>
+          <article class="feature"><span class="feature-number">02 / TRACK</span><h3>Status visibility</h3><p>Follow ticket progress and make the next step easier to identify.</p></article>
+          <article class="feature"><span class="feature-number">03 / CONNECT</span><h3>User access</h3><p>Access the application through the existing sign-in and account creation flows.</p></article>
+        </div>
+      </section>
+    </main>
+    <footer>MESLI PORTFOLIO / TICKETHUB — DJANGO WEB APPLICATION</footer>
+  </div>
+</body>
+</html>
