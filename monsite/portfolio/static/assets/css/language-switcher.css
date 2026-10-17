@@ -1,0 +1,145 @@
+/* Global language switcher */
+.site-language-bar {
+    position: relative;
+    z-index: 10000;
+    width: 100%;
+    margin: 0;
+    padding: 10px clamp(16px, 4vw, 48px);
+    color: #dcebe1;
+    background: linear-gradient(105deg, #07100e 0%, #10221b 58%, #0a1712 100%);
+    border-bottom: 1px solid rgba(141, 230, 178, 0.18);
+    box-sizing: border-box;
+    font-family: Inter, Arial, sans-serif;
+}
+
+.site-language-inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 13px;
+    width: 100%;
+    max-width: 1440px;
+    min-height: 30px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.site-language-label {
+    margin-right: auto;
+    color: #91a69a;
+    font-family: "Share Tech Mono", Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.site-language-buttons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.site-language-button {
+    min-width: 39px;
+    padding: 8px 10px;
+    border: 1px solid rgba(141, 230, 178, 0.22);
+    border-radius: 7px;
+    color: #b9d1c2;
+    background: rgba(141, 230, 178, 0.045);
+    font-family: "Share Tech Mono", Consolas, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color .18s ease, border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+.site-language-button:hover,
+.site-language-button:focus-visible {
+    color: #07100e;
+    border-color: #8de6b2;
+    background: #8de6b2;
+    outline: none;
+}
+
+.site-language-button:active {
+    transform: translateY(1px);
+}
+
+.site-language-button[aria-pressed="true"] {
+    color: #07100e;
+    border-color: #8de6b2;
+    background: #8de6b2;
+    box-shadow: 0 0 0 2px rgba(141, 230, 178, .10);
+}
+
+.site-language-status {
+    color: #91a69a;
+    font-size: 11px;
+}
+
+.site-language-status:empty {
+    display: none;
+}
+
+/* Keep Google's generated select available to JavaScript without showing its widget. */
+.site-language-engine {
+    position: absolute !important;
+    left: -10000px !important;
+    top: 0 !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+}
+
+.goog-te-banner-frame.skiptranslate,
+#goog-gt-tt,
+.goog-tooltip,
+.goog-tooltip:hover {
+    display: none !important;
+}
+
+body:has(.site-language-bar) {
+    top: 0 !important;
+}
+
+@media (max-width: 520px) {
+    .site-language-bar {
+        padding: 9px 12px;
+    }
+
+    .site-language-inner {
+        justify-content: space-between;
+        gap: 9px;
+    }
+
+    .site-language-label {
+        font-size: 10px;
+        letter-spacing: .7px;
+    }
+
+    .site-language-buttons {
+        gap: 4px;
+    }
+
+    .site-language-button {
+        min-width: 34px;
+        padding: 8px 8px;
+        font-size: 10px;
+    }
+
+    .site-language-status {
+        width: 100%;
+        text-align: right;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-language-button {
+        transition: none;
+    }
+}
