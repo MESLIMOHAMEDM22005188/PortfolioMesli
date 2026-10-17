@@ -1,0 +1,13 @@
+<div class="site-language-bar" data-source-language="{{ source_lang|default:'en' }}">
+  <div class="site-language-inner">
+    <span class="site-language-label">Translate page</span>
+    <div class="site-language-buttons" role="group" aria-label="Translate this page">
+      <button type="button" class="site-language-button" data-language="fr" aria-pressed="false" aria-label="Translate into French">FR</button>
+      <button type="button" class="site-language-button" data-language="en" aria-pressed="false" aria-label="Translate into English">EN</button>
+      <button type="button" class="site-language-button" data-language="es" aria-pressed="false" aria-label="Translate into Spanish">ES</button>
+      <button type="button" class="site-language-button" data-language="de" aria-pressed="false" aria-label="Translate into German">DE</button>
+    </div>
+    <span class="site-language-status" aria-live="polite"></span>
+  </div>
+</div>
+<div id="google_translate_element" class="site-language-engine" aria-hidden="true"></div>
