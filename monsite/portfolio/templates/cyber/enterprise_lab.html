@@ -5,18 +5,18 @@
 
 {% block extra_css %}
 <style>
-  body:has(.enterprise-lab){background:#080d12!important;color:#e8f0f4}
-  body:has(.enterprise-lab)>main{width:100%;max-width:none;margin:0;padding:0}
-  body:has(.enterprise-lab)>footer{display:none}
-  .enterprise-lab{--el-bg:#080d12;--el-panel:#101922;--el-line:rgba(130,185,177,.18);--el-green:#7ee0b5;--el-cyan:#79c9e8;--el-muted:#9aaeb9;min-height:100vh;padding:clamp(24px,5vw,68px) clamp(18px,5vw,7vw) 64px;background:radial-gradient(ellipse at 12% 0%,rgba(36,120,100,.16),transparent 35%),radial-gradient(ellipse at 90% 15%,rgba(51,115,154,.13),transparent 32%),var(--el-bg);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-sizing:border-box}
+  html:has(.enterprise-lab),body:has(.enterprise-lab){width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:0!important;background:#080d12!important;color:#e8f0f4;overflow-x:hidden!important}
+  body:has(.enterprise-lab)>main{display:block!important;position:static!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:0!important;transform:none!important;box-sizing:border-box!important}
+  body:has(.enterprise-lab)>footer{display:none!important}
+  .enterprise-lab{display:block!important;position:relative!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;transform:none!important;--el-bg:#080d12;--el-panel:#101922;--el-line:rgba(130,185,177,.18);--el-green:#7ee0b5;--el-cyan:#79c9e8;--el-muted:#9aaeb9;min-height:100vh;padding:clamp(24px,5vw,68px) clamp(18px,5vw,7vw) 64px;background:radial-gradient(ellipse at 12% 0%,rgba(36,120,100,.16),transparent 35%),radial-gradient(ellipse at 90% 15%,rgba(51,115,154,.13),transparent 32%),var(--el-bg);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-sizing:border-box}
   .enterprise-lab *{box-sizing:border-box}
-  .el-wrap{max-width:1200px;margin:0 auto}
+  .el-wrap{display:block;width:100%;max-width:1200px;min-width:0;margin:0 auto}
   .el-topline{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:42px;color:var(--el-muted);font:600 .74rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}
   .el-status{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--el-line);border-radius:999px;padding:8px 12px;color:var(--el-green);letter-spacing:.04em}
   .el-status:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--el-green);box-shadow:0 0 12px rgba(126,224,181,.8)}
   .el-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);align-items:center;gap:clamp(28px,5vw,70px);padding-bottom:54px;border-bottom:1px solid var(--el-line)}
   .el-eyebrow{color:var(--el-green);font:600 .76rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase}
-  .el-hero h1{max-width:760px;margin:16px 0 20px;color:#f4f8fa;font-size:clamp(2.5rem,6vw,5.2rem);line-height:.99;letter-spacing:-.055em}
+  .el-hero h1{display:block;width:100%;max-width:760px;margin:16px 0 20px;color:#f4f8fa;font-size:clamp(2.2rem,5.2vw,5.2rem);line-height:1.02;letter-spacing:-.055em;overflow-wrap:normal;word-break:normal}
   .el-hero h1 span{color:var(--el-green)}
   .el-lead{max-width:680px;margin:0;color:#b5c4cc;font-size:clamp(1rem,1.6vw,1.15rem);line-height:1.8}
   .el-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:25px}
@@ -65,7 +65,7 @@
 {% endblock %}
 
 {% block content %}
-<main class="enterprise-lab">
+<section class="enterprise-lab">
   <div class="el-wrap">
     <div class="el-topline">
       <span>MESLI / CYBER RANGE / 02</span>
@@ -178,5 +178,5 @@
 
     <footer class="el-footer"><span>MESLI PORTFOLIO · CYBERSECURITY LAB</span><span>Virtual environment / Authorized testing only</span></footer>
   </div>
-</main>
+</section>
 {% endblock %}
