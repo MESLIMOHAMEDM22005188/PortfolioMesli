@@ -1,93 +1,182 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}
-Enterprise Cybersecurity Lab | Mesli Portfolio
-{% endblock %}
+{% block title %}Enterprise Cybersecurity Lab | Mesli Portfolio{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'assets/css/enterprise_lab.css' %}">
+<style>
+  body:has(.enterprise-lab){background:#080d12!important;color:#e8f0f4}
+  body:has(.enterprise-lab)>main{width:100%;max-width:none;margin:0;padding:0}
+  body:has(.enterprise-lab)>footer{display:none}
+  .enterprise-lab{--el-bg:#080d12;--el-panel:#101922;--el-line:rgba(130,185,177,.18);--el-green:#7ee0b5;--el-cyan:#79c9e8;--el-muted:#9aaeb9;min-height:100vh;padding:clamp(24px,5vw,68px) clamp(18px,5vw,7vw) 64px;background:radial-gradient(ellipse at 12% 0%,rgba(36,120,100,.16),transparent 35%),radial-gradient(ellipse at 90% 15%,rgba(51,115,154,.13),transparent 32%),var(--el-bg);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-sizing:border-box}
+  .enterprise-lab *{box-sizing:border-box}
+  .el-wrap{max-width:1200px;margin:0 auto}
+  .el-topline{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:42px;color:var(--el-muted);font:600 .74rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}
+  .el-status{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--el-line);border-radius:999px;padding:8px 12px;color:var(--el-green);letter-spacing:.04em}
+  .el-status:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--el-green);box-shadow:0 0 12px rgba(126,224,181,.8)}
+  .el-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);align-items:center;gap:clamp(28px,5vw,70px);padding-bottom:54px;border-bottom:1px solid var(--el-line)}
+  .el-eyebrow{color:var(--el-green);font:600 .76rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase}
+  .el-hero h1{max-width:760px;margin:16px 0 20px;color:#f4f8fa;font-size:clamp(2.5rem,6vw,5.2rem);line-height:.99;letter-spacing:-.055em}
+  .el-hero h1 span{color:var(--el-green)}
+  .el-lead{max-width:680px;margin:0;color:#b5c4cc;font-size:clamp(1rem,1.6vw,1.15rem);line-height:1.8}
+  .el-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:25px}
+  .el-tag{border:1px solid var(--el-line);border-radius:7px;padding:7px 10px;color:#c8d8de;background:rgba(255,255,255,.025);font-size:.78rem}
+  .el-architecture{border:1px solid var(--el-line);border-radius:18px;padding:20px;background:linear-gradient(145deg,rgba(19,34,43,.96),rgba(11,20,27,.92));box-shadow:0 24px 80px rgba(0,0,0,.18)}
+  .el-architecture h2{margin:0 0 17px;color:#f0f6f8;font-size:.92rem}
+  .el-node{display:flex;align-items:center;gap:12px;padding:13px 12px;border:1px solid var(--el-line);border-radius:10px;background:rgba(255,255,255,.025)}
+  .el-node+.el-node{margin-top:9px}
+  .el-node-icon{display:grid;place-items:center;flex:0 0 38px;height:38px;border-radius:9px;background:rgba(126,224,181,.09);color:var(--el-green);font:700 .72rem ui-monospace,monospace}
+  .el-node strong{display:block;color:#e9f2f5;font-size:.87rem}
+  .el-node small{display:block;margin-top:3px;color:var(--el-muted);font-size:.75rem;line-height:1.4}
+  .el-connector{height:14px;width:1px;margin:0 auto;background:linear-gradient(var(--el-green),rgba(126,224,181,.12))}
+  .el-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:26px 0 56px}
+  .el-metric{padding:18px;border:1px solid var(--el-line);border-radius:12px;background:rgba(255,255,255,.025)}
+  .el-metric strong{display:block;color:var(--el-green);font-size:1.7rem;letter-spacing:-.04em}
+  .el-metric span{display:block;margin-top:5px;color:var(--el-muted);font-size:.8rem;line-height:1.45}
+  .el-section{margin-top:54px}
+  .el-section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}
+  .el-kicker{color:var(--el-cyan);font:600 .72rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.13em;text-transform:uppercase}
+  .el-section h2{margin:8px 0 0;color:#f0f6f8;font-size:clamp(1.6rem,3vw,2.35rem);letter-spacing:-.035em}
+  .el-section-intro{max-width:570px;margin:0;color:var(--el-muted);font-size:.94rem;line-height:1.7}
+  .el-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .el-card{min-width:0;padding:22px;border:1px solid var(--el-line);border-radius:14px;background:linear-gradient(145deg,rgba(18,29,38,.94),rgba(12,20,27,.94))}
+  .el-card-label{color:var(--el-green);font:600 .7rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase}
+  .el-card h3{margin:10px 0 9px;color:#edf4f6;font-size:1.08rem}
+  .el-card p{margin:0;color:var(--el-muted);font-size:.88rem;line-height:1.7}
+  .el-list{display:grid;gap:10px;margin:17px 0 0;padding:0;list-style:none}
+  .el-list li{position:relative;padding-left:17px;color:#c3d0d6;font-size:.86rem;line-height:1.6}
+  .el-list li:before{position:absolute;top:.62em;left:0;width:5px;height:5px;border-radius:2px;background:var(--el-green);content:""}
+  .el-machine-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  .el-machine{padding:16px 14px;border:1px solid var(--el-line);border-radius:11px;background:rgba(255,255,255,.025)}
+  .el-machine code{display:block;color:var(--el-green);font-size:.85rem;font-weight:700}
+  .el-machine strong{display:block;margin:8px 0 5px;color:#e8f0f4;font-size:.84rem}
+  .el-machine p{margin:0;color:var(--el-muted);font-size:.76rem;line-height:1.55;overflow-wrap:anywhere}
+  .el-workflow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:step}
+  .el-step{position:relative;padding:20px;border-top:2px solid rgba(126,224,181,.55);background:rgba(255,255,255,.025);counter-increment:step}
+  .el-step:before{content:"0" counter(step);display:block;margin-bottom:17px;color:var(--el-green);font:600 .78rem ui-monospace,monospace}
+  .el-step h3{margin:0 0 8px;color:#edf4f6;font-size:.98rem}
+  .el-step p{margin:0;color:var(--el-muted);font-size:.84rem;line-height:1.65}
+  .el-note{display:flex;gap:13px;align-items:flex-start;margin-top:48px;padding:18px 20px;border:1px solid rgba(121,201,232,.25);border-radius:12px;background:rgba(121,201,232,.045);color:#b7cbd4;font-size:.86rem;line-height:1.7}
+  .el-note strong{color:var(--el-cyan)}
+  .el-footer{display:flex;justify-content:space-between;gap:16px;margin-top:36px;padding-top:20px;border-top:1px solid var(--el-line);color:#718792;font: .72rem/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em}
+  @media(max-width:950px){.el-hero{grid-template-columns:minmax(0,1fr)}.el-architecture{max-width:620px}.el-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.el-machine-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.el-workflow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:600px){.enterprise-lab{padding:24px 16px 36px}.el-topline{align-items:flex-start;flex-direction:column;margin-bottom:30px}.el-hero{padding-bottom:34px}.el-metrics{grid-template-columns:1fr;margin:20px 0 40px}.el-metric{display:flex;align-items:center;justify-content:space-between;gap:14px}.el-metric span{max-width:55%;margin:0;text-align:right}.el-section{margin-top:40px}.el-section-head{align-items:flex-start;flex-direction:column}.el-grid,.el-machine-grid,.el-workflow{grid-template-columns:minmax(0,1fr)}.el-card{padding:19px}.el-footer{flex-direction:column}.el-architecture{padding:14px}}
+</style>
 {% endblock %}
 
 {% block content %}
-<section class="cyber-page">
-
-    <div class="cyber-header">
-        <span class="cyber-badge">Active Directory · Linux · Kali</span>
-        <h1>Enterprise Cybersecurity Lab</h1>
-        <p class="cyber-intro">
-            Architecture d'entreprise complète intégrant Windows Server,
-            Active Directory, Ubuntu Server et des outils offensifs Kali Linux
-            dans un environnement de lab virtuel.
-        </p>
+<main class="enterprise-lab">
+  <div class="el-wrap">
+    <div class="el-topline">
+      <span>MESLI / CYBER RANGE / 02</span>
+      <span class="el-status">Environnement de laboratoire</span>
     </div>
 
-    <section class="cyber-section">
-        <h2>Architecture</h2>
-        <p>
-            L'environnement simule un réseau d'entreprise classique :
-            un contrôleur de domaine Windows Server 2022, deux postes clients
-            (Windows 11 et Windows 10), un serveur Ubuntu exposant Apache,
-            et une machine Kali Linux pour les tests offensifs.
+    <header class="el-hero">
+      <div>
+        <div class="el-eyebrow">Infrastructure · Défense · Simulation</div>
+        <h1>Enterprise <span>Cybersecurity</span> Lab</h1>
+        <p class="el-lead">
+          Un environnement d'entreprise virtualisé pour explorer l'administration système,
+          la sécurité Active Directory, la journalisation et les tests de sécurité contrôlés.
+          Du réseau aux événements système, chaque couche a un rôle précis.
         </p>
+        <div class="el-tags">
+          <span class="el-tag">Windows Server 2022</span>
+          <span class="el-tag">Active Directory</span>
+          <span class="el-tag">Ubuntu Server</span>
+          <span class="el-tag">Kali Linux</span>
+          <span class="el-tag">Blue Team / Red Team</span>
+        </div>
+      </div>
+
+      <aside class="el-architecture" aria-label="Vue synthétique de l'architecture">
+        <h2>Architecture logique</h2>
+        <div class="el-node">
+          <span class="el-node-icon">DC</span>
+          <div><strong>DC01 · Contrôleur de domaine</strong><small>Identités, DNS, DHCP et stratégies de groupe</small></div>
+        </div>
+        <div class="el-connector"></div>
+        <div class="el-node">
+          <span class="el-node-icon">PC</span>
+          <div><strong>CLIENT01 / CLIENT02</strong><small>Postes Windows joints au domaine</small></div>
+        </div>
+        <div class="el-connector"></div>
+        <div class="el-node">
+          <span class="el-node-icon">WEB</span>
+          <div><strong>WEB01 · Serveur Linux</strong><small>Apache, SSH et protection anti-bruteforce</small></div>
+        </div>
+        <div class="el-connector"></div>
+        <div class="el-node">
+          <span class="el-node-icon">SEC</span>
+          <div><strong>KALI · Poste de test</strong><small>Reconnaissance et analyse autorisées</small></div>
+        </div>
+      </aside>
+    </header>
+
+    <div class="el-metrics" aria-label="Résumé de la configuration décrite">
+      <div class="el-metric"><strong>5</strong><span>machines prévues dans l'architecture</span></div>
+      <div class="el-metric"><strong>AD + GPO</strong><span>gestion centralisée des identités et des règles</span></div>
+      <div class="el-metric"><strong>Logs</strong><span>visibilité sur les événements Windows et Linux</span></div>
+    </div>
+
+    <section class="el-section">
+      <div class="el-section-head">
+        <div><div class="el-kicker">01 / Infrastructure</div><h2>Les composants du lab</h2></div>
+        <p class="el-section-intro">Une séparation des rôles permet de comprendre les dépendances, les flux et les points de contrôle de sécurité.</p>
+      </div>
+      <div class="el-machine-grid">
+        <article class="el-machine"><code>DC01</code><strong>Windows Server 2022</strong><p>Active Directory, DNS, DHCP et GPO</p></article>
+        <article class="el-machine"><code>CLIENT01</code><strong>Windows 11</strong><p>Poste client membre du domaine</p></article>
+        <article class="el-machine"><code>CLIENT02</code><strong>Windows 10</strong><p>Second poste client pour les tests</p></article>
+        <article class="el-machine"><code>WEB01</code><strong>Ubuntu Server</strong><p>Apache, SSH, Fail2Ban et tâches système</p></article>
+        <article class="el-machine"><code>KALI</code><strong>Kali Linux</strong><p>Nmap, Wireshark et outils de test contrôlé</p></article>
+      </div>
     </section>
 
-    <section class="cyber-section">
-        <h2>Machines</h2>
-        <ul>
-            <li><strong>DC01</strong> — Windows Server 2022 : Active Directory, DNS, DHCP, GPO</li>
-            <li><strong>CLIENT01</strong> — Windows 11, machine du domaine</li>
-            <li><strong>CLIENT02</strong> — Windows 10, machine du domaine</li>
-            <li><strong>WEB01</strong> — Ubuntu Server : Apache, SSH, Fail2Ban</li>
-            <li><strong>KALI</strong> — Kali Linux : Nmap, Wireshark, Burp Suite, Hydra, Metasploit</li>
-        </ul>
+    <section class="el-section">
+      <div class="el-section-head">
+        <div><div class="el-kicker">02 / Contrôle d'accès</div><h2>Active Directory & stratégies</h2></div>
+        <p class="el-section-intro">La gestion centralisée des comptes et des postes sert de base aux exercices d'administration et de durcissement.</p>
+      </div>
+      <div class="el-grid">
+        <article class="el-card"><div class="el-card-label">Identités</div><h3>Organisation du domaine</h3><p>Structure décrite dans le lab : unités d'organisation, comptes utilisateurs et groupes de sécurité.</p><ul class="el-list"><li>4 unités d'organisation</li><li>30 utilisateurs</li><li>5 groupes de sécurité</li></ul></article>
+        <article class="el-card"><div class="el-card-label">Durcissement</div><h3>Group Policy Objects</h3><p>Des règles centralisées permettent d'appliquer une configuration cohérente aux postes membres.</p><ul class="el-list"><li>Politique de mots de passe</li><li>Verrouillage après échecs répétés</li><li>Restrictions et paramètres d'environnement</li></ul></article>
+        <article class="el-card"><div class="el-card-label">Administration</div><h3>Automatisation PowerShell</h3><p>Réduire les tâches répétitives tout en rendant les opérations plus reproductibles.</p><ul class="el-list"><li>Création d'utilisateurs</li><li>Scripts de sauvegarde</li><li>Génération de rapports</li></ul></article>
+      </div>
     </section>
 
-    <section class="cyber-section">
-        <h2>Active Directory</h2>
-        <ul>
-            <li>4 unités d'organisation (OU)</li>
-            <li>30 utilisateurs créés</li>
-            <li>5 groupes de sécurité</li>
-        </ul>
+    <section class="el-section">
+      <div class="el-section-head">
+        <div><div class="el-kicker">03 / Sécurité système</div><h2>Linux, journalisation et supervision</h2></div>
+        <p class="el-section-intro">Les mécanismes de protection sont plus utiles lorsqu'ils sont accompagnés de journaux qui permettent d'observer leur effet.</p>
+      </div>
+      <div class="el-grid">
+        <article class="el-card"><div class="el-card-label">Linux hardening</div><h3>Réduire la surface d'attaque</h3><ul class="el-list"><li>SSH avec authentification par clé</li><li>Fail2Ban contre les tentatives répétées</li><li>Tâches planifiées et sauvegardes Rsync</li></ul></article>
+        <article class="el-card"><div class="el-card-label">Observabilité</div><h3>Lire les événements</h3><ul class="el-list"><li><code>journalctl</code> côté Linux</li><li>Event Viewer côté Windows</li><li>Corréler les événements avec les actions de test</li></ul></article>
+        <article class="el-card"><div class="el-card-label">Réseau</div><h3>Observer les flux</h3><ul class="el-list"><li>Nmap pour inventorier les services autorisés</li><li>Wireshark pour examiner les paquets</li><li>Comparer les résultats aux règles attendues</li></ul></article>
+      </div>
     </section>
 
-    <section class="cyber-section">
-        <h2>GPO mises en place</h2>
-        <ul>
-            <li>Politique de mot de passe complexe</li>
-            <li>Verrouillage du compte après 5 essais</li>
-            <li>Désactivation du panneau de configuration</li>
-            <li>Fond d'écran d'entreprise déployé</li>
-        </ul>
+    <section class="el-section">
+      <div class="el-section-head">
+        <div><div class="el-kicker">04 / Méthodologie</div><h2>Du test à la preuve</h2></div>
+        <p class="el-section-intro">Une démonstration convaincante explique non seulement ce qui a été configuré, mais aussi comment le résultat a été vérifié.</p>
+      </div>
+      <div class="el-workflow">
+        <article class="el-step"><h3>Établir une référence</h3><p>Documenter l'architecture, les services attendus et les règles en place avant les tests.</p></article>
+        <article class="el-step"><h3>Exécuter un test contrôlé</h3><p>Effectuer les vérifications uniquement sur les machines du lab et dans le périmètre autorisé.</p></article>
+        <article class="el-step"><h3>Collecter les preuves</h3><p>Conserver les sorties de commandes, captures pertinentes et événements associés.</p></article>
+        <article class="el-step"><h3>Corriger et retester</h3><p>Expliquer la mesure corrective et montrer le résultat obtenu après modification.</p></article>
+      </div>
     </section>
 
-    <section class="cyber-section">
-        <h2>Configuration Linux</h2>
-        <ul>
-            <li>SSH par authentification par clé</li>
-            <li>Fail2Ban pour la protection contre le bruteforce</li>
-            <li>Tâches Cron planifiées</li>
-            <li>Sauvegardes automatiques via Rsync</li>
-        </ul>
-    </section>
+    <aside class="el-note">
+      <span aria-hidden="true">i</span>
+      <div><strong>Transparence du projet.</strong> Cette page présente l'architecture et les travaux décrits dans le projet. Pour en faire une étude de cas plus solide, ajoute des captures réelles, des commandes utilisées, des résultats de tests et les mesures correctives effectivement vérifiées. N'affiche comme réalisé que ce que tu peux démontrer.</div>
+    </aside>
 
-    <section class="cyber-section">
-        <h2>Sécurité & Journalisation</h2>
-        <p>
-            Scan réseau effectué avec <strong>Nmap</strong>, analyse de paquets
-            avec <strong>Wireshark</strong>. Journalisation côté Linux via
-            <code>journalctl</code>, côté Windows via l'Event Viewer.
-        </p>
-    </section>
-
-    <section class="cyber-section">
-        <h2>Scripts PowerShell</h2>
-        <ul>
-            <li>Création automatique d'utilisateurs</li>
-            <li>Scripts de sauvegarde</li>
-            <li>Génération de rapports</li>
-        </ul>
-    </section>
-</section>
+    <footer class="el-footer"><span>MESLI PORTFOLIO · CYBERSECURITY LAB</span><span>Virtual environment / Authorized testing only</span></footer>
+  </div>
+</main>
 {% endblock %}
