@@ -63,6 +63,7 @@ path("cybersecurity/brute_force/", views.brute_force_html, name="brute_force_htm
     path("projects/earthquake-analyzer/", views.earthquake_analyzer, name="earthquake_analyzer"),
     path("projects/rsa-algorithm/", views.rsa_algorithm, name="rsa_algorithm"),
     path("projects/bandit/", views.bandit, name="bandit"),
+    path("projects/securecloudlab/", views.securecloudlab, name="securecloudlab"),
 
     path("project-detail/", views.project_detail, name="project_detail"),
     path("ticket-hub/", views.ticket_hub, name="ticket_hub"),
