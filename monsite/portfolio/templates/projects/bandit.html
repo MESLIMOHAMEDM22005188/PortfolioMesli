@@ -99,6 +99,13 @@
   }
 
   .nav-item {
+    appearance: none;
+    background: transparent;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+    text-align: left;
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -519,13 +526,63 @@
   #main::-webkit-scrollbar { width: 5px; }
 
   /* Responsive sidebar collapse */
+  .portfolio-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 12px;
+    color: var(--text-dim);
+    font-size: 11px;
+    text-decoration: none;
+    transition: color .2s ease;
+  }
+  .portfolio-link:hover, .portfolio-link:focus-visible { color: var(--green); }
+
+  .nav-item:focus-visible, .copy-btn:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+  }
+
   @media (max-width: 700px) {
-    #sidebar { width: 58px; min-width: 58px; }
-    .nav-item .lvl-name, .nav-item .status, .sidebar-header .logo span, .nav-section-title { display: none; }
-    .logo { font-size: 8px; }
-    .nav-item { padding: 10px; justify-content: center; }
-    .nav-item .lvl-badge { min-width: auto; }
+    body { flex-direction: column; height: 100dvh; min-height: 100dvh; }
+    #sidebar {
+      width: 100%;
+      min-width: 0;
+      max-height: 34dvh;
+      flex: 0 0 auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-header { padding: 12px 16px; }
+    .sidebar-header .logo { font-size: 10px; }
+    .sidebar-header .logo span { display: inline; font-size: 9px; margin-left: 8px; }
+    .portfolio-link { margin-top: 5px; }
+    .sidebar-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      gap: 3px;
+      padding: 8px;
+      overflow-y: auto;
+    }
+    .nav-section-title { display: block; width: 100%; padding: 3px 8px 6px; }
+    .nav-item { flex: 0 0 auto; padding: 7px 9px; border-left-width: 2px; gap: 6px; }
+    .nav-item .lvl-name { display: inline; font-size: 10px; }
+    .nav-item .status { display: none; }
+    .nav-item .lvl-badge { min-width: 22px; font-size: 9px; }
+    #main { min-height: 0; flex: 1 1 auto; }
+    .topbar { padding: 12px 16px; gap: 10px; flex-wrap: wrap; }
+    .topbar-right { flex-wrap: wrap; }
     .content { padding: 20px 16px; }
+    .password-box { align-items: flex-start; flex-direction: column; padding: 16px; }
+    .password-value { font-size: 14px; letter-spacing: 1px; overflow-wrap: anywhere; }
+  }
+
+  @media (max-width: 420px) {
+    .nav-item .lvl-name { max-width: 112px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .breadcrumb { font-size: 9px; }
+    .level-title-bar { font-size: 12px; }
+    .tag { font-size: 8px; letter-spacing: 1px; }
   }
 </style>
 </head>
@@ -538,6 +595,7 @@
       BANDIT
       <span>OVERTHEWIRE · CTF</span>
     </div>
+    <a class="portfolio-link" href="{% url 'portfolio:cyber_home' %}">← Retour aux Cybersecurity Labs</a>
   </div>
   <div class="sidebar-nav">
     <div class="nav-section-title">Niveaux</div>
@@ -2090,34 +2148,70 @@ Lire scripts système.
   ];
 
   const nav = document.querySelector('.sidebar-nav');
+  const levelPages = new Map(
+    Array.from(document.querySelectorAll('.level-page[data-level]'))
+      .map(page => [Number(page.dataset.level), page])
+  );
+
   levels.forEach(l => {
-    const item = document.createElement('div');
+    if (!levelPages.has(l.num)) return;
+    const item = document.createElement('button');
+    item.type = 'button';
     item.className = 'nav-item' + (l.num === 0 ? ' active' : '');
     item.dataset.level = l.num;
+    item.setAttribute('aria-label', `Ouvrir le niveau ${l.num} : ${l.name}`);
+    item.setAttribute('aria-pressed', l.num === 0 ? 'true' : 'false');
     item.innerHTML = `
       <span class="lvl-badge">${l.num}</span>
       <span class="lvl-name">${l.name}</span>
-      <span class="status"></span>
     `;
     item.addEventListener('click', () => switchLevel(l.num));
     nav.appendChild(item);
   });
 
   function switchLevel(n) {
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.level-page').forEach(el => el.classList.remove('active'));
-    document.querySelector(`.nav-item[data-level="${n}"]`).classList.add('active');
-    document.querySelector(`.level-page[data-level="${n}"]`).classList.add('active');
+    const target = levelPages.get(Number(n));
+    const activeItem = nav.querySelector(`.nav-item[data-level="${n}"]`);
+    if (!target || !activeItem) return;
+
+    nav.querySelectorAll('.nav-item').forEach(el => {
+      const active = el === activeItem;
+      el.classList.toggle('active', active);
+      el.setAttribute('aria-pressed', String(active));
+    });
+    levelPages.forEach(page => page.classList.toggle('active', page === target));
     document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
+    target.querySelector('.topbar')?.focus({ preventScroll: true });
   }
 
-  function copyPassword(btn, pw) {
-    navigator.clipboard.writeText(pw).then(() => {
-      const orig = btn.textContent;
+  async function copyPassword(btn, pw) {
+    const original = btn.textContent.trim();
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(pw);
+      } else {
+        const field = document.createElement('textarea');
+        field.value = pw;
+        field.setAttribute('readonly', '');
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+        const copied = document.execCommand('copy');
+        field.remove();
+        if (!copied) throw new Error('Clipboard copy failed');
+      }
       btn.textContent = 'Copié !';
       btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
-    });
+    } catch (error) {
+      btn.textContent = 'Copie impossible';
+      btn.title = 'Sélectionne et copie le mot de passe manuellement.';
+    }
+    btn.setAttribute('aria-live', 'polite');
+    window.setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 2200);
   }
 </script>
 </body>
