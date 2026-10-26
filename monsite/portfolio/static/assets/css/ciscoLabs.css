@@ -1271,3 +1271,113 @@ body.network-page {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* ==================================================
+   BANDIT-INSPIRED DARK NETWORK LAB THEME
+   Keep the Cisco layout; align its visual language
+   with the cybersecurity lab pages.
+================================================== */
+.network-page {
+  --cisco-accent: #00ff88;
+  --cisco-accent-light: #00e5ff;
+  --cisco-accent-soft: rgba(0, 255, 136, 0.08);
+  --cisco-bg: #0a0c0f;
+  --cisco-surface: #0d1117;
+  --cisco-surface-alt: #111820;
+  --cisco-text: #c9d1d9;
+  --cisco-muted: #84919c;
+  --cisco-border: #1e3a2a;
+  --cisco-dark: #0d1117;
+  --cisco-dark-surface: #111820;
+  --cisco-dark-border: rgba(0, 255, 136, 0.18);
+  --cisco-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+  --cisco-shadow-hover: 0 14px 36px rgba(0, 255, 136, 0.08);
+  background: var(--cisco-bg);
+  color: var(--cisco-text);
+}
+.network-page .top-header,
+.network-page .project-card,
+.network-page .approach-card,
+.network-page .resource-panel,
+.network-page .architecture-card,
+.network-page .stat-card,
+.network-page .lab-card,
+.network-page .network-card,
+.network-page .process-card {
+  background-color: var(--cisco-surface);
+  border-color: var(--cisco-border);
+  color: var(--cisco-text);
+  box-shadow: var(--cisco-shadow);
+}
+.network-page .hero,
+.network-page .hero-engineering,
+.network-page .network-overview,
+.network-page .architecture-visual,
+.network-page .dark-panel {
+  background-color: var(--cisco-dark);
+  border-color: var(--cisco-dark-border);
+  color: var(--cisco-text);
+}
+.network-page .brand,
+.network-page .hero h1,
+.network-page h1,
+.network-page h2,
+.network-page h3,
+.network-page .section-heading,
+.network-page .brand-mark {
+  color: var(--cisco-accent);
+}
+.network-page .eyebrow,
+.network-page .header-label,
+.network-page .section-kicker,
+.network-page .project-meta,
+.network-page .muted,
+.network-page .nav-links a {
+  color: var(--cisco-muted);
+}
+.network-page .nav-links a:hover,
+.network-page .nav-links a:focus-visible,
+.network-page a:hover {
+  color: var(--cisco-accent-light);
+}
+.network-page .button-primary,
+.network-page .btn-primary,
+.network-page .hero-cta.primary {
+  background: var(--cisco-accent);
+  color: #06110b;
+  border-color: var(--cisco-accent);
+}
+.network-page .button-secondary,
+.network-page .btn-secondary,
+.network-page .hero-cta.secondary {
+  background: transparent;
+  color: var(--cisco-text);
+  border-color: var(--cisco-border);
+}
+.network-page .tag,
+.network-page .tech-tag,
+.network-page .chip,
+.network-page .project-tag {
+  background: rgba(0, 255, 136, 0.06);
+  color: var(--cisco-accent);
+  border-color: var(--cisco-dark-border);
+}
+.network-page .network-page-footer,
+.network-page footer {
+  border-color: var(--cisco-border);
+  color: var(--cisco-muted);
+}
+.network-page ::selection {
+  background: rgba(0, 255, 136, 0.25);
+  color: #ffffff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .network-page *,
+  .network-page *::before,
+  .network-page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
