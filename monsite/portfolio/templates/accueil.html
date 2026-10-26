@@ -50,9 +50,9 @@
           sketch of my progress. I develop both desktop and mobile applications,
           and I'm always learning more.
         </p>
-        <button class="contact-btn">
+        <a class="contact-btn" href="#contact">
           Contact Me <i class="fas fa-paper-plane"></i>
-        </button>
+        </a>
       </div>
     </section>
 
@@ -567,7 +567,8 @@
     <section id="contact" class="contact-section">
       <div class="container">
         <h2>Contactez-moi</h2>
-        <form action="/MesPetisCours/" method="get" class="contact-form">
+        <p class="contact-form-note">Ce formulaire n'est pas encore connecté à un service d'envoi. Il sera activé lorsqu'une adresse ou un endpoint de contact sera configuré.</p>
+        <form action="#contact" method="get" class="contact-form" onsubmit="event.preventDefault(); alert('Le formulaire de contact n’est pas encore configuré.');">
           <div class="form-group">
             <label for="name">Nom</label>
             <input type="text" id="name" name="name" placeholder="Votre nom" required>
