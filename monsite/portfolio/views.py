@@ -96,6 +96,9 @@ def smartbudget_tracker(request):
 def bandit(request):
     return render(request, 'projects/bandit.html')
 
+def securecloudlab(request):
+    return render(request, "projects/securecloudlab.html")
+
 def mailcli_sender(request):
     return render(request, 'projects/mailcli_sender.html')
 
