@@ -27,17 +27,13 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html { direction: ltr; }
+  html { direction: ltr; min-height: 100%; }
   body {
-    direction: ltr;
+    margin: 0;
     background: var(--bg);
     color: var(--text);
     font-family: var(--font-mono);
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-    min-height: 0;
-    overflow: hidden;
+    min-height: 100vh;
   }
 
   /* Scanlines overlay */
@@ -53,13 +49,10 @@
   /* ===== SIDEBAR ===== */
   #sidebar {
     position: fixed;
-    z-index: 20;
-    inset: 0 auto 0 0;
-    order: 0;
-    flex: 0 0 240px;
+    top: 0;
+    left: 0;
+    bottom: 0;
     width: 240px;
-    min-width: 240px;
-    height: 100vh;
     background: var(--sidebar-bg);
     border-right: 1px solid var(--border);
     display: flex;
@@ -172,12 +165,9 @@
 
   /* ===== MAIN CONTENT ===== */
   #main {
-    position: fixed;
-    inset: 0 0 0 240px;
-    order: 1;
-    width: auto;
+    margin-left: 241px;
     min-width: 0;
-    min-height: 0;
+    height: 100vh;
     overflow-y: auto;
     padding: 0;
   }
@@ -562,37 +552,33 @@
   }
 
   @media (max-width: 700px) {
-    body { flex-direction: column; height: 100dvh; min-height: 100dvh; }
+    body { min-height: 100vh; }
     #sidebar {
       position: relative;
-      inset: auto;
-      order: 0;
-      height: auto;
+      top: auto;
+      left: auto;
+      bottom: auto;
       width: 100%;
-      min-width: 0;
-      max-height: 34dvh;
-      flex: 0 0 auto;
+      max-height: 34vh;
       border-right: 0;
       border-bottom: 1px solid var(--border);
     }
     .sidebar-header { padding: 12px 16px; }
     .sidebar-header .logo { font-size: 10px; }
     .sidebar-header .logo span { display: inline; font-size: 9px; margin-left: 8px; }
-    .portfolio-link { margin-top: 5px; }
     .sidebar-nav {
       display: flex;
       flex-wrap: wrap;
-      align-content: flex-start;
       gap: 3px;
       padding: 8px;
       overflow-y: auto;
     }
-    .nav-section-title { display: block; width: 100%; padding: 3px 8px 6px; }
-    .nav-item { flex: 0 0 auto; width: auto; padding: 7px 9px; border-left-width: 2px; gap: 6px; }
+    .nav-section-title { width: 100%; padding: 3px 8px 6px; }
+    .nav-item { flex: 0 0 auto; width: auto; padding: 7px 9px; gap: 6px; }
     .nav-item .lvl-name { display: inline; font-size: 10px; }
     .nav-item .status { display: none; }
     .nav-item .lvl-badge { min-width: 22px; font-size: 9px; }
-    #main { position: relative; inset: auto; order: 1; width: 100%; min-height: 0; height: auto; flex: 1 1 auto; }
+    #main { margin-left: 0; height: auto; overflow: visible; }
     .topbar { padding: 12px 16px; gap: 10px; flex-wrap: wrap; }
     .topbar-right { flex-wrap: wrap; }
     .content { padding: 20px 16px; }
