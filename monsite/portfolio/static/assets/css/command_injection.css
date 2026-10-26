@@ -471,3 +471,47 @@ code {
   margin-left: 8px;
   vertical-align: middle;
 }
+
+/* Shared course-page polish: readable measure, accessible focus and mobile tables. */
+.course-container {
+  width: min(100% - 36px, 1040px);
+  max-width: 1040px;
+  margin-inline: auto;
+  padding: clamp(24px, 5vw, 56px) 0 72px;
+}
+.course-container h1 {
+  max-width: 900px;
+  font-size: clamp(1.9rem, 5vw, 3.2rem);
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.course-container p,
+.course-container li { line-height: 1.8; }
+.course-container pre {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre;
+}
+.course-container table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+.course-container img { max-width: 100%; height: auto; }
+.course-container a:focus-visible,
+.course-container button:focus-visible {
+  outline: 2px solid #65d9f2;
+  outline-offset: 4px;
+}
+.lab-eyebrow {
+  color: #53f5a2;
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+@media (max-width: 600px) {
+  .course-container { width: min(100% - 28px, 1040px); padding-top: 24px; }
+  .course-container table { font-size: .85rem; }
+}
