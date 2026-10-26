@@ -6,10 +6,14 @@
 {% block extra_css %}
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-html:has(.foundation-lab), body:has(.foundation-lab) { width:100%; min-height:100%; margin:0!important; padding:0!important; background:#07100e!important; }
-body:has(.foundation-lab) { display:block!important; overflow-x:hidden; }
-body:has(.foundation-lab)>main { display:block!important; width:100%!important; max-width:none!important; min-width:0!important; margin:0!important; padding:0!important; box-sizing:border-box!important; }
+html:has(.foundation-lab) { width:100%!important; min-width:0!important; min-height:100%; margin:0!important; padding:0!important; overflow-x:hidden!important; background:#07100e!important; }
+body:has(.foundation-lab) { display:block!important; width:100%!important; min-width:0!important; max-width:none!important; min-height:100vh; margin:0!important; padding:0!important; overflow-x:hidden!important; background:#07100e!important; }
+body:has(.foundation-lab)>main { display:block!important; position:relative!important; width:100%!important; max-width:none!important; min-width:0!important; min-height:100vh; margin:0!important; padding:0!important; transform:none!important; box-sizing:border-box!important; }
 body:has(.foundation-lab)>footer { display:none!important; }
+body:has(.foundation-lab) .foundation-lab { display:block!important; position:relative!important; width:100%!important; max-width:none!important; min-width:0!important; margin:0!important; transform:none!important; }
+body:has(.foundation-lab) .lab-container { width:100%!important; max-width:1420px!important; min-width:0!important; margin:0 auto!important; }
+body:has(.foundation-lab) .lab-hero { grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr); }
+@media(max-width:900px) { body:has(.foundation-lab) .lab-hero { grid-template-columns:minmax(0,1fr); } }
 .foundation-lab { --bg:#07100e; --surface:#0d1916; --border:rgba(142,207,174,.16); --text:#e7f2eb; --muted:#91a69a; --green:#8de6b2; position:relative; isolation:isolate; display:block; width:100%; max-width:none; min-height:100vh; margin:0; padding:clamp(28px,4vw,58px) clamp(18px,4vw,64px) 42px; overflow:hidden; box-sizing:border-box; color:var(--text); background:radial-gradient(ellipse at 8% 7%,rgba(46,139,87,.16),transparent 34%),radial-gradient(ellipse at 90% 30%,rgba(26,108,77,.10),transparent 32%),var(--bg); font-family:Inter,sans-serif; }
 .foundation-lab *, .foundation-lab *::before, .foundation-lab *::after { box-sizing:border-box; }
 .foundation-lab::before { content:""; position:absolute; z-index:-1; inset:0; pointer-events:none; opacity:.18; background-image:linear-gradient(rgba(141,230,178,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(141,230,178,.055) 1px,transparent 1px); background-size:48px 48px; mask-image:linear-gradient(to bottom,#000,transparent 82%); }
