@@ -1,192 +1,158 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}
-SOC + SIEM Lab | Mesli Portfolio
+{% block title %}SOC & SIEM Lab | Mesli Portfolio{% endblock %}
+
+{% block extra_css %}
+<style>
+  html:has(.soc-lab),body:has(.soc-lab){width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:0!important;background:#080d12!important;color:#e8f0f4;overflow-x:hidden!important}
+  body:has(.soc-lab)>main{display:block!important;position:static!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:0!important;transform:none!important;box-sizing:border-box!important}
+  body:has(.soc-lab)>footer{display:none!important}
+  .soc-lab{--soc-bg:#080d12;--soc-panel:#101922;--soc-line:rgba(126,224,181,.17);--soc-green:#7ee0b5;--soc-cyan:#79c9e8;--soc-muted:#9aadb8;display:block!important;position:relative!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:clamp(24px,5vw,68px) clamp(18px,5vw,7vw) 64px!important;transform:none!important;box-sizing:border-box!important;background:radial-gradient(ellipse at 12% 0%,rgba(36,120,100,.16),transparent 35%),radial-gradient(ellipse at 90% 15%,rgba(51,115,154,.13),transparent 32%),var(--soc-bg);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .soc-lab *{box-sizing:border-box}
+  .soc-wrap{width:100%;max-width:1200px;min-width:0;margin:0 auto}
+  .soc-topline{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:42px;color:var(--soc-muted);font:600 .74rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}
+  .soc-status{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--soc-line);border-radius:999px;padding:8px 12px;color:var(--soc-green);letter-spacing:.04em}
+  .soc-status:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--soc-green);box-shadow:0 0 12px rgba(126,224,181,.8)}
+  .soc-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);align-items:center;gap:clamp(28px,5vw,70px);padding-bottom:54px;border-bottom:1px solid var(--soc-line)}
+  .soc-eyebrow{color:var(--soc-green);font:600 .76rem/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.15em;text-transform:uppercase}
+  .soc-hero h1{display:block;width:100%;max-width:760px;margin:16px 0 20px;color:#f4f8fa;font-size:clamp(2.4rem,5.5vw,5rem);line-height:1.02;letter-spacing:-.055em;overflow-wrap:normal;word-break:normal}
+  .soc-hero h1 span{color:var(--soc-green)}
+  .soc-lead{max-width:680px;margin:0;color:#b5c4cc;font-size:clamp(1rem,1.6vw,1.15rem);line-height:1.8}
+  .soc-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:25px}
+  .soc-tag{border:1px solid var(--soc-line);border-radius:7px;padding:7px 10px;color:#c8d8de;background:rgba(255,255,255,.025);font-size:.78rem}
+  .soc-console{min-width:0;border:1px solid var(--soc-line);border-radius:18px;padding:20px;background:linear-gradient(145deg,rgba(19,34,43,.96),rgba(11,20,27,.92));box-shadow:0 24px 80px rgba(0,0,0,.18)}
+  .soc-console-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;color:#eaf3f6;font-size:.9rem;font-weight:700}
+  .soc-dots{display:flex;gap:5px}.soc-dots i{width:7px;height:7px;border-radius:50%;background:#45606b}
+  .soc-alert{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:start;padding:13px 12px;border:1px solid var(--soc-line);border-radius:10px;background:rgba(255,255,255,.025)}
+  .soc-alert+.soc-alert{margin-top:9px}
+  .soc-severity{display:inline-block;border-radius:5px;padding:5px 7px;text-align:center;font:700 .66rem ui-monospace,monospace;letter-spacing:.04em}
+  .soc-high{background:rgba(248,113,113,.12);color:#fca5a5;border:1px solid rgba(248,113,113,.25)}
+  .soc-medium{background:rgba(251,191,36,.1);color:#fcd34d;border:1px solid rgba(251,191,36,.2)}
+  .soc-low{background:rgba(121,201,232,.1);color:var(--soc-cyan);border:1px solid rgba(121,201,232,.2)}
+  .soc-alert strong{display:block;color:#e9f2f5;font-size:.82rem;line-height:1.45}
+  .soc-alert small{display:block;margin-top:4px;color:var(--soc-muted);font-size:.72rem;line-height:1.5}
+  .soc-demo-note{margin:14px 0 0;color:#718792;font-size:.7rem;line-height:1.5}
+  .soc-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:26px 0 56px}
+  .soc-metric{padding:18px;border:1px solid var(--soc-line);border-radius:12px;background:rgba(255,255,255,.025)}
+  .soc-metric strong{display:block;color:var(--soc-green);font-size:1.55rem;letter-spacing:-.04em}
+  .soc-metric span{display:block;margin-top:5px;color:var(--soc-muted);font-size:.8rem;line-height:1.45}
+  .soc-section{margin-top:54px}
+  .soc-section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}
+  .soc-kicker{color:var(--soc-cyan);font:600 .72rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.13em;text-transform:uppercase}
+  .soc-section h2{margin:8px 0 0;color:#f0f6f8;font-size:clamp(1.6rem,3vw,2.35rem);letter-spacing:-.035em}
+  .soc-intro{max-width:570px;margin:0;color:var(--soc-muted);font-size:.94rem;line-height:1.7}
+  .soc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .soc-card{min-width:0;padding:22px;border:1px solid var(--soc-line);border-radius:14px;background:linear-gradient(145deg,rgba(18,29,38,.94),rgba(12,20,27,.94))}
+  .soc-card-label{color:var(--soc-green);font:600 .7rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase}
+  .soc-card h3{margin:10px 0 9px;color:#edf4f6;font-size:1.08rem}
+  .soc-card p{margin:0;color:var(--soc-muted);font-size:.88rem;line-height:1.7}
+  .soc-list{display:grid;gap:10px;margin:17px 0 0;padding:0;list-style:none}
+  .soc-list li{position:relative;padding-left:17px;color:#c3d0d6;font-size:.86rem;line-height:1.6}
+  .soc-list li:before{position:absolute;top:.62em;left:0;width:5px;height:5px;border-radius:2px;background:var(--soc-green);content:""}
+  .soc-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:socstep}
+  .soc-step{padding:20px;border-top:2px solid rgba(126,224,181,.55);background:rgba(255,255,255,.025);counter-increment:socstep}
+  .soc-step:before{content:"0" counter(socstep);display:block;margin-bottom:17px;color:var(--soc-green);font:600 .78rem ui-monospace,monospace}
+  .soc-step h3{margin:0 0 8px;color:#edf4f6;font-size:.98rem}
+  .soc-step p{margin:0;color:var(--soc-muted);font-size:.84rem;line-height:1.65}
+  .soc-status-box{display:flex;align-items:flex-start;gap:14px;margin-top:48px;padding:20px;border:1px solid rgba(251,191,36,.23);border-radius:12px;background:rgba(251,191,36,.045);color:#c7d2d8;font-size:.87rem;line-height:1.7}
+  .soc-status-box strong{color:#fcd34d}
+  .soc-status-box p{margin:0}
+  .soc-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .soc-link{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 14px;border:1px solid var(--soc-line);border-radius:8px;color:var(--soc-green);text-decoration:none;font-size:.84rem;font-weight:650;transition:background .2s,border-color .2s}
+  .soc-link:hover{background:rgba(126,224,181,.08);border-color:rgba(126,224,181,.4)}
+  .soc-footer{display:flex;justify-content:space-between;gap:16px;margin-top:36px;padding-top:20px;border-top:1px solid var(--soc-line);color:#718792;font: .72rem/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em}
+  @media(max-width:950px){.soc-hero{grid-template-columns:minmax(0,1fr)}.soc-console{max-width:650px}.soc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.soc-flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:600px){.soc-lab{padding:24px 16px 36px!important}.soc-topline{align-items:flex-start;flex-direction:column;margin-bottom:30px}.soc-hero{padding-bottom:34px}.soc-metrics{grid-template-columns:1fr;margin:20px 0 40px}.soc-metric{display:flex;align-items:center;justify-content:space-between;gap:14px}.soc-metric span{max-width:55%;margin:0;text-align:right}.soc-section{margin-top:40px}.soc-section-head{align-items:flex-start;flex-direction:column}.soc-grid,.soc-flow{grid-template-columns:minmax(0,1fr)}.soc-card{padding:19px}.soc-footer{flex-direction:column}.soc-console{padding:14px}.soc-alert{grid-template-columns:65px minmax(0,1fr)}}
+</style>
 {% endblock %}
 
 {% block content %}
-
-<section class="cyber-page">
-
-    <div class="cyber-header">
-
-        <span class="cyber-badge">
-            Wazuh · Elasticsearch · Kibana
-        </span>
-
-        <h1>SOC + SIEM Lab</h1>
-
-        <p class="cyber-intro">
-            A Security Operations Center (SOC) laboratory designed to
-            centralize logs, detect suspicious activities and provide
-            real-time monitoring capabilities for Windows and Linux systems.
-        </p>
-
+<section class="soc-lab">
+  <div class="soc-wrap">
+    <div class="soc-topline">
+      <span>MESLI / CYBER RANGE / 03</span>
+      <span class="soc-status">SOC lab · Présentation du projet</span>
     </div>
 
-
-    <section class="cyber-section">
-
-        <h2>Overview</h2>
-
-        <p>
-            This project focuses on building a small Security Operations
-            Center using Wazuh, Elasticsearch and Kibana. The objective is
-            to collect logs from Windows and Linux systems, detect attacks
-            and visualize security events through dashboards.
+    <header class="soc-hero">
+      <div>
+        <div class="soc-eyebrow">Blue Team · Détection · Réponse à incident</div>
+        <h1>SOC + <span>SIEM</span> Lab</h1>
+        <p class="soc-lead">
+          Un laboratoire orienté défense pour centraliser les journaux, repérer des comportements suspects
+          et apprendre à qualifier une alerte. Le parcours couvre les événements Windows et Linux,
+          de la collecte à l'investigation.
         </p>
+        <div class="soc-tags">
+          <span class="soc-tag">Wazuh</span><span class="soc-tag">Windows Server</span>
+          <span class="soc-tag">Ubuntu Server</span><span class="soc-tag">Event triage</span>
+          <span class="soc-tag">Log analysis</span>
+        </div>
+      </div>
 
+      <aside class="soc-console" aria-label="Exemple illustratif d'alertes SIEM">
+        <div class="soc-console-head"><span>Security alerts / Example</span><span class="soc-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="soc-alert"><span class="soc-severity soc-high">HIGH</span><div><strong>Multiple failed SSH logins</strong><small>Linux · Authentication anomaly · Review source and timeline</small></div></div>
+        <div class="soc-alert"><span class="soc-severity soc-medium">MEDIUM</span><div><strong>Repeated Windows logon failures</strong><small>Windows · Account activity · Correlate related events</small></div></div>
+        <div class="soc-alert"><span class="soc-severity soc-low">LOW</span><div><strong>Unexpected service change</strong><small>Endpoint · Configuration change · Validate against baseline</small></div></div>
+        <p class="soc-demo-note">Exemples d'alertes fictives à des fins de présentation — pas un flux de télémétrie en direct.</p>
+      </aside>
+    </header>
+
+    <div class="soc-metrics" aria-label="Résumé de l'architecture prévue">
+      <div class="soc-metric"><strong>Windows + Linux</strong><span>sources de journaux à superviser</span></div>
+      <div class="soc-metric"><strong>SIEM</strong><span>centralisation, recherche et qualification des alertes</span></div>
+      <div class="soc-metric"><strong>Blue Team</strong><span>détection, investigation et recommandations</span></div>
+    </div>
+
+    <section class="soc-section">
+      <div class="soc-section-head"><div><div class="soc-kicker">01 / Architecture</div><h2>De l'événement à l'alerte</h2></div><p class="soc-intro">Une chaîne de supervision permet de rassembler les événements, d'appliquer des règles de détection et de donner du contexte aux analystes.</p></div>
+      <div class="soc-grid">
+        <article class="soc-card"><div class="soc-card-label">01 · Sources</div><h3>Endpoints supervisés</h3><p>Les systèmes produisent des événements qui servent à comprendre les connexions, les changements de configuration et les activités inhabituelles.</p><ul class="soc-list"><li>Windows Server et journaux d'authentification</li><li>Ubuntu Server et journaux système</li><li>Événements générés pendant les tests autorisés</li></ul></article>
+        <article class="soc-card"><div class="soc-card-label">02 · Analyse</div><h3>Wazuh server</h3><p>Le serveur Wazuh analyse les événements reçus des agents, les confronte à des règles et produit des alertes quand une activité correspond à un scénario de détection.</p><ul class="soc-list"><li>Collecte et normalisation des événements</li><li>Règles et niveaux de sévérité</li><li>Qualification initiale des alertes</li></ul></article>
+        <article class="soc-card"><div class="soc-card-label">03 · Investigation</div><h3>Indexer & dashboard</h3><p>Les événements et alertes indexés sont consultables dans le tableau de bord pour rechercher une période, examiner les détails et suivre une investigation.</p><ul class="soc-list"><li>Recherche et filtrage des alertes</li><li>Vue d'ensemble et contexte</li><li>Documentation des constats</li></ul></article>
+      </div>
     </section>
 
-
-    <section class="cyber-section">
-
-        <h2>Architecture</h2>
-
-<pre>
-                  Kali Linux
-                       │
-        ┌──────────────┴──────────────┐
-        │                             │
-  Windows Active Directory       Ubuntu Server
-        │                             │
-        └──────────────┬──────────────┘
-                       │
-                     Wazuh
-                       │
-                 Elasticsearch
-                       │
-                     Kibana
-</pre>
-
+    <section class="soc-section">
+      <div class="soc-section-head"><div><div class="soc-kicker">02 / Cas d'usage</div><h2>Scénarios de détection</h2></div><p class="soc-intro">Ces scénarios sont des pistes de validation du lab. Pour chacun, il faut enregistrer l'événement source, l'alerte générée et la conclusion de l'analyse.</p></div>
+      <div class="soc-grid">
+        <article class="soc-card"><div class="soc-card-label">Authentification</div><h3>Échecs de connexion répétés</h3><p>Repérer une série d'échecs SSH ou Windows, puis vérifier la chronologie, l'identité concernée et l'origine des tentatives.</p></article>
+        <article class="soc-card"><div class="soc-card-label">Intégrité</div><h3>Changement système inattendu</h3><p>Comparer un événement de modification à la référence connue et déterminer s'il correspond à une opération d'administration légitime.</p></article>
+        <article class="soc-card"><div class="soc-card-label">Comportement</div><h3>Activité inhabituelle</h3><p>Regrouper les événements liés dans le temps et chercher des indices complémentaires avant de qualifier l'incident.</p></article>
+      </div>
     </section>
 
-
-    <section class="cyber-section">
-
-        <h2>Main Components</h2>
-
-        <ul>
-            <li><strong>DC01</strong> - Windows Server 2022</li>
-            <li><strong>WEB01</strong> - Ubuntu Server</li>
-            <li><strong>KALI</strong> - Kali Linux</li>
-            <li><strong>Wazuh Manager</strong></li>
-            <li><strong>Elasticsearch</strong></li>
-            <li><strong>Kibana</strong></li>
-        </ul>
-
+    <section class="soc-section">
+      <div class="soc-section-head"><div><div class="soc-kicker">03 / Méthode analyste</div><h2>Un workflow d'investigation</h2></div><p class="soc-intro">L'objectif n'est pas seulement de voir une alerte : il faut pouvoir expliquer pourquoi elle est importante et quelle action est justifiée.</p></div>
+      <div class="soc-flow">
+        <article class="soc-step"><h3>Détecter</h3><p>Repérer l'alerte, sa règle, sa sévérité et l'actif concerné.</p></article>
+        <article class="soc-step"><h3>Enrichir</h3><p>Examiner les événements liés, les comptes, les hôtes et la fenêtre temporelle.</p></article>
+        <article class="soc-step"><h3>Qualifier</h3><p>Distinguer activité légitime, faux positif et incident nécessitant une escalade.</p></article>
+        <article class="soc-step"><h3>Documenter</h3><p>Noter les preuves, l'impact estimé, la mesure prise et le résultat du contrôle.</p></article>
+      </div>
     </section>
 
-
-    <section class="cyber-section">
-
-        <h2>Features</h2>
-
-        <ul>
-            <li>Centralized log collection</li>
-            <li>Windows Event Viewer monitoring</li>
-            <li>Linux journal monitoring</li>
-            <li>Real-time alerts</li>
-            <li>Dashboard visualization</li>
-            <li>Incident investigation</li>
-        </ul>
-
+    <section class="soc-section">
+      <div class="soc-section-head"><div><div class="soc-kicker">04 / Stack technique</div><h2>Technologies du lab</h2></div></div>
+      <div class="soc-grid">
+        <article class="soc-card"><div class="soc-card-label">SIEM / XDR</div><h3>Wazuh</h3><p>Collecte par agents, analyse basée sur des règles, alertes et supervision de la sécurité des endpoints.</p></article>
+        <article class="soc-card"><div class="soc-card-label">Recherche</div><h3>Wazuh indexer</h3><p>Stockage et indexation des alertes et événements pour les recherches et analyses.</p></article>
+        <article class="soc-card"><div class="soc-card-label">Visualisation</div><h3>Wazuh dashboard</h3><p>Interface pour suivre l'état des agents, consulter les alertes et examiner les données de sécurité.</p></article>
+      </div>
+      <div class="soc-links">
+        <a class="soc-link" href="https://documentation.wazuh.com/current/getting-started/index.html" target="_blank" rel="noopener noreferrer">Documentation Wazuh ↗</a>
+        <a class="soc-link" href="https://documentation.wazuh.com/current/installation-guide/index.html" target="_blank" rel="noopener noreferrer">Guide d'installation ↗</a>
+      </div>
     </section>
 
+    <aside class="soc-status-box">
+      <span aria-hidden="true">i</span>
+      <p><strong>Statut du projet : à documenter.</strong> Cette page décrit l'architecture et les cas d'usage envisagés. Ajoute des captures de ton dashboard, la configuration réellement utilisée, un exemple d'alerte obtenue et les étapes de résolution avant de présenter ces capacités comme opérationnelles.</p>
+    </aside>
 
-    <section class="cyber-section">
-
-        <h2>Attack Detection</h2>
-
-        <ul>
-            <li>SSH brute-force attempts</li>
-            <li>Multiple failed logins</li>
-            <li>Suspicious authentication events</li>
-            <li>Unauthorized access attempts</li>
-            <li>Abnormal system activity</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Blue Team Capabilities</h2>
-
-        <ul>
-            <li>Security monitoring</li>
-            <li>Threat detection</li>
-            <li>Incident response</li>
-            <li>Event correlation</li>
-            <li>Log analysis</li>
-            <li>Alert triage</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Technologies</h2>
-
-        <ul>
-            <li>Wazuh</li>
-            <li>Elasticsearch</li>
-            <li>Kibana</li>
-            <li>Windows Server 2022</li>
-            <li>Ubuntu Server</li>
-            <li>Kali Linux</li>
-            <li>PowerShell</li>
-            <li>Bash</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Skills Developed</h2>
-
-        <ul>
-            <li>SOC operations</li>
-            <li>SIEM administration</li>
-            <li>Log analysis</li>
-            <li>Blue Team methodologies</li>
-            <li>Incident response</li>
-            <li>Threat detection</li>
-            <li>Security monitoring</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Future Improvements</h2>
-
-        <ul>
-            <li>Suricata integration</li>
-            <li>Telegram alerts</li>
-            <li>Docker deployment</li>
-            <li>Ransomware detection rules</li>
-            <li>Custom dashboards</li>
-            <li>Threat intelligence feeds</li>
-        </ul>
-
-    </section>
-
-
-    <section class="cyber-section">
-
-        <h2>Current Status</h2>
-
-        <p>
-            🚧 Planned
-        </p>
-
-    </section>
-
+    <footer class="soc-footer"><span>MESLI PORTFOLIO · SOC / SIEM LAB</span><span>Defensive monitoring / Authorized testing only</span></footer>
+  </div>
 </section>
-
 {% endblock %}
