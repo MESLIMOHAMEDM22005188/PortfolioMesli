@@ -1,81 +1,247 @@
-<!DOCTYPE html> <html lang="fr"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Gestionnaire de fichiers – Application de bureau</title> <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> <style> .carousel { display: flex; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; } .carousel::-webkit-scrollbar { display: none; } .carousel img { min-width: 100%; transition: transform 0.3s ease; } .carousel img:hover { transform: scale(1.05); } @keyframes scrollGallery { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } } .carousel-auto-scroll { animation: scrollGallery 25s linear infinite; } </style> </head> <body class="bg-gradient-to-b from-black via-gray-900 to-black text-white font-sans"> <!-- HERO --> <section class="relative text-center py-20 px-6"> <!-- Bouton Accueil --> <a href="{% url 'portfolio:accueil' %}" class="absolute top-6 right-6 z-20 px-5 py-2.5 rounded-full bg-gray-800/80 border border-gray-700 text-white font-semibold text-sm hover:bg-white hover:text-black transition duration-300"> ← Accueil </a>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080c12">
+  <meta name="description" content="Explore a Python desktop document manager built with PyQt5, FastAPI and SQLAlchemy: file operations, folder organization and PDF certificate generation.">
+  <title>File Management &amp; Document Workflow — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/file_crud_showcase.css' %}?v=1">
+</head>
+<body>
+<main class="file-crud-page">
+  <div class="fc-wrap">
+    <nav class="fc-nav" aria-label="Main navigation">
+      <a class="fc-brand" href="{% url 'portfolio:accueil' %}">
+        <span class="fc-mark" aria-hidden="true">F/01</span>
+        <span>DOCUMENT SYSTEMS / PYTHON</span>
+      </a>
+      <a class="fc-back" href="{% url 'portfolio:accueil' %}"><span aria-hidden="true">←</span> Back to portfolio</a>
+    </nav>
 
-  <section class="text-center py-24 px-6 relative">
-    <div class="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-blue-500/10 blur-3xl"></div>
-    <div class="relative z-10">
-      <h1 class="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-blue-400 via-pink-500 to-red-500 text-transparent bg-clip-text">
-        Gestionnaire de Fichiers
-      </h1>
-      <p class="mt-6 text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-        Une application de bureau <strong>intuitive et performante</strong> conçue pour simplifier la gestion documentaire du personnel.
-        <br>Organisez, déplacez et visualisez vos fichiers en un clic — la productivité réinventée.
-      </p>
-      <div class="mt-10">
-    <a href="https://github.com/MESLIMOHAMEDM22005188/gestion-fichiers-signatures.git" target="_blank"
-           class="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 transition font-semibold text-white shadow-xl transform hover:scale-105">
-          Découvrir le projet sur GitHub
-        </a>
-      </div>
-    </div>
-  </section>
+    <header class="fc-hero">
+      <div class="fc-hero-grid">
+        <div>
+          <span class="fc-eyebrow"><span class="fc-dot" aria-hidden="true"></span> DESKTOP APP · DOCUMENT WORKFLOW</span>
+          <h1 class="fc-title">Files, organized.<br><span>Work, simplified.</span></h1>
+          <p class="fc-lead">
+            A Python desktop application designed to make document handling less fragmented.
+            Manage files and folders through a PyQt5 interface, connect to a FastAPI backend,
+            and generate PDF certificates through a structured application workflow.
+          </p>
+          <div class="fc-tags" aria-label="Technology stack">
+            <span class="fc-tag">Python</span>
+            <span class="fc-tag">PyQt5</span>
+            <span class="fc-tag">FastAPI</span>
+            <span class="fc-tag">SQLAlchemy</span>
+            <span class="fc-tag">MySQL / SQLite</span>
+            <span class="fc-tag">PDF generation</span>
+          </div>
+          <div class="fc-actions">
+            <a class="fc-btn fc-btn-primary" href="https://github.com/MESLIMOHAMEDM22005188/gestion-fichiers-signatures" target="_blank" rel="noopener noreferrer">Explore the source code <span aria-hidden="true">↗</span></a>
+            <a class="fc-btn fc-btn-secondary" href="#features">Explore the workflow <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
 
-  <section class="px-4 md:px-12 py-16">
-    <h2 class="text-center text-3xl md:text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-blue-400">
-      Aperçu de l’interface
-    </h2>
-    <div class="overflow-hidden rounded-2xl border border-gray-700 shadow-lg">
-      <div class="carousel carousel-auto-scroll flex space-x-6">
-        <img src="img1.png" alt="Interface principale" class="rounded-xl">
-        <img src="img2.png" alt="Vue des dossiers" class="rounded-xl">
-        <img src="img3.png" alt="Organisation intelligente" class="rounded-xl">
-        <img src="img4.png" alt="Interface fluide" class="rounded-xl">
+        <aside class="fc-visual" aria-label="Illustrative preview of a file management desktop interface">
+          <div class="fc-windowbar">
+            <span class="fc-windowdot" aria-hidden="true"></span>
+            <span class="fc-windowdot" aria-hidden="true"></span>
+            <span class="fc-windowdot" aria-hidden="true"></span>
+            <span class="fc-windowlabel">FILE MANAGER / WORKSPACE</span>
+            <span class="fc-windowstatus">LOCAL LIBRARY</span>
+          </div>
+          <div class="fc-app">
+            <div class="fc-sidebar">
+              <p class="fc-side-title">WORKSPACE</p>
+              <div class="fc-side-item is-active"><span class="fc-side-icon" aria-hidden="true">▦</span> All files</div>
+              <div class="fc-side-item"><span class="fc-side-icon" aria-hidden="true">▰</span> Folders</div>
+              <div class="fc-side-item"><span class="fc-side-icon" aria-hidden="true">◷</span> Recent</div>
+              <div class="fc-side-item"><span class="fc-side-icon" aria-hidden="true">⚙</span> Settings</div>
+            </div>
+            <div class="fc-files">
+              <div class="fc-files-header">
+                <span class="fc-files-heading">My documents</span>
+                <span class="fc-mini-button">+ Add file</span>
+              </div>
+              <div class="fc-searchbar">⌕ &nbsp; Search the library…</div>
+              <div class="fc-file-head"><span>Name</span><span>Type</span><span>Status</span></div>
+              <div class="fc-file-row">
+                <span class="fc-filename"><span class="fc-file-icon pdf">PDF</span><span>training-certificate.pdf</span></span>
+                <span class="fc-file-type">PDF</span><span class="fc-file-state">Active</span>
+              </div>
+              <div class="fc-file-row">
+                <span class="fc-filename"><span class="fc-file-icon doc">DOC</span><span>onboarding-guide.docx</span></span>
+                <span class="fc-file-type">DOCX</span><span class="fc-file-state">Active</span>
+              </div>
+              <div class="fc-file-row">
+                <span class="fc-filename"><span class="fc-file-icon">IMG</span><span>workspace-plan.png</span></span>
+                <span class="fc-file-type">PNG</span><span class="fc-file-state">Active</span>
+              </div>
+              <div class="fc-file-row">
+                <span class="fc-filename"><span class="fc-file-icon pdf">PDF</span><span>process-summary.pdf</span></span>
+                <span class="fc-file-type">PDF</span><span class="fc-file-state">Active</span>
+              </div>
+            </div>
+          </div>
+          <div class="fc-visual-foot"><span><strong>One workspace</strong> · Clear file states</span><span>PYQT5 / UI CONCEPT</span></div>
+        </aside>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- FEATURES -->
-  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-black">
-    <h2 class="text-4xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
-      ⚙️ Fonctionnalités Clés
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-      <div class="bg-gray-800 p-6 rounded-2xl shadow-md hover:scale-105 transition transform hover:-translate-y-2">
-        <h3 class="text-xl font-semibold mb-2 text-pink-400">Ajout & Suppression</h3>
-        <p class="text-gray-400">Gérez vos fichiers (ajout, suppression, déplacement) via une interface fluide et ergonomique.</p>
+    <section class="fc-section" id="features">
+      <div class="fc-section-head">
+        <div>
+          <span class="fc-kicker">01 / Core capabilities</span>
+          <h2 class="fc-heading">A practical toolbox for<br><span>everyday document work.</span></h2>
+        </div>
+        <p class="fc-section-intro">The project brings desktop interactions, API endpoints and database records together, with a focus on making common file operations explicit.</p>
       </div>
-      <div class="bg-gray-800 p-6 rounded-2xl shadow-md hover:scale-105 transition transform hover:-translate-y-2">
-        <h3 class="text-xl font-semibold mb-2 text-blue-400">Catégories Intelligentes</h3>
-        <p class="text-gray-400">Classement automatique selon le type, la taille ou la date — pour une organisation sans effort.</p>
+      <div class="fc-feature-grid">
+        <article class="fc-feature">
+          <span class="fc-feature-icon" aria-hidden="true">↥</span>
+          <h3>Controlled file imports</h3>
+          <p>Import supported PDF, PNG, JPG, JPEG and DOCX files. The current import flow checks the extension and enforces a 5 MB size limit.</p>
+        </article>
+        <article class="fc-feature">
+          <span class="fc-feature-icon" aria-hidden="true">▤</span>
+          <h3>File and folder operations</h3>
+          <p>Browse the library, organize files into folders, move files, and use recorded original paths to support restoration workflows.</p>
+        </article>
+        <article class="fc-feature">
+          <span class="fc-feature-icon" aria-hidden="true">⌕</span>
+          <h3>Desktop-first navigation</h3>
+          <p>A PyQt5 interface groups document actions into dedicated windows and controllers instead of mixing all interaction logic in one place.</p>
+        </article>
+        <article class="fc-feature">
+          <span class="fc-feature-icon" aria-hidden="true">⇄</span>
+          <h3>API-backed account flows</h3>
+          <p>FastAPI exposes registration and sign-in endpoints, with request validation and password hashing handled in the backend layer.</p>
+        </article>
+        <article class="fc-feature">
+          <span class="fc-feature-icon" aria-hidden="true">PDF</span>
+          <h3>PDF certificate generation</h3>
+          <p>Generate a structured certificate document from submitted fields and return it as a downloadable PDF response.</p>
+        </article>
+        <article class="fc-feature">
+          <span class="fc-feature-icon" aria-hidden="true">DB</span>
+          <h3>Persistent metadata</h3>
+          <p>SQLAlchemy maps users, files, folders and generated documents to relational records, while allowing local SQLite development or MySQL configuration.</p>
+        </article>
       </div>
-      <div class="bg-gray-800 p-6 rounded-2xl shadow-md hover:scale-105 transition transform hover:-translate-y-2">
-        <h3 class="text-xl font-semibold mb-2 text-green-400">Visualisation Dynamique</h3>
-        <p class="text-gray-400">Affichage détaillé des métadonnées, avec tri et recherche rapide intégrés.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ABOUT -->
-  <section class="py-20 px-6 border-t border-gray-800 text-center bg-gradient-to-b from-black to-gray-900">
-    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-pink-400">
-      💡 Un projet né du terrain
-    </h2>
-    <p class="text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
-      Conçu durant mon stage, ce projet répond à un besoin réel : <strong>l’automatisation de la gestion documentaire du personnel</strong>.
-      Développé en <strong>Python</strong> avec une architecture <strong>MVC</strong>, il associe performance et flexibilité.
-      <br>Une version mobile est actuellement en cours de développement pour offrir une expérience <strong>multiplateforme fluide et moderne</strong>.
-    </p>
-    <a href="https://github.com/MESLIMOHAMEDM22005188/gestion-fichiers-signatures.git" target="_blank"
-       class="inline-block px-8 py-3 rounded-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 transition font-semibold text-white shadow-lg transform hover:scale-105">
-       🔗 Voir le code source sur GitHub
-    </a>
-  </section>
+    <section class="fc-section">
+      <div class="fc-section-head">
+        <div>
+          <span class="fc-kicker">02 / User journey</span>
+          <h2 class="fc-heading">From import to<br><span>organized output.</span></h2>
+        </div>
+        <p class="fc-section-intro">A simple flow keeps the responsibilities of the desktop UI, backend and storage layer understandable.</p>
+      </div>
+      <div class="fc-workflow">
+        <article class="fc-step">
+          <h3>Select a document</h3>
+          <p>Choose a local file and apply the supported-format and size checks before importing it.</p>
+        </article>
+        <article class="fc-step">
+          <h3>Register metadata</h3>
+          <p>Copy the file into the configured storage directory and persist its path, type, size and status.</p>
+        </article>
+        <article class="fc-step">
+          <h3>Organize and manage</h3>
+          <p>Use the desktop interface to browse files, move them into folders, or restore recorded locations.</p>
+        </article>
+        <article class="fc-step">
+          <h3>Generate a document</h3>
+          <p>Submit certificate fields to the API and receive a generated PDF as the operation’s output.</p>
+        </article>
+      </div>
+    </section>
 
-  <!-- FOOTER -->
-  <footer class="py-8 text-center text-gray-500 text-sm border-t border-gray-800">
-    © 2025 Mohamed Mesli — Tous droits réservés
-  </footer>
-   </section>
-</div>
+    <section class="fc-section">
+      <div class="fc-section-head">
+        <div>
+          <span class="fc-kicker">03 / Technical design</span>
+          <h2 class="fc-heading">Three layers.<br><span>Clearer responsibilities.</span></h2>
+        </div>
+        <p class="fc-section-intro">The architecture separates user interaction from API behavior and persistence, making each layer easier to test and improve.</p>
+      </div>
+      <div class="fc-architecture">
+        <article class="fc-layer">
+          <span class="fc-layer-label">01 / Presentation</span>
+          <h3>Desktop client</h3>
+          <p>Windows, forms and file-management views coordinate user actions through dedicated controllers.</p>
+          <div class="fc-stack"><span>PyQt5</span><span>Qt Widgets</span><span>MVC-inspired</span></div>
+        </article>
+        <article class="fc-layer">
+          <span class="fc-layer-label">02 / Application</span>
+          <h3>Backend services</h3>
+          <p>HTTP endpoints validate registration and sign-in requests and expose PDF certificate generation.</p>
+          <div class="fc-stack"><span>FastAPI</span><span>Pydantic</span><span>REST</span></div>
+        </article>
+        <article class="fc-layer">
+          <span class="fc-layer-label">03 / Persistence</span>
+          <h3>Data and files</h3>
+          <p>ORM models hold document metadata while file content stays in the configured filesystem storage.</p>
+          <div class="fc-stack"><span>SQLAlchemy</span><span>MySQL</span><span>SQLite</span><span>PDF</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="fc-section">
+      <div class="fc-section-head">
+        <div>
+          <span class="fc-kicker">04 / Engineering perspective</span>
+          <h2 class="fc-heading">Built to improve.<br><span>Not to overclaim.</span></h2>
+        </div>
+        <p class="fc-section-intro">The next iterations are about reliability, privacy and trustworthy document workflows—not just adding more buttons.</p>
+      </div>
+      <div class="fc-roadmap">
+        <article class="fc-roadmap-card">
+          <span class="fc-roadmap-label">Engineering focus</span>
+          <h3>Reliability and maintainability</h3>
+          <p>Prioritize predictable behavior when files move or database operations fail, and keep the codebase testable as its features grow.</p>
+          <ul>
+            <li>Automated tests for file and folder edge cases</li>
+            <li>Database migrations instead of ad-hoc schema changes</li>
+            <li>Structured logging without secrets or verification codes</li>
+          </ul>
+        </article>
+        <article class="fc-roadmap-card is-next">
+          <span class="fc-roadmap-label">Potential next steps</span>
+          <h3>Safer document workflows</h3>
+          <p>Extend the current foundation into a robust workflow for sensitive documents, with explicit security boundaries and traceability.</p>
+          <ul>
+            <li>Per-user file authorization and server-side verification</li>
+            <li>Content validation, safer storage paths and audit history</li>
+            <li>Integration with a real e-signature provider if signing is required</li>
+          </ul>
+        </article>
+      </div>
+      <div class="fc-security-note"><strong>Scope note:</strong> the current project covers file management, account-flow foundations and PDF generation. This showcase does not claim a legally qualified electronic-signature implementation or production-grade multi-user authorization.</div>
+    </section>
+
+    <section class="fc-section">
+      <div class="fc-cta">
+        <div>
+          <span class="fc-kicker">Explore the implementation</span>
+          <h2>See how the pieces fit together.</h2>
+          <p>Review the Python desktop client, FastAPI endpoints and SQLAlchemy models in the source repository.</p>
+        </div>
+        <a class="fc-btn fc-btn-primary" href="https://github.com/MESLIMOHAMEDM22005188/gestion-fichiers-signatures" target="_blank" rel="noopener noreferrer">Open on GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <footer class="fc-footer">
+      <span>File Management &amp; Document Workflow</span>
+      <a href="{% url 'portfolio:accueil' %}">← Back to portfolio</a>
+    </footer>
+  </div>
+</main>
 </body>
 </html>
-<
