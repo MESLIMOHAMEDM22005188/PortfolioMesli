@@ -109,3 +109,15 @@
 @media (prefers-reduced-motion: reduce) {
   .concurrency-page *, .concurrency-page *::before, .concurrency-page *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
 }
+
+/* Follow the portfolio's existing global footer behavior. */
+.concurrency-page .cc-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.concurrency-page .cc-footer span:last-child { float: none !important; }
+@media (max-width: 520px) {
+  .concurrency-page .cc-footer { align-items: flex-start; flex-direction: column; }
+}
