@@ -1,67 +1,172 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulateur C++ – Concurrence & Synchronisation</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/forms"></script>
-  <link rel="stylesheet" href="https://icons.pqoqubbw.dev/font/css/all.min.css">
-  <style>
-    .shine-effect {
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      animation: shine 2s infinite;
-    }
-    @keyframes shine {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-  </style>
+  <meta name="theme-color" content="#070b13">
+  <meta name="description" content="Explore a C++ concurrency playground focused on multithreading, thread synchronization, and classic coordination problems.">
+  <title>C++ Concurrency Playground | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/concurrency_showcase.css' %}">
 </head>
-<body class="bg-black text-white font-sans">
+<body>
+<main class="concurrency-page">
+  <div class="cc-wrap">
+    <nav class="cc-nav" aria-label="Main navigation">
+      <a class="cc-brand" href="{% url 'portfolio:accueil' %}">
+        <span class="cc-brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>PROJECT / 007</span>
+      </a>
+      <a class="cc-back" href="{% url 'portfolio:accueil' %}"><span aria-hidden="true">←</span> Back to portfolio</a>
+    </nav>
 
-<section class="relative overflow-hidden">
-
-  <a href="{% url 'portfolio:accueil' %}"
-     class="absolute top-6 right-6 z-20 px-5 py-2.5 rounded-full
-            bg-gray-800/80 border border-gray-700
-            text-white font-semibold text-sm
-            hover:bg-white hover:text-black
-            transition duration-300">
-    ← Accueil
-  </a>
-
-  <div class="text-center py-24 px-4 relative z-10">
-  <section id="details" class="py-20 px-6 md:px-16 bg-gradient-to-br from-black to-gray-900">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-12">Fonctionnalités clés</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition">
-          <i class="i-cpp text-blue-400 text-4xl"></i>
-          <h3 class="text-xl font-semibold mt-4 mb-2">Problèmes simulés</h3>
-          <p class="text-gray-400">Barbier dormant, Buffet, Ascenseur, Phare, Benchmark… tous en multithread.</p>
+    <header class="cc-hero">
+      <span class="cc-eyebrow"><span class="cc-dot" aria-hidden="true"></span> C++ SYSTEMS PROGRAMMING</span>
+      <div class="cc-hero-grid">
+        <div>
+          <h1 class="cc-title">Concurrency,<br><span>made tangible.</span></h1>
+          <p class="cc-lead">A hands-on C++ playground exploring the mechanics of multithreading, synchronization and shared state through classic problems — from the sleeping barber to a busy elevator.</p>
+          <div class="cc-tags" aria-label="Technologies">
+            <span class="cc-tag">C++20</span>
+            <span class="cc-tag">std::thread</span>
+            <span class="cc-tag">Mutex &amp; condition variables</span>
+            <span class="cc-tag">CMake</span>
+          </div>
+          <div class="cc-actions">
+            <a class="cc-btn cc-btn-primary" href="https://github.com/MESLIMOHAMEDM22005188/ConcurrencyThreading" target="_blank" rel="noopener noreferrer">Explore source code <span aria-hidden="true">↗</span></a>
+            <a class="cc-btn cc-btn-secondary" href="#concepts">Explore the concepts <span aria-hidden="true">↓</span></a>
+          </div>
         </div>
-        <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition">
-          <i class="i-terminal text-green-400 text-4xl"></i>
-          <h3 class="text-xl font-semibold mt-4 mb-2">Menu interactif</h3>
-          <p class="text-gray-400">Une CLI propre qui vous permet de sélectionner et lancer vos scénarios préférés.</p>
-        </div>
-        <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition">
-          <i class="i-bolt text-yellow-400 text-4xl"></i>
-          <h3 class="text-xl font-semibold mt-4 mb-2">Performance mesurée</h3>
-          <p class="text-gray-400">Un benchmark intégré permet de visualiser les gains multithread.</p>
+
+        <div class="cc-terminal" aria-label="Illustrative terminal preview">
+          <div class="cc-terminal-head">
+            <span class="cc-window-dot"></span><span class="cc-window-dot"></span><span class="cc-window-dot"></span>
+            <span class="cc-terminal-label">concurrency_playground</span>
+          </div>
+          <div class="cc-terminal-body">
+            <div><span class="cc-prompt">$</span> <span class="cc-command">./concurrency_playground</span></div>
+            <div class="cc-code-muted">INITIALIZING THREADS...</div>
+            <div class="cc-terminal-rule"></div>
+            <div><span class="cc-code-blue">[01]</span> Spawn worker thread A</div>
+            <div><span class="cc-code-blue">[02]</span> Spawn worker thread B</div>
+            <div><span class="cc-code-blue">[03]</span> Synchronize shared state</div>
+            <div><span class="cc-code-blue">[04]</span> Join workers &amp; collect results</div>
+            <div class="cc-terminal-rule"></div>
+            <div class="cc-code-success"><span aria-hidden="true">●</span> Execution completed</div>
+            <div class="cc-code-muted">Status: ready for next scenario_</div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <section class="py-20 px-6 bg-black border-t border-gray-800">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-6">Pourquoi ce projet ?</h2>
-      <p class="text-gray-400 mb-8">Ce simulateur m’a permis de consolider mes bases en POO C++, de comprendre les subtilités de la synchronisation entre threads et d’explorer des cas réels de concurrence logicielle. Il produit même des logs HTML interactifs pour chaque scénario.</p>
-      <a href="https://github.com/MESLIMOHAMEDM22005188/ConcurrencyThreading" target="_blank" class="inline-block px-6 py-3 rounded-full bg-pink-500 hover:bg-pink-600 transition text-white font-semibold">Voir le code sur GitHub</a>
-    </div>
-  </section>
+    <section aria-label="Project at a glance">
+      <div class="cc-stats">
+        <div class="cc-stat"><strong>07</strong><span>Interactive scenarios</span></div>
+        <div class="cc-stat"><strong>C++20</strong><span>Language standard</span></div>
+        <div class="cc-stat"><strong>Threads</strong><span>Concurrent execution</span></div>
+        <div class="cc-stat"><strong>CMake</strong><span>Build system</span></div>
+      </div>
+    </section>
 
+    <section class="cc-section" id="concepts">
+      <div class="cc-section-heading">
+        <div>
+          <p class="cc-kicker">Inside the project</p>
+          <h2 class="cc-h2">Seven ways to explore concurrency.</h2>
+        </div>
+        <p class="cc-section-intro">Small, focused examples turn abstract threading concepts into observable behavior, with logs that help follow each scenario.</p>
+      </div>
+
+      <div class="cc-grid">
+        <article class="cc-card">
+          <span class="cc-feature-number">01 / THREADS</span><div class="cc-icon" aria-hidden="true">λ</div>
+          <h3>Parallel computation</h3>
+          <p>Split a summation task across worker threads, join them and combine the partial results.</p>
+        </article>
+        <article class="cc-card">
+          <span class="cc-feature-number">02 / MUTEX</span><div class="cc-icon" aria-hidden="true">⌁</div>
+          <h3>Thread-safe logging</h3>
+          <p>Protect shared log data with a mutex to demonstrate controlled access to shared state.</p>
+        </article>
+        <article class="cc-card">
+          <span class="cc-feature-number">03 / TIMING</span><div class="cc-icon" aria-hidden="true">↗</div>
+          <h3>Performance benchmark</h3>
+          <p>Measure elapsed execution time and introduce the basics of runtime measurement.</p>
+        </article>
+        <article class="cc-card">
+          <span class="cc-feature-number">04 / WAITING</span><div class="cc-icon" aria-hidden="true">◷</div>
+          <h3>The sleeping barber</h3>
+          <p>Explore waiting queues, customer arrival, condition variables and resource coordination.</p>
+        </article>
+        <article class="cc-card">
+          <span class="cc-feature-number">05 / QUEUES</span><div class="cc-icon" aria-hidden="true">↕</div>
+          <h3>The elevator</h3>
+          <p>Model floor requests arriving concurrently and the coordination of an elevator worker.</p>
+        </article>
+        <article class="cc-card">
+          <span class="cc-feature-number">06 / RESOURCES</span><div class="cc-icon" aria-hidden="true">▤</div>
+          <h3>The shared buffet</h3>
+          <p>Simulate competing consumers, a limited resource pool and replenishment events.</p>
+        </article>
+        <article class="cc-card">
+          <span class="cc-feature-number">07 / SIGNALS</span><div class="cc-icon" aria-hidden="true">⌁</div>
+          <h3>The lighthouse</h3>
+          <p>Observe a changing signal and ship threads reacting to shared state over time.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cc-section">
+      <div class="cc-section-heading">
+        <div>
+          <p class="cc-kicker">Engineering focus</p>
+          <h2 class="cc-h2">More than just starting threads.</h2>
+        </div>
+        <p class="cc-section-intro">The useful part of concurrency is coordination: deciding how threads share resources, wait, and finish predictably.</p>
+      </div>
+
+      <div class="cc-two-col">
+        <article class="cc-panel">
+          <h3>What this project demonstrates</h3>
+          <ul class="cc-list">
+            <li><span class="cc-check" aria-hidden="true">✓</span><span>Creating and joining threads with the C++ standard library.</span></li>
+            <li><span class="cc-check" aria-hidden="true">✓</span><span>Protecting shared data using mutexes and lock guards.</span></li>
+            <li><span class="cc-check" aria-hidden="true">✓</span><span>Coordinating activity with condition variables and queues.</span></li>
+            <li><span class="cc-check" aria-hidden="true">✓</span><span>Separating scenarios into focused source and header files.</span></li>
+          </ul>
+        </article>
+        <article class="cc-panel">
+          <h3>Build it locally</h3>
+          <p class="cc-section-intro" style="margin-bottom:17px">Requirements: a C++20-compatible compiler and CMake 3.26 or later.</p>
+          <pre class="cc-codeblock"><code><span class="comment"># Configure the project</span>
+<span class="kw">cmake</span> -S . -B build
+
+<span class="comment"># Build the executable</span>
+<span class="kw">cmake</span> --build build</code></pre>
+          <p class="cc-section-intro" style="margin-top:15px">The build output is generated in the <code>build</code> directory.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cc-section">
+      <div class="cc-cta">
+        <div>
+          <p class="cc-kicker">Explore the implementation</p>
+          <h2 class="cc-h2">Curious about what happens under the hood?</h2>
+          <p>Browse the C++ source, inspect the synchronization mechanisms, and follow how each scenario is assembled.</p>
+        </div>
+        <a class="cc-btn cc-btn-primary" href="https://github.com/MESLIMOHAMEDM22005188/ConcurrencyThreading" target="_blank" rel="noopener noreferrer">View repository <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <footer class="cc-footer">
+      <span>C++ CONCURRENCY PLAYGROUND</span>
+      <span style="float:right">Built to learn by observing.</span>
+    </footer>
+  </div>
+</main>
 </body>
 </html>
