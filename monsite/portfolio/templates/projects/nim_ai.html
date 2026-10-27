@@ -1,97 +1,189 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jeu de Nim – IA Apprenante</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    .carousel {
-      display: flex;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
-    .carousel::-webkit-scrollbar {
-      display: none;
-    }
-    .carousel:hover {
-      animation-play-state: paused;
-    }
-    .carousel img {
-      min-width: 100%;
-      transition: transform 0.3s ease;
-    }
-    .carousel img:hover {
-      transform: scale(1.05);
-    }
-    @keyframes scrollGallery {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-    .carousel-auto-scroll {
-      animation: scrollGallery 20s linear infinite;
-    }
-  </style>
+  <meta name="theme-color" content="#090b13">
+  <meta name="description" content="Discover NimIA, a Python and Tkinter Nim game featuring human play, a random bot, and a learning AI.">
+  <title>NimIA — Learning AI for the Game of Nim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/nim_ai_showcase.css' %}?v=1">
 </head>
-<body class="bg-black text-white">
+<body>
+<main class="nim-page">
+  <div class="nim-wrap">
+    <nav class="nim-nav" aria-label="Main navigation">
+      <a class="nim-brand" href="{% url 'portfolio:accueil' %}">
+        <span class="nim-mark" aria-hidden="true">N₁</span>
+        <span>NIMIA / LEARNING SYSTEMS</span>
+      </a>
+      <a class="nim-back" href="{% url 'portfolio:accueil' %}"><span aria-hidden="true">←</span> Back to portfolio</a>
+    </nav>
 
-  <section class="relative text-center py-20 px-6">
+    <header class="nim-hero">
+      <div class="nim-hero-grid">
+        <div>
+          <span class="nim-eyebrow"><span class="nim-live-dot" aria-hidden="true"></span> GAME AI · PYTHON</span>
+          <h1 class="nim-title">A simple game.<br><span>A smarter opponent.</span></h1>
+          <p class="nim-lead">NimIA brings the classic game of Nim to life with a desktop interface, multiple play modes, and an experimental learning bot. A compact project exploring game logic, decision-making, and the foundations of reinforcement learning.</p>
+          <div class="nim-tags" aria-label="Technologies">
+            <span class="nim-tag">Python</span>
+            <span class="nim-tag">Tkinter</span>
+            <span class="nim-tag">Game theory</span>
+            <span class="nim-tag">Learning bot</span>
+            <span class="nim-tag">CSV logging</span>
+          </div>
+          <div class="nim-actions">
+            <a class="nim-btn nim-btn-primary" href="https://github.com/MESLIMOHAMEDM22005188/NimIA" target="_blank" rel="noopener noreferrer">Explore the source code <span aria-hidden="true">↗</span></a>
+            <a class="nim-btn nim-btn-secondary" href="#features">Explore the project <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
 
-  <a href="{% url 'portfolio:accueil' %}"
-     class="absolute top-6 right-6 z-20 px-5 py-2.5 rounded-full
-            bg-gray-800/80 border border-gray-700
-            text-white font-semibold text-sm
-            hover:bg-white hover:text-black
-            transition duration-300">
-    ← Accueil
-  </a>
-
-  <h1 class="text-5xl font-bold bg-gradient-to-r from-blue-400 via-pink-500 to-red-500 text-transparent bg-clip-text">
-    Jeu de Nim – IA Apprenante
-  </h1>
-
-  <p class="mt-6 text-lg text-gray-300 max-w-2xl mx-auto">
-    Une IA qui apprend partie après partie. Interface claire, mode sombre, statistiques intégrées… et un seul but : vous battre !
-  </p>
-
-</section>
-
-  <section class="px-4 md:px-12 py-10">
-    <div class="overflow-hidden rounded-2xl border border-gray-700">
-      <div class="carousel carousel-auto-scroll flex space-x-6">
-        <img src="img1.png" alt="Capture 1" class="rounded-xl">
-        <img src="img2.png" alt="Capture 2" class="rounded-xl">
-        <img src="img3.png" alt="Capture 3" class="rounded-xl">
-        <img src="img4.png" alt="Capture 4" class="rounded-xl">
+        <aside class="nim-game-card" aria-label="Illustration of the Nim game">
+          <div class="nim-game-top">
+            <span class="nim-game-name">NIMIA · MATCHSTICK TABLE</span>
+            <span class="nim-turn">PLAYER 01 / TURN</span>
+          </div>
+          <div class="nim-pile-area">
+            <div class="nim-pile-label"><span>One pile</span><span>10 sticks remaining</span></div>
+            <div class="nim-sticks" aria-hidden="true">
+              <span class="nim-stick"></span><span class="nim-stick"></span><span class="nim-stick"></span><span class="nim-stick"></span><span class="nim-stick"></span><span class="nim-stick"></span><span class="nim-stick"></span><span class="nim-stick"></span><span class="nim-stick"></span><span class="nim-stick"></span>
+            </div>
+          </div>
+          <div class="nim-game-bottom">
+            <span>Take up to 3 sticks per move</span>
+            <span class="nim-thinking"><i></i><i></i><i></i> AI thinking</span>
+          </div>
+        </aside>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <section class="py-16 px-6">
-    <h2 class="text-3xl font-bold mb-8 text-center">Fonctionnalités clés</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-      <div class="bg-gray-800 p-6 rounded-2xl">
-        <h3 class="text-xl font-semibold">Modes de jeu</h3>
-        <p class="text-gray-400 mt-2">Humain vs Humain, Bot aléatoire, ou IA intelligente qui apprend et évolue.</p>
+    <section aria-label="Project overview">
+      <div class="nim-metrics">
+        <div class="nim-metric"><strong>03</strong><span>Play modes</span></div>
+        <div class="nim-metric"><strong>Python</strong><span>Core language</span></div>
+        <div class="nim-metric"><strong>Tkinter</strong><span>Desktop UI</span></div>
+        <div class="nim-metric"><strong>CSV</strong><span>Episode logging</span></div>
       </div>
-      <div class="bg-gray-800 p-6 rounded-2xl">
-        <h3 class="text-xl font-semibold">IA évolutive</h3>
-        <p class="text-gray-400 mt-2">Apprentissage par renforcement, entraînement en un clic, et comportement dynamique.</p>
-      </div>
-      <div class="bg-gray-800 p-6 rounded-2xl">
-        <h3 class="text-xl font-semibold">Statistiques IA</h3>
-        <p class="text-gray-400 mt-2">Suivi visuel de la progression, analyse des coups, taux de réussite affiché.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="py-10 px-6 border-t border-gray-800 text-center">
-    <p class="text-gray-400 max-w-xl mx-auto mb-6">Développé avec Python et Tkinter dans PyCharm, ce projet m’a permis de mettre en œuvre une IA simple mais évolutive, sans utiliser de framework ML. Une belle entrée en matière dans le monde de l’apprentissage machine !</p>
-    <a href="https://github.com/MESLIMOHAMEDM22005188/NimIA" target="_blank" class="inline-block px-6 py-3 bg-pink-500 hover:bg-pink-600 transition rounded-full text-white font-semibold">
-      Voir le code sur GitHub
-    </a>
-  </section>
+    <section class="nim-section" id="features">
+      <div class="nim-section-head">
+        <div>
+          <p class="nim-kicker">Project capabilities</p>
+          <h2 class="nim-h2">A small game with real AI concepts.</h2>
+        </div>
+        <p class="nim-section-intro">The experience combines a simple game loop with player strategies and a learning-oriented bot architecture.</p>
+      </div>
 
+      <div class="nim-feature-grid">
+        <article class="nim-feature">
+          <div class="nim-feature-icon" aria-hidden="true">↔</div>
+          <h3>Three ways to play</h3>
+          <p>Switch between human-versus-human, human-versus-random-bot, and human-versus-learning-bot modes.</p>
+        </article>
+        <article class="nim-feature">
+          <div class="nim-feature-icon" aria-hidden="true">◎</div>
+          <h3>Learning-oriented bot</h3>
+          <p>Explore a dedicated bot class, episode tracking, and a structure that can be extended with smarter strategies.</p>
+        </article>
+        <article class="nim-feature">
+          <div class="nim-feature-icon" aria-hidden="true">▥</div>
+          <h3>Experiment logging</h3>
+          <p>Write episode and move information to CSV to make gameplay behavior easier to inspect and analyze.</p>
+        </article>
+        <article class="nim-feature">
+          <div class="nim-feature-icon" aria-hidden="true">▤</div>
+          <h3>Visual game board</h3>
+          <p>Play through a Tkinter interface with clickable sticks, turn indicators, and move confirmation.</p>
+        </article>
+        <article class="nim-feature">
+          <div class="nim-feature-icon" aria-hidden="true">◐</div>
+          <h3>Light and dark themes</h3>
+          <p>Choose a display theme and keep the interface comfortable for different environments.</p>
+        </article>
+        <article class="nim-feature">
+          <div class="nim-feature-icon" aria-hidden="true">⌘</div>
+          <h3>Modular Python code</h3>
+          <p>Separate the game rules, player types, interface, and data logging into focused modules.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="nim-section">
+      <div class="nim-section-head">
+        <div>
+          <p class="nim-kicker">Under the hood</p>
+          <h2 class="nim-h2">From rules to decisions.</h2>
+        </div>
+        <p class="nim-section-intro">The project is organized around the game state, the current player, legal moves, and a UI that reflects every turn.</p>
+      </div>
+
+      <div class="nim-two-col">
+        <article class="nim-panel">
+          <h3>Core components</h3>
+          <ul class="nim-list">
+            <li><span class="nim-check" aria-hidden="true">✓</span><span><strong>Game model</strong> — represents the pile state, applies moves, and detects the end of a match.</span></li>
+            <li><span class="nim-check" aria-hidden="true">✓</span><span><strong>Player strategies</strong> — share a common interface for human and bot-controlled turns.</span></li>
+            <li><span class="nim-check" aria-hidden="true">✓</span><span><strong>Learning bot wrapper</strong> — tracks episodes and logs move context for future experiments.</span></li>
+            <li><span class="nim-check" aria-hidden="true">✓</span><span><strong>Tkinter interface</strong> — connects the visual board to game state and player actions.</span></li>
+          </ul>
+        </article>
+        <article class="nim-panel">
+          <h3>How a turn works</h3>
+          <div class="nim-flow">
+            <div class="nim-flow-step"><span class="nim-step-no">01</span><div class="nim-step-text"><strong>Select sticks</strong><span>The player chooses a legal number of sticks.</span></div></div>
+            <div class="nim-flow-step"><span class="nim-step-no">02</span><div class="nim-step-text"><strong>Validate the move</strong><span>The game updates the pile and active player.</span></div></div>
+            <div class="nim-flow-step"><span class="nim-step-no">03</span><div class="nim-step-text"><strong>Run the next player</strong><span>A human or bot supplies the next move.</span></div></div>
+            <div class="nim-flow-step"><span class="nim-step-no">04</span><div class="nim-step-text"><strong>Record and repeat</strong><span>The match continues until the terminal state.</span></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="nim-section">
+      <div class="nim-section-head">
+        <div>
+          <p class="nim-kicker">Learning journey</p>
+          <h2 class="nim-h2">What this project makes possible.</h2>
+        </div>
+        <p class="nim-section-intro">Nim is a useful sandbox: its rules are small enough to understand, but its strategy creates meaningful opportunities for experimentation.</p>
+      </div>
+      <div class="nim-gallery">
+        <article class="nim-gallery-item">
+          <div><span class="nim-gallery-label">01 / Game logic</span><h3>Understand state and legal actions</h3><p>Model a match, prevent invalid moves, and define a precise end condition.</p></div>
+        </article>
+        <article class="nim-gallery-item">
+          <div><span class="nim-gallery-label">02 / Strategy</span><h3>Compare decision-making approaches</h3><p>Observe how a random opponent differs from strategies designed to improve play.</p></div>
+        </article>
+        <article class="nim-gallery-item">
+          <div><span class="nim-gallery-label">03 / Experiments</span><h3>Collect data from matches</h3><p>Use episode logs as a foundation for analyzing moves and testing future changes.</p></div>
+        </article>
+        <article class="nim-gallery-item">
+          <div><span class="nim-gallery-label">04 / Next iteration</span><h3>Build a stronger learning loop</h3><p>Extend the prototype with explicit rewards, policy updates, evaluation runs, and win-rate tracking.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="nim-section">
+      <div class="nim-cta">
+        <div>
+          <p class="nim-kicker">Explore the implementation</p>
+          <h2 class="nim-h2">Want to inspect the code?</h2>
+          <p>Browse NimIA’s Python modules, follow the separation between game logic and UI, and explore how the learning bot currently records its decisions.</p>
+        </div>
+        <a class="nim-btn nim-btn-primary" href="https://github.com/MESLIMOHAMEDM22005188/NimIA" target="_blank" rel="noopener noreferrer">View NimIA on GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <footer class="nim-footer">
+      <span>NIMIA / GAME AI EXPERIMENT</span>
+      <span>Python · Tkinter · Game strategy</span>
+    </footer>
+  </div>
+</main>
 </body>
 </html>
