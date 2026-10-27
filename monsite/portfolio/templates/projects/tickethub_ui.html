@@ -1,509 +1,139 @@
-<html lang="fr">
+{% load static %}
+<!doctype html>
+<html lang="en">
 <head>
-  {% load static %}
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Ticket Management System – Django Web Application</title>
-
-  <link
-    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-    rel="stylesheet"
-  >
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="TicketHub — a responsive support ticket workspace prototype built with HTML, CSS and JavaScript. Explore its dashboard, ticket workflow and front-end architecture.">
+  <title>TicketHub UI — Support Workspace | Mohamed Mesli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
-    .carousel {
-      display: flex;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .carousel::-webkit-scrollbar {
-      display: none;
-    }
-
-    .carousel:hover {
-      animation-play-state: paused;
-    }
-
-    .carousel img {
-      min-width: 100%;
-      transition: transform 0.4s ease;
-    }
-
-    .carousel img:hover {
-      transform: scale(1.03);
-    }
-
-    @keyframes scrollGallery {
-      0% {
-        transform: translateX(0);
-      }
-
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
-    .carousel-auto-scroll {
-      animation: scrollGallery 20s linear infinite;
-    }
-
-    .gradient-text {
-      background: linear-gradient(
-        90deg,
-        #4ade80,
-        #3b82f6,
-        #a855f7
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .glass {
-      background: rgba(17, 24, 39, 0.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .feature-card {
-      transition: all 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(59, 130, 246, 0.4);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-    }
-
-    .badge {
-      background: rgba(31, 41, 55, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
+    :root{color-scheme:dark;--bg:#080b14;--surface:#101522;--surface-2:#151b2b;--line:rgba(180,190,225,.13);--text:#f5f6ff;--muted:#9aa3bb;--purple:#9a8cff;--mint:#72e0bd;--blue:#7da8ff;--radius:20px;font-family:"DM Sans",sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:radial-gradient(ellipse at 82% 0%,rgba(94,75,210,.16),transparent 36%),var(--bg);color:var(--text);font-size:14px;line-height:1.6}a{color:inherit;text-decoration:none}button{font:inherit}.container{width:min(1160px,calc(100% - 44px));margin-inline:auto}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;background:rgba(8,11,20,.82);backdrop-filter:blur(18px)}.nav-inner{display:flex;align-items:center;justify-content:space-between;width:min(1240px,calc(100% - 44px));margin:auto}.brand{display:flex;align-items:center;gap:11px;font:800 17px Manrope,sans-serif;letter-spacing:-.6px}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:linear-gradient(145deg,#9b8aff,#6654d7);box-shadow:0 8px 24px #7762ef40}.brand-mark svg{width:22px;height:22px;stroke:white;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.brand span:last-child{color:#bfc5d8;font-weight:500}.nav-actions{display:flex;align-items:center;gap:25px;color:var(--muted);font-size:12px}.nav-actions a:hover{color:#fff}.nav-cta,.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:999px;padding:11px 17px;font-size:12px;font-weight:700;transition:transform .2s,border-color .2s,background .2s}.nav-cta,.button-primary{background:#f5f4ff;color:#171528;border:1px solid #f5f4ff}.nav-cta:hover,.button-primary:hover{transform:translateY(-2px);background:#dcd7ff}.button-secondary{border:1px solid var(--line);background:rgba(255,255,255,.035);color:#f1f2fb}.button-secondary:hover{border-color:#9284f0;background:rgba(145,128,255,.1)}.hero{padding:88px 0 62px;position:relative;overflow:hidden}.hero-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:54px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:#b2aaff;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}.eyebrow:before{content:"";height:1px;width:22px;background:var(--purple)}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:Manrope,sans-serif}h1{font-size:clamp(42px,5.3vw,67px);line-height:1.05;letter-spacing:-3px;margin:20px 0}.gradient{background:linear-gradient(105deg,#c5bdff 5%,#8faaff 48%,#72e0bd 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.hero-copy{max-width:520px;color:#a9b1c6;font-size:15px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:27px}.hero-meta{display:flex;align-items:center;gap:14px;margin-top:31px;color:#828ba5;font-size:11px}.meta-dot{width:4px;height:4px;background:#525c77;border-radius:50%}.pill{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:999px;background:rgba(114,224,189,.08);border:1px solid rgba(114,224,189,.2);color:#9cebd2;font-size:10px;font-weight:700}.pill:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--mint)}.preview-frame{border:1px solid rgba(169,179,224,.2);border-radius:19px;background:#0c101c;padding:10px;box-shadow:0 30px 90px #0008,0 0 65px #7965ff10;transform:perspective(1200px) rotateY(-3deg) rotateX(1deg)}.preview-top{height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 8px 8px;color:#78819a;font-size:9px}.window-dots{display:flex;gap:4px}.window-dots i{height:6px;width:6px;border-radius:50%;background:#343a4c}.preview-app{display:grid;grid-template-columns:105px 1fr;min-height:320px;border:1px solid #20273a;border-radius:12px;overflow:hidden;background:#f7f8fc;color:#262a3d;font-size:7px}.preview-sidebar{background:#fff;border-right:1px solid #e8eaf2;padding:13px 9px}.preview-logo{font:800 10px Manrope;margin-bottom:22px}.preview-logo span{color:#7563e6}.preview-label{font-size:5px;letter-spacing:1px;color:#a0a4b4;margin:13px 0 7px}.preview-nav{padding:7px 6px;border-radius:5px;color:#858ba0;margin:3px 0}.preview-nav.active{background:#efedff;color:#6956d9;font-weight:700}.preview-main{padding:15px 13px}.preview-greeting{font:800 13px Manrope;letter-spacing:-.4px}.preview-sub{font-size:6px;color:#969bad;margin:3px 0 13px}.preview-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.preview-stat{padding:8px 7px;background:white;border:1px solid #e9ebf2;border-radius:6px}.preview-stat span{display:block;color:#959bad;font-size:5px}.preview-stat strong{display:block;font:800 13px Manrope;margin-top:4px}.preview-section{display:grid;grid-template-columns:1.6fr .9fr;gap:7px;margin-top:9px}.preview-box{background:white;border:1px solid #e9ebf2;border-radius:6px;padding:8px;min-width:0}.preview-box-title{font:800 7px Manrope;margin-bottom:7px}.fake-row{display:grid;grid-template-columns:1.6fr .8fr .7fr;align-items:center;gap:5px;padding:7px 0;border-top:1px solid #f0f1f6;color:#6e7488;font-size:5px}.fake-row b{font-size:5px;color:#4b5065;font-weight:700;overflow:hidden}.fake-tag{display:inline-block;border-radius:3px;padding:3px 4px;background:#edf2ff;color:#557be5;font-size:5px}.fake-tag.purple{background:#f0edff;color:#8668df}.fake-tag.green{background:#e8f8f1;color:#20a779}.fake-agent{display:flex;align-items:center;gap:5px;padding:6px 0;border-top:1px solid #f0f1f6;font-size:5px;color:#70758a}.fake-avatar{width:14px;height:14px;border-radius:50%;background:#e9e4ff;flex-shrink:0}.fake-avatar.orange{background:#ffe9d8}.fake-avatar.green{background:#dff7ed}.section{padding:82px 0}.section-alt{background:linear-gradient(180deg,rgba(255,255,255,.015),transparent);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.section-head{max-width:650px;margin-bottom:33px}.section-head.center{text-align:center;margin:0 auto 38px}.section-head h2{font-size:clamp(29px,3.8vw,43px);line-height:1.16;letter-spacing:-1.6px;margin:13px 0}.section-head p{color:var(--muted);font-size:13px;line-height:1.8;margin-bottom:0}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature-card{border:1px solid var(--line);border-radius:var(--radius);padding:25px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));transition:transform .22s,border-color .22s,background .22s}.feature-card:hover{transform:translateY(-5px);border-color:#8375e566;background:linear-gradient(145deg,rgba(143,126,255,.1),rgba(255,255,255,.02))}.feature-icon{height:39px;width:39px;border:1px solid #9c8cff35;background:#9c8cff12;color:#c2baff;border-radius:12px;display:grid;place-items:center;margin-bottom:21px}.feature-icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.feature-card h3{font-size:15px;margin-bottom:9px;letter-spacing:-.2px}.feature-card p{font-size:12px;line-height:1.8;color:var(--muted);margin:0}.feature-number{font-size:10px;letter-spacing:1px;color:#7c6ee0;font-weight:700;margin-bottom:16px}.workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.workflow-step{position:relative;padding:23px 19px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}.workflow-step:not(:last-child):after{content:"→";position:absolute;right:-11px;top:25px;z-index:1;color:#8c80e7;background:var(--bg);width:20px;text-align:center}.step-no{font:800 23px Manrope;color:#9587ff;margin-bottom:19px}.workflow-step h3{font-size:13px;margin-bottom:6px}.workflow-step p{font-size:11px;line-height:1.7;color:var(--muted);margin:0}.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stack-card{padding:19px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.025)}.stack-card strong{display:block;font:700 13px Manrope;margin-bottom:5px}.stack-card span{font-size:11px;color:var(--muted)}.scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.scope-card{padding:24px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.025)}.scope-card h3{font-size:14px;margin-bottom:12px}.scope-card ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}.scope-card li{font-size:12px;color:var(--muted);display:flex;gap:9px;align-items:flex-start}.scope-card li:before{content:"✓";color:var(--mint);font-weight:700}.scope-card.limit li:before{content:"—";color:#e9b46c}.callout{margin-top:17px;padding:15px 17px;border:1px solid rgba(125,168,255,.18);border-radius:12px;background:rgba(125,168,255,.06);color:#aeb9d2;font-size:11px;line-height:1.8}.cta{padding:38px;border:1px solid rgba(163,149,255,.22);border-radius:24px;background:radial-gradient(ellipse at 100% 0%,rgba(121,102,255,.15),transparent 50%),#111522;display:flex;align-items:center;justify-content:space-between;gap:24px}.cta h2{font-size:27px;letter-spacing:-.8px;margin:10px 0}.cta p{font-size:12px;color:var(--muted);margin:0}.cta-actions{display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0}.footer{border-top:1px solid var(--line);padding:24px 0;color:#77819a;font-size:10px}.footer-inner{display:flex;justify-content:space-between;gap:15px;align-items:center}.footer a:hover{color:white}.mobile-menu{display:none}
+    @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px}.hero-copy{max-width:650px}.preview-frame{transform:none;max-width:700px;width:100%;margin:auto}.feature-grid{grid-template-columns:repeat(2,1fr)}.workflow{grid-template-columns:repeat(2,1fr)}.workflow-step:nth-child(2):after{display:none}.stack-grid{grid-template-columns:repeat(2,1fr)}.cta{align-items:flex-start;flex-direction:column}.cta-actions{flex-shrink:1}}
+    @media(max-width:600px){.container,.nav-inner{width:calc(100% - 32px)}.topbar{height:64px}.nav-actions a:not(.nav-cta){display:none}.nav-actions{gap:0}.nav-cta{padding:9px 12px;font-size:10px}.hero{padding:60px 0 43px}h1{font-size:43px;letter-spacing:-2px}.hero-copy{font-size:13px}.hero-meta{flex-wrap:wrap;gap:9px}.preview-app{grid-template-columns:78px 1fr;min-height:260px}.preview-sidebar{padding:10px 6px}.preview-main{padding:10px 7px}.preview-stats{grid-template-columns:repeat(2,1fr)}.preview-section{grid-template-columns:1fr}.preview-section .preview-box:last-child{display:none}.preview-stat{padding:6px}.preview-stat strong{font-size:11px}.section{padding:59px 0}.feature-grid,.scope-grid{grid-template-columns:1fr}.feature-card{padding:21px}.workflow{grid-template-columns:1fr 1fr;gap:8px}.workflow-step{padding:16px 13px}.workflow-step:after{display:none!important}.stack-grid{gap:8px}.stack-card{padding:14px}.cta{padding:24px}.cta h2{font-size:23px}.footer-inner{align-items:flex-start;flex-direction:column}.hero-buttons .button{flex:1}.section-head h2{font-size:31px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
   </style>
 </head>
-
-<body class="bg-black text-white">
-
-  <!-- ========================= -->
-  <!-- HERO -->
-  <!-- ========================= -->
-
-  <section class="relative text-center py-24 px-6">
-
-    <!-- Retour accueil -->
-    <a
-      href="{% url 'portfolio:accueil' %}"
-      class="absolute top-6 right-6 z-20 px-5 py-2.5 rounded-full
-             bg-gray-800/80 border border-gray-700
-             text-white font-semibold text-sm
-             hover:bg-white hover:text-black
-             transition duration-300 shadow-lg"
-    >
-      ← Accueil
-    </a>
-
-    <div class="max-w-4xl mx-auto">
-
-      <span class="inline-block badge px-4 py-2 rounded-full text-sm text-gray-300 mb-7">
-        Django · Python · Ticketing System
-      </span>
-
-      <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
-        <span class="gradient-text">
-          Ticket Management System
-        </span>
-      </h1>
-
-      <p class="mt-7 text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
-        A Django-based web application designed to centralize support
-        requests and provide users and administrators with a clear,
-        structured and efficient ticket management workflow.
-      </p>
-
-      <div class="mt-10 flex justify-center gap-4 flex-wrap">
-
-        <a
-          href="{% url 'portfolio:accueil' %}"
-          class="px-7 py-3 rounded-full
-                 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500
-                 text-black font-bold
-                 hover:scale-105 transition transform shadow-xl"
-        >
-          ← Back to Portfolio
-        </a>
-
-        <a
-          href="#features"
-          class="px-7 py-3 rounded-full glass
-                 border border-gray-700
-                 font-semibold
-                 hover:bg-gray-800 transition"
-        >
-          Explore the project
-        </a>
-
-      </div>
-
+<body>
+  <header class="topbar">
+    <div class="nav-inner">
+      <a class="brand" href="{% url 'portfolio:accueil' %}" aria-label="Return to portfolio">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h16v3a2.5 2.5 0 0 0 0 5v2H4v-2a2.5 2.5 0 0 0 0-5z"/><path d="M12 8.5v1.5m0 2v1.5"/></svg></span>
+        <span>TicketHub <span>/ case study</span></span>
+      </a>
+      <nav class="nav-actions" aria-label="Page navigation">
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#stack">Tech stack</a>
+        <a class="nav-cta" href="https://github.com/MESLIMOHAMEDM22005188/TicketHub" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
+      </nav>
     </div>
+  </header>
 
-  </section>
-
-
-  <!-- ========================= -->
-  <!-- SCREENSHOTS -->
-  <!-- ========================= -->
-
-  <section class="px-4 md:px-12 py-12">
-
-    <div class="max-w-6xl mx-auto">
-
-      <div class="overflow-hidden rounded-3xl border border-gray-800 shadow-2xl">
-
-        <div class="carousel carousel-auto-scroll flex space-x-6">
-
-          <img
-            src="img1.png"
-            alt="Ticket creation interface"
-            class="rounded-xl"
-          >
-
-          <img
-            src="img2.png"
-            alt="User dashboard"
-            class="rounded-xl"
-          >
-
-          <img
-            src="img3.png"
-            alt="Ticket management interface"
-            class="rounded-xl"
-          >
-
-          <img
-            src="admin_dashboard.png"
-            alt="Administrator dashboard"
-            class="rounded-xl"
-          >
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ========================= -->
-  <!-- OVERVIEW -->
-  <!-- ========================= -->
-
-  <section class="px-6 py-20">
-
-    <div class="max-w-6xl mx-auto">
-
-      <div class="text-center mb-14">
-
-        <p class="text-blue-400 uppercase tracking-widest text-sm font-semibold">
-          Project Overview
-        </p>
-
-        <h2 class="text-4xl md:text-5xl font-bold mt-3">
-          A complete <span class="gradient-text">support workflow</span>
-        </h2>
-
-        <p class="text-gray-400 max-w-2xl mx-auto mt-5 leading-relaxed">
-          The application provides a centralized environment where users
-          can submit support requests while administrators can monitor,
-          organize and respond to them from a dedicated dashboard.
-        </p>
-
-      </div>
-
-
-      <div id="features" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-        <!-- FEATURE 1 -->
-        <div class="feature-card glass p-7 rounded-2xl">
-
-          <div class="text-4xl mb-5">
-            🎫
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Frontend case study · 2026</span>
+          <h1>Support that feels <span class="gradient">under control.</span></h1>
+          <p class="hero-copy">TicketHub is a modern support workspace concept designed to make ticket triage clearer, team workload easier to scan, and everyday support actions feel effortless.</p>
+          <div class="hero-buttons">
+            <a class="button button-primary" href="#features">Explore the interface <span aria-hidden="true">↓</span></a>
+            <a class="button button-secondary" href="https://github.com/MESLIMOHAMEDM22005188/TicketHub" target="_blank" rel="noopener noreferrer">Source code ↗</a>
           </div>
-
-          <h3 class="text-xl font-bold">
-            Ticket Creation
-          </h3>
-
-          <p class="text-gray-400 mt-3 leading-relaxed">
-            Users can create detailed support tickets with a category,
-            urgency level, description, attachment and problem date.
-          </p>
-
+          <div class="hero-meta"><span class="pill">Responsive UI</span><span>HTML · CSS · JavaScript</span><span class="meta-dot"></span><span>Front-end prototype</span></div>
         </div>
-
-
-        <!-- FEATURE 2 -->
-        <div class="feature-card glass p-7 rounded-2xl">
-
-          <div class="text-4xl mb-5">
-            👤
+        <div class="preview-frame" role="img" aria-label="Illustrative preview of the TicketHub support dashboard">
+          <div class="preview-top"><span class="window-dots"><i></i><i></i><i></i></span><span>app.tickethub.local / overview</span><span>•••</span></div>
+          <div class="preview-app">
+            <aside class="preview-sidebar"><div class="preview-logo">ticket<span>hub</span></div><div class="preview-label">WORKSPACE</div><div class="preview-nav active">⌂ &nbsp; Overview</div><div class="preview-nav">▤ &nbsp; All tickets</div><div class="preview-nav">♙ &nbsp; Assigned to me</div><div class="preview-nav">◷ &nbsp; Activity</div><div class="preview-label">SAVED VIEWS</div><div class="preview-nav">● &nbsp; Open</div><div class="preview-nav">● &nbsp; In progress</div><div class="preview-nav">● &nbsp; Resolved</div></aside>
+            <div class="preview-main"><div class="preview-greeting">Good morning, Jordan</div><div class="preview-sub">Here’s what’s happening with your support team today.</div><div class="preview-stats"><div class="preview-stat"><span>Open tickets</span><strong>08</strong></div><div class="preview-stat"><span>In progress</span><strong>03</strong></div><div class="preview-stat"><span>Resolved this week</span><strong>24</strong></div><div class="preview-stat"><span>First response</span><strong>18m</strong></div></div>
+              <div class="preview-section"><div class="preview-box"><div class="preview-box-title">Recent tickets</div><div class="fake-row"><b>Unable to reset password</b><span>Olivia Chen</span><span class="fake-tag">Open</span></div><div class="fake-row"><b>Invoice discrepancy</b><span>Marcus Reed</span><span class="fake-tag purple">In progress</span></div><div class="fake-row"><b>Dashboard takes too long</b><span>Priya Sharma</span><span class="fake-tag">Open</span></div><div class="fake-row"><b>Update team members</b><span>Noah Williams</span><span class="fake-tag green">Resolved</span></div><div class="fake-row"><b>CSV export failing</b><span>Emma Wilson</span><span class="fake-tag purple">In progress</span></div></div>
+              <div class="preview-box"><div class="preview-box-title">Team workload</div><div class="fake-agent"><i class="fake-avatar"></i><span>Alex Lee</span><b>6</b></div><div class="fake-agent"><i class="fake-avatar orange"></i><span>Sam Carter</span><b>5</b></div><div class="fake-agent"><i class="fake-avatar green"></i><span>Riley Park</span><b>4</b></div><div class="fake-agent"><i class="fake-avatar"></i><span>Jordan Miller</span><b>3</b></div></div></div>
+            </div>
           </div>
-
-          <h3 class="text-xl font-bold">
-            User Interface
-          </h3>
-
-          <p class="text-gray-400 mt-3 leading-relaxed">
-            Personalized user experience allowing users to access and
-            monitor the tickets they have created through a responsive interface.
-          </p>
-
         </div>
-
-
-        <!-- FEATURE 3 -->
-        <div class="feature-card glass p-7 rounded-2xl">
-
-          <div class="text-4xl mb-5">
-            🛠️
-          </div>
-
-          <h3 class="text-xl font-bold">
-            Administrator Dashboard
-          </h3>
-
-          <p class="text-gray-400 mt-3 leading-relaxed">
-            Administrators can manage users, create tickets, update
-            department information, handle alerts and centralize support
-            operations through a dedicated dashboard.
-          </p>
-
-        </div>
-
       </div>
+    </section>
 
-    </div>
-
-  </section>
-
-
-  <!-- ========================= -->
-  <!-- TECH STACK -->
-  <!-- ========================= -->
-
-  <section class="px-6 py-20 bg-gray-950">
-
-    <div class="max-w-6xl mx-auto">
-
-      <div class="text-center mb-14">
-
-        <p class="text-purple-400 uppercase tracking-widest text-sm font-semibold">
-          Technology Stack
-        </p>
-
-        <h2 class="text-4xl md:text-5xl font-bold mt-3">
-          Built with <span class="gradient-text">Django</span>
-        </h2>
-
+    <section class="section section-alt" id="features">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Designed for clarity</span>
+          <h2>Everything important. <span class="gradient">One workspace.</span></h2>
+          <p>The interface prioritizes quick scanning, predictable interactions, and a clear view of what needs attention next.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5h16v13H4z"/><path d="M4 9h16M8 5.5v13m4-6h4"/></svg></div><div class="feature-number">01 / OVERVIEW</div><h3>At-a-glance dashboard</h3><p>Ticket metrics, current workload and recent activity make it easier to understand the support queue without digging through multiple screens.</p></article>
+          <article class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4M8 10.8h5.5"/></svg></div><div class="feature-number">02 / DISCOVERY</div><h3>Search and smart filtering</h3><p>Find requests by ticket ID, subject, requester or category. Narrow the list by status and priority to focus on the next action.</p></article>
+          <article class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M5 4.5h14v15H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><div class="feature-number">03 / INTAKE</div><h3>Structured ticket creation</h3><p>A focused form captures the subject, requester, category, priority and description, with required-field validation before submission.</p></article>
+          <article class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3.5 19 7v5c0 4.5-3 7.2-7 9-4-1.8-7-4.5-7-9V7z"/><path d="m9 12 2 2 4-4"/></svg></div><div class="feature-number">04 / TRIAGE</div><h3>Status and priority visibility</h3><p>Distinct status and priority labels make urgent, open, in-progress and resolved tickets easy to distinguish in dense tables.</p></article>
+          <article class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.3-3.2 2.2-5 5.5-5s5.2 1.8 5.5 5M16 5.5a3 3 0 0 1 0 5.8M17 14c2.1.5 3.3 2.1 3.5 4.5"/></svg></div><div class="feature-number">05 / OWNERSHIP</div><h3>Personal queue and assignment</h3><p>See tickets assigned to the current demo user and reassign a request from its detail view to keep ownership explicit.</p></article>
+          <article class="feature-card"><div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg></div><div class="feature-number">06 / TRACEABILITY</div><h3>Activity timeline</h3><p>Recent ticket events are surfaced in a compact feed, giving the prototype a coherent overview of changes made during the session.</p></article>
+        </div>
       </div>
+    </section>
 
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <div class="feature-card glass rounded-2xl p-6">
-          <h3 class="font-bold text-xl mb-2">Python</h3>
-          <p class="text-gray-400">
-            Core programming language used to build the application.
-          </p>
+    <section class="section" id="workflow">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">Interaction model</span>
+          <h2>A straightforward path from <span class="gradient">intake to resolution.</span></h2>
+          <p>The prototype connects the main front-end actions into a single, easy-to-follow support workflow.</p>
         </div>
-
-        <div class="feature-card glass rounded-2xl p-6">
-          <h3 class="font-bold text-xl mb-2">Django</h3>
-          <p class="text-gray-400">
-            Web framework handling routing, application logic and backend structure.
-          </p>
+        <div class="workflow">
+          <article class="workflow-step"><div class="step-no">01</div><h3>Capture</h3><p>Create a request with a subject, requester, category, priority and description.</p></article>
+          <article class="workflow-step"><div class="step-no">02</div><h3>Prioritize</h3><p>Search and filter the queue to identify which ticket needs attention first.</p></article>
+          <article class="workflow-step"><div class="step-no">03</div><h3>Assign & update</h3><p>Open the details, assign the request and cycle through the available statuses.</p></article>
+          <article class="workflow-step"><div class="step-no">04</div><h3>Review</h3><p>Follow the activity feed and updated queue to review session-level changes.</p></article>
         </div>
-
-        <div class="feature-card glass rounded-2xl p-6">
-          <h3 class="font-bold text-xl mb-2">HTML / CSS</h3>
-          <p class="text-gray-400">
-            Interface structure and visual presentation.
-          </p>
-        </div>
-
-        <div class="feature-card glass rounded-2xl p-6">
-          <h3 class="font-bold text-xl mb-2">Tailwind CSS</h3>
-          <p class="text-gray-400">
-            Utility-based styling used to create the responsive interface.
-          </p>
-        </div>
-
       </div>
+    </section>
 
-    </div>
-
-  </section>
-
-
-  <!-- ========================= -->
-  <!-- USER FLOW -->
-  <!-- ========================= -->
-
-  <section class="px-6 py-20">
-
-    <div class="max-w-5xl mx-auto">
-
-      <div class="text-center mb-14">
-
-        <p class="text-green-400 uppercase tracking-widest text-sm font-semibold">
-          Workflow
-        </p>
-
-        <h2 class="text-4xl md:text-5xl font-bold mt-3">
-          From request to <span class="gradient-text">resolution.</span>
-        </h2>
-
+    <section class="section section-alt" id="stack">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Implementation</span>
+          <h2>Lightweight by design. <span class="gradient">No build step.</span></h2>
+          <p>The TicketHub UI is intentionally implemented as a static front-end prototype. It can be opened directly in a browser or served locally without installing a JavaScript framework.</p>
+        </div>
+        <div class="stack-grid">
+          <div class="stack-card"><strong>HTML5</strong><span>Semantic page structure and accessible form controls.</span></div>
+          <div class="stack-card"><strong>CSS3</strong><span>Responsive layout, reusable design tokens and interaction states.</span></div>
+          <div class="stack-card"><strong>Vanilla JavaScript</strong><span>Rendering, search, filtering, dialogs and session-level state.</span></div>
+          <div class="stack-card"><strong>Google Fonts</strong><span>DM Sans and Manrope for clear UI typography.</span></div>
+        </div>
       </div>
+    </section>
 
-
-      <div class="grid md:grid-cols-4 gap-5">
-
-        <div class="glass rounded-2xl p-6 text-center">
-
-          <div class="text-3xl mb-4">
-            01
-          </div>
-
-          <h3 class="font-bold">
-            Create
-          </h3>
-
-          <p class="text-gray-400 text-sm mt-2">
-            The user submits a support request.
-          </p>
-
+    <section class="section" id="scope">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Honest project scope</span>
+          <h2>A front-end prototype, <span class="gradient">not a fake production claim.</span></h2>
+          <p>The interface demonstrates a support workflow and its visual states. Production features that require trusted server-side behavior are intentionally outside this version.</p>
         </div>
-
-
-        <div class="glass rounded-2xl p-6 text-center">
-
-          <div class="text-3xl mb-4">
-            02
-          </div>
-
-          <h3 class="font-bold">
-            Review
-          </h3>
-
-          <p class="text-gray-400 text-sm mt-2">
-            The request is reviewed by the appropriate department.
-          </p>
-
+        <div class="scope-grid">
+          <article class="scope-card"><h3>Implemented in the UI</h3><ul><li>Responsive dashboard and mobile navigation</li><li>Demo ticket list with search and status/priority filters</li><li>Create-ticket form with basic validation</li><li>Ticket details, status updates and assignment</li><li>Personal queue, activity feed and toast feedback</li></ul></article>
+          <article class="scope-card limit"><h3>Not implemented yet</h3><ul><li>Backend API, database persistence and authentication</li><li>Changes reset when the page is refreshed</li><li>Real email, push notifications and file uploads</li><li>Server-side permissions and production audit logs</li><li>Live team metrics; displayed figures are sample data</li></ul></article>
         </div>
-
-
-        <div class="glass rounded-2xl p-6 text-center">
-
-          <div class="text-3xl mb-4">
-            03
-          </div>
-
-          <h3 class="font-bold">
-            Manage
-          </h3>
-
-          <p class="text-gray-400 text-sm mt-2">
-            Administrators manage the ticket and communicate with users.
-          </p>
-
-        </div>
-
-
-        <div class="glass rounded-2xl p-6 text-center">
-
-          <div class="text-3xl mb-4">
-            04
-          </div>
-
-          <h3 class="font-bold">
-            Resolve
-          </h3>
-
-          <p class="text-gray-400 text-sm mt-2">
-            The support process is tracked until the issue is resolved.
-          </p>
-
-        </div>
-
+        <div class="callout">This distinction is deliberate: the repository currently focuses on the front-end experience. Persistence, authentication and authorization should be added in a separate backend implementation rather than simulated as secure functionality in the browser.</div>
       </div>
+    </section>
 
-    </div>
-
-  </section>
-
-
-  <!-- ========================= -->
-  <!-- PROJECT NOTES -->
-  <!-- ========================= -->
-
-  <section class="px-6 py-20 border-t border-gray-800">
-
-    <div class="max-w-3xl mx-auto text-center">
-
-      <h2 class="text-3xl md:text-4xl font-bold">
-        Project <span class="gradient-text">Highlights</span>
-      </h2>
-
-      <p class="text-gray-400 mt-6 leading-relaxed">
-        This project was developed with Python, Django, HTML/CSS and
-        Tailwind CSS. The application focuses on structured ticket
-        management, user interaction and administrative moderation.
-      </p>
-
-      <p class="text-gray-400 mt-4 leading-relaxed">
-        The architecture can be extended with additional roles,
-        notification systems, analytics and more advanced support workflows.
-      </p>
-
-      <div class="mt-9">
-
-        <a
-          href="#"
-          target="_blank"
-          class="inline-block px-7 py-3 rounded-full
-                 bg-green-500 hover:bg-green-600
-                 transition font-semibold"
-        >
-          View source code on GitHub
-        </a>
-
+    <section class="section section-alt">
+      <div class="container">
+        <div class="cta">
+          <div><span class="eyebrow">Explore the code</span><h2>See how the interface comes together.</h2><p>Browse the repository, inspect the implementation, or return to the main portfolio.</p></div>
+          <div class="cta-actions"><a class="button button-primary" href="https://github.com/MESLIMOHAMEDM22005188/TicketHub" target="_blank" rel="noopener noreferrer">Open GitHub ↗</a><a class="button button-secondary" href="{% url 'portfolio:accueil' %}">Back to portfolio</a></div>
+        </div>
       </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ========================= -->
-  <!-- FOOTER -->
-  <!-- ========================= -->
-
-  <footer class="border-t border-gray-800 py-8 text-center">
-
-    <p class="text-gray-500 text-sm">
-      © 2026 Mohamed Mesli — Ticket Management System
-    </p>
-
-  </footer>
-
+    </section>
+  </main>
+  <footer class="footer"><div class="container footer-inner"><span>© 2026 Mohamed Mesli · TicketHub UI case study</span><span>Built with HTML, CSS & JavaScript · <a href="{% url 'portfolio:accueil' %}">Portfolio home</a></span></div></footer>
 </body>
 </html>
