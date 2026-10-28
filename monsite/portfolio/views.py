@@ -153,6 +153,10 @@ def hashcat_lab(request):
 def file_inclusion(request):
     return render(request, 'cyber/file_inclusion.html')
 
+
+def file_inclusion_writeup(request):
+    return render(request, 'cyber/file_inclusion_writeup.html')
+
 def cmdi_course(request):
     return render(request, 'cyber/courses/command_injection/index.html')
 
