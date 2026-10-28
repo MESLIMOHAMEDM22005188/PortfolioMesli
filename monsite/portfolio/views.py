@@ -99,6 +99,9 @@ def bandit(request):
 def securecloudlab(request):
     return render(request, "projects/securecloudlab.html")
 
+def wp2shell_poc(request):
+    return render(request, "projects/wp2shell_poc.html")
+
 def mailcli_sender(request):
     return render(request, 'projects/mailcli_sender.html')
 
