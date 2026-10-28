@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="PoC de sécurité WordPress réalisée dans un laboratoire local isolé avec Docker, Kali Linux et Metasploit.">
+<title>WP2Shell Lab — Security PoC | Mesli</title>
+<style>
+:root{color-scheme:dark;--bg:#080d12;--panel:#101923;--panel2:#0c141d;--line:#223342;--text:#e9f1f7;--muted:#9aabba;--green:#53f0a7;--cyan:#6edbff;--amber:#ffc46b;--red:#ff8a8a}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:radial-gradient(ellipse at 85% 0,rgba(37,167,180,.12),transparent 36rem),var(--bg);color:var(--text);font:16px/1.7 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}.wrap{width:min(1120px,92%);margin:auto}.top{border-bottom:1px solid var(--line);background:rgba(8,13,18,.8)}.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:800;letter-spacing:.12em}.back{color:var(--muted);font-size:.92rem}.back:hover{color:var(--green)}.hero{padding:88px 0 52px}.eyebrow{display:inline-flex;gap:8px;align-items:center;border:1px solid #28513f;border-radius:99px;padding:6px 12px;background:rgba(83,240,167,.07);color:var(--green);font-size:.78rem;letter-spacing:.09em;text-transform:uppercase}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}h1{font-size:clamp(2.8rem,7vw,5.7rem);letter-spacing:-.06em;line-height:1.02;margin:24px 0 18px}h1 span{color:var(--green)}.lead{max-width:780px;font-size:1.13rem;color:var(--muted)}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 17px;border-radius:10px;border:1px solid var(--line);font-weight:700;transition:.2s}.btn:hover{transform:translateY(-2px);border-color:var(--green)}.primary{background:var(--green);color:#05140d;border-color:var(--green)}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:40px}.metric{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:18px}.metric strong{display:block;font-size:1.35rem;color:var(--green)}.metric span{font-size:.85rem;color:var(--muted)}section{padding:48px 0}.heading{max-width:760px;margin-bottom:24px}h2{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.2;letter-spacing:-.035em;margin:0 0 12px}.heading p,.card p,.fine{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:22px}.index{color:var(--cyan);font:700 .78rem ui-monospace,monospace;letter-spacing:.08em}.card h3{margin:12px 0 8px;font-size:1.1rem}.card p{font-size:.94rem;margin:0}.terminal{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#05080c}.termbar{display:flex;align-items:center;gap:7px;padding:12px 15px;background:#101923;border-bottom:1px solid var(--line);color:var(--muted);font-size:.82rem}.orb{width:9px;height:9px;border-radius:50%;background:#ff7272}.orb:nth-child(2){background:#ffc46b}.orb:nth-child(3){background:#53f0a7}.terminal pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;padding:20px;color:#b8f7d5;font: .9rem/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}.terminal .muted{color:#7e93a3}.notice{border:1px solid #654d2b;border-left:4px solid var(--amber);background:rgba(255,196,107,.06);border-radius:12px;padding:18px 20px;color:#e9d4b2}.notice strong{color:var(--amber)}.state-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.state{padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}.state strong{display:block;margin-bottom:6px}.ok{color:var(--green)}.pending{color:var(--amber)}.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{border:1px solid var(--line);color:var(--cyan);background:#0b1822;border-radius:8px;padding:7px 10px;font-size:.88rem}.gallery-note{padding:18px;border-radius:12px;border:1px dashed #3a5364;color:var(--muted)}footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:.9rem}.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:760px){.hero{padding-top:58px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}.state-grid{grid-template-columns:1fr}.nav{padding:12px 0;align-items:flex-start}.back{max-width:45%;text-align:right}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap nav"><a class="brand" href="{% url 'portfolio:accueil' %}">MESLI <span style="color:var(--green)">/ LABS</span></a><a class="back" href="{% url 'portfolio:accueil' %}#projects">← Retour au portfolio</a></div></header>
+<main>
+<section class="hero"><div class="wrap">
+<div class="eyebrow"><span class="dot"></span> Application Security · Lab contrôlé</div>
+<h1>WP2Shell <span>Lab.</span></h1>
+<p class="lead">Étude d'une chaîne de vulnérabilités WordPress dans un environnement local isolé. Déploiement Docker, validation HTTP, contrôle Metasploit et analyse critique d'une tentative d'exploitation — avec distinction explicite entre les étapes observées et les résultats non confirmés.</p>
+<div class="actions"><a class="btn primary" href="#results">Consulter les résultats ↓</a><a class="btn" href="https://github.com/MESLIMOHAMEDM22005188/PortfolioMesli" target="_blank" rel="noopener noreferrer">Code du portfolio ↗</a></div>
+<div class="metrics">
+<div class="metric"><strong>Docker</strong><span>WordPress + MySQL</span></div><div class="metric"><strong>6.9.4</strong><span>Version détectée</span></div><div class="metric"><strong>HTTP 200</strong><span>Cible locale accessible</span></div><div class="metric"><strong>Partielle</strong><span>PoC : session non obtenue</span></div>
+</div>
+</div></section>
+<section id="overview"><div class="wrap"><div class="heading"><h2>01 / Architecture du laboratoire</h2><p>La cible a été construite localement avec Docker Compose et publiée uniquement sur la boucle locale. Le laboratoire ne doit pas être exposé à Internet.</p></div>
+<div class="grid">
+<article class="card"><span class="index">01 — WEB</span><h3>WordPress</h3><p>Image WordPress 6.9.4, accessible depuis le navigateur sur <code>http://localhost:8080</code>.</p></article>
+<article class="card"><span class="index">02 — DATA</span><h3>MySQL 8.0</h3><p>Conteneur séparé pour la base de données, connecté au réseau privé Docker.</p></article>
+<article class="card"><span class="index">03 — TEST</span><h3>Kali + Metasploit</h3><p>Contrôle de vulnérabilité avec le module <code>wp_batch_desync_rce</code> dans un cadre d'expérimentation autorisé.</p></article>
+</div>
+<div class="terminal" style="margin-top:18px"><div class="termbar"><span class="orb"></span><span class="orb"></span><span class="orb"></span><span style="margin-left:6px">Kali Linux · validation locale</span></div><pre><span class="muted">$</span> docker compose ps
+wp2shell-db-1          Up
+wp2shell-wordpress-1   Up   127.0.0.1:8080-&gt;80/tcp
+
+<span class="muted">$</span> curl -I http://localhost:8080
+HTTP/1.1 200 OK</pre></div>
+</div></section>
+<section id="method"><div class="wrap"><div class="heading"><h2>02 / Méthodologie</h2><p>Une démarche structurée : rendre la cible reproductible, valider son exposition locale, effectuer une vérification puis analyser les journaux et les limites de la preuve.</p></div>
+<div class="grid">
+<article class="card"><span class="index">PHASE A</span><h3>Déploiement</h3><p>Création des services WordPress et MySQL, démarrage des conteneurs et vérification des statuts.</p></article>
+<article class="card"><span class="index">PHASE B</span><h3>Détection</h3><p>Le contrôle Metasploit a reconnu WordPress 6.9.4 et a déclaré la cible vulnérable à la vérification effectuée par le module.</p></article>
+<article class="card"><span class="index">PHASE C</span><h3>Analyse post-test</h3><p>Lecture des résultats du module, identification du problème de handler et repérage des artefacts à vérifier avant nettoyage.</p></article>
+</div></div></section>
+<section id="results"><div class="wrap"><div class="heading"><h2>03 / Résultats observés</h2><p>Les éléments ci-dessous distinguent les messages consignés par l'outil des résultats qui restent à prouver.</p></div>
+<div class="state-grid">
+<div class="state"><strong class="ok">✓ Détection positive</strong><p class="fine">Le module a détecté WordPress 6.9.4 et signalé une vulnérabilité selon ses contrôles.</p></div>
+<div class="state"><strong class="ok">✓ Étapes intermédiaires rapportées</strong><p class="fine">Metasploit a rapporté la découverte d'informations de base, la création puis l'utilisation d'un compte administrateur temporaire.</p></div>
+<div class="state"><strong class="ok">✓ Payload téléversé / déclenché selon le journal</strong><p class="fine">Le module a indiqué avoir téléversé le plugin et tenté d'exécuter le payload.</p></div>
+<div class="state"><strong class="pending">! Session non obtenue</strong><p class="fine">La sortie finale indique qu'aucune session Meterpreter n'a été créée. Une compromission interactive complète n'est donc pas démontrée.</p></div>
+</div>
+<div class="terminal" style="margin-top:18px"><div class="termbar"><span class="orb"></span><span class="orb"></span><span class="orb"></span><span style="margin-left:6px">Extrait expurgé du résultat</span></div><pre><span class="muted">[+]</span> The target is vulnerable.
+<span class="muted">[+]</span> Discovered table prefix: [REDACTED IN PUBLIC REPORT]
+<span class="muted">[*]</span> Uploading plugin containing the payload...
+<span class="muted">[-]</span> Handler binding failed on the requested address.
+<span style="color:var(--amber)">[*] Exploit completed, but no session was created.</span></pre></div>
+<div class="notice" style="margin-top:18px"><strong>Limite déclarée :</strong> cette PoC a abouti à une détection positive et à plusieurs étapes rapportées par Metasploit, mais pas à l'obtention d'une session. Le message du module ne constitue pas, à lui seul, une vérification indépendante de l'exécution du code.</div>
+</div></section>
+<section id="stack"><div class="wrap"><div class="heading"><h2>04 / Outils utilisés</h2><p>Technologies mobilisées pendant le laboratoire.</p></div><div class="tags"><span class="tag">Kali Linux</span><span class="tag">WSL2</span><span class="tag">Docker Desktop</span><span class="tag">Docker Compose</span><span class="tag">WordPress</span><span class="tag">MySQL 8.0</span><span class="tag">Metasploit</span><span class="tag">HTTP</span><span class="tag">REST API</span><span class="tag">Troubleshooting réseau</span></div></div></section>
+<section id="evidence"><div class="wrap"><div class="heading"><h2>05 / Captures & preuves</h2><p>Ajouter ici des captures réelles, recadrées et expurgées des identifiants temporaires. Les visuels ne doivent pas laisser croire qu'une session Meterpreter a été obtenue.</p></div>
+<div class="grid">
+<article class="card"><span class="index">CAPTURE 01</span><h3>Déploiement Docker</h3><p>Les deux conteneurs en état <code>Up</code> et le port local 8080.</p></article>
+<article class="card"><span class="index">CAPTURE 02</span><h3>WordPress en ligne localement</h3><p>Tableau de bord ou page d'accueil à localhost:8080.</p></article>
+<article class="card"><span class="index">CAPTURE 03</span><h3>Contrôle Metasploit</h3><p>Résultat positif de <code>check</code>, sans données d'authentification.</p></article>
+</div>
+<div class="gallery-note" style="margin-top:14px">Emplacement prévu pour tes captures : <code>static/assets/images/wp2shell/</code>. Remplace ces cartes descriptives par des images après les avoir ajoutées au dépôt et vérifié qu'aucun secret n'est visible.</div>
+</div></section>
+<section id="next"><div class="wrap"><div class="heading"><h2>06 / Suites du projet</h2><p>Améliorations identifiées à l'issue de cette première expérience.</p></div><div class="grid">
+<article class="card"><span class="index">NEXT 01</span><h3>Nettoyage vérifiable</h3><p>Vérifier l'état du compte temporaire et des fichiers de plugin signalés, puis documenter les résultats.</p></article>
+<article class="card"><span class="index">NEXT 02</span><h3>Diagnostic réseau</h3><p>Étudier l'échec de liaison du handler et séparer les interfaces WSL des réseaux Docker dans le rapport.</p></article>
+<article class="card"><span class="index">NEXT 03</span><h3>Comparaison corrigée</h3><p>Répéter les vérifications sur une instance isolée utilisant une version corrigée et comparer les résultats.</p></article>
+</div></div></section>
+<section><div class="wrap"><div class="notice"><strong>Cadre éthique :</strong> projet réalisé dans un environnement local contrôlé. Les identifiants temporaires présents dans les sorties originales ont été omis de cette page. Aucune cible tierce n'a été testée dans le cadre décrit ici.</div></div></section>
+</main>
+<footer><div class="wrap foot"><span>© 2026 Mesli Portfolio · WP2Shell Lab</span><a href="{% url 'portfolio:accueil' %}#projects">Retour aux projets ↑</a></div></footer>
+</body>
+</html>
