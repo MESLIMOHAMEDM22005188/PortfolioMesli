@@ -1,0 +1,83 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Laboratoire Hashcat : attaques par dictionnaire, règles et attaque hybride sur des empreintes synthétiques dans un environnement local autorisé.">
+  <title>Hashcat Password Audit Lab | Mohamed Mesli</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{color-scheme:dark;--bg:#07100f;--panel:#0c1917;--panel2:#10211e;--line:#21453d;--green:#68f0b2;--muted:#9db7ad;--text:#edf8f2;--amber:#f5c36b}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#12392b 0,transparent 36%),var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.65}
+    a{color:var(--green)}.wrap{width:min(1100px,calc(100% - 36px));margin:auto}.top{padding:28px 0 14px}.back{font-family:"Share Tech Mono",monospace;text-decoration:none;color:var(--muted)}.back:hover{color:var(--green)}
+    .hero{padding:58px 0 42px;border-bottom:1px solid var(--line)}.eyebrow{font:12px "Share Tech Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--green)}h1,h2,h3{line-height:1.2}h1{font:clamp(2.1rem,6vw,4.4rem) Orbitron,sans-serif;letter-spacing:-.04em;margin:15px 0}.lead{max-width:760px;color:#bfd2c9;font-size:1.08rem}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}.chip{border:1px solid var(--line);border-radius:999px;padding:6px 11px;color:var(--green);font:12px "Share Tech Mono",monospace;background:#0b1c17}
+    section{padding:38px 0}h2{font:clamp(1.35rem,3vw,2rem) Orbitron,sans-serif;margin:0 0 20px}h3{margin:0 0 12px;font-size:1.05rem}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{border:1px solid var(--line);border-radius:14px;padding:20px;background:linear-gradient(145deg,rgba(16,33,30,.96),rgba(9,21,18,.96));min-width:0}.metric{font:clamp(1.6rem,3vw,2.2rem) Orbitron,sans-serif;color:var(--green)}.label{font-size:.88rem;color:var(--muted)}.tag{font:11px "Share Tech Mono",monospace;color:var(--green);letter-spacing:.08em;text-transform:uppercase}.card p{color:#c0d2c9;margin-bottom:0}.steps{counter-reset:step;display:grid;gap:12px}.step{position:relative;padding:18px 20px 18px 58px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}.step:before{counter-increment:step;content:"0" counter(step);position:absolute;left:18px;top:19px;color:var(--green);font:14px "Share Tech Mono",monospace}.step p{margin:0;color:#bfd2c9}.terminal{border:1px solid #285344;background:#030908;border-radius:12px;overflow:hidden;margin:14px 0}.terminal-head{padding:10px 14px;border-bottom:1px solid #21453d;color:var(--green);font:12px "Share Tech Mono",monospace}.terminal pre{margin:0;padding:18px;overflow:auto;color:#c9f8df;font:13px/1.75 "Share Tech Mono",monospace;white-space:pre}.note{border-left:3px solid var(--amber);padding:12px 16px;background:#211c11;color:#e8d8b4;border-radius:0 8px 8px 0}.ok{color:var(--green)}.muted{color:var(--muted)}table{width:100%;border-collapse:collapse;font-size:.92rem}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line)}th{color:var(--green);font:12px "Share Tech Mono",monospace;text-transform:uppercase}td{color:#d2e1da}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}.footer{border-top:1px solid var(--line);padding:25px 0 40px;color:var(--muted);font-size:.85rem}.footer a{text-decoration:none}
+    @media(max-width:760px){.grid{grid-template-columns:1fr}.hero{padding-top:38px}.step{padding-left:50px}.terminal pre{font-size:12px}}
+  </style>
+</head>
+<body>
+  <header class="top wrap"><a class="back" href="{% url 'portfolio:cyber_home' %}">← RETOUR AUX CYBERSECURITY LABS</a></header>
+  <main>
+    <div class="hero wrap">
+      <div class="eyebrow">Security lab / 01 · Password auditing</div>
+      <h1>Hashcat<br><span style="color:var(--green)">Password Audit Lab</span></h1>
+      <p class="lead">Étude pratique du cassage d’empreintes de mots de passe avec Hashcat 8.0.0 : dictionnaire, règles de mutation et attaque hybride. Tous les tests présentés ont été réalisés sur des empreintes et mots de passe synthétiques dans un environnement local de laboratoire.</p>
+      <div class="chips"><span class="chip">Windows PowerShell</span><span class="chip">Hashcat 8.0.0</span><span class="chip">NVIDIA RTX 4060 Laptop GPU</span><span class="chip">Lab local autorisé</span></div>
+    </div>
+
+    <section class="wrap">
+      <h2>01 / Résultats en bref</h2>
+      <div class="grid">
+        <article class="card"><div class="metric">3/3</div><div class="label">empreintes MD5 retrouvées</div><p>Attaque par dictionnaire et wordlist de six candidats.</p></article>
+        <article class="card"><div class="metric">3/3</div><div class="label">empreintes SHA-256 retrouvées</div><p>Même jeu de mots de passe synthétiques, avec le mode Hashcat adapté.</p></article>
+        <article class="card"><div class="metric">1/1</div><div class="label">mot de passe hybride retrouvé</div><p>Le candidat <code>welcome</code> combiné à trois chiffres a permis de retrouver <code>welcome123</code>.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>02 / Environnement de test</h2>
+      <div class="grid">
+        <article class="card"><div class="tag">Software</div><h3>Hashcat 8.0.0</h3><p>Exécuté depuis PowerShell sur Windows. Les commandes utilisent des chemins locaux vers l’exécutable et les fichiers de laboratoire.</p></article>
+        <article class="card"><div class="tag">Hardware</div><h3>NVIDIA GeForce RTX 4060 Laptop GPU</h3><p>Hashcat a utilisé OpenCL. L’initialisation de la bibliothèque NVIDIA RTC/CUDA n’était pas disponible ; le repli OpenCL a fonctionné pour ces exercices.</p></article>
+        <article class="card"><div class="tag">Scope</div><h3>Données synthétiques</h3><p>Aucune empreinte réelle ni aucun compte tiers n’a été ciblé. Les tests sont reproductibles sur des données créées pour le lab.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>03 / Exercices réalisés</h2>
+      <div class="steps">
+        <article class="step"><h3>Attaque par dictionnaire — MD5</h3><p>Mode <code>-m 0</code>, attaque dictionnaire <code>-a 0</code>. La wordlist contenait six candidats synthétiques.</p><div class="terminal"><div class="terminal-head">POWERSHELL · EXERCISE 01</div><pre>hashcat.exe -m 0 -a 0 hashes.txt wordlist.txt --potfile-path exercise-01.pot</pre></div><p class="ok">Résultat observé : Cracked · 3/3 · progression 6/6 · environ 3 167 H/s.</p></article>
+        <article class="step"><h3>Attaque par dictionnaire — SHA-256</h3><p>Mode <code>-m 1400</code> pour SHA-256, en conservant la méthode par dictionnaire.</p><div class="terminal"><div class="terminal-head">POWERSHELL · EXERCISE 02</div><pre>hashcat.exe -m 1400 -a 0 sha256-hashes.txt wordlist.txt --potfile-path exercise-02.pot</pre></div><p class="ok">Résultat observé : Cracked · 3/3 · progression 6/6 · environ 10 603 H/s.</p><p class="muted">Échantillon trop petit pour conclure que SHA-256 est généralement plus rapide que MD5 ; les conditions de mesure sont limitées à ce test.</p></article>
+        <article class="step"><h3>Attaque par règles — best66.rule</h3><p>Application de mutations aux mots du dictionnaire. Le fichier <code>best64.rule</code> n’était pas présent dans cette installation ; le fichier <code>best66.rule</code> disponible a été utilisé.</p><div class="terminal"><div class="terminal-head">POWERSHELL · RULE-BASED</div><pre>hashcat.exe -m 0 -a 0 hashes.txt wordlist.txt -r rules\best66.rule --potfile-path exercise-01-rules.pot</pre></div><p class="ok">Résultat observé : Cracked · 3/3 · 396/396 candidats · environ 434,4 kH/s.</p></article>
+        <article class="step"><h3>Attaque hybride — dictionnaire + trois chiffres</h3><p>Le masque <code>?d?d?d</code> ajoute trois chiffres à chaque entrée du dictionnaire.</p><div class="terminal"><div class="terminal-head">POWERSHELL · HYBRID ATTACK</div><pre>hashcat.exe -m 0 -a 6 hash.txt wordlist.txt '?d?d?d' --potfile-path hybrid.pot</pre></div><p>Le premier essai sur les trois mots de passe initiaux a terminé en <code>Exhausted</code>, avec 0/3 résultat : aucun ne correspondait au masque testé. Après création d’une empreinte synthétique pour <code>welcome123</code> et d’une wordlist contenant <code>welcome</code>, le test a réussi.</p><p class="ok">Résultat de validation : Cracked · 1/1 · 1 000/1 000 candidats · environ 399 kH/s.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>04 / Synthèse des résultats</h2>
+      <div class="table-wrap"><table><thead><tr><th>Technique</th><th>Résultat</th><th>Observation</th></tr></thead><tbody>
+        <tr><td>MD5 · dictionnaire</td><td class="ok">3/3</td><td>Les trois valeurs figuraient dans les candidats testés.</td></tr>
+        <tr><td>SHA-256 · dictionnaire</td><td class="ok">3/3</td><td>Mode Hashcat adapté à SHA-256 ; même liste de candidats.</td></tr>
+        <tr><td>MD5 · règles</td><td class="ok">3/3</td><td>Les règles génèrent des variantes à partir des mots du dictionnaire.</td></tr>
+        <tr><td>Hybride · masque non adapté</td><td>0/3</td><td>Échec attendu : les mots de passe initiaux ne se terminaient pas par trois chiffres.</td></tr>
+        <tr><td>Hybride · cas de validation</td><td class="ok">1/1</td><td>Le motif dictionnaire + trois chiffres a retrouvé le mot de passe de démonstration.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="wrap">
+      <h2>05 / Compétences démontrées</h2>
+      <div class="grid">
+        <article class="card"><h3>Comprendre les modes</h3><p>Choisir le mode correspondant au type d’empreinte et distinguer dictionnaire, règles et attaque hybride.</p></article>
+        <article class="card"><h3>Lire les résultats</h3><p>Interpréter <code>Cracked</code>, <code>Exhausted</code>, la progression, le nombre de candidats et les performances affichées.</p></article>
+        <article class="card"><h3>Documenter proprement</h3><p>Conserver un potfile séparé par exercice, isoler les jeux de test et expliciter les limites des mesures.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="note"><strong>Cadre éthique :</strong> ce laboratoire est destiné à l’apprentissage et à l’audit autorisé. Ne tester que des empreintes que vous possédez ou pour lesquelles vous disposez d’une autorisation explicite. Les mots de passe affichés ici sont des exemples synthétiques, pas des identifiants réels.</div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap">Mohamed Mesli · Cybersecurity Portfolio · <a href="{% url 'portfolio:cyber_home' %}">Retour aux labs</a></div></footer>
+</body>
+</html>
