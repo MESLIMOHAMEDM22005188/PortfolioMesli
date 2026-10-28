@@ -102,6 +102,9 @@ def securecloudlab(request):
 def wp2shell_poc(request):
     return render(request, "projects/wp2shell_poc.html")
 
+def hashcat_lab(request):
+    return render(request, "projects/hashcat_lab.html")
+
 def mailcli_sender(request):
     return render(request, 'projects/mailcli_sender.html')
 
