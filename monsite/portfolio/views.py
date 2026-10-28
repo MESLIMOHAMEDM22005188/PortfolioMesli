@@ -145,6 +145,10 @@ def project_detail(request):
 def cyber_home(request):
     return render(request, 'cyber/cyber_home.html')
 
+
+def hashcat_lab(request):
+    return render(request, 'cyber/hashcat_lab.html')
+
 def cmdi_course(request):
     return render(request, 'cyber/courses/command_injection/index.html')
 
