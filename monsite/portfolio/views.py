@@ -149,6 +149,10 @@ def cyber_home(request):
 def hashcat_lab(request):
     return render(request, 'cyber/hashcat_lab.html')
 
+
+def file_inclusion(request):
+    return render(request, 'cyber/file_inclusion.html')
+
 def cmdi_course(request):
     return render(request, 'cyber/courses/command_injection/index.html')
 
