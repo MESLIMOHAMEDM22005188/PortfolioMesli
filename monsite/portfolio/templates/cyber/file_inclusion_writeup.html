@@ -1,0 +1,107 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="HTB Academy File Inclusion Skills Assessment write-up: source disclosure, unsafe uploads, path validation flaws and secure remediation.">
+<meta name="theme-color" content="#080d12">
+<title>HTB File Inclusion Assessment | Cybersecurity Write-up</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080d12;--panel:#101922;--line:#263543;--text:#edf4f8;--muted:#9baebb;--accent:#9cff57;--blue:#80c7ff;--amber:#ffd27a;--red:#ff8c8c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 85% 0,#17372b 0,transparent 36%),var(--bg);color:var(--text);font:15px/1.75 Manrope,system-ui,sans-serif}a{color:var(--accent);text-decoration:none}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}.mono,.eyebrow,.pill,.num,th,.terminal-label{font-family:"DM Mono",monospace}header{padding:24px 0}.back{font:12px "DM Mono",monospace;color:var(--muted)}.hero{padding:44px 0 42px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) 255px;gap:30px;align-items:end}.eyebrow{color:var(--accent);font-size:11px;letter-spacing:.16em;text-transform:uppercase}.hero h1{font-size:clamp(2.5rem,7vw,5.2rem);line-height:1.03;letter-spacing:-.065em;margin:14px 0}.hero h1 span{color:var(--accent)}.lead{max-width:750px;color:#c1ced8;font-size:1.06rem}.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.pill{border:1px solid #314339;border-radius:99px;padding:5px 10px;color:#c8f5a9;background:#0d1a15;font-size:10px}.hero-card,.card{border:1px solid var(--line);border-radius:14px;padding:18px;background:linear-gradient(145deg,#12221b,#0e151c)}.hero-card strong{display:block;font-size:1.65rem;color:var(--accent);line-height:1.2}.hero-card p,.card p{margin:7px 0 0;color:var(--muted);font-size:.9rem}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:30px;padding:34px 0 60px}.toc{position:sticky;top:20px;align-self:start;background:#0b1218;border:1px solid var(--line);border-radius:13px;padding:17px}.toc b{font:11px "DM Mono",monospace;color:var(--muted)}.toc a{display:block;font-size:12px;color:#c0ccd5;padding:6px 0}.section{padding-bottom:30px;margin-bottom:30px;border-bottom:1px solid var(--line);scroll-margin-top:20px}.head{display:flex;gap:12px;margin-bottom:14px}.num{font-size:12px;color:var(--accent);padding-top:5px}.section h2{font-size:clamp(1.3rem,3vw,1.8rem);line-height:1.25;letter-spacing:-.03em;margin:0 0 8px}.section h3{font-size:1rem;margin:0 0 7px}.section p{color:#c0ccd5;margin:9px 0}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}.label{font:10px "DM Mono",monospace;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}.callout{padding:13px 15px;border-left:3px solid var(--blue);background:#101c27;border-radius:0 8px 8px 0;color:#c8d9e5;margin:15px 0}.warn{border-color:var(--amber);background:#211d13;color:#e9d9b8}.danger{border-color:var(--red);background:#241517;color:#f3cbcb}.terminal{border:1px solid #304538;border-radius:10px;background:#050a0d;overflow:hidden;margin:13px 0}.terminal-label{padding:8px 12px;border-bottom:1px solid #23352b;color:var(--accent);font-size:11px}.terminal pre{margin:0;padding:14px;overflow:auto;color:#d4f5d4;font:12px/1.8 "DM Mono",monospace;white-space:pre}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px;margin:14px 0}table{border-collapse:collapse;width:100%;min-width:500px;font-size:.85rem}th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}th{color:var(--accent);font-size:10px;text-transform:uppercase}td{color:#c4d0d8}tr:last-child td{border:0}code{font:.88em "DM Mono",monospace;color:#d5ffb8;background:#17241c;padding:2px 5px;border-radius:4px}.steps{list-style:none;padding:0;counter-reset:step;display:grid;gap:10px}.steps li{counter-increment:step;padding:12px 14px 12px 48px;position:relative;border:1px solid var(--line);background:#0d151c;border-radius:9px;color:#c7d3dc}.steps li:before{content:counter(step,decimal-leading-zero);position:absolute;left:13px;top:12px;color:var(--accent);font:12px "DM Mono",monospace}.footer{border-top:1px solid var(--line);padding:24px 0 35px;color:var(--muted);font-size:12px}
+@media(max-width:780px){.hero{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.toc{position:static}.toc nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.cards{grid-template-columns:1fr}}@media(max-width:480px){.toc nav{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="wrap"><a class="back" href="{% url 'portfolio:cyber_home' %}">← BACK TO CYBERSECURITY LABS</a></header>
+<div class="hero wrap">
+ <div><div class="eyebrow">HTB Academy · Web Security · Assessment Write-up</div><h1>File Inclusion <span>Assessment</span></h1>
+ <p class="lead">A structured walkthrough of a multi-step web vulnerability chain: local file read, PHP source disclosure, insecure file upload, and a second inclusion point with flawed input validation.</p>
+ <div class="pills"><span class="pill">LFI</span><span class="pill">PHP Source Disclosure</span><span class="pill">File Upload</span><span class="pill">Path Traversal</span><span class="pill">RCE Impact</span></div></div>
+ <aside class="hero-card"><div class="label">Key lesson</div><strong>One flaw reveals the next</strong><p>Source disclosure can expose application logic and help connect weaknesses across separate endpoints.</p></aside>
+</div>
+<div class="layout wrap">
+<aside class="toc"><b>WRITE-UP CONTENTS</b><nav><a href="#scope">01 · Scope & methodology</a><a href="#recon">02 · Reconnaissance</a><a href="#lfi">03 · Confirm file read</a><a href="#source">04 · Source disclosure</a><a href="#upload">05 · Upload logic</a><a href="#include">06 · Second inclusion point</a><a href="#chain">07 · Chain analysis</a><a href="#impact">08 · Impact & evidence</a><a href="#fix">09 · Remediation</a><a href="#lessons">10 · Lessons learned</a></nav></aside>
+<main>
+<section class="section" id="scope"><div class="head"><div class="num">01</div><div><h2>Scope & methodology</h2><p>The supplied scenario describes Sumace Consulting GmbH, a fictional organization whose web application includes a recently added job application form. The assessment focuses on how request parameters and uploaded files are handled.</p></div></div>
+<div class="callout warn"><b>Authorized lab only.</b> Run tests only against your spawned HTB Academy target. This page documents the supplied scenario; target IP, live responses and flag values are intentionally not fabricated. Add your own screenshots and verified results before claiming a completed practical run.</div>
+<p>The methodology is to map the application, identify parameters that influence file operations, inspect source code where disclosure is possible, and determine whether separate weaknesses can be chained.</p></section>
+<section class="section" id="recon"><div class="head"><div class="num">02</div><div><h2>Reconnaissance: follow the file-handling features</h2><p>The application exposes Home, Contact and Apply pages. The Apply page accepts applicant details, a resume and notes. Submission redirects to a thank-you page with a reflected first-name parameter.</p></div></div>
+<div class="terminal"><div class="terminal-label">OBSERVED ROUTE PATTERNS FROM THE SCENARIO</div><pre>/thanks.php?n=&lt;first_name&gt;
+/api/image.php?p=&lt;image_reference&gt;</pre></div>
+<p>The <code>n</code> parameter reflects text, but reflection alone is not evidence of LFI. The more promising candidate is the image endpoint's <code>p</code> parameter because it appears to influence a filesystem operation.</p>
+<div class="callout"><b>Testing note:</b> use baseline requests and compare response content. Do not conclude that a parameter is vulnerable just because a traversal-looking string appears in the response.</div></section>
+<section class="section" id="lfi"><div class="head"><div class="num">03</div><div><h2>Confirming a local file-read issue</h2><p>The supplied walkthrough reports that fuzzing the image parameter revealed traversal behavior and access to a local system file. In your own lab, verify this with a harmless, readable test file and capture the response as evidence.</p></div></div>
+<div class="terminal"><div class="terminal-label">FUZZING TEMPLATE · REPLACE PLACEHOLDERS</div><pre>ffuf -w /usr/share/seclists/Fuzzing/LFI/LFI-Jhaddix.txt:FUZZ \
+  -u 'http://TARGET/api/image.php?p=FUZZ' \
+  -fs RESPONSE_SIZE</pre></div>
+<p>Filter out known empty or baseline responses only after you understand normal behavior. Follow up promising results manually and record the exact request, status, response size and a short redacted excerpt.</p>
+<div class="callout warn">A successful local file read is not automatically code execution. The next step is to understand which server-side function consumes the path.</div></section>
+<section class="section" id="source"><div class="head"><div class="num">04</div><div><h2>Source-code disclosure explains the limitation</h2><p>The source shown in the supplied scenario uses a string replacement and then calls <code>file_get_contents()</code>.</p></div></div>
+<div class="terminal"><div class="terminal-label">VULNERABLE IMPLEMENTATION · FROM THE PROVIDED SCENARIO</div><pre>&lt;?php
+if (isset($_GET["p"])) {
+    $path = "../images/" . str_replace("../", "", $_GET["p"]);
+    $contents = file_get_contents($path);
+    header("Content-Type: image/jpeg");
+    echo $contents;
+}
+?&gt;</pre></div>
+<p>Two weaknesses stand out:</p><ul><li><code>str_replace()</code> is being used as a security filter instead of validating a permitted path.</li><li><code>file_get_contents()</code> reads bytes; it does not execute PHP source contained in the file.</li></ul>
+<p>This explains why attempts to turn this specific endpoint into an execution primitive did not work in the described scenario. The file reader is still valuable because it can disclose source code and reveal other endpoints.</p>
+<div class="callout"><b>Key distinction:</b> file read and file inclusion are different primitives. Identify the actual function and its behavior before choosing the next test.</div></section>
+<section class="section" id="upload"><div class="head"><div class="num">05</div><div><h2>Reviewing the upload handler</h2><p>The provided application code derives a destination filename from the uploaded file's content hash and the submitted extension.</p></div></div>
+<div class="terminal"><div class="terminal-label">UPLOAD LOGIC · FROM THE PROVIDED SCENARIO</div><pre>$tmp_name = $_FILES["file"]["tmp_name"];
+$file_name = $_FILES["file"]["name"];
+$ext = end((explode(".", $file_name)));
+$target_file = "../uploads/" . md5_file($tmp_name) . "." . $ext;
+move_uploaded_file($tmp_name, $target_file);</pre></div>
+<div class="cards"><article class="card"><div class="label">Finding A</div><h3>No visible extension allowlist</h3><p>The shown code takes an extension from the client filename but does not enforce a permitted set of document types.</p></article><article class="card"><div class="label">Finding B</div><h3>Content-derived filename</h3><p>The MD5 digest makes the stored basename a deterministic function of the file bytes. This may help identify the destination, but is not a security control.</p></article></div>
+<p>The dangerous condition is not hashing itself. It is storing untrusted content in a location that can later be reached by an execution-capable inclusion function, without sufficient file-type and execution controls.</p></section>
+<section class="section" id="include"><div class="head"><div class="num">06</div><div><h2>Finding the second inclusion point</h2><p>The supplied scenario reveals a <code>region</code> parameter in <code>contact.php</code>. The value is checked for dots and slashes before URL decoding, then concatenated into an <code>include()</code> path.</p></div></div>
+<div class="terminal"><div class="terminal-label">VALIDATION ORDER · FROM THE PROVIDED SCENARIO</div><pre>if (str_contains($_GET["region"], ".") ||
+    str_contains($_GET["region"], "/")) {
+    $danger = true;
+} else {
+    $region = urldecode($_GET["region"]);
+}
+
+if (!$danger) {
+    include "./regions/" . $region . ".php";
+}</pre></div>
+<p>The flaw is a mismatch between the value being checked and the value later used. URL decoding changes the representation after validation. Security checks must apply to canonicalized input, and path containment must still be enforced.</p>
+<div class="callout warn"><b>General rule:</b> validate after the relevant normalization step. Prefer mapping a short identifier to a fixed trusted file rather than accepting a path from the request.</div></section>
+<section class="section" id="chain"><div class="head"><div class="num">07</div><div><h2>How the weaknesses connect</h2><p>The scenario's reported chain relies on three separate conditions being present at once.</p></div></div>
+<div class="table-wrap"><table><thead><tr><th>Step</th><th>Weakness</th><th>Why it matters</th></tr></thead><tbody><tr><td>1</td><td>Local file read</td><td>Discloses PHP source and reveals application internals.</td></tr><tr><td>2</td><td>Unsafe upload handling</td><td>May allow attacker-controlled content to be stored with a dangerous extension.</td></tr><tr><td>3</td><td>Unsafe include + validation-order bug</td><td>May cause stored content to be interpreted by PHP when included.</td></tr></tbody></table></div>
+<p>The central lesson is to keep testing across the application's feature boundaries. The endpoint that reveals source code does not necessarily execute it; source disclosure can reveal a different endpoint that has more dangerous behavior.</p>
+<p>For your practical report, document each link separately and only claim a complete chain after each prerequisite has been verified on your own lab instance.</p></section>
+<section class="section" id="impact"><div class="head"><div class="num">08</div><div><h2>Impact and evidence</h2><p>The provided walkthrough reports command execution and discovery of a flag in the lab. That is a reported outcome from the source material, not a result independently verified in this session.</p></div></div>
+<ul class="steps"><li>Save the baseline request and response for the relevant endpoint.</li><li>Capture the file-read evidence with sensitive values redacted.</li><li>Document the source-code lines that establish the vulnerable data flow.</li><li>Record the upload validation behavior and where files are stored.</li><li>Demonstrate the inclusion validation flaw with a harmless controlled test before assessing impact.</li><li>Capture the final result only if reproduced in your own authorized instance; do not publish target credentials, tokens or live secrets.</li></ul>
+<div class="callout danger"><b>Do not overstate the finding.</b> Distinguish source-derived observations from tests you personally performed. Do not publish a fabricated flag or claim RCE without reproducible evidence.</div></section>
+<section class="section" id="fix"><div class="head"><div class="num">09</div><div><h2>Remediation</h2><p>Fix the underlying design instead of adding more string filters.</p></div></div>
+<div class="cards"><article class="card"><h3>Use fixed mappings</h3><p>Accept a region or page identifier, then map it to a trusted server-side path. Never pass arbitrary request values to <code>include()</code>.</p></article><article class="card"><h3>Secure uploads</h3><p>Use a strict allowlist, inspect file content, generate server-side names, set size limits and store files outside executable directories.</p></article><article class="card"><h3>Enforce path containment</h3><p>Canonicalize the path and verify that it remains inside the permitted directory. Reject unexpected paths.</p></article><article class="card"><h3>Reduce impact</h3><p>Run the application with least privilege, separate uploads from code, restrict secrets and disable unnecessary remote features.</p></article></div>
+<div class="terminal"><div class="terminal-label">SAFER DESIGN · FIXED IDENTIFIER MAP</div><pre>&lt;?php
+$regions = [
+    "AT" =&gt; __DIR__ . "/regions/AT.php",
+    "DE" =&gt; __DIR__ . "/regions/DE.php",
+];
+
+$key = $_GET["region"] ?? "AT";
+
+if (!isset($regions[$key])) {
+    http_response_code(404);
+    exit("Region not found");
+}
+
+include $regions[$key];
+?&gt;</pre></div>
+<p>This example demonstrates the allowlist principle. In production, also ensure that mapped files are trusted, permissions are restrictive and uploaded files cannot become executable through another route.</p></section>
+<section class="section" id="lessons"><div class="head"><div class="num">10</div><div><h2>Lessons learned</h2><p>This assessment is a useful example of chaining weaknesses rather than focusing on a single payload.</p></div></div>
+<ul class="steps"><li>Reflection is not proof of file inclusion; trace input to a sensitive file operation.</li><li>Source disclosure helps explain behavior and can reveal additional vulnerable code paths.</li><li>Understand the difference between a file-reading API and an execution-capable inclusion.</li><li>Validation performed before decoding or canonicalization may protect the wrong representation.</li><li>Upload security depends on storage, validation and execution controls—not just filename generation.</li><li>Report the chain, its prerequisites, reproducible evidence and practical remediation.</li></ul>
+<h3>References</h3><p><a href="https://academy.hackthebox.com/" target="_blank" rel="noopener noreferrer">HTB Academy</a> · <a href="https://owasp.org/www-community/attacks/Path_Traversal" target="_blank" rel="noopener noreferrer">OWASP Path Traversal</a> · <a href="https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP File Upload Cheat Sheet</a> · <a href="https://www.php.net/manual/en/function.include.php" target="_blank" rel="noopener noreferrer">PHP include documentation</a></p>
+<p><b>Portfolio status:</b> add your own screenshots, verified HTTP responses and final lab result before marking the practical assessment as completed.</p></section>
+</main></div>
+<footer class="footer"><div class="wrap">HTB Academy · File Inclusion Assessment · For authorized training environments only. <span style="float:right"><a href="{% url 'portfolio:cyber_home' %}">Back to labs ↑</a></span></div></footer>
+</body>
+</html>
