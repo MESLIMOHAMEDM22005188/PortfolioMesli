@@ -65,6 +65,7 @@ path("cybersecurity/brute_force/", views.brute_force_html, name="brute_force_htm
     path("projects/bandit/", views.bandit, name="bandit"),
     path("projects/securecloudlab/", views.securecloudlab, name="securecloudlab"),
     path("projects/wp2shell-poc/", views.wp2shell_poc, name="wp2shell_poc"),
+    path("projects/hashcat-lab/", views.hashcat_lab, name="hashcat_lab"),
 
     path("project-detail/", views.project_detail, name="project_detail"),
     path("ticket-hub/", views.ticket_hub, name="ticket_hub"),
