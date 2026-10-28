@@ -1,0 +1,107 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Advanced, reproducible Hashcat password-auditing lab using Docker and synthetic hashes.">
+  <title>Hashcat Password Auditing Lab | Mohamed Mesli</title>
+  <link rel="stylesheet" href="{% static 'assets/css/cyber_home.css' %}">
+  <style>
+    .hashcat-page{max-width:1100px;margin:0 auto;padding:36px 22px;color:#e7edf5}
+    .hashcat-page .back-link{display:inline-block;margin-bottom:28px}
+    .hashcat-hero{padding:30px;border:1px solid #294253;border-radius:16px;background:linear-gradient(135deg,#10232d,#111827)}
+    .hashcat-kicker{color:#64e0b2;font-family:monospace;letter-spacing:.08em;text-transform:uppercase}
+    .hashcat-page h1{font-size:clamp(2rem,5vw,3.5rem);margin:.5rem 0}
+    .hashcat-page h2{margin-top:32px}
+    .hashcat-muted{color:#aab8c7;line-height:1.7}
+    .hashcat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:20px}
+    .hashcat-panel{border:1px solid #294253;border-radius:12px;padding:18px;background:#111c27}
+    .hashcat-panel h3{margin-top:0}
+    .hashcat-code{display:block;overflow-x:auto;padding:14px;border-radius:8px;background:#080e14;color:#b9f5dc;font: .9rem/1.7 monospace;white-space:pre}
+    .hashcat-status{display:inline-block;padding:5px 9px;border:1px solid #a87938;border-radius:999px;color:#ffd28a;font-size:.8rem}
+    .hashcat-table{width:100%;border-collapse:collapse;margin:14px 0}
+    .hashcat-table th,.hashcat-table td{padding:11px;text-align:left;border-bottom:1px solid #294253}
+    .hashcat-note{border-left:3px solid #64e0b2;padding:12px 16px;background:#11232a}
+    .hashcat-page a{color:#77e7c0}
+  </style>
+</head>
+<body>
+<main class="hashcat-page">
+  <a class="back-link" href="{% url 'portfolio:cyber_home' %}">← Back to Cybersecurity &amp; Cloud Labs</a>
+
+  <header class="hashcat-hero">
+    <div class="hashcat-kicker">Password security · Docker · Reproducible testing</div>
+    <h1>Hashcat Password Auditing Lab</h1>
+    <p class="hashcat-muted">An advanced, isolated exercise to compare dictionary-based recovery against synthetic MD5 and SHA-256 hashes, document device constraints, and explain secure password-storage choices.</p>
+    <span class="hashcat-status">Lab guide prepared · execution evidence pending</span>
+  </header>
+
+  <section>
+    <h2>Objectives</h2>
+    <div class="hashcat-grid">
+      <article class="hashcat-panel"><h3>01 / Reproducibility</h3><p class="hashcat-muted">Generate a deterministic set of fictional hashes and a small known wordlist.</p></article>
+      <article class="hashcat-panel"><h3>02 / Audit</h3><p class="hashcat-muted">Run Hashcat in a Docker container against test data only.</p></article>
+      <article class="hashcat-panel"><h3>03 / Compare</h3><p class="hashcat-muted">Compare recovered counts and measured runtime while recording device information.</p></article>
+      <article class="hashcat-panel"><h3>04 / Defend</h3><p class="hashcat-muted">Explain why fast general-purpose hashes are unsuitable for password storage.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Architecture</h2>
+    <pre class="hashcat-code">Host machine
+  ├── Python fixture generator
+  ├── labs/hashcat/lab/  (synthetic hashes + wordlist)
+  └── Docker Compose
+       └── hashcat/hashcat container
+            └── reads and writes only the mounted lab directory</pre>
+    <p class="hashcat-muted">No network target is involved. GPU access depends on host drivers and container runtime configuration; device support must be verified rather than assumed.</p>
+  </section>
+
+  <section>
+    <h2>Workflow</h2>
+    <p class="hashcat-muted">From the <code>labs/hashcat/</code> directory in the repository:</p>
+    <pre class="hashcat-code">python scripts/generate_fixtures.py
+docker compose run --rm hashcat --version
+docker compose run --rm hashcat -I
+
+# MD5 dictionary audit
+docker compose run --rm hashcat -m 0 -a 0 /lab/hashes-md5.txt /lab/wordlist.txt --potfile-path /lab/md5.pot --outfile /lab/md5-recovered.txt
+
+# SHA-256 dictionary audit
+docker compose run --rm hashcat -m 1400 -a 0 /lab/hashes-sha256.txt /lab/wordlist.txt --potfile-path /lab/sha256.pot --outfile /lab/sha256-recovered.txt</pre>
+    <p class="hashcat-muted">Run commands locally and retain the actual output. The portfolio page does not claim that these commands have already been executed.</p>
+  </section>
+
+  <section>
+    <h2>Results and evidence</h2>
+    <div class="hashcat-note">Status: execution measurements have not yet been supplied. Populate this section only after successful local runs; do not invent speed, device, or recovery figures.</div>
+    <table class="hashcat-table">
+      <thead><tr><th>Measurement</th><th>MD5</th><th>SHA-256</th></tr></thead>
+      <tbody>
+        <tr><td>Hashcat version / device</td><td>Pending measurement</td><td>Pending measurement</td></tr>
+        <tr><td>Hashes recovered</td><td>Pending run</td><td>Pending run</td></tr>
+        <tr><td>Elapsed time</td><td>Pending run</td><td>Pending run</td></tr>
+        <tr><td>Limitations</td><td colspan="2">Small synthetic dataset; hardware and container device access must be documented.</td></tr>
+      </tbody>
+    </table>
+    <p class="hashcat-muted">Evidence checklist: terminal output, Hashcat version, device information, host CPU/GPU and OS, Docker version, exact commands, recovered count, elapsed time, and a short interpretation.</p>
+  </section>
+
+  <section>
+    <h2>Security findings</h2>
+    <div class="hashcat-grid">
+      <article class="hashcat-panel"><h3>Fast hashes</h3><p class="hashcat-muted">MD5 and SHA-256 are designed for general-purpose hashing and are fast to calculate, which makes large-scale password guessing easier.</p></article>
+      <article class="hashcat-panel"><h3>Recommended storage</h3><p class="hashcat-muted">Use password-specific schemes such as Argon2id, scrypt, or bcrypt with unique salts and parameters appropriate to the application.</p></article>
+      <article class="hashcat-panel"><h3>Scope limitations</h3><p class="hashcat-muted">A tiny wordlist experiment is educational, not a general benchmark and not proof that every password is recoverable.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Reproducibility and ethics</h2>
+    <p class="hashcat-muted">This exercise is restricted to synthetic data generated by the included script. Do not substitute hashes from real users, leaked datasets, or systems without explicit authorization. The results table remains pending until measurements are captured.</p>
+    <p><a href="https://github.com/MESLIMOHAMEDM22005188/PortfolioMesli/tree/master/labs/hashcat">Lab source and instructions on GitHub</a></p>
+  </section>
+</main>
+</body>
+</html>
