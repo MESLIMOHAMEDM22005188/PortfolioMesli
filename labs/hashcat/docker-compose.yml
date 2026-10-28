@@ -1,0 +1,9 @@
+services:
+  hashcat:
+    image: hashcat/hashcat:latest
+    working_dir: /lab
+    volumes:
+      - ./lab:/lab
+    entrypoint: ["hashcat"]
+    stdin_open: true
+    tty: true
