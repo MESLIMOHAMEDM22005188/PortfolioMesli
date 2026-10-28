@@ -16,6 +16,7 @@ urlpatterns = [
     path("cybersecurity/hashcat-lab/", views.hashcat_lab, name="hashcat_lab"),
     path("cybersecurity/file-inclusion/", views.file_inclusion, name="file_inclusion"),
     path("cybersecurity/file-inclusion/writeup/", views.file_inclusion_writeup, name="file_inclusion_writeup"),
+    path("cybersecurity/file-upload/writeup/", views.file_upload_writeup, name="file_upload_writeup"),
 
     # Redirection ancienne URL
     path(
